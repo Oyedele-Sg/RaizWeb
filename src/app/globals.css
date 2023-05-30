@@ -57,14 +57,14 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  /* :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
-  }
+  } */
 }
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -72,32 +72,32 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
 
 .font-display__large {
   font-family: var(--f-body);
-  @apply font-weight: 400;
+  @apply font-normal;
   font-size: 57px;
   line-height: 64px;
 }
 
 .font-display__medium {
   font-family: var(--f-body);
-  @apply font-weight: 400;
+  @apply font-normal;
   font-size: 45px;
   line-height: 52px;
 }
 
 .font-display__small {
   font-family: var(--f-body);
-  @apply font-weight: 400;
+  @apply font-normal;
   font-size: 36px;
   line-height: 44px;
 }
 
 .font-headline__large {
   font-family: var(--f-body);
-  @apply font-weight: 400;
+  @apply font-normal;
   font-size: 32px;
   line-height: 40px;
 }
@@ -105,35 +105,34 @@ body {
 .font-headline__medium {
   font-family: var(--f-body);
   @apply font-normal;
-  font-weight: 400;
   font-size: 28px;
   line-height: 36px;
 }
 
 .font-headline__small {
   font-family: var(--f-body);
-  @apply font-weight: 400;
+  @apply font-normal;
   font-size: 24px;
   line-height: 32px;
 }
 
 .font-body__large {
   font-family: var(--f-body);
-  @apply font-weight: 400;
+  @apply font-normal;
   font-size: 16px;
   line-height: 24px;
 }
 
 .font-body__medium {
   font-family: var(--f-body);
-  @apply font-weight: 400;
+  @apply font-normal;
   font-size: 14px;
   line-height: 20px;
 }
 
 .font-body__small {
   font-family: var(--f-body);
-  @apply font-weight: 400;
+  @apply font-normal;
   font-size: 12px;
   line-height: 16px;
 }
@@ -192,3 +191,7 @@ body {
   background: var(--background-gradient-three);
 }
 
+
+.bug{
+  @apply border-red-500  border-[2px];
+}

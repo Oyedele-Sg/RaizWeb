@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "auth-pattern": "url('/patterns/auth-bg-pattern.svg')",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
@@ -44,7 +44,6 @@ module.exports = {
         "t-28": "1.75rem",
         "t-22": "1.375rem",
         "t-11": "0.6875rem",
-
       },
       fontWeight: {
         light: 300,
@@ -64,9 +63,9 @@ module.exports = {
         opening: "0px 1px 4px rgba(17, 17, 17, 0.12)",
       },
       lineHeight: {
-        'extra-loose': '2.5',
-        '12': '3rem',
-      }
+        "extra-loose": "2.5",
+        12: "3rem",
+      },
     },
     container: {
       center: true,
