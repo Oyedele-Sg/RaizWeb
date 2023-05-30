@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +8,52 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --f-body: "League Spartan", sans-serif;
+  --btn-gradient-hovered: linear-gradient(
+    90deg,
+    #4b0082 29.88%,
+    #ffc857 168.84%
+  );
+  --btn-gradient-default: linear-gradient(
+    90deg,
+    #4b0082 29.88%,
+    #ffc857 281.71%
+  );
+  --btn-gradient-pressed: linear-gradient(
+    90deg,
+    #4b0082 29.88%,
+    #ffc857 633.33%
+  );
+  --background-gradient-one: linear-gradient(180deg, #64497d 0%, #ffc857 100%);
+  --background-gradient-two: linear-gradient(
+    180deg,
+    #64497d 0%,
+    rgba(255, 200, 87, 0.43) 100%
+  );
+  --background-gradient-three: linear-gradient(
+    180deg,
+    #dfd2eb -37.18%,
+    rgba(255, 255, 255, 0.994792) -37.17%,
+    #9881ae 100%
+  );
+}
+
+html,
+body {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 100vh;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,3 +73,122 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.font-display__large {
+  font-family: var(--f-body);
+  @apply font-weight: 400;
+  font-size: 57px;
+  line-height: 64px;
+}
+
+.font-display__medium {
+  font-family: var(--f-body);
+  @apply font-weight: 400;
+  font-size: 45px;
+  line-height: 52px;
+}
+
+.font-display__small {
+  font-family: var(--f-body);
+  @apply font-weight: 400;
+  font-size: 36px;
+  line-height: 44px;
+}
+
+.font-headline__large {
+  font-family: var(--f-body);
+  @apply font-weight: 400;
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.font-headline__medium {
+  font-family: var(--f-body);
+  @apply font-normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.font-headline__small {
+  font-family: var(--f-body);
+  @apply font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.font-body__large {
+  font-family: var(--f-body);
+  @apply font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.font-body__medium {
+  font-family: var(--f-body);
+  @apply font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.font-body__small {
+  font-family: var(--f-body);
+  @apply font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.elevation__light-1 {
+  background: #d9d9d9;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3),
+    0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.elevation__light-2 {
+  background: #d9d9d9;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3),
+    0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+}
+
+.elevation__light-3 {
+  background: #d9d9d9;
+  box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15),
+    0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.elevation__light-4 {
+  background: #d9d9d9;
+  box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15),
+    0px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.elevation__light-5 {
+  background: #d9d9d9;
+  box-shadow: 0px 8px 12px 6px rgba(0, 0, 0, 0.15),
+    0px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-gradient-hovered {
+  background: var(--btn-gradient-hovered);
+}
+
+.btn-gradient-default {
+  background: var(--btn-gradient-default);
+}
+
+.btn-gradient-pressed {
+  background: var(--btn-gradient-pressed);
+}
+
+.bg-gradient-one {
+  background: var(--background-gradient-one);
+}
+
+.bg-gradient-two {
+  background: var(--background-gradient-two);
+}
+
+.bg-gradient-three {
+  background: var(--background-gradient-three);
+}
+
