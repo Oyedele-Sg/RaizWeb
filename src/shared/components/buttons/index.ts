@@ -1,1 +1,2 @@
-export { AuthButton } from "./AuthButton"
+export { AuthButton } from './AuthButton'
+export { CheckBox } from './CheckBox'
