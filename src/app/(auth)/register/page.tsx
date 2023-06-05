@@ -13,8 +13,8 @@ export default function Register() {
 						height={400}
 					/>
 				</section>
-				<section className='flex-1    flex    '>
-					<div className=' bg-grey  w-full py-[164px] px-[50px]   '>
+				<section className='flex-1   h-screen   '>
+					<div className=' bg-grey  w-full py-[164px] px-[50px] h-full  '>
 						<div className='flex flex-col gap-12 '>
 							<h1 className='  text-purple font-headline__large  '>
 								Create an Account
