@@ -17,7 +17,7 @@ export const AuthSubmit: FC<Props> = ({
 }) => {
 	return (
 		<div className=' flex flex-col items-center gap-4 '>
-			<AuthButton btnText={btnText} />
+			<AuthButton btnText={btnText} btnStyle=' w-full ' />
 			<div className='  font-body__large text-neutral-90  '>
 				{linkPreText}{' '}
 				<Link className=' text-neutral-80 underline ' href={linkHref}>

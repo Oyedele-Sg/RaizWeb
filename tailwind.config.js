@@ -10,8 +10,7 @@ module.exports = {
 		extend: {
 			backgroundImage: {
 				'auth-pattern': "url('/patterns/auth-bg-pattern.svg')",
-				'gradient-conic':
-					'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'profile-1': "url('/patterns/profile-1.svg')",
 			},
 			colors: {
 				white: '#FFFFFF',
