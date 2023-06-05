@@ -1,4 +1,6 @@
 export { default as Logo } from './Logo'
+export { default as Stepper } from './Stepper'
+export { VerifySuccess } from './VerifySuccess'
 export * from './input-fields'
 export * from './buttons'
 export * from './form-components'

@@ -98,7 +98,7 @@ body {
 
 .font-headline__large {
 	font-family: var(--f-body);
-	@apply font-normal;
+
 	font-size: 32px;
 	line-height: 40px;
 	font-weight: 600;
@@ -269,9 +269,14 @@ body {
 
 /* btn */
 .authBtn {
-	@apply py-4 font-body__large text-center w-full  btn-gradient-default text-grey shadow-auth-btn rounded-lg;
+	@apply py-4 font-body__large  text-center btn-gradient-default text-grey shadow-auth-btn rounded-lg;
 }
 
 .authBtn:hover {
 	@apply btn-gradient-hovered transition ease-in-out duration-500;
 }
+
+/* 
+.MuiStepLabel-root .MuiStepLabel-alternativeLabel .MuiStep-alternativeLabel {
+	@apply flex items-start;
+} */
