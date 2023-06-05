@@ -1,6 +1,7 @@
 'use client'
 
-import { AuthButton, BtnMain, Stepper } from '@/shared'
+import { AuthStepper } from '@/components'
+import { AuthButton, BtnMain } from '@/shared'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -9,7 +10,7 @@ export default function VerifyMail() {
 	return (
 		<div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
 			<div>
-				<Stepper activeStep={0} />
+				<AuthStepper activeStep={0} />
 			</div>
 
 			<div className=' px-[35px] flex flex-col gap-[80px] '>

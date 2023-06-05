@@ -1,5 +1,6 @@
 'use client'
 
+import { AuthStepper } from '@/components'
 import { AuthButton, BtnMain, RegisterInput, Stepper } from '@/shared'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -29,7 +30,7 @@ export default function WrongMail() {
 	return (
 		<div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
 			<div>
-				<Stepper activeStep={0} />
+				<AuthStepper activeStep={0} />
 			</div>
 
 			<div className=' flex flex-col gap-[80px] '>

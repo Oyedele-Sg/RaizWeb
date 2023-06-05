@@ -1,6 +1,7 @@
 import React from 'react'
 import { Stepper, AuthButton } from '.'
 import Image from 'next/image'
+import { AuthStepper } from '@/components/auth/AuthStepper'
 
 interface Props {
 	activeStep: number
@@ -16,7 +17,7 @@ export const VerifySuccess: React.FC<Props> = ({
 	return (
 		<div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
 			<div>
-				<Stepper activeStep={activeStep} />
+				<AuthStepper activeStep={activeStep} />
 			</div>
 
 			<div className=' px-[35px] flex flex-col gap-8 '>

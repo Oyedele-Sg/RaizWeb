@@ -1,5 +1,6 @@
 'use client'
 
+import { AuthStepper } from '@/components/auth/AuthStepper'
 import { AuthButton, BtnMain, RegisterInput, Stepper } from '@/shared'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -31,7 +32,7 @@ export default function InputBVN() {
 	return (
 		<div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
 			<div>
-				<Stepper activeStep={1} />
+				<AuthStepper activeStep={1} />
 			</div>
 
 			<div className=' flex flex-col gap-[56px] '>
