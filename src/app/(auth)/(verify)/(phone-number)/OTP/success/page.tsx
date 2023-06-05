@@ -1,8 +1,6 @@
 'use client'
 
-import { AuthButton, BtnMain, Stepper, VerifySuccess } from '@/shared'
-import Image from 'next/image'
-import Link from 'next/link'
+import { VerifySuccess } from '@/shared'
 import React from 'react'
 
 export default function SucessOTP() {

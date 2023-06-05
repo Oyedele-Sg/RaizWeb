@@ -6,14 +6,14 @@ import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 
-const steps = ['Email', 'BVN', 'Phone Number']
-
 interface Props {
 	activeStep: number
+	steps: string[]
 }
 
 export default function HorizontalLabelPositionBelowStepper({
 	activeStep,
+	steps,
 }: Props) {
 	return (
 		<Box sx={{ width: '100%' }}>
