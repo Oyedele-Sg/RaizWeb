@@ -11,6 +11,7 @@ import {
 } from '@/shared'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React, { FC, useState } from 'react'
 import {
 	useForm,
@@ -29,6 +30,8 @@ interface RegisterFormProps extends Partial<FieldValues> {
 }
 
 export const RegisterForm: FC = () => {
+	const Router = useRouter()
+
 	const methods = useForm<RegisterFormProps>({
 		defaultValues: {
 			firstName: '',
@@ -44,6 +47,9 @@ export const RegisterForm: FC = () => {
 
 	const onSubmit = async (data: RegisterFormProps) => {
 		console.log('login data', data)
+		// const response = await login(data)
+		// if (response) {
+		Router.push('/verification/email')
 	}
 	return (
 		<FormProvider {...methods}>
@@ -71,7 +77,7 @@ export const RegisterForm: FC = () => {
 							</div>
 
 							<RegisterInput
-								name={`email`}
+								name={`egmail`}
 								inputPlaceholder={`Enter Email Address`}
 								rules={{
 									required: 'Email is required',
@@ -130,7 +136,7 @@ export const RegisterForm: FC = () => {
 						</div>
 					</AuthFormWrap>
 					<AuthSubmit
-						btnText='Log In'
+						btnText='Get Started'
 						linkHref='/login'
 						linkPreText={`Already have an account?`}
 						linkText='Log In'

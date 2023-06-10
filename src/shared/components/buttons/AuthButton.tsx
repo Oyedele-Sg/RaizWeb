@@ -8,7 +8,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const AuthButton: React.FC<ButtonProps> = ({
 	btnText,
 	btnStyle,
-
 	...rest
 }) => {
 	return (

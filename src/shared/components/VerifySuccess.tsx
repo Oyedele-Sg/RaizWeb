@@ -2,18 +2,22 @@ import React from 'react'
 import { Stepper, AuthButton } from '.'
 import Image from 'next/image'
 import { AuthStepper } from '@/components/auth/AuthStepper'
+import { useRouter } from 'next/navigation'
 
 interface Props {
 	activeStep: number
 	title: string
 	description: string
+	btnLink: string
 }
 
 export const VerifySuccess: React.FC<Props> = ({
 	activeStep,
 	title,
 	description,
+	btnLink,
 }) => {
+	const Router = useRouter()
 	return (
 		<div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
 			<div>
@@ -42,6 +46,7 @@ export const VerifySuccess: React.FC<Props> = ({
 						btnStyle=' px-[101.5px] '
 						className='  '
 						btnText={'Continue'}
+						onClick={() => Router.push(btnLink)}
 					/>
 				</div>
 			</div>
