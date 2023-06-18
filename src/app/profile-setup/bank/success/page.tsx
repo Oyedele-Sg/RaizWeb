@@ -1,5 +1,6 @@
 'use client'
 
+import { Header } from '@/components'
 import { BtnMain, SetupLayout } from '@/shared'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -9,8 +10,9 @@ export default function BankSuccess() {
 	const Router = useRouter()
 	return (
 		<SetupLayout bg='bg-profile-1'>
-			<div className=' max-w-[502px] mx-auto  flex-col gap-12   h-full flex items-center justify-center'>
-				<div className=' px-[35px] flex flex-col gap-8 '>
+			<div className=' max-w-[502px] mx-auto  flex-col   h-full flex gap-[88px]   mt-[184px] '>
+				<Header activeStep={2} />
+				<div className=' px-8 flex flex-col gap-8 bg-neutral-20 py-16 rounded-lg '>
 					<div className='flex items-center justify-center '>
 						<Image
 							src='/illustrations/verify-success.svg'

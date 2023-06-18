@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function page() {
 	return (
-		<main className=' flex flex-col  gap-[140px]'>
+		<main className=' flex flex-col  gap-[100px]'>
 			<header className=' flex  items-center justify-between pt-16  mx-[72px] '>
 				<IconPesaColored />
 
@@ -16,7 +16,7 @@ export default function page() {
 				/>
 			</header>
 
-			<section className=' flex flex-col items-center justify-center '>
+			<section className=' flex flex-col items-center justify-center  gap-6 '>
 				<div className=''>
 					<h1 className=' font-display__medium text-purple text-center '>
 						Add Funds to Wallet
@@ -36,7 +36,7 @@ export default function page() {
 							className=' rounded-tr-xl rounded-tl-xl '
 						/>
 
-						<div className=' pt-[33px] pb-[28px] pr-[28px] pl-[12px] '>
+						<div className=' pt-[33px] pb-[28px] pr-[28px] pl-[12px]  '>
 							<div className=' flex flex-col gap-2  '>
 								<h2 className=' font-title__large text-purple   '>
 									Debit Card
@@ -47,9 +47,9 @@ export default function page() {
 								</p>
 							</div>
 
-							<div className=''>
+							<div className=' flex items-center justify-center mt-[67px] '>
 								<BtnMain
-									className='  text-grey  '
+									className='  text-grey  py-4 px-[60px] rounded-lg btn-gradient-default hover:btn-gradient-hovered '
 									btnText='Add Funds to Wallet'
 								/>
 							</div>

@@ -1,7 +1,7 @@
 'use client'
 
-import { Header, StepperComponent } from '@/components'
-import { BtnMain, RegisterInput, SetupLayout } from '@/shared'
+import { Header, InputContainer, StepperComponent } from '@/components'
+import { BtnMain, IconSavedList, RegisterInput, SetupLayout } from '@/shared'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -46,10 +46,21 @@ export default function Username() {
 				<Header activeStep={1} />
 
 				<div className=' flex n flex-col gap-3 '>
-					<h2 className='pl-3 font-body__large  text-purple font-semi-mid text-[18px]   '>
-						Add Traditional Bank Number
-					</h2>
-					<div className=' bg-neutral-20 py-16 px-8 rounded-xl'>
+					<div className=' flex justify-between  items-center'>
+						<h2 className='pl-3 font-body__large  text-purple font-semi-mid text-[18px]   '>
+							Add Traditional Bank Number
+						</h2>
+
+						<div className='flex items-center gap-1 '>
+							<IconSavedList />
+							<span className=' text-[16px] leading-[20px] text-purple   '>
+								{' '}
+								Saved List{' '}
+							</span>
+						</div>
+					</div>
+
+					<InputContainer>
 						<div className=''>
 							<FormProvider {...methods}>
 								<form
@@ -83,7 +94,7 @@ export default function Username() {
 								</form>
 							</FormProvider>
 						</div>
-					</div>
+					</InputContainer>
 				</div>
 			</div>
 		</SetupLayout>
