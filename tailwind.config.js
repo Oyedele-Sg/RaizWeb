@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+	darkMode: 'class',
 	content: [
 		'./src/pages/**/*.{js,ts,jsx,tsx,mdx}',
 		'./src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -28,6 +29,7 @@ module.exports = {
 				'neutral-80': '#7E6298',
 				'neutral-90': '#64497D',
 				'neutral-100': '#493260',
+				positive: '#7ABA98',
 			},
 			fontSize: {
 				't-18': '1.125rem',
