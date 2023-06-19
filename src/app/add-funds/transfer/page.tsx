@@ -2,7 +2,10 @@
 
 import { InputContainer } from '@/components'
 import {
+	AuthButton,
 	BackArrow,
+	FormTitledContainer,
+	IconCopy,
 	IconPesaColored,
 	NextArrow,
 	RegisterInput,
@@ -49,31 +52,45 @@ export default function page() {
 							</button>
 						</div>
 
-						<InputContainer>
-							<div className=' flex flex-col gap-[36px]  '>
-								<div>
-									<h2 className='  font-display__medium text-purple font-semi-mid '>
-										Bank Transfer
-									</h2>
-									<p className=' text-neutral-70 font-title__large   '>
-										{' '}
-										Add funds to wallets{' '}
-									</p>
-								</div>
-								<FormProvider {...methods}>
-									<form action='' onSubmit={methods.handleSubmit(onSubmit)}>
-										<RegisterInput
-											name={`bank_name`}
-											inputPlaceholder={`Type a bank`}
-											rules={{
-												required: 'Input a bank name',
-											}}
-											label='Bank name'
-										/>
-									</form>
-								</FormProvider>
-							</div>
-						</InputContainer>
+						<FormTitledContainer
+							title='Bank Transfer'
+							subtitle='Add funds to wallets'>
+							<FormProvider {...methods}>
+								<form
+									action=''
+									onSubmit={methods.handleSubmit(onSubmit)}
+									className=' flex flex-col gap-6 '>
+									<RegisterInput
+										name={`account_number`}
+										inputPlaceholder={`Type a bank`}
+										rules={{
+											required: 'Input a bank name',
+										}}
+										label='Account number'
+										children={<IconCopy />}
+									/>
+
+									<RegisterInput
+										name={`bank_name`}
+										inputPlaceholder={`Type a bank`}
+										rules={{
+											required: 'Input a bank name',
+										}}
+										label='Bank name'
+										children={<IconCopy />}
+									/>
+									<RegisterInput
+										name={` beneficiary_name `}
+										inputPlaceholder={`Beneficiary name`}
+										rules={{
+											required: 'Input a bank name',
+										}}
+										label='Beneficiary'
+									/>
+									<AuthButton btnText=' I have made this transfer ' />
+								</form>
+							</FormProvider>
+						</FormTitledContainer>
 					</div>
 				</div>
 			</SetupLayout>
