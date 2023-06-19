@@ -11,8 +11,8 @@ export const AuthButton: React.FC<ButtonProps> = ({
 	...rest
 }) => {
 	return (
-		<div className={`authBtn ${btnStyle} `}>
-			<button {...rest}>{btnText}</button>
-		</div>
+		<button className={`authBtn ${btnStyle} `} {...rest}>
+			{btnText}
+		</button>
 	)
 }
