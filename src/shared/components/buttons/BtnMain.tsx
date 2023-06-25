@@ -17,7 +17,7 @@ export const BtnMain: React.FC<ButtonProps> = ({
 	return (
 		<button
 			className={`rounded-lg py-4 text-center font-body__large  ${btnStyle} `}
-			{...rest}>
+			{...rest}> 
 			{children}
 			{btnText}
 		</button>
