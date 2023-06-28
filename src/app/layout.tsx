@@ -1,3 +1,4 @@
+import { ReactQueryProvider } from "@/shared"
 import "./globals.css"
 import { Inter } from "next/font/google"
 import React from "react"
@@ -15,8 +16,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en'>
-      <body className='  '><div className="  ">{children}</div></body>
-    </html>
+    <ReactQueryProvider>
+      <html lang='en'>
+        <body className='  '>
+          <div className='  '>{children}</div>
+        </body>
+      </html>
+    </ReactQueryProvider>
   )
 }
