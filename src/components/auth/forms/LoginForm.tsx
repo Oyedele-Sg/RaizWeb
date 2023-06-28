@@ -1,5 +1,6 @@
 "use client"
 
+import { userService } from "@/services"
 import {
   AuthButton,
   AuthFieldWrap,
@@ -10,7 +11,8 @@ import {
 } from "@/shared"
 import Image from "next/image"
 import Link from "next/link"
-import React, { FC, useState } from "react"
+import { useRouter } from "next/navigation"
+import React, { FC, useEffect, useState } from "react"
 import {
   useForm,
   FormProvider,
@@ -26,6 +28,7 @@ interface LoginFormProps extends Partial<FieldValues> {
 }
 
 export const LoginForm: FC = () => {
+  const router = useRouter()
   const methods = useForm<LoginFormProps>({
     defaultValues: {
       email: "",
@@ -39,6 +42,14 @@ export const LoginForm: FC = () => {
   const onSubmit = async (data: LoginFormProps) => {
     console.log("login data", data)
   }
+
+  useEffect(() => {
+    // redirect to home if already logged in
+    if (userService.userValue) {
+      router.push("/dashboard")
+    }
+  }, [])
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
