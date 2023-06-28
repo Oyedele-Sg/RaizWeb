@@ -77,7 +77,7 @@ export default function InputBVN() {
 									alt='show bvn'
 									width={24}
 									height={24}
-									className='.password_field-input top-[20px] '
+									className='password_field-input top-[20px] '
 								/>
 							</RegisterInput>
 

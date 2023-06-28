@@ -1,3 +1,5 @@
+import { FieldValues } from "react-hook-form"
+
 export interface WalletTier {
   wallet_tier_id: number
   wallet_tier_name: string
@@ -61,4 +63,17 @@ export interface User {
   user_type: UserType
   wallets: WalletType[]
   withdrawal_accounts: WithdrawalAccountType[]
+}
+
+export interface RegisterDataInterface extends Partial<FieldValues> {
+  user_type_id: number
+  first_name: string
+  last_name: string
+  email: string
+  password: string
+}
+
+export interface LoginDataInterface extends Partial<FieldValues> {
+  email: string
+  password: string
 }

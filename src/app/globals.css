@@ -331,8 +331,11 @@ body {
 
 .password_field-input {
   position: absolute !important;
-  top: 5px !important ;
+  top: 0px !important ;
   right: 20px !important  ;
+  translate: transform(-50%, -50%) !important;
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .error-message {

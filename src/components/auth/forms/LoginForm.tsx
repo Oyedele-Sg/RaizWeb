@@ -7,39 +7,30 @@ import {
   AuthFormMainContainer,
   AuthFormWrap,
   AuthSubmit,
+  LoginDataInterface,
   RegisterInput,
 } from "@/shared"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import React, { FC, useEffect, useState } from "react"
-import {
-  useForm,
-  FormProvider,
-  FieldValues,
-  FieldError,
-  UseFormRegister,
-} from "react-hook-form"
-
-interface LoginFormProps extends Partial<FieldValues> {
-  email: string
-  password: string
-  user_type_id: number
-}
+import { useForm, FormProvider } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { loginSchema } from "@/shared/types/yupSchema"
 
 export const LoginForm: FC = () => {
   const router = useRouter()
-  const methods = useForm<LoginFormProps>({
+  const methods = useForm<LoginDataInterface>({
     defaultValues: {
       email: "",
       password: "",
-      user_type_id: 2,
     },
+    resolver: yupResolver(loginSchema),
   })
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
-  const onSubmit = async (data: LoginFormProps) => {
+  const onSubmit = async (data: LoginDataInterface) => {
     console.log("login data", data)
   }
 
@@ -59,13 +50,6 @@ export const LoginForm: FC = () => {
               <RegisterInput
                 name={`email`}
                 inputPlaceholder={`Enter Email Address`}
-                rules={{
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Invalid email address",
-                  },
-                }}
                 extraClass={`mt-6`}
                 label='Email Address'
               />
@@ -73,29 +57,16 @@ export const LoginForm: FC = () => {
                 name={`password`}
                 inputPlaceholder={`Enter 8 characters long`}
                 label='Password'
-                rules={{
-                  required: "Password is required",
-                  minLength: {
-                    value: 8,
-                    message: "Password must have at least 8 characters",
-                  },
-                  pattern: {
-                    value:
-                      /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    message:
-                      "Password must have at least 1 uppercase, 1 lowercase and 1 number",
-                  },
-                }}
                 childrenHandleClick={() => setShowPassword((state) => !state)}
                 type={showPassword ? "text" : "password"}
-                extraClass={`mt-6`}
+                extraClass={`mt-6  `}
               >
                 <Image
                   src={`/icons/eye-slash.svg`}
                   alt='show password'
                   width={24}
                   height={24}
-                  className='.password_field-input top-[20px] '
+                  className='password_field-input  '
                 />
               </RegisterInput>
             </AuthFieldWrap>
