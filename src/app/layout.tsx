@@ -16,12 +16,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ReactQueryProvider>
-      <html lang='en'>
-        <body className='  '>
-          <div className='  '>{children}</div>
-        </body>
-      </html>
-    </ReactQueryProvider>
+    <html lang='en'>
+      <body className='  '>
+        <div className='  '>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </div>
+      </body>
+    </html>
   )
 }

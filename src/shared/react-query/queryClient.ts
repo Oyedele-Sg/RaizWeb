@@ -1,27 +1,20 @@
 /* eslint-disable no-console */
 import { QueryClient } from "@tanstack/react-query"
 
-
 function queryErrorHandler(error: unknown): void {
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
   const title =
     error instanceof Error ? error.message : "error connecting to server"
 
-//   // prevent duplicate toasts
-//   toast.closeAll()
-//   toast({ title, status: "error", variant: "subtle", isClosable: true })
+  //   // prevent duplicate toasts
+  //   toast.closeAll()
+  //   toast({ title, status: "error", variant: "subtle", isClosable: true })
 }
 
 export function generateQueryClient(): QueryClient {
   return new QueryClient({
     // from https://tanstack.com/query/v4/docs/guides/testing#turn-off-network-error-logging
-    logger: {
-      log: console.log,
-      warn: console.warn,
-      // ✅ no more errors on the console for tests
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      error: process.env.NODE_ENV === "test" ? () => {} : console.error,
-    },
+
     defaultOptions: {
       queries: {
         onError: queryErrorHandler,
