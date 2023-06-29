@@ -302,6 +302,10 @@ body {
   @apply border-red-500  border-[2px];
 }
 
+.bug_green {
+  @apply border-green-700 border-[2px];
+}
+
 /* input fiels styling */
 .input_field {
   @apply flex flex-col gap-4;
