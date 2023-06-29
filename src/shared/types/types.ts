@@ -35,7 +35,7 @@ export interface WithdrawalAccountType {
   updated_at: Date
 }
 
-export interface UserType {
+export interface UserTypeinterface {
   user_type_id: number
   user_type: string
   active: number
@@ -43,7 +43,7 @@ export interface UserType {
   updated_at: Date
 }
 
-export interface User {
+export interface UserInterface {
   account_user_id: string
   user_type_id: number
   first_name: string
@@ -60,7 +60,7 @@ export interface User {
   active: number
   created_at: Date
   updated_at: Date
-  user_type: UserType
+  user_type: UserTypeinterface
   wallets: WalletType[]
   withdrawal_accounts: WithdrawalAccountType[]
 }

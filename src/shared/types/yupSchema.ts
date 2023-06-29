@@ -13,10 +13,17 @@ export const loginSchema = yup.object().shape({
 })
 
 export const registerSchema = yup.object().shape({
-  first_name: yup.string().required(),
-  last_name: yup.string().required(),
-  email: yup.string().email("Wrong Email format").required(),
-  password: yup.string().required(),
+  first_name: yup.string().required("First Name is required"),
+  last_name: yup.string().required("Last Name is required"),
+  email: yup.string().email("Wrong Email format").required("Email is required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/,
+      "Password must have at least 1 uppercase letter, 1 lowercase letter, and 1 number"
+    )
+    .required(),
   user_type_id: yup.number().required(),
   // confirmPassword: yup.string().oneOf([yup.ref("password")], "Passwords must match"),
 })
