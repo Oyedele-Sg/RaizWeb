@@ -1,9 +1,9 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode } from "react"
 
 interface Props {
-	children: ReactNode
+  children: ReactNode
 }
 
 export const AuthFormMainContainer: FC<Props> = ({ children }) => {
-	return <div className='flex flex-col gap-[50px]'>{children}</div>
+  return <div className='flex flex-col gap-[50px]  '>{children}</div>
 }

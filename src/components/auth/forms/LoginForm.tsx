@@ -17,6 +17,7 @@ import React, { FC, useEffect, useState } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { loginSchema } from "@/shared/types/yupSchema"
+import { toast } from "@/components/ui/use-toast"
 
 export const LoginForm: FC = () => {
   const router = useRouter()
@@ -32,6 +33,19 @@ export const LoginForm: FC = () => {
 
   const onSubmit = async (data: LoginDataInterface) => {
     console.log("login data", data)
+    const response = await userService.login(data)
+    console.log("response", response)
+
+    // try {
+    //   toast({
+    //     title: " Login Successful",
+    //     description: " ",
+    //     style: {
+    //       backgroundColor: "#4B0082",
+    //       color: "#fff",
+    //     },
+    //   })
+    // } catch (error) {}
   }
 
   useEffect(() => {

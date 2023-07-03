@@ -348,7 +348,7 @@ body {
 
 /* btn */
 .authBtn {
-  @apply py-4 font-body__large  text-center btn-gradient-default text-grey shadow-auth-btn rounded-lg;
+  @apply btn-gradient-default py-4 font-body__large  text-center text-grey shadow-auth-btn rounded-lg;
 }
 
 .authBtn:hover {
@@ -388,4 +388,17 @@ input[type="search"]::-webkit-search-results-decoration {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -webkit-appearance: textfield; /* Safari, Chrome, Edge */
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield; /* Standard */
 }

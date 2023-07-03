@@ -1,18 +1,18 @@
-import React, { ButtonHTMLAttributes } from 'react'
+import React, { ButtonHTMLAttributes } from "react"
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	btnText: string
-	btnStyle?: string
+  btnText: string
+  btnStyle?: string
 }
 
 export const AuthButton: React.FC<ButtonProps> = ({
-	btnText,
-	btnStyle,
-	...rest
+  btnText,
+  btnStyle,
+  ...rest
 }) => {
-	return (
-		<button className={`authBtn ${btnStyle} `} {...rest}>
-			{btnText}
-		</button>
-	)
+  return (
+    <button className={`authBtn ${btnStyle} `} {...rest}>
+      {btnText}
+    </button>
+  )
 }

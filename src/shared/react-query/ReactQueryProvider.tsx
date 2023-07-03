@@ -10,6 +10,8 @@ import {
   useSearchParams,
   redirect,
 } from "next/navigation"
+import { Provider as ReduxProvider } from "react-redux"
+import { store } from "../redux/store"
 
 export const ReactQueryProvider = ({
   children,
@@ -29,7 +31,10 @@ export const ReactQueryProvider = ({
     "/register",
     "/password-reset",
     "/verify",
-    "/verify/reset",
+    "/verification/email",
+    "/verification/phone",
+    "/verification/email/resend-otp",
+    "/verification/bvn",
   ]
 
   if (!userService.userValue && !publicPaths.includes(pathname)) {
@@ -38,8 +43,10 @@ export const ReactQueryProvider = ({
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ReduxProvider store={store}>
+        {children}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </ReduxProvider>
     </QueryClientProvider>
   )
 }

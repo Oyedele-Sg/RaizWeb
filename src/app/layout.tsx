@@ -2,6 +2,7 @@ import { ReactQueryProvider } from "@/shared"
 import "./globals.css"
 import { Inter } from "next/font/google"
 import React from "react"
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className='  '>
         <div className='  '>
           <ReactQueryProvider>{children}</ReactQueryProvider>
+          <Toaster />
         </div>
       </body>
     </html>

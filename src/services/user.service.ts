@@ -21,31 +21,46 @@ export const userService = {
     return userSubject.value
   },
 
-  // logout,
+  logout,
   // getUser,
-  signup
+  login,
+  signup,
+  verifyEmail,
+  resendEmail,
+  verifyBVN,
+  verifyAuthToken,
+  refreshAuthToken,
 }
-
 // auth
 function login(data: LoginDataInterface): Promise<void> {
-  return fetchWrapper
-    .post(`${baseUrl}/auth/login/`, data)
-    .then((user: any) => {
-      // publish user to subscribers and store in local storage to stay logged in between page refreshes
-      userSubject.next(user.data)
-      localStorage.setItem("trclient", JSON.stringify(user.data))
-    })
+  return fetchWrapper.post(`${baseUrl}/auth/login/`, data).then((user: any) => {
+    // publish user to subscribers and store in local storage to stay logged in between page refreshes
+    console.log("user", user)
+    userSubject.next(user)
+    localStorage.setItem("pesaToken", JSON.stringify(user))
+  })
 }
 
-// function logout(): void {
-//   // remove user from local storage, publish null to user subscribers, and redirect to login page
-//   localStorage.removeItem("trclient")
-//   userSubject.next(null)
-//   redirect("/login")
-// }
+function logout(): void {
+  // remove user from local storage, publish null to user subscribers, and redirect to login page
+  localStorage.removeItem("pesaToken")
+  userSubject.next(null)
+  redirect("/login")
+}
 
 function signup(data: RegisterDataInterface): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/signup/`, data)
+}
+function verifyEmail(data: { otp: string }): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=email/`, data)
+}
+
+function resendEmail(data: { email: string }): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/auth/refresh-otp/?medium=email`, data)
+}
+
+function verifyBVN(data: { bvn: string }): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/auth/bvn/verification/`, data)
 }
 
 // // function forgotPassword(data): Promise<void> {
@@ -59,3 +74,18 @@ function signup(data: RegisterDataInterface): Promise<void> {
 // function getUser(id: string): Promise<void> {
 //   return fetchWrapper.get(`${baseUrl}/account_users/${id}/`)
 // }
+
+function verifyAuthToken(data: { token: string }): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/auth/verify-token/`, data)
+}
+
+function refreshAuthToken(data: { token: string }): Promise<void> {
+  return fetchWrapper
+    .post(`${baseUrl}/auth/refresh-token/`, data)
+    .then((user: any) => {
+      // publish user to subscribers and store in local storage to stay logged in between page refreshes
+      console.log("user", user)
+      userSubject.next(user)
+      localStorage.setItem("pesaToken", JSON.stringify(user))
+    })
+}

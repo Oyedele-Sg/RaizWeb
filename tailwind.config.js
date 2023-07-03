@@ -25,6 +25,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        "loading-bg": "rgba(0, 0, 0, 0.584)",
         white: "#FFFFFF",
         purple: "#4B0082",
         yellow: "#FFC857",
@@ -108,16 +109,6 @@ module.exports = {
         "r-6": "6px",
       },
 
-      keyframes: {
-        "accordion-down": {
-          from: { height: 0 },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
-        },
-      },
       boxShadow: {
         match: "0px 16px 42px rgba(0, 0, 0, 0.07)",
         opening: "0px 1px 4px rgba(17, 17, 17, 0.12)",
@@ -129,9 +120,95 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "loading-animation-left-right":
+          "loading-animation-left-right 2s ease  infinite ",
+        "loading-animation-top": "loading-animation-top 2s infinite ",
+        "loading-animation-bottom": "loading-animation-bottom 2s  infinite ",
+        "loading-animation-middle": "loading-animation-middle 2s  infinite ",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
+        "loading-animation-left-right": {
+          "0%": {
+            opacity: 1,
+          },
+          "25%": {
+            opacity: 0,
+          },
+          "50%": {
+            opacity: 1,
+          },
+          "75%": {
+            opacity: 0,
+          },
+          "100%": {
+            opacity: 1,
+          },
+        },
+        "loading-animation-top": {
+          "0%": {
+            opacity: 0,
+          },
+          "25%": {
+            opacity: 1,
+          },
+          "50%": {
+            opacity: 0,
+          },
+          "75%": {
+            opacity: 0,
+          },
+          "100%": {
+            opacity: 0,
+          },
+        },
+        "loading-animation-bottom": {
+          "0%": {
+            opacity: 0,
+          },
+          "25%": {
+            opacity: 0,
+          },
+          "50%": {
+            opacity: 0,
+          },
+          "75%": {
+            opacity: 1,
+          },
+          "100%": {
+            opacity: 0,
+          },
+        },
+        "loading-animation-middle": {
+          "0%": {
+            background: "#ffff",
+          },
+          "25%": {
+            background: "#FFC857",
+          },
+          "50%": {
+            background: "#ffff",
+          },
+          "75%": {
+            background: "#FFC857",
+          },
+          "100%": {
+            background: "#ffff",
+          },
+        },
       },
       backgroundImage: {
         "auth-pattern": "url('/patterns/auth-bg-pattern.svg')",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "profile-1": "url('/patterns/profile-1.svg')",
       },
     },
   },
