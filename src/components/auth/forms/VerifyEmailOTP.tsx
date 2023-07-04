@@ -105,7 +105,7 @@ export const VerifyEmailOTP = () => {
           activeStep={1}
           title='Email Verified Successfully'
           description='Your email has been sucessfully verified and your account is created.'
-          btnLink='/login'
+          btnLink='/verification/phone'
         />
       ) : (
         <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>

@@ -1,7 +1,7 @@
 import { BehaviorSubject } from "rxjs"
 import { fetchWrapper } from "@/utils/fetchWrapper"
 import { URL } from "@/utils/constants"
-import { redirect } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 import {
   LoginDataInterface,
   RegisterDataInterface,
@@ -30,6 +30,7 @@ export const userService = {
   verifyBVN,
   verifyAuthToken,
   refreshAuthToken,
+  getCurrentUser,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -45,7 +46,8 @@ function logout(): void {
   // remove user from local storage, publish null to user subscribers, and redirect to login page
   localStorage.removeItem("pesaToken")
   userSubject.next(null)
-  redirect("/login")
+  useRouter().push("/login")
+  // redirect("/login")
 }
 
 function signup(data: RegisterDataInterface): Promise<void> {
@@ -71,10 +73,6 @@ function verifyBVN(data: { bvn: string }): Promise<void> {
 // //   return fetchWrapper.post(`${baseUrl}/auth/reset-password/`, data);
 // // }
 
-// function getUser(id: string): Promise<void> {
-//   return fetchWrapper.get(`${baseUrl}/account_users/${id}/`)
-// }
-
 function verifyAuthToken(data: { token: string }): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/verify-token/`, data)
 }
@@ -88,4 +86,8 @@ function refreshAuthToken(data: { token: string }): Promise<void> {
       userSubject.next(user)
       localStorage.setItem("pesaToken", JSON.stringify(user))
     })
+}
+
+function getCurrentUser(): Promise<void> {
+  return fetchWrapper.get(`${baseUrl}/account_users/me/`)
 }

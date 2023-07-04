@@ -2,7 +2,7 @@ import React from "react"
 
 export const Loading = () => {
   return (
-    <div className=' min-h-[900px] absolute top-0 bottom-0 left-0 right-0  flex items-center justify-center bg-loading-bg  '>
+    <div className=' z-[10000] min-h-[900px] absolute top-0 bottom-0 left-0 right-0  flex items-center justify-center bg-loading-bg  '>
       <div className='    flex gap-4 items-center '>
         <div className='  bg-yellow rounded-full  w-[18.67px] h-[18.67px] animate-loading-animation-left-right  '></div>
         <div className=' flex flex-col gap-4'>

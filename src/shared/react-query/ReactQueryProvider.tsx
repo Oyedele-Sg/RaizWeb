@@ -37,9 +37,11 @@ export const ReactQueryProvider = ({
     "/verification/bvn",
   ]
 
-  if (!userService.userValue && !publicPaths.includes(pathname)) {
-    redirect("/login")
-  }
+  useEffect(() => {
+    if (!userService.userValue && !publicPaths.includes(pathname)) {
+      redirect("/login")
+    }
+  }, [])
 
   return (
     <QueryClientProvider client={queryClient}>

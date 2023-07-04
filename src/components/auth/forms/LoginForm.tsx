@@ -7,6 +7,7 @@ import {
   AuthFormMainContainer,
   AuthFormWrap,
   AuthSubmit,
+  Loading,
   LoginDataInterface,
   RegisterInput,
 } from "@/shared"
@@ -20,7 +21,7 @@ import { loginSchema } from "@/shared/types/yupSchema"
 import { toast } from "@/components/ui/use-toast"
 
 export const LoginForm: FC = () => {
-  const router = useRouter()
+  const Router = useRouter()
   const methods = useForm<LoginDataInterface>({
     defaultValues: {
       email: "",
@@ -30,78 +31,97 @@ export const LoginForm: FC = () => {
   })
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const onSubmit = async (data: LoginDataInterface) => {
-    console.log("login data", data)
-    const response = await userService.login(data)
-    console.log("response", response)
+    try {
+      setLoading(true)
+      const response = await userService.login(data)
+      toast({
+        title: " Login Successful",
+        description: " ",
+        style: {
+          backgroundColor: "#4B0082",
+          color: "#fff",
+        },
+      })
+      setLoading(false)
+      Router.push("/dashboard")
+    } catch (error) {
+      setLoading(false)
 
-    // try {
-    //   toast({
-    //     title: " Login Successful",
-    //     description: " ",
-    //     style: {
-    //       backgroundColor: "#4B0082",
-    //       color: "#fff",
-    //     },
-    //   })
-    // } catch (error) {}
+      toast({
+        title: "Something Went Wrong",
+        description: `${error}`,
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+        duration: 5000,
+      })
+    }
   }
 
   useEffect(() => {
     // redirect to home if already logged in
     if (userService.userValue) {
-      router.push("/dashboard")
+      Router.push("/dashboard")
     }
   }, [])
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <AuthFormMainContainer>
-          <AuthFormWrap>
-            <AuthFieldWrap>
-              <RegisterInput
-                name={`email`}
-                inputPlaceholder={`Enter Email Address`}
-                extraClass={`mt-6`}
-                label='Email Address'
-              />
-              <RegisterInput
-                name={`password`}
-                inputPlaceholder={`Enter 8 characters long`}
-                label='Password'
-                childrenHandleClick={() => setShowPassword((state) => !state)}
-                type={showPassword ? "text" : "password"}
-                extraClass={`mt-6  `}
-              >
-                <Image
-                  src={`/icons/eye-slash.svg`}
-                  alt='show password'
-                  width={24}
-                  height={24}
-                  className='password_field-input  '
+    <>
+      {loading && <Loading />}
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <AuthFormMainContainer>
+            <AuthFormWrap>
+              <AuthFieldWrap>
+                <RegisterInput
+                  name={`email`}
+                  inputPlaceholder={`Enter Email Address`}
+                  extraClass={`mt-6`}
+                  label='Email Address'
                 />
-              </RegisterInput>
-            </AuthFieldWrap>
+                <RegisterInput
+                  name={`password`}
+                  inputPlaceholder={`Enter 8 characters long`}
+                  label='Password'
+                  childrenHandleClick={() => setShowPassword((state) => !state)}
+                  type={showPassword ? "text" : "password"}
+                  extraClass={`mt-6  `}
+                >
+                  <Image
+                    src={`/icons/eye-slash.svg`}
+                    alt='show password'
+                    width={24}
+                    height={24}
+                    className='password_field-input  '
+                  />
+                </RegisterInput>
+              </AuthFieldWrap>
 
-            <div className=' self-end '>
-              <Link
-                className='text-neutral-80 underline '
-                href='/forgot-password'
-              >
-                Forgot Password?
-              </Link>
-            </div>
-          </AuthFormWrap>
-          <AuthSubmit
-            btnText='Log In'
-            linkHref='/register'
-            linkPreText={`Don't have an account?`}
-            linkText='Sign Up'
-          />
-        </AuthFormMainContainer>
-      </form>
-    </FormProvider>
+              <div className=' self-end '>
+                <Link
+                  className='text-neutral-80 underline '
+                  href='/forgot-password'
+                >
+                  Forgot Password?
+                </Link>
+              </div>
+            </AuthFormWrap>
+            <AuthSubmit
+              btnText='Log In'
+              linkHref='/register'
+              linkPreText={`Don't have an account?`}
+              linkText='Sign Up'
+            />
+          </AuthFormMainContainer>
+        </form>
+      </FormProvider>
+    </>
   )
 }
