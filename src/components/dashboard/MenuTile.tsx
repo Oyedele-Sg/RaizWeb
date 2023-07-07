@@ -40,7 +40,8 @@ export function Menucard() {
   ]
 
   const getUserData = async () => {
-    await userService.getCurrentUser()
+    const response = await userService.getCurrentUser()
+    console.log("response", response)
   }
 
   useEffect(() => {

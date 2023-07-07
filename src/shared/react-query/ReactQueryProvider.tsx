@@ -27,14 +27,12 @@ export const ReactQueryProvider = ({
   const publicPaths = [
     "/login",
     "/forgot-password",
-    // "/",
     "/register",
     "/password-reset",
     "/verify",
     "/verification/email",
-    "/verification/phone",
     "/verification/email/resend-otp",
-    "/verification/bvn",
+   
   ]
 
   useEffect(() => {

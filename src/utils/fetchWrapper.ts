@@ -91,7 +91,9 @@ function authHeader(url: string): Record<string, string> {
   const user = userService.userValue
   const isLoggedIn = user && user.token
   const isApiUrl = url.startsWith(URL)
+
   if (isLoggedIn && isApiUrl) {
+    // verifyToken()
     return { Authorization: `Bearer ${user.token}` }
   } else {
     return {}

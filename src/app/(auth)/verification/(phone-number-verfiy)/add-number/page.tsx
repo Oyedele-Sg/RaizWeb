@@ -1,9 +1,16 @@
 "use client"
-import { AuthStepper } from "@/components/auth/AuthStepper"
+
+import { AuthStepper } from "@/components"
 import { toast } from "@/components/ui/use-toast"
-import { useUser } from "@/hooks/useUser"
 import { userService } from "@/services"
-import { AuthButton, BtnMain, Loading, RegisterInput, Stepper } from "@/shared"
+import {
+  AuthButton,
+  BtnMain,
+  Loading,
+  PhoneNumberInput,
+  RegisterInput,
+  Stepper,
+} from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
 import Image from "next/image"
@@ -18,39 +25,41 @@ import {
   UseFormRegister,
 } from "react-hook-form"
 
-interface InputBVNFormProps extends Partial<FieldValues> {
-  bvn: string
+interface PhoneNumberFormProps extends Partial<FieldValues> {
+  phone_number: string
 }
 
-export const VerifyBVN = () => {
+export default function PhoneNumber() {
   const Router = useRouter()
-  const dispatch = useAppDispatch()
-  const user = useUser()
-  console.log("user", user)
-
-  const methods = useForm<InputBVNFormProps>({
+  const methods = useForm<PhoneNumberFormProps>({
     defaultValues: {
-      bvn: "",
+      phone_number: "",
     },
   })
+  const dispatch = useAppDispatch()
 
-  const [showBVN, setShowBVN] = useState<boolean>(false)
-
-  const onSubmit = async (data: InputBVNFormProps) => {
+  const onSubmit = async (data: PhoneNumberFormProps) => {
     console.log("login data", data)
     try {
       dispatch(setLoadingTrue())
-      await userService.verifyBVN({ bvn: "11111111111" })
+      const response = await userService.addPhoneToUser({
+        phone_number: `+234${data.phone_number}`,
+      })
+      console.log("response", response)
+      //   await userService.
       toast({
-        title: " Your BVN has been successfully verified",
-        description: "",
+        title: "Phone number added successful",
+        description: " ",
         style: {
-          backgroundColor: "#4caf50",
+          backgroundColor: "#4B0082",
           color: "#fff",
         },
       })
       dispatch(setLoadingFalse())
+      methods.reset()
+      Router.push("/verification/verify-number")
     } catch (error) {
+      dispatch(setLoadingFalse())
       toast({
         title: "Something Went Wrong",
         description: `${error}`,
@@ -61,26 +70,28 @@ export const VerifyBVN = () => {
           top: "20px",
           right: "20px",
         },
+        duration: 5000,
       })
-      dispatch(setLoadingFalse())
     }
+
+    // Router.push('/verification/phone-number/verify-otp')
   }
   return (
     <>
       <Loading />
       <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
         <div>
-          <AuthStepper activeStep={2} />
+          <AuthStepper activeStep={1} />
         </div>
 
         <div className=' flex flex-col gap-[56px] '>
           <div className=' text-center flex flex-col gap-2   '>
             <h1 className=' font-headline__large  font-semi-mid text-purple   '>
               {" "}
-              Bank Verification Number
+              Enter Phone Number
             </h1>
             <p className=' font-body__large text-neutral-90 '>
-              Enter BVN to verify your account.
+              Enter phone number to verify your account.
             </p>
           </div>
 
@@ -90,40 +101,27 @@ export const VerifyBVN = () => {
                 onSubmit={methods.handleSubmit(onSubmit)}
                 className='flex flex-col gap-8'
               >
-                <RegisterInput
-                  name={`bvn`}
-                  inputPlaceholder={`Enter BVN`}
-                  label='Bank Verification Number'
+                <PhoneNumberInput
+                  name={`phone_number`}
+                  inputPlaceholder={`Phone Number`}
                   rules={{
-                    required: "Please enter your BVN",
+                    required: "Phone number is required",
                     minLength: {
-                      value: 11,
-                      message: "BVN must have 11 digit characters",
+                      value: 10,
+                      message: "Invalid Phone Number must be 10 characters",
                     },
                     pattern: {
-                      value: /^[0-9]{11}$/,
-                      message: "BVN must have  11 digit characters",
+                      value: /^[0-9]{10}$/,
+                      message: "Invalid phone number",
                     },
                   }}
-                  childrenHandleClick={() => setShowBVN((state) => !state)}
-                  type={showBVN ? "text" : "password"}
-                  extraClass={`mt-6`}
-                >
-                  <Image
-                    src={`/icons/eye-slash.svg`}
-                    alt='show bvn'
-                    width={24}
-                    height={24}
-                    className='password_field-input top-[20px] '
-                  />
-                </RegisterInput>
-
+                  label='Phone Number'
+                />
                 <div className=' flex items-center justify-center   '>
-                  <BtnMain
-                    btnStyle=' authBtn '
+                  <AuthButton
+                    btnStyle=' px-[101.5px] '
                     className='  '
-                    btnText={"Verify BVN"}
-                    //   onClick={() => Router.push("/verification/bvn/success")}
+                    btnText={"Send OTP"}
                   />
                 </div>
               </form>

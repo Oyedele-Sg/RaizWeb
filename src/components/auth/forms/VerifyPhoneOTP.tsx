@@ -6,7 +6,7 @@ import {
   OTPFormValues,
   VerifySuccess,
 } from "@/shared"
-import { useAppSelector } from "@/shared/redux/types"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import { useRouter } from "next/navigation"
 import React, { useRef, useState } from "react"
 import { AuthStepper } from "../AuthStepper"
@@ -19,12 +19,13 @@ import {
   FormProvider,
   useFieldArray,
 } from "react-hook-form"
+import { useUser } from "@/hooks/useUser"
+import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 
-export const VerifyEmailOTP = () => {
+export const VerifyPhoneOTP = () => {
   const Router = useRouter()
-  const signupEmail = useAppSelector((state) => state.signupEmail)
-  console.log("signupEmail", signupEmail)
-
+  const dispatch = useAppDispatch()
+  const user = useUser()
   const [success, setSuccess] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -52,12 +53,12 @@ export const VerifyEmailOTP = () => {
     console.log("otp", otp)
 
     try {
-      setLoading(true)
-      await userService.verifyEmail(otp)
+      dispatch(setLoadingTrue())
+
+      await userService.verifyPhone(otp)
       toast({
         title: " Verifiction Sucessful",
-        description:
-          "Your email has been sucessfully verified and your account is created. ",
+        description: "Your phone number has been sucessfully verified. ",
         style: {
           backgroundColor: "#4B0082",
           color: "#fff",
@@ -66,11 +67,13 @@ export const VerifyEmailOTP = () => {
       })
       setTimeout(() => {
         methods.reset()
-        setLoading(false)
+        dispatch(setLoadingFalse())
+
         setSuccess(true)
       }, 1000)
     } catch (error) {
-      setLoading(false)
+      dispatch(setLoadingFalse())
+
       toast({
         title: "Error",
         description: `${error}`,
@@ -99,30 +102,27 @@ export const VerifyEmailOTP = () => {
 
   return (
     <>
-      {loading && <Loading />}
+      <Loading />
       {success ? (
         <VerifySuccess
           activeStep={1}
-          title='Email Verified Successfully'
-          description='Your email has been sucessfully verified and your account is created.'
-          btnLink='/login'
+          title='Phone Number Verified Successfully'
+          description='Your phone number has been sucessfully verified.'
+          btnLink='/verification/bvn'
         />
       ) : (
         <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
           <div>
-            <AuthStepper activeStep={0} />
+            <AuthStepper activeStep={1} />
           </div>
 
           <div className=' px-[35px] flex flex-col gap-[80px] '>
             <div className=' text-center flex flex-col gap-2   '>
               <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                Email Verification OTP
+                Enter OTP
               </h1>
               <p className=' font-body__large text-neutral-90 '>
-                {" "}
-                Please check your email{" "}
-                <span className=' underline '>{signupEmail}</span> for the OTP
-                code sent.{" "}
+                We sent you OTP to your phone number
               </p>
             </div>
 
@@ -175,7 +175,37 @@ export const VerifyEmailOTP = () => {
                       btnText={"Resend OTP"}
                       type='reset'
                       onClick={async () => {
-                        Router.push("/verification/email/resend-otp")
+                        try {
+                          dispatch(setLoadingTrue())
+                          await userService.refreshPhoneOTP({
+                            email: user?.email as string,
+                          })
+                          toast({
+                            title: " OTP Resent",
+                            description:
+                              " OTP has been resent to your phone number.",
+                            style: {
+                              backgroundColor: "#4B0082",
+                              color: "#fff",
+                            },
+                            duration: 2000,
+                          })
+                          dispatch(setLoadingFalse())
+                        } catch (error) {
+                          toast({
+                            title: "Error",
+                            description: `${error}`,
+                            variant: "destructive",
+                            style: {
+                              backgroundColor: "#f44336",
+                              color: "#fff",
+                              top: "20px",
+                              right: "20px",
+                            },
+                          })
+                          dispatch(setLoadingFalse())
+                        }
+                        // Router.push("/verification/wrong-number")
                       }}
                     />
                     <AuthButton

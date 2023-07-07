@@ -6,6 +6,7 @@ import {
   LoginDataInterface,
   RegisterDataInterface,
   UserInterface,
+  UserTypeinterface,
 } from "@/shared"
 
 const baseUrl = `${URL}`
@@ -31,6 +32,9 @@ export const userService = {
   verifyAuthToken,
   refreshAuthToken,
   getCurrentUser,
+  verifyPhone,
+  addPhoneToUser,
+  refreshPhoneOTP,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -54,7 +58,18 @@ function signup(data: RegisterDataInterface): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/signup/`, data)
 }
 function verifyEmail(data: { otp: string }): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=email/`, data)
+  return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=email`, data)
+}
+
+function verifyPhone(data: { otp: string }): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=phone`, data)
+}
+
+function refreshPhoneOTP(data: { email: string }): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/auth/refresh-otp/?medium=phone`, data)
+}
+function addPhoneToUser(data: { phone_number: string }): Promise<void> {
+  return fetchWrapper.patch(`${baseUrl}/account_users/phone_number/`, data)
 }
 
 function resendEmail(data: { email: string }): Promise<void> {
@@ -88,6 +103,6 @@ function refreshAuthToken(data: { token: string }): Promise<void> {
     })
 }
 
-function getCurrentUser(): Promise<void> {
+function getCurrentUser(): Promise<UserInterface> {
   return fetchWrapper.get(`${baseUrl}/account_users/me/`)
 }

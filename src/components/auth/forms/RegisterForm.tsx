@@ -83,13 +83,10 @@ export const RegisterForm: FC = () => {
         },
       })
 
-      setTimeout(() => {
-        dispatch(getSignUpEmail(data.email))
-        methods.reset()
-        setLoading(false)
-
-        Router.push("/verification/email")
-      }, 2000)
+      dispatch(getSignUpEmail(data.email))
+      methods.reset()
+      setLoading(false)
+      Router.push("/verification/email")
     } catch (error) {
       setLoading(false)
 

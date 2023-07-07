@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const AuthStepper: React.FC<Props> = ({ activeStep }) => {
-  const steps = ["Email", "Phone Number", "BVN"]
+  const steps = ["Email", "Phone", "BVN"]
   return (
     <div>
       {" "}
