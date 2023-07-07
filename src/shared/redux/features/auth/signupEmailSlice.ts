@@ -1,8 +1,6 @@
 import { RegisterDataInterface } from "@/shared/types"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-
-
 const initialState = ""
 
 // manage show state

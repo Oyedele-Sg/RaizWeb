@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { signupEmailReducer } from "./features"
+import { signupEmailReducer, loadingReducer } from "./features"
 // import authReducer from "./features/lice
 
 export const store = configureStore({
   reducer: {
     signupEmail: signupEmailReducer,
+    loading: loadingReducer,
   },
 })
 
