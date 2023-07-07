@@ -53,6 +53,7 @@
       #4b0082 29.88%,
       #ffc857 633.33%
     );
+    --btn-gradient-golden: linear-gradient(90deg, #ffc857 4.28%, #fff 100%);
     --background-gradient-one: linear-gradient(
       180deg,
       #64497d 0%,
@@ -280,6 +281,9 @@ body {
 
 .btn-gradient-default {
   background: var(--btn-gradient-default);
+}
+.btn-gradient-golden {
+  background: var(--btn-gradient-golden);
 }
 
 .btn-gradient-pressed {
