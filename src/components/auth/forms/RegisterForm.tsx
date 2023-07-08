@@ -20,7 +20,11 @@ import { useForm, FormProvider } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { userService } from "@/services"
 import { useAppDispatch } from "@/shared/redux/types"
-import { getSignUpEmail } from "@/shared/redux/features"
+import {
+  getSignUpEmail,
+  setLoadingFalse,
+  setLoadingTrue,
+} from "@/shared/redux/features"
 import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 
@@ -69,7 +73,7 @@ export const RegisterForm: FC = () => {
         return
       }
 
-      setLoading(true)
+      dispatch(setLoadingTrue())
 
       await userService.signup(data)
 
@@ -85,10 +89,10 @@ export const RegisterForm: FC = () => {
 
       dispatch(getSignUpEmail(data.email))
       methods.reset()
-      setLoading(false)
+      dispatch(setLoadingFalse())
       Router.push("/verification/email")
     } catch (error) {
-      setLoading(false)
+      dispatch(setLoadingFalse())
 
       toast({
         title: "Something Went Wrong",
@@ -105,7 +109,7 @@ export const RegisterForm: FC = () => {
   }
   return (
     <>
-      {loading && <Loading />}
+      <Loading />
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <AuthFormMainContainer>

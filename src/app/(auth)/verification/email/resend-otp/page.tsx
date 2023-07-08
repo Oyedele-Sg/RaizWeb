@@ -3,7 +3,11 @@ import { AuthStepper } from "@/components"
 import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
 import { AuthButton, Loading, RegisterInput, VerifySuccess } from "@/shared"
-import { getSignUpEmail } from "@/shared/redux/features"
+import {
+  getSignUpEmail,
+  setLoadingFalse,
+  setLoadingTrue,
+} from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
 import { useRouter } from "next/navigation"
 import React, { useState } from "react"
@@ -27,7 +31,7 @@ export default function WrongMail() {
 
   const onSubmit = async (data: WrongEmailFormProps) => {
     try {
-      setLoading(true)
+      dispatch(setLoadingTrue())
       const response = await userService.resendEmail(data)
       console.log("response", response)
       methods.reset()
@@ -41,10 +45,13 @@ export default function WrongMail() {
         },
       })
       dispatch(getSignUpEmail(data.email))
+      dispatch(setLoadingFalse())
 
       setLoading(false)
-      // Router.push("/verification/email")
+      Router.push("/verification/email")
     } catch (error) {
+      dispatch(setLoadingFalse())
+
       toast({
         title: "Something Went Wrong",
         description: `${error}`,
@@ -56,13 +63,12 @@ export default function WrongMail() {
           right: "20px",
         },
       })
-      setLoading(false)
     }
   }
 
   return (
     <>
-      {loading && <Loading />}
+      <Loading />
       <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
         <div>
           <AuthStepper activeStep={0} />

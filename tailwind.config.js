@@ -209,6 +209,7 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "profile-1": "url('/patterns/profile-1.svg')",
+        "ajo-pattern": "url('/patterns/ajo-bg-pattern.svg')",
       },
     },
   },

@@ -6,7 +6,7 @@ import {
   OTPFormValues,
   VerifySuccess,
 } from "@/shared"
-import { useAppSelector } from "@/shared/redux/types"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import { useRouter } from "next/navigation"
 import React, { useRef, useState } from "react"
 import { AuthStepper } from "../AuthStepper"
@@ -19,11 +19,12 @@ import {
   FormProvider,
   useFieldArray,
 } from "react-hook-form"
+import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 
 export const VerifyEmailOTP = () => {
   const Router = useRouter()
   const signupEmail = useAppSelector((state) => state.signupEmail)
-  console.log("signupEmail", signupEmail)
+  const dispatch = useAppDispatch()
 
   const [success, setSuccess] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -52,7 +53,7 @@ export const VerifyEmailOTP = () => {
     console.log("otp", otp)
 
     try {
-      setLoading(true)
+      dispatch(setLoadingTrue())
       await userService.verifyEmail(otp)
       toast({
         title: " Verifiction Sucessful",
@@ -64,13 +65,13 @@ export const VerifyEmailOTP = () => {
         },
         duration: 2000,
       })
-      setTimeout(() => {
-        methods.reset()
-        setLoading(false)
-        setSuccess(true)
-      }, 1000)
+
+      methods.reset()
+      dispatch(setLoadingFalse())
+      setSuccess(true)
     } catch (error) {
-      setLoading(false)
+      dispatch(setLoadingFalse())
+
       toast({
         title: "Error",
         description: `${error}`,
@@ -99,7 +100,7 @@ export const VerifyEmailOTP = () => {
 
   return (
     <>
-      {loading && <Loading />}
+      <Loading />
       {success ? (
         <VerifySuccess
           activeStep={1}

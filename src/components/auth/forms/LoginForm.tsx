@@ -19,6 +19,8 @@ import { useForm, FormProvider } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { loginSchema } from "@/shared/types/yupSchema"
 import { toast } from "@/components/ui/use-toast"
+import { useAppDispatch } from "@/shared/redux/types"
+import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 
 export const LoginForm: FC = () => {
   const Router = useRouter()
@@ -29,15 +31,13 @@ export const LoginForm: FC = () => {
     },
     resolver: yupResolver(loginSchema),
   })
-
-  
+  const dispacth = useAppDispatch()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
 
   const onSubmit = async (data: LoginDataInterface) => {
     try {
-      setLoading(true)
+      dispacth(setLoadingTrue())
       const response = await userService.login(data)
       toast({
         title: " Login Successful",
@@ -47,11 +47,10 @@ export const LoginForm: FC = () => {
           color: "#fff",
         },
       })
-      setLoading(false)
+      dispacth(setLoadingFalse())
       Router.push("/dashboard")
     } catch (error) {
-      setLoading(false)
-
+      dispacth(setLoadingFalse())
       toast({
         title: "Something Went Wrong",
         description: `${error}`,
@@ -76,7 +75,7 @@ export const LoginForm: FC = () => {
 
   return (
     <>
-      {loading && <Loading />}
+      <Loading />
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <AuthFormMainContainer>

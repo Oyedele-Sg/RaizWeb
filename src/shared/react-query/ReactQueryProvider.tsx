@@ -32,7 +32,6 @@ export const ReactQueryProvider = ({
     "/verify",
     "/verification/email",
     "/verification/email/resend-otp",
-   
   ]
 
   useEffect(() => {
