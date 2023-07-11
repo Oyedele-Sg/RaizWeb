@@ -11,7 +11,8 @@ import {
 
 const baseUrl = `${URL}`
 const storedUser =
-  typeof window !== "undefined" ? localStorage.getItem("pesaToken") : null
+  typeof window !== "undefined" ? sessionStorage.getItem("pesaToken") : null
+
 const userSubject = new BehaviorSubject<any>(
   storedUser ? JSON.parse(storedUser) : null
 )
@@ -42,13 +43,13 @@ function login(data: LoginDataInterface): Promise<void> {
     // publish user to subscribers and store in local storage to stay logged in between page refreshes
     console.log("user", user)
     userSubject.next(user)
-    localStorage.setItem("pesaToken", JSON.stringify(user))
+    sessionStorage.setItem("pesaToken", JSON.stringify(user))
   })
 }
 
 function logout(): void {
   // remove user from local storage, publish null to user subscribers, and redirect to login page
-  localStorage.removeItem("pesaToken")
+  sessionStorage.removeItem("pesaToken")
   userSubject.next(null)
   useRouter().push("/login")
   // redirect("/login")
@@ -99,7 +100,7 @@ function refreshAuthToken(data: { token: string }): Promise<void> {
       // publish user to subscribers and store in local storage to stay logged in between page refreshes
       console.log("user", user)
       userSubject.next(user)
-      localStorage.setItem("pesaToken", JSON.stringify(user))
+      sessionStorage.setItem("pesaToken", JSON.stringify(user))
     })
 }
 
