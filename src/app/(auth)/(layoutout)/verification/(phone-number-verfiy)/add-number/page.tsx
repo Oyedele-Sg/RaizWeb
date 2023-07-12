@@ -118,11 +118,7 @@ export default function PhoneNumber() {
                   label='Phone Number'
                 />
                 <div className=' flex items-center justify-center   '>
-                  <AuthButton
-                    btnStyle=' px-[101.5px] '
-                    className='  '
-                    btnText={"Send OTP"}
-                  />
+                  <AuthButton btnStyle=' px-[101.5px] ' btnText={"Send OTP"} />
                 </div>
               </form>
             </FormProvider>

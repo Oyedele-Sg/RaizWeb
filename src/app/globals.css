@@ -332,7 +332,7 @@ body {
 }
 
 .input_field-input_error {
-  @apply bg-transparent pb-2 border-none outline-none placeholder:text-[#f38983];
+  @apply bg-transparent  border-none outline-none placeholder:text-[#f38983];
   border-bottom: solid 1px #b3261e !important;
   color: #f38983;
 }
