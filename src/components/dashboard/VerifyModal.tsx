@@ -11,7 +11,7 @@ export const VerifyModal = () => {
   return (
     <>
       {!user?.is_bvn_verified && !user?.is_phone_verified && (
-        <div className=' min-h-[900px] absolute top-0 bottom-0 left-0 right-0  flex items-center justify-center bg-loading-bg  '>
+        <div className=' z-[10000] fixed  inset-0   flex items-center justify-center bg-loading-bg  '>
           <WhiteTileWrap extraStyle=' px-8 py-10 flex items-center justify-center '>
             <div className=' flex flex-col items-center  gap-10  '>
               <div className=' text-center flex flex-col gap-2   '>

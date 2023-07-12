@@ -49,7 +49,7 @@ export function Menucard() {
   }, [])
 
   return (
-    <WhiteTileWrap extraStyle=' w-[396px]  p-8 pb-[35px] flex flex-col gap-12 h-full '>
+    <WhiteTileWrap extraStyle='  p-8 pb-[35px] flex flex-col gap-12 h-[30.1875rem] '>
       <div className=' flex flex-col items-center gap-3  '>
         <div className=' flex justify-center  items-center gap-3   '>
           <Image

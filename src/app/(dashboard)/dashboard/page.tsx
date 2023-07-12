@@ -37,15 +37,19 @@ function page() {
 
   return (
     <>
-      <div className=' grid grid-rows-[30.1875rem_1fr] grid-cols-[396px_1fr] gap-[24px] '>
-        <div className='  '>
+      <div className=' grid grid-rows-[30.1875rem_1fr] grid-cols-[1fr_2.5fr] gap-[24px]   '>
+        <div className=' w-full   '>
           <Menucard />
         </div>
-        <div className=' grid grid-cols-[1fr_218px] gap-6 h-full  '>
-          <div className=' grid grid-rows-[126px_1fr] gap-6 '>
-            <div className=' flex  justify-between '>
+        <div className='  grid grid-cols-[1fr_218px] gap-6 h-[30.1875rem]  '>
+          <div className=' grid grid-rows-[126px_333px] gap-6  '>
+            <div className='  flex gap-8  '>
               {spendingTrackingData.map((data, index) => (
-                <SpendingTile key={index} data={data} />
+                <SpendingTile
+                  key={index}
+                  data={data}
+                  style={index === 2 ? "basis-[150px]" : "basis-[120px]"}
+                />
               ))}
             </div>
             <div className=''>
@@ -68,7 +72,10 @@ function page() {
           </div>
         </div>
 
-        <div className='  '>
+        <div
+          className='
+         '
+        >
           <CardTile />
         </div>
         <div className='  '>
