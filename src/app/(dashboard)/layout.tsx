@@ -10,11 +10,11 @@ function Dashboardlayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <VerifyModal />
-      <div className=' bg-neutral-20 min-h-screen '>
+      <div className=' bg-neutral-20 min-h-screen bug '>
         <div className=' h-full  '>
           <Sidebar />
           <DashboardHeader />
-          <div className='ml-[144px] px-12 '>{children}</div>
+          <div className='ml-[144px] px-12   '>{children}</div>
         </div>
       </div>
     </>

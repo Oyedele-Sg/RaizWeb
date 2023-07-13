@@ -13,9 +13,9 @@ interface Props {
 
 export const SpendingTile = ({ data, style }: Props) => {
   return (
-    <WhiteTileWrap extraStyle={`p-3 flex-1  ${style} `}>
-      <div className='  flex gap-4  '>
-        <div className='  flex flex-col gap-[18px] '>
+    <WhiteTileWrap extraStyle={`p-3 flex-1 flex items-center  ${style} `}>
+      <div className='  flex gap-4 justify-between w-full '>
+        <div className='  flex flex-col justify gap-[18px] '>
           <Image
             src={`/icons/dashboard/finance-tile/${data.icon}.svg`}
             width={32}
