@@ -30,6 +30,7 @@ export const VerifyPhoneOTP = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const otpInputRefs = useRef<Array<HTMLInputElement | null>>([])
+  const OTPPreference = sessionStorage.getItem("pesaOTP")
 
   const methods = useForm<OTPFormValues>({
     defaultValues: {
@@ -55,7 +56,10 @@ export const VerifyPhoneOTP = () => {
     try {
       dispatch(setLoadingTrue())
 
-      await userService.verifyPhone(otp)
+      OTPPreference === "phone"
+        ? await userService.verifyPhone(otp)
+        : await userService.verifyVoiceOTP(otp)
+
       toast({
         title: " Verifiction Sucessful",
         description: "Your phone number has been sucessfully verified. ",
@@ -90,14 +94,56 @@ export const VerifyPhoneOTP = () => {
   }
 
   const handleInputChange = (index: number) => {
-    if (otpInputRefs.current[index]?.value.length === 1) {
+    const currentValue = otpInputRefs.current[index]?.value
+    const prevValue = otpInputRefs.current[index - 1]?.value
+
+    if (currentValue && currentValue.length === 1) {
       if (index < otpInputRefs.current.length - 1) {
         otpInputRefs.current[index + 1]?.focus()
       } else {
         otpInputRefs.current[index]?.blur()
         // Submit OTP or perform the desired action here
       }
+    } else if (!currentValue && prevValue) {
+      otpInputRefs.current[index - 1]?.focus()
     }
+  }
+
+  const handleResendOTP = async () => {
+    try {
+      dispatch(setLoadingTrue())
+      OTPPreference === "phone"
+        ? await userService.refreshPhoneOTP({
+            email: user?.email as string,
+          })
+        : await userService.refreshVoiceOTP({
+            email: user?.email as string,
+          })
+      toast({
+        title: " OTP Resent",
+        description: " OTP has been resent to your phone number.",
+        style: {
+          backgroundColor: "#4B0082",
+          color: "#fff",
+        },
+        duration: 2000,
+      })
+      dispatch(setLoadingFalse())
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: `${error}`,
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+      })
+      dispatch(setLoadingFalse())
+    }
+    // Router.push("/verification/wrong-number")
   }
 
   return (
@@ -169,61 +215,23 @@ export const VerifyPhoneOTP = () => {
                 )}
 
                 <div className=' flex flex-col justify-center items-center  gap-8 '>
-                  <div className=' flex gap-12 '>
-                    <BtnMain
-                      btnStyle='  border-purple border-[1px] rounded-[8px] text-purple  px-[42px]  '
-                      btnText={"Resend OTP"}
-                      type='reset'
-                      onClick={async () => {
-                        try {
-                          dispatch(setLoadingTrue())
-                          await userService.refreshPhoneOTP({
-                            email: user?.email as string,
-                          })
-                          toast({
-                            title: " OTP Resent",
-                            description:
-                              " OTP has been resent to your phone number.",
-                            style: {
-                              backgroundColor: "#4B0082",
-                              color: "#fff",
-                            },
-                            duration: 2000,
-                          })
-                          dispatch(setLoadingFalse())
-                        } catch (error) {
-                          toast({
-                            title: "Error",
-                            description: `${error}`,
-                            variant: "destructive",
-                            style: {
-                              backgroundColor: "#f44336",
-                              color: "#fff",
-                              top: "20px",
-                              right: "20px",
-                            },
-                          })
-                          dispatch(setLoadingFalse())
-                        }
-                        // Router.push("/verification/wrong-number")
-                      }}
-                    />
-                    <AuthButton
-                      btnStyle='flex-1 w-full px-[42px] '
-                      btnText={"Verify OTP"}
-                      type='submit'
-                    />
+                  <div className=''>
+                    <div className=' flex gap-12 '>
+                      <BtnMain
+                        btnStyle='  border-purple border-[1px] rounded-[8px] text-purple  px-[42px]  '
+                        btnText={"Resend OTP"}
+                        type='reset'
+                        onClick={handleResendOTP}
+                      />
+                      <AuthButton
+                        btnStyle='flex-1 w-full px-[42px] '
+                        btnText={"Verify OTP"}
+                        type='submit'
+                      />
+                    </div>
                   </div>
-
-                  {/* <div>
-          <Link href={"  "} className=' text-neutral-90  text-center '>
-            Wrong Email?
-          </Link>
-        </div> */}
                 </div>
               </form>
-
-              {/* <DevTool control={methods.control} />  */}
             </div>
           </div>
         </div>
