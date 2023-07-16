@@ -1,7 +1,7 @@
 "use client"
 import { AuthStepper } from "@/components/auth/AuthStepper"
 import { toast } from "@/components/ui/use-toast"
-import { useUser } from "@/hooks/useUser"
+import { useUser } from "@/hooks/user/useUser"
 import { userService } from "@/services"
 import { AuthButton, BtnMain, Loading, RegisterInput, Stepper } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"

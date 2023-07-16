@@ -1,5 +1,5 @@
 "use client"
-import { useUser } from "@/hooks/useUser"
+import { useUser } from "@/hooks/user/useUser"
 import { BtnMain, WhiteTileWrap } from "@/shared"
 
 import { useRouter } from "next/navigation"

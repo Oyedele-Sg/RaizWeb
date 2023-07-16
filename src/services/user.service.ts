@@ -1,12 +1,11 @@
 import { BehaviorSubject } from "rxjs"
 import { fetchWrapper } from "@/utils/fetchWrapper"
 import { URL } from "@/utils/constants"
-import { redirect, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import {
   LoginDataInterface,
   RegisterDataInterface,
   UserInterface,
-  UserTypeinterface,
 } from "@/shared"
 
 const baseUrl = `${URL}`
@@ -22,7 +21,6 @@ export const userService = {
   get userValue() {
     return userSubject.value
   },
-
   logout,
   // getUser,
   login,
@@ -36,6 +34,11 @@ export const userService = {
   verifyPhone,
   addPhoneToUser,
   refreshPhoneOTP,
+  verifyVoiceOTP,
+  refreshVoiceOTP,
+  updateUserProfileImage,
+  updateUsername,
+  getBanks,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -66,6 +69,13 @@ function verifyPhone(data: { otp: string }): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=phone`, data)
 }
 
+function verifyVoiceOTP(data: { otp: string }): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=voice`, data)
+}
+function refreshVoiceOTP(data: { email: string }): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/auth/refresh-otp/?medium=voice`, data)
+}
+
 function refreshPhoneOTP(data: { email: string }): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/refresh-otp/?medium=phone`, data)
 }
@@ -81,13 +91,13 @@ function verifyBVN(data: { bvn: string }): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/bvn/verification/`, data)
 }
 
-// // function forgotPassword(data): Promise<void> {
-// //   return fetchWrapper.post(`${baseUrl}/auth/forgot-password/`, data);
-// // }
+// function forgotPassword(data): Promise<void> {
+//   return fetchWrapper.post(`${baseUrl}/auth/forgot-password/`, data);
+// }
 
-// // function resetPassword(data): Promise<void> {
-// //   return fetchWrapper.post(`${baseUrl}/auth/reset-password/`, data);
-// // }
+// function resetPassword(data): Promise<void> {
+//   return fetchWrapper.post(`${baseUrl}/auth/reset-password/`, data);
+// }
 
 function verifyAuthToken(data: { token: string }): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/verify-token/`, data)
@@ -98,12 +108,26 @@ function refreshAuthToken(data: { token: string }): Promise<void> {
     .post(`${baseUrl}/auth/refresh-token/`, data)
     .then((user: any) => {
       // publish user to subscribers and store in local storage to stay logged in between page refreshes
-      console.log("user", user)
+      // console.log("user", user)
       userSubject.next(user)
       sessionStorage.setItem("pesaToken", JSON.stringify(user))
     })
 }
 
+// profile apis
 function getCurrentUser(): Promise<UserInterface> {
   return fetchWrapper.get(`${baseUrl}/account_users/me/`)
+}
+
+function updateUserProfileImage(): Promise<UserInterface> {
+  return fetchWrapper.get(`${baseUrl}/account_users/me/`)
+}
+
+function updateUsername(data: { username: string }): Promise<UserInterface> {
+  return fetchWrapper.patch(`${baseUrl}/account_users/username/`, data)
+}
+
+// lookup
+function getBanks(): Promise<void> {
+  return fetchWrapper.get(`${baseUrl}/nip-lookup/banks/`)
 }

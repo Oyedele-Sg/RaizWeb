@@ -19,7 +19,7 @@ import {
   FormProvider,
   useFieldArray,
 } from "react-hook-form"
-import { useUser } from "@/hooks/useUser"
+import { useUser } from "@/hooks/user/useUser"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 
 export const VerifyPhoneOTP = () => {
