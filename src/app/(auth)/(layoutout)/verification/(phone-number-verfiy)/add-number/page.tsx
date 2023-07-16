@@ -16,7 +16,7 @@ import { useAppDispatch } from "@/shared/redux/types"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   useForm,
   FormProvider,
@@ -24,6 +24,8 @@ import {
   FieldError,
   UseFormRegister,
 } from "react-hook-form"
+
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 interface PhoneNumberFormProps extends Partial<FieldValues> {
   phone_number: string
@@ -37,6 +39,16 @@ export default function PhoneNumber() {
     },
   })
   const dispatch = useAppDispatch()
+
+  const [selectedOption, setSelectedOption] = useState("phone")
+
+  const handleRadioChange = (value: string) => {
+    const selectedValue = value
+    setSelectedOption(selectedValue)
+
+    // Update sessionStorage based on the selected value
+    sessionStorage.setItem("pesaOTP", selectedValue)
+  }
 
   const onSubmit = async (data: PhoneNumberFormProps) => {
     console.log("login data", data)
@@ -76,6 +88,11 @@ export default function PhoneNumber() {
 
     // Router.push('/verification/phone-number/verify-otp')
   }
+
+  useEffect(() => {
+    sessionStorage.setItem("pesaOTP", "phone")
+  }, [])
+
   return (
     <>
       <Loading />
@@ -117,6 +134,21 @@ export default function PhoneNumber() {
                   }}
                   label='Phone Number'
                 />
+
+                <RadioGroup
+                  defaultValue={`phone`}
+                  className='text-purple'
+                  onValueChange={handleRadioChange}
+                >
+                  <div className='flex items-center space-x-2'>
+                    <RadioGroupItem value='phone' id='phone' />
+                    <label htmlFor='phone'>SMS OTP</label>
+                  </div>
+                  <div className='flex items-center space-x-2'>
+                    <RadioGroupItem value='voice' id='voice' />
+                    <label htmlFor='voice'>Voice OTP</label>
+                  </div>
+                </RadioGroup>
                 <div className=' flex items-center justify-center   '>
                   <AuthButton btnStyle=' px-[101.5px] ' btnText={"Send OTP"} />
                 </div>
