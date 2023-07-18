@@ -3,10 +3,14 @@ import { fetchWrapper } from "@/utils/fetchWrapper"
 import { URL } from "@/utils/constants"
 import { useRouter } from "next/navigation"
 import {
+  BankDataInterface,
+  BankInterface,
   LoginDataInterface,
   RegisterDataInterface,
   UserInterface,
 } from "@/shared"
+import { BankInputProps } from "@/components/profile-setup/AddBankForm"
+
 
 const baseUrl = `${URL}`
 const storedUser =
@@ -39,6 +43,7 @@ export const userService = {
   updateUserProfileImage,
   updateUsername,
   getBanks,
+  addBank,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -128,6 +133,13 @@ function updateUsername(data: { username: string }): Promise<UserInterface> {
 }
 
 // lookup
-function getBanks(): Promise<void> {
+function getBanks(): Promise<BankDataInterface> {
   return fetchWrapper.get(`${baseUrl}/nip-lookup/banks/`)
+}
+
+function addBank(data: BankInputProps): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/account_users/withdrawal_accounts/`,
+    data
+  )
 }

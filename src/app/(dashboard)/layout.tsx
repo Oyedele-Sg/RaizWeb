@@ -10,7 +10,7 @@ function Dashboardlayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <VerifyModal />
-      <div className=' bg-neutral-20 min-h-screen bug '>
+      <div className=' bg-neutral-20 min-h-screen  '>
         <div className=' h-full  '>
           <Sidebar />
           <DashboardHeader />

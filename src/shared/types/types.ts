@@ -85,3 +85,12 @@ export interface OTPFormValues extends FieldValues {
   otp4: string
   otp5: string
 }
+
+export interface BankInterface {
+  bankCode: string
+  bankName: string
+}
+
+export interface BankDataInterface {
+  banks: BankInterface[]
+}

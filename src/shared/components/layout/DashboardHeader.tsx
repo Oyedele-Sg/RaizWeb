@@ -36,7 +36,7 @@ export const DashboardHeader = () => {
               width={48}
               height={48}
               alt=''
-              className=' rounded-full bug '
+              className=' rounded-full '
             />
           </div>
         </div>
