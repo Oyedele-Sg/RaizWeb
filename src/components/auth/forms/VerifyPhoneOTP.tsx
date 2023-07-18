@@ -30,7 +30,10 @@ export const VerifyPhoneOTP = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const otpInputRefs = useRef<Array<HTMLInputElement | null>>([])
-  const OTPPreference = sessionStorage.getItem("pesaOTP")
+  const OTPPreference =
+    typeof sessionStorage !== "undefined"
+      ? sessionStorage.getItem("pesaOTP")
+      : null
 
   const methods = useForm<OTPFormValues>({
     defaultValues: {
