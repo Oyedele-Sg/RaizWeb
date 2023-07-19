@@ -58,7 +58,7 @@ export default function PhoneNumber() {
       dispatch(setLoadingTrue())
       const response = await userService.addPhoneToUser({
         phone_number: `+234${data.phone_number}`,
-        medium: selectedMedia as string,
+        medium: selectedMedia === "phone" ? "sms" : (selectedMedia as string),
       })
       console.log("response", response)
       toast({
