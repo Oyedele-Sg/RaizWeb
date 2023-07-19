@@ -34,8 +34,8 @@ export const VerifySuccess: React.FC<Props> = ({
           />
         </div>
         <div className=''>
-          <div className=' text-center flex flex-col gap-2   '>
-            <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+        <div className=' text-center flex flex-col gap-2   '>
+          <h1 className=' font-headline__large  font-semi-mid text-purple   '>
               {title}
             </h1>
             <p className=' font-body__large text-neutral-90 '>{description}</p>

@@ -11,7 +11,6 @@ import {
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 
-
 const baseUrl = `${URL}`
 const storedUser =
   typeof window !== "undefined" ? sessionStorage.getItem("pesaToken") : null
@@ -84,7 +83,10 @@ function refreshVoiceOTP(data: { email: string }): Promise<void> {
 function refreshPhoneOTP(data: { email: string }): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/refresh-otp/?medium=phone`, data)
 }
-function addPhoneToUser(data: { phone_number: string }): Promise<void> {
+function addPhoneToUser(data: {
+  phone_number: string
+  medium: string
+}): Promise<void> {
   return fetchWrapper.patch(`${baseUrl}/account_users/phone_number/`, data)
 }
 

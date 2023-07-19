@@ -33,19 +33,13 @@ export const VerifyEmailOTP = () => {
 
   const methods = useForm<OTPFormValues>({
     defaultValues: {
-      otp: [
-        { otp1: "" },
-        { otp2: "" },
-        { otp3: "" },
-        { otp4: "" },
-        { otp5: "" },
-      ],
+      otp: [{ otp1: "" }, { otp2: "" }, { otp3: "" }, { otp4: "" }],
     },
   })
 
   const onSubmit = async (data: OTPFormValues) => {
     const otp = {
-      otp: `${data.otp1}${data.otp2}${data.otp3}${data.otp4}${data.otp5}`,
+      otp: `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`,
     }
 
     if (!otp.otp) return
@@ -133,7 +127,7 @@ export const VerifyEmailOTP = () => {
                 className=' flex flex-col gap-8 '
               >
                 <div className='flex gap-[33px] justify-center  '>
-                  {Array.from({ length: 5 }, (_, index) => (
+                  {Array.from({ length: 4 }, (_, index) => (
                     <input
                       key={index}
                       type='number'
@@ -162,10 +156,9 @@ export const VerifyEmailOTP = () => {
                 {(methods.formState.errors.otp1 ||
                   methods.formState.errors.otp2 ||
                   methods.formState.errors.otp3 ||
-                  methods.formState.errors.otp4 ||
-                  methods.formState.errors.otp5) && (
+                  methods.formState.errors.otp4) && (
                   <span className=' text-center  text-error text-t-12  '>
-                    OTP is required and must be 5 digits
+                    OTP is required and must be digits
                   </span>
                 )}
 

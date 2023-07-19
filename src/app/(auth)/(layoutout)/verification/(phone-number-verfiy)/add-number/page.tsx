@@ -51,14 +51,16 @@ export default function PhoneNumber() {
   }
 
   const onSubmit = async (data: PhoneNumberFormProps) => {
-    console.log("login data", data)
+    const selectedMedia = sessionStorage.getItem("pesaOTP")
+    // console.log("login data", selectedMedia)
+
     try {
       dispatch(setLoadingTrue())
       const response = await userService.addPhoneToUser({
         phone_number: `+234${data.phone_number}`,
+        medium: selectedMedia as string,
       })
       console.log("response", response)
-      //   await userService.
       toast({
         title: "Phone number added successful",
         description: " ",
@@ -85,8 +87,6 @@ export default function PhoneNumber() {
         duration: 5000,
       })
     }
-
-    // Router.push('/verification/phone-number/verify-otp')
   }
 
   useEffect(() => {

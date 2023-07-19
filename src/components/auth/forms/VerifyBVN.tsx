@@ -50,6 +50,7 @@ export const VerifyBVN = () => {
         },
       })
       dispatch(setLoadingFalse())
+      Router.push("/verification/success")
     } catch (error) {
       toast({
         title: "Something Went Wrong",
@@ -120,10 +121,9 @@ export const VerifyBVN = () => {
 
                 <div className=' flex items-center justify-center   '>
                   <BtnMain
-                    btnStyle=' authBtn '
-                    className='  '
+                    btnStyle='authBtn px-[20px]'
                     btnText={"Verify BVN"}
-                    //   onClick={() => Router.push("/verification/bvn/success")}
+                    // onClick={() => Router.push("/verification/bvn/success")}
                   />
                 </div>
               </form>
