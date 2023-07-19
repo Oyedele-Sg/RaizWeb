@@ -1,7 +1,7 @@
 import { BehaviorSubject } from "rxjs"
 import { fetchWrapper } from "@/utils/fetchWrapper"
 import { URL } from "@/utils/constants"
-import { useRouter } from "next/navigation"
+import { useRouter, redirect } from "next/navigation"
 import {
   BankDataInterface,
   BankInterface,
@@ -58,8 +58,8 @@ function logout(): void {
   // remove user from local storage, publish null to user subscribers, and redirect to login page
   sessionStorage.removeItem("pesaToken")
   userSubject.next(null)
-  useRouter().push("/login")
-  // redirect("/login")
+  // useRouter().push("/login")
+  redirect("/login")
 }
 
 function signup(data: RegisterDataInterface): Promise<void> {

@@ -1,10 +1,9 @@
 import { ReactQueryProvider } from "@/shared"
 import "./globals.css"
-import { Inter } from "next/font/google"
 import React from "react"
 import { Toaster } from "@/components/ui/toaster"
 
-const inter = Inter({ subsets: ["latin"] })
+
 
 export const metadata = {
   title: "Create Next App",

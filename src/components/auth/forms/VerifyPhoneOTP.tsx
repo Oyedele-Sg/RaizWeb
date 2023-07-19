@@ -8,7 +8,7 @@ import {
 } from "@/shared"
 import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import { useRouter } from "next/navigation"
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { AuthStepper } from "../AuthStepper"
 import { userService } from "@/services"
 import { toast } from "@/components/ui/use-toast"
@@ -40,6 +40,42 @@ export const VerifyPhoneOTP = () => {
       otp: [{ otp1: "" }, { otp2: "" }, { otp3: "" }, { otp4: "" }],
     },
   })
+
+  const [countdown, setCountdown] = useState<number>(60)
+  console.log("countdown", countdown)
+  const countdownTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  const startCountdownTimer = () => {
+    setCountdown(60)
+
+    if (countdownTimerRef.current) {
+      clearInterval(countdownTimerRef.current)
+    }
+
+    countdownTimerRef.current = setInterval(() => {
+      setCountdown((prevCountdown) => prevCountdown - 1)
+    }, 1000)
+  }
+
+  useEffect(() => {
+    if (countdown === 0) {
+      clearInterval(countdownTimerRef.current!)
+    }
+  }, [countdown])
+
+  useEffect(() => {
+    if (countdown > 0) {
+      countdownTimerRef.current = setInterval(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1)
+      }, 1000)
+    }
+
+    return () => {
+      if (countdownTimerRef.current) {
+        clearInterval(countdownTimerRef.current)
+      }
+    }
+  }, [])
 
   const onSubmit = async (data: OTPFormValues) => {
     const otp = {
@@ -105,6 +141,12 @@ export const VerifyPhoneOTP = () => {
     }
   }
 
+  const formatTime = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins}:${secs.toString().padStart(2, "0")}`
+  }
+
   const handleResendOTP = async () => {
     try {
       dispatch(setLoadingTrue())
@@ -124,7 +166,9 @@ export const VerifyPhoneOTP = () => {
         },
         duration: 2000,
       })
+
       dispatch(setLoadingFalse())
+      startCountdownTimer()
     } catch (error) {
       toast({
         title: "Error",
@@ -208,6 +252,12 @@ export const VerifyPhoneOTP = () => {
                   </span>
                 )}
 
+                <span className=' text-center text-neutral-50  '>
+                  {countdown > 0
+                    ? `Resend OTP in ${formatTime(countdown)}`
+                    : ""}
+                </span>
+
                 <div className=' flex flex-col justify-center items-center  gap-8 '>
                   <div className=''>
                     <div className=' flex gap-12 '>
@@ -216,6 +266,7 @@ export const VerifyPhoneOTP = () => {
                         btnText={"Resend OTP"}
                         type='reset'
                         onClick={handleResendOTP}
+                        disabled={countdown > 0} // Disable the button during the countdown
                       />
                       <AuthButton
                         btnStyle='flex-1 w-full px-[42px] '

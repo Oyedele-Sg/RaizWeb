@@ -6,8 +6,8 @@ export const loginSchema = yup.object().shape({
     .string()
     .min(8, "Password must be at least 8 characters")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/,
-      "Password must have at least 1 uppercase letter, 1 lowercase letter, and 1 number and no special characters"
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*]{8,}$/,
+      "Password must have at least 1 uppercase letter, 1 lowercase letter, and 1 number  "
     )
     .required(),
 })
@@ -20,8 +20,8 @@ export const registerSchema = yup.object().shape({
     .string()
     .min(8, "Password must be at least 8 characters")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/,
-      "Password must have at least 1 uppercase letter, 1 lowercase letter, and 1 number and no special characters"
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*]{8,}$/,
+      "Password must have at least 1 uppercase letter, 1 lowercase letter, and 1 number "
     )
     .required(),
   user_type_id: yup.number().required(),

@@ -96,7 +96,7 @@ export default function PhoneNumber() {
   return (
     <>
       <Loading />
-      <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
+      <div className=' max-w-[502px] mx-auto flex flex-col gap-12 b  '>
         <div>
           <AuthStepper activeStep={1} />
         </div>
@@ -120,7 +120,7 @@ export default function PhoneNumber() {
               >
                 <PhoneNumberInput
                   name={`phone_number`}
-                  inputPlaceholder={`Phone Number`}
+                  inputPlaceholder={`8034 567 890`}
                   rules={{
                     required: "Phone number is required",
                     minLength: {
