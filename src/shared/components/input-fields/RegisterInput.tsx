@@ -4,7 +4,11 @@ import Image from "next/image"
 import React, { ReactNode } from "react"
 import { useFormContext, FieldValues, FieldError } from "react-hook-form"
 
-type RegisterInputProps = {
+interface RegisterInputProps
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {
   name: string
   label?: string
   type?: string
@@ -17,6 +21,7 @@ type RegisterInputProps = {
   children?: ReactNode
   childrenHandleClick?: () => void
   onchange?: () => void
+  disabled?: boolean
 }
 
 export const RegisterInput: React.FC<RegisterInputProps> = ({
@@ -32,6 +37,7 @@ export const RegisterInput: React.FC<RegisterInputProps> = ({
   children,
   childrenHandleClick,
   onchange,
+  disabled,
 }) => {
   const {
     register,
@@ -79,9 +85,10 @@ export const RegisterInput: React.FC<RegisterInputProps> = ({
             placeholder={inputPlaceholder}
             id={name}
             {...register(name as any, rules)}
-            disabled={isSubmitting}
             autoComplete='off'
             // onChange={onchange}
+
+            disabled={disabled}
           />
           {errors[name] && (
             <span className='error-message'>

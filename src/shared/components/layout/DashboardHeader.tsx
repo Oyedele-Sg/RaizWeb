@@ -4,8 +4,10 @@ import Image from "next/image"
 import React from "react"
 import { IconNotification, IconScan, IconSearch } from "../icons"
 import { userService } from "@/services"
+import { useRouter } from "next/navigation"
 
 export const DashboardHeader = () => {
+  const Router = useRouter()
   return (
     <header className=' ml-[144px] py-8 px-12 '>
       <div className=' flex items-center justify-between '>
@@ -30,7 +32,13 @@ export const DashboardHeader = () => {
             <IconNotification />
           </div>
 
-          <div className='' onClick={() => userService.logout()}>
+          <div
+            className=''
+            onClick={() => {
+              userService.logout()
+              Router.push(`/login`)
+            }}
+          >
             <Image
               src='/image/frame.png'
               width={48}

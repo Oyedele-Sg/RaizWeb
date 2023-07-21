@@ -3,7 +3,13 @@
 import { Header, StepperComponent } from "@/components"
 import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
-import { BtnMain, Loading, RegisterInput, SetupLayout } from "@/shared"
+import {
+  BtnMain,
+  Loading,
+  RegisterInput,
+  SetupLayout,
+  SkipLink,
+} from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
 import Image from "next/image"
@@ -18,21 +24,21 @@ import {
   UseFormRegister,
 } from "react-hook-form"
 import {
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-  } from "@/components/ui/form"
-  import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-  } from "@/components/ui/select"
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 interface UsernameInputProps extends Partial<FieldValues> {
   username: string
@@ -63,6 +69,7 @@ export default function Username() {
         },
       })
       Router.push("/profile/bank")
+      dispatch(setLoadingFalse())
     } catch (error) {
       dispatch(setLoadingFalse())
       toast({
@@ -94,6 +101,7 @@ export default function Username() {
 
       <SetupLayout bg='bg-profile-1'>
         <div className=' px-[60px]  py-[50px] flex flex-col justify-center gap-[112px] '>
+          <SkipLink link='/profile/bank' />
           <Header activeStep={0} />
 
           <div className=' bg-neutral-20 py-16 px-8 rounded-xl flex flex-col gap-[88px] '>

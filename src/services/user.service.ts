@@ -43,6 +43,7 @@ export const userService = {
   updateUsername,
   getBanks,
   addBank,
+  CreateWallet,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -58,8 +59,8 @@ function logout(): void {
   // remove user from local storage, publish null to user subscribers, and redirect to login page
   sessionStorage.removeItem("pesaToken")
   userSubject.next(null)
-  // useRouter().push("/login")
-  redirect("/login")
+
+  // redirect("/login")
 }
 
 function signup(data: RegisterDataInterface): Promise<void> {
@@ -144,4 +145,10 @@ function addBank(data: BankInputProps): Promise<void> {
     `${baseUrl}/account_users/withdrawal_accounts/`,
     data
   )
+}
+
+// wallet
+
+function CreateWallet(): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/account_users/wallets/`, {})
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import {
   CardTile,
   ExpenseTile,
@@ -5,6 +7,7 @@ import {
   RecentTransaction,
   SpendingTile,
 } from "@/components"
+import { useUser } from "@/hooks/user/useUser"
 import {
   BtnMain,
   IconAddCircle,
@@ -34,6 +37,10 @@ function page() {
       icon: "limit",
     },
   ]
+
+  const user = useUser()
+
+  console.log("user", user)
 
   return (
     <>

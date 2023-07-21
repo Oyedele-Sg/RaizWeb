@@ -1,4 +1,5 @@
 "use client"
+import { useUser } from "@/hooks/user/useUser"
 import { userService } from "@/services"
 import { DashboardMenuComponent, WhiteTileWrap } from "@/shared"
 import moment from "moment"
@@ -15,7 +16,7 @@ export function Menucard() {
     {
       name: "Top-up",
       icon: "add-circle",
-      link: "/send",
+      link: "/add-funds",
     },
     {
       name: "Request",
@@ -43,6 +44,8 @@ export function Menucard() {
     const response = await userService.getCurrentUser()
     console.log("response", response)
   }
+  const user = useUser()
+  console.log("user", user)
 
   useEffect(() => {
     getUserData()
@@ -59,13 +62,11 @@ export function Menucard() {
             alt='reaveal pesa wallet balance'
           />
           <span className=' font-title__medium    text-purple   '>
-            {" "}
-            Your Total Balance{" "}
+            Your Total Balance
           </span>
         </div>
         <h3 className=' font-display__medium font-semibold  gradient-text '>
-          {" "}
-          ₦800,201.50{" "}
+          ₦{user?.wallets[0]?.account_balance?.toLocaleString() || `0`}
         </h3>
         <div className=' font-label__large text-neutral-70  flex gap-2 items-center   '>
           <span> {moment().format("MMMM DD,YYYY")} </span>
