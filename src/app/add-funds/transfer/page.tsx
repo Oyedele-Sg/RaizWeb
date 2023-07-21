@@ -11,9 +11,10 @@ import {
   NextArrow,
   RegisterInput,
   SetupLayout,
+  UserInterface,
 } from "@/shared"
 import { useRouter } from "next/navigation"
-import React from "react"
+import React, { useEffect, useMemo } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
 interface TransferInputProps {
@@ -24,20 +25,31 @@ interface TransferInputProps {
 
 export default function page() {
   const Router = useRouter()
-  const user = useUser()
+  const user = useUser() as UserInterface
 
   const methods = useForm<TransferInputProps>({
     defaultValues: {
-      bank_name: `${user?.withdrawal_accounts[0].withdrawal_account_name}`,
-      account_number: `${user?.withdrawal_accounts[0].withdrawal_account_number}`,
-      beneficiary_name: "",
+      bank_name: ``,
+      account_number: ``,
+      beneficiary_name: ``,
     },
   })
+
+  //   console.log("user", user)
 
   const onSubmit = async (data: TransferInputProps) => {
     console.log("login data", data)
     Router.push("/profile-setup/bank/success")
   }
+
+  useMemo(() => {
+    methods.setValue("bank_name", `${user?.wallets[0].wallet_name}`)
+    methods.setValue(
+      "account_number",
+      `${user?.wallets[0]?.}`
+    )
+    methods.setValue("beneficiary_name", `${user?.wallets[0].wallet_name}`)
+  }, [user])
 
   return (
     <div>
