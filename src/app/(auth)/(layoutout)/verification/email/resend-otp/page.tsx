@@ -70,9 +70,9 @@ export default function WrongMail() {
     <>
       <Loading />
       <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
-        <div>
+        {/* <div>
           <AuthStepper activeStep={0} />
-        </div>
+        </div> */}
 
         <div className=' flex flex-col gap-[80px] '>
           <div className=' text-center flex flex-col gap-2   '>

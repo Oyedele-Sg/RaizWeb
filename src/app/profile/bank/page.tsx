@@ -36,7 +36,7 @@ export default function Bank() {
           ) : (
             <AddBankSuccess
               addFunc={() => Router.push("/profile/bank/add-more")}
-              cancelFunc={() => {}}
+              cancelFunc={() => Router.push("/profile/bank/saved-list")}
             />
           )}
         </div>

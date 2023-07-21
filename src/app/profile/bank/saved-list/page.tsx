@@ -2,9 +2,11 @@
 import { Header, InputContainer } from "@/components"
 import { useUser } from "@/hooks/user/useUser"
 import { BtnMain, IconCloseCircle, SetupLayout } from "@/shared"
+import { useRouter } from "next/navigation"
 import React from "react"
 
 export default function page() {
+  const Router = useRouter()
   const user = useUser()
   console.log("user", user)
   return (
@@ -19,7 +21,10 @@ export default function page() {
               <h2 className=' text-purple  '>Saved Account Number</h2>
               <hr className=' bg-neutral-30  w-[125px] h-[2px] ' />
             </div>
-            <div className=' '>
+            <div
+              className=' cursor-pointer  '
+              onClick={() => Router.push(`/dashboard`)}
+            >
               <IconCloseCircle />
             </div>
           </div>
