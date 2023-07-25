@@ -10,13 +10,9 @@ import {
 import { useUser } from "@/hooks/user/useUser"
 import {
   BtnMain,
-  IconAddCircle,
-  IconMore,
   TimelineSelect,
   WhiteTileWrap,
 } from "@/shared"
-import { time } from "console"
-import Image from "next/image"
 import React from "react"
 
 function page() {

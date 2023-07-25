@@ -5,11 +5,14 @@ import { useRouter, redirect } from "next/navigation"
 import {
   BankDataInterface,
   BankInterface,
+  ExpenseChartInterface,
   LoginDataInterface,
   RegisterDataInterface,
+  TransactiontDataInterface,
   UserInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
+import { createSearchParams } from "@/utils/helpers"
 
 const baseUrl = `${URL}`
 const storedUser =
@@ -44,6 +47,8 @@ export const userService = {
   getBanks,
   addBank,
   CreateWallet,
+  getRecentTransactions,
+  getExpenseChart,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -151,4 +156,39 @@ function addBank(data: BankInputProps): Promise<void> {
 
 function CreateWallet(): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/account_users/wallets/`, {})
+}
+
+// charts and graphs
+export interface getRecentTransParams {
+  start_date?: Date
+  end_date?: Date
+  limit?: number
+  offset?: number
+}
+function getRecentTransactions(
+  start_date?: Date,
+  end_date?: Date,
+  limit?: number,
+  offset?: number
+): Promise<TransactiontDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/account_users/recent-transactions/?${createSearchParams({
+      start_date,
+      end_date,
+      limit,
+      offset,
+    })}`
+  )
+}
+
+function getExpenseChart(
+  start_date?: Date,
+  end_date?: Date
+): Promise<ExpenseChartInterface> {
+  return fetchWrapper.get(
+    `${baseUrl}/account_users/spend-chart/?${createSearchParams({
+      start_date,
+      end_date,
+    })}`
+  )
 }

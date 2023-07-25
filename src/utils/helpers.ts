@@ -13,3 +13,26 @@ export function removeDuplicateObjects(banks: BankInterface[]): any[] {
 
   return uniqueBanks
 }
+
+interface Params {
+  [key: string]: any
+}
+
+export function createSearchParams(params: Params): URLSearchParams {
+  const searchParams = new URLSearchParams()
+
+  Object.keys(params).forEach((param) => {
+    const value = params[param]
+    if (value) {
+      if (Array.isArray(value)) {
+        value.forEach((item) => {
+          searchParams.append(param, item)
+        })
+      } else {
+        searchParams.append(param, value)
+      }
+    }
+  })
+
+  return searchParams
+}

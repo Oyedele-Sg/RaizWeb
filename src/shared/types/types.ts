@@ -94,3 +94,63 @@ export interface BankInterface {
 export interface BankDataInterface {
   banks: BankInterface[]
 }
+
+export interface PaymentMethodInterface {
+  payment_method: string
+  description: string
+  payment_method_id: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface TransactiontTypeInterface {
+  transaction_type: string
+  description: string
+  transaction_type_id: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface TransactiontStatusInterface {
+  status: string
+  description: string
+  transfer_status_id: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface TransactiontDataInterface {
+  transaction_amount: string
+  currency: string
+  transaction_remarks: string
+  transaction_reference: string
+  transaction_date_time: string
+  fee_amount: number
+  vat_amount: number
+  payment_method_id: number
+  transaction_description: string
+  transaction_id: string
+  transaction_status_id: number
+  third_party_name: string
+  account_user_id: string
+  transaction_type_id: number
+  transaction_report_id: string
+  created_at: Date
+  updated_at: Date
+  active: boolean
+  transaction_status: TransactiontStatusInterface
+  transaction_type: TransactiontTypeInterface
+  payment_method: PaymentMethodInterface
+}
+
+export interface ExpenseChartDataInterface {
+  category_name: string
+  total_amount: number
+  percentage: number
+}
+
+export interface ExpenseChartInterface {
+  chart_data: ExpenseChartDataInterface[]
+  start_date: Date
+  end_date: Date
+}
