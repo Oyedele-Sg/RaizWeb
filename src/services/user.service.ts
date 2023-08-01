@@ -12,6 +12,7 @@ import {
   TransactiontDataInterface,
   UserInterface,
   UserSearchInterface,
+  TransactionPinInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -53,6 +54,7 @@ export const userService = {
   getExpenseChart,
   getIncomeSummary,
   searchWallets,
+  addTransactionPin,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -156,6 +158,10 @@ function addBank(data: BankInputProps): Promise<void> {
   )
 }
 
+function addTransactionPin(data: TransactionPinInterface): Promise<void> {
+  return fetchWrapper.patch(`${baseUrl}/account_users/transaction-pin/`, data)
+}
+
 // wallet
 
 function CreateWallet(): Promise<void> {
@@ -214,4 +220,3 @@ function searchWallets(query?: string): Promise<UserSearchInterface> {
     `${baseUrl}/account_users/search/wallets/?search=${query || ""}`
   )
 }
-
