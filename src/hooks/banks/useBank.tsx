@@ -4,8 +4,7 @@ import { userService } from "@/services"
 import { BankDataInterface, UserInterface, queryKeys } from "@/shared"
 
 async function getBanks(): Promise<BankDataInterface> {
-  const response = await userService.getBanks()
-  console.log("banks", response)
+  const response = await userService.getBanks()("banks", response)
   return response
 }
 

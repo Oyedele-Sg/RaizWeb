@@ -5,7 +5,7 @@ import React from "react"
 interface Props {
   data: {
     type: string
-    amount: number
+    amount: number | undefined
     icon: string
   }
   style: string

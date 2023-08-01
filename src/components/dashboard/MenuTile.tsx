@@ -40,16 +40,7 @@ export function Menucard() {
     },
   ]
 
-  const getUserData = async () => {
-    const response = await userService.getCurrentUser()
-    console.log("response", response)
-  }
   const user = useUser()
-  console.log("user", user)
-
-  useEffect(() => {
-    getUserData()
-  }, [])
 
   return (
     <WhiteTileWrap extraStyle='  p-8 pb-[35px] flex flex-col gap-12 h-[30.1875rem] '>

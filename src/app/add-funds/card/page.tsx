@@ -40,7 +40,7 @@ export default function page() {
   })
 
   const onSubmit = async (data: TransferInputProps) => {
-    console.log("login data", data)
+    "login data", data
     Router.push("/profile-setup/bank/success")
   }
 

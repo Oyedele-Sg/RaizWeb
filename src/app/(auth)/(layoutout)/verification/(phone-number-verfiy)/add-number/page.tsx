@@ -52,15 +52,14 @@ export default function PhoneNumber() {
 
   const onSubmit = async (data: PhoneNumberFormProps) => {
     const selectedMedia = sessionStorage.getItem("pesaOTP")
-    // console.log("login data", selectedMedia)
+    // ("login data", selectedMedia)
 
     try {
       dispatch(setLoadingTrue())
       const response = await userService.addPhoneToUser({
         phone_number: `+234${data.phone_number}`,
         medium: selectedMedia === "phone" ? "sms" : (selectedMedia as string),
-      })
-      console.log("response", response)
+      })("response", response)
       toast({
         title: "Phone number added successful",
         description: " ",

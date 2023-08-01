@@ -26,17 +26,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { formatDateToISOString } from "@/utils/helpers"
 
 export const RecentTransaction = () => {
   const [transactions, setTransactions] =
     React.useState<TransactiontDataInterface[]>()
   const [date, setDate] = React.useState<Date>()
+  console.log("date", date)
+
+  const currentDate = new Date()
+  console.log("curent", formatDateToISOString(currentDate))
 
   const data = async () => {
     try {
-      const res = await userService.getRecentTransactions()
-      console.log("res", res)
-
+      const res = await userService.getRecentTransactions(
+        undefined,
+        formatDateToISOString(currentDate)
+      )
       setTransactions(res)
     } catch (error) {
       toast({
@@ -53,15 +59,13 @@ export const RecentTransaction = () => {
     }
   }
 
-  console.log("transactions", transactions)
-
   useEffect(() => {
     data()
   }, [])
   return (
     <>
       <Loading />
-      <WhiteTileWrap extraStyle=' p-8 h-full  flex flex-col gap-[54px] '>
+      <WhiteTileWrap extraStyle=' p-8 h-full  flex flex-col gap-[54px] max-h-[400px] '>
         <div className=' flex items-center justify-between '>
           <h3 className=' text-neutral-100 font-title__medium   '>
             Recent Transactions
@@ -100,10 +104,10 @@ export const RecentTransaction = () => {
                 <Calendar mode='single' selected={date} onSelect={setDate} />
               </div>
             </PopoverContent>
-    \      </Popover>
+          </Popover>
         </div>
         {transactions ? (
-          <div className=' flex flex-col gap-8  '>
+          <div className=' flex flex-col gap-8  overflow-auto '>
             {transactions.map((transaction, index) => (
               <div key={index} className=' flex justify-between items-center '>
                 <div className=' flex flex-col gap-1  '>

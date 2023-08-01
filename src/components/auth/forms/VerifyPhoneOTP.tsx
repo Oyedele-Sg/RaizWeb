@@ -41,8 +41,7 @@ export const VerifyPhoneOTP = () => {
     },
   })
 
-  const [countdown, setCountdown] = useState<number>(60)
-  console.log("countdown", countdown)
+  const [countdown, setCountdown] = useState<number>(60)("countdown", countdown)
   const countdownTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   const startCountdownTimer = () => {
@@ -84,7 +83,7 @@ export const VerifyPhoneOTP = () => {
 
     if (!otp.otp) return
 
-    console.log("otp", otp)
+    "otp", otp
 
     try {
       dispatch(setLoadingTrue())

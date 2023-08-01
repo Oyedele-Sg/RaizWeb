@@ -42,7 +42,7 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
   })
 
   const onSubmit = async (data: BankInputProps) => {
-    console.log("login data", data)
+    "login data", data
     if (data.bank_name === "" || data.bank_code === "") {
       toast({
         title: "Something Went Wrong",
@@ -122,11 +122,10 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
 
               <Select
                 onValueChange={(value) => {
-                  console.log("value", value)
+                  "value", value
                   const selectedBank = banks.find(
                     (bank) => bank.bankName === value
-                  )
-                  console.log("selectedBank", selectedBank)
+                  )("selectedBank", selectedBank)
                   // @ts-ignore
                   methods.setValue("bank_name", selectedBank.bankName)
                   // @ts-ignore
@@ -147,7 +146,7 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
                       value={bank.bankName}
                       className=' hover:bg-neutral-50'
                       onClick={(value) => {
-                        console.log("value", value)
+                        "value", value
                         methods.setValue("bank_name", bank.bankName)
                         methods.setValue("bank_code", bank.bankCode)
                       }}

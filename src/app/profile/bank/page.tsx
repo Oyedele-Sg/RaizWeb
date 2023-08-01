@@ -1,5 +1,4 @@
 "use client"
-
 import { AddBankSuccess, Header, StepperComponent } from "@/components"
 import AddBankForm from "@/components/profile-setup/AddBankForm"
 import { useBank } from "@/hooks/banks/useBank"
@@ -21,7 +20,7 @@ export default function Bank() {
   const [success, setSuccess] = useState<boolean>(false)
 
   // const banks = useBank()
-  // console.log("bamks", banks)
+  // ("bamks", banks)
 
   return (
     <>

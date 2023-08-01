@@ -110,7 +110,7 @@ function handleResponse<T>(response: Response): Promise<T> {
     const data = text && JSON.parse(text)
     if (!response.ok) {
       if ([401].includes(response.status) && userService.userValue) {
-        console.log("401", response.status)
+        "401", response.status
         // verifyToken()
         // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
 
@@ -127,8 +127,8 @@ function handleResponse<T>(response: Response): Promise<T> {
 
 async function verifyToken(): Promise<void> {
   // Implement the logic to verify the token using userService.verifyAuthToken
-  // You can replace the console.log statements with your actual verification logic
-  // console.log("Verifying token:", data.token)
+  // You can replace the  statements with your actual verification logic
+  // ("Verifying token:", data.token)
 
   try {
     const response = await userService.verifyAuthToken({

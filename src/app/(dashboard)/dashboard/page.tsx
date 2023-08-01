@@ -3,40 +3,19 @@
 import {
   CardTile,
   ExpenseTile,
+  IncomeSummary,
   Menucard,
   RecentTransaction,
   SpendingTile,
 } from "@/components"
 import { useUser } from "@/hooks/user/useUser"
-import {
-  BtnMain,
-  TimelineSelect,
-  WhiteTileWrap,
-} from "@/shared"
+import { BtnMain, TimelineSelect, WhiteTileWrap } from "@/shared"
+import { useRouter } from "next/navigation"
 import React from "react"
 
 function page() {
-  const spendingTrackingData = [
-    {
-      type: "income",
-      amount: 10000,
-      icon: "income",
-    },
-    {
-      type: "spending",
-      amount: 10000,
-      icon: "spending",
-    },
-    {
-      type: "spending limit",
-      amount: 10000,
-      icon: "limit",
-    },
-  ]
-
   const user = useUser()
-
-  console.log("user", user)
+  const Router = useRouter()
 
   return (
     <>
@@ -46,15 +25,7 @@ function page() {
         </div>
         <div className='  grid grid-cols-[1fr_218px] gap-6 h-[30.1875rem]   '>
           <div className=' grid grid-rows-[1fr_2fr] gap-6   '>
-            <div className='  flex gap-8  '>
-              {spendingTrackingData.map((data, index) => (
-                <SpendingTile
-                  key={index}
-                  data={data}
-                  style={index === 2 ? "basis-[150px]" : "basis-[120px]"}
-                />
-              ))}
-            </div>
+            <IncomeSummary />
             <div className=''>
               <WhiteTileWrap extraStyle=' pt-8  pb-[22px] px-[34px] h-full flex flex-col gap-6  '>
                 <div className=' flex justify-between items-center  '>
@@ -65,6 +36,7 @@ function page() {
                   <BtnMain
                     btnText=' Top-Up '
                     btnStyle=' py-2 px-4 bg-purple text-grey rounded-lg font-label__large  '
+                    onClick={() => Router.push("/add-funds")}
                   />
                 </div>
               </WhiteTileWrap>

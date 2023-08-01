@@ -52,7 +52,7 @@ export default function Username() {
   const [success, setSuccess] = useState(false)
 
   const onSubmit = async (data: BankInputProps) => {
-    console.log("login data", data)
+    "login data", data
     Router.push("/profile-setup/bank/success")
   }
   return (

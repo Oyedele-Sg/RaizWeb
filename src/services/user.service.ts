@@ -6,10 +6,12 @@ import {
   BankDataInterface,
   BankInterface,
   ExpenseChartInterface,
+  IncomeSummarytDataInterface,
   LoginDataInterface,
   RegisterDataInterface,
   TransactiontDataInterface,
   UserInterface,
+  UserSearchInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -49,12 +51,14 @@ export const userService = {
   CreateWallet,
   getRecentTransactions,
   getExpenseChart,
+  getIncomeSummary,
+  searchWallets,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/login/`, data).then((user: any) => {
     // publish user to subscribers and store in local storage to stay logged in between page refreshes
-    console.log("user", user)
+
     userSubject.next(user)
     sessionStorage.setItem("pesaToken", JSON.stringify(user))
   })
@@ -121,7 +125,7 @@ function refreshAuthToken(data: { token: string }): Promise<void> {
     .post(`${baseUrl}/auth/refresh-token/`, data)
     .then((user: any) => {
       // publish user to subscribers and store in local storage to stay logged in between page refreshes
-      // console.log("user", user)
+      // ("user", user)
       userSubject.next(user)
       sessionStorage.setItem("pesaToken", JSON.stringify(user))
     })
@@ -166,8 +170,8 @@ export interface getRecentTransParams {
   offset?: number
 }
 function getRecentTransactions(
-  start_date?: Date,
-  end_date?: Date,
+  start_date?: string,
+  end_date?: string,
   limit?: number,
   offset?: number
 ): Promise<TransactiontDataInterface[]> {
@@ -192,3 +196,22 @@ function getExpenseChart(
     })}`
   )
 }
+
+function getIncomeSummary(
+  start_date?: Date,
+  end_date?: Date
+): Promise<IncomeSummarytDataInterface> {
+  return fetchWrapper.get(
+    `${baseUrl}/account_users/income-summary/?${createSearchParams({
+      start_date,
+      end_date,
+    })}`
+  )
+}
+
+function searchWallets(query?: string): Promise<UserSearchInterface> {
+  return fetchWrapper.get(
+    `${baseUrl}/account_users/search/wallets/?search=${query || ""}`
+  )
+}
+

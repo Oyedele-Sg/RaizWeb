@@ -6,6 +6,7 @@ import { useUser } from "@/hooks/user/useUser"
 import {
   AuthButton,
   BackArrow,
+  BackBtnCircle,
   FormTitledContainer,
   IconCopy,
   IconPesaColored,
@@ -40,10 +41,7 @@ export default function page() {
     },
   })
 
-  console.log("user", user)
-
   const onSubmit = async (data: TransferInputProps) => {
-    console.log("login data", data)
     try {
       dispatch(setLoadingTrue())
       setTimeout(() => {
@@ -56,11 +54,12 @@ export default function page() {
             color: "#fff",
           },
         })
+        dispatch(setLoadingFalse())
+
         Router.push("/dashboard")
       }, 3000)
     } catch (error) {
       dispatch(setLoadingFalse())
-
       toast({
         title: "Something Went Wrong",
         description: `${error}`,
@@ -84,7 +83,7 @@ export default function page() {
   //   methods.setValue("beneficiary_name", beneficiaryName)
   //   methods.setValue("bank_name", bankName)
   //   methods.setValue("account_number", accountNumber)
-  //   console.log("user EFFFECT", user)
+  //   ("user EFFFECT", user)
 
   //   // if (user) {
   //   //   methods.setValue("beneficiary_name", `${user?.wallets[0].wallet_name}`)
@@ -103,10 +102,8 @@ export default function page() {
 
             <div className=' flex flex-col gap-3 '>
               <div className=''>
-                <button className=''>
-                  <BackArrow />
-                </button>
-                <button className=''>
+               <BackBtnCircle />
+                <button title='next' className=''>
                   <NextArrow />
                 </button>
               </div>

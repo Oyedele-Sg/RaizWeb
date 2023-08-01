@@ -7,8 +7,7 @@ import React from "react"
 
 export default function page() {
   const Router = useRouter()
-  const user = useUser()
-  console.log("user", user)
+  const user = useUser()("user", user)
   return (
     <SetupLayout bg='bg-profile-1'>
       <div className=' pr-[107px]  pl-[60px] flex flex-col gap-[88px]  '>

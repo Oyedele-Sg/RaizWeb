@@ -406,3 +406,14 @@ input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
   appearance: textfield; /* Standard */
 }
+
+*::-webkit-scrollbar {
+  background: #d7d7d7;
+  border-radius: 5px;
+  width: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #cebfdd;
+  border-radius: 4px;
+}

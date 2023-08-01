@@ -44,7 +44,7 @@ export const VerifyEmailOTP = () => {
 
     if (!otp.otp) return
 
-    console.log("otp", otp)
+    "otp", otp
 
     try {
       dispatch(setLoadingTrue())

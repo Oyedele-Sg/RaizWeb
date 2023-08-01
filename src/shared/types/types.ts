@@ -154,3 +154,37 @@ export interface ExpenseChartInterface {
   start_date: Date
   end_date: Date
 }
+
+export interface IncomeSummarytDataInterface {
+  total_income: number
+  total_expense: number
+  total_balance: number
+  income_in_a_period: number
+  expense_in_a_period: number
+  balance_in_a_period: number
+  start_date: Date
+  end_date: Date
+}
+
+export interface UserSearchInterface {
+  account_user_id: string
+  first_name: string
+  last_name: string
+  username: string
+}
+
+export interface DebitTransferInterface {
+  receiver_account_user_id: string
+  transaction_amount: number
+  transaction_remarks: string
+  category_id: number
+}
+
+export interface TransactionPinInterface {
+  transaction_pin: string
+}
+
+export interface InternalDebitDataInterface {
+  debit_transfer: DebitTransferInterface
+  transaction_pin: TransactionPinInterface
+}

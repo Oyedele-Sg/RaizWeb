@@ -56,7 +56,7 @@ export default function Username() {
   })
 
   const onSubmit = async (data: UsernameInputProps) => {
-    console.log("login data", data)
+    "login data", data
     try {
       dispatch(setLoadingTrue())
       await userService.updateUsername(data)
@@ -87,8 +87,7 @@ export default function Username() {
   }
 
   const getData = async () => {
-    const response = await userService.getBanks()
-    console.log("response", response)
+    const response = await userService.getBanks()("response", response)
   }
 
   useEffect(() => {
