@@ -56,7 +56,6 @@ export default function Username() {
   })
 
   const onSubmit = async (data: UsernameInputProps) => {
-   
     try {
       dispatch(setLoadingTrue())
       await userService.updateUsername(data)
@@ -68,7 +67,7 @@ export default function Username() {
           color: "#fff",
         },
       })
-      Router.push("/profile/bank")
+      Router.push("/profile/create-pin")
       dispatch(setLoadingFalse())
     } catch (error) {
       dispatch(setLoadingFalse())

@@ -29,7 +29,7 @@ export default function Bank() {
       <SetupLayout bg='bg-profile-1'>
         <div className=' px-[60px]  pt-[50px] flex flex-col gap-[70px] '>
           <SkipLink link='/profile/bank/saved-list' />
-          <Header activeStep={1} />
+          <Header activeStep={2} />
           {!success ? (
             <AddBankForm setSuccess={setSuccess} />
           ) : (

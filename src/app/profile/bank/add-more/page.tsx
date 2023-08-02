@@ -52,7 +52,6 @@ export default function Username() {
   const [success, setSuccess] = useState(false)
 
   const onSubmit = async (data: BankInputProps) => {
-    "login data", data
     Router.push("/profile-setup/bank/success")
   }
   return (
@@ -64,7 +63,7 @@ export default function Username() {
             Skip
           </Link>{" "}
         </div>
-        <Header activeStep={2} />
+        <Header activeStep={3} />
 
         {!success ? (
           <AddBankForm setSuccess={setSuccess} add />

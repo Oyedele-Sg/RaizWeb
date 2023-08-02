@@ -53,7 +53,7 @@ export default function TransactionPin() {
   const Router = useRouter()
   const dispatch = useAppDispatch()
 
-  const otpInputRefs = useRef<Array<HTMLInputElement | null>>([])
+  const pinInputRefs = useRef<Array<HTMLInputElement | null>>([])
   const OTPPreference =
     typeof sessionStorage !== "undefined"
       ? sessionStorage.getItem("pesaOTP")
@@ -66,69 +66,30 @@ export default function TransactionPin() {
     },
   })
 
-  const [success, setSuccess] = useState<boolean>(false)
-  const handleResendOTP = async () => {
-    try {
-      dispatch(setLoadingTrue())
-      OTPPreference === "phone"
-        ? await userService.refreshPhoneOTP({
-            email: user?.email as string,
-          })
-        : await userService.refreshVoiceOTP({
-            email: user?.email as string,
-          })
-      toast({
-        title: " OTP Resent",
-        description: " OTP has been resent to your phone number.",
-        style: {
-          backgroundColor: "#4B0082",
-          color: "#fff",
-        },
-        duration: 2000,
-      })
-
-      dispatch(setLoadingFalse())
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: `${error}`,
-        variant: "destructive",
-        style: {
-          backgroundColor: "#f44336",
-          color: "#fff",
-          top: "20px",
-          right: "20px",
-        },
-      })
-      dispatch(setLoadingFalse())
-    }
-  }
+ 
 
   const onSubmit = async (data: OTPFormValues) => {
-    const otp = {
-      otp: `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`,
+    const pin = {
+      transaction_pin: `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`,
     }
 
-    if (!otp.otp) return
+    if (!pin.transaction_pin) return
 
     try {
       dispatch(setLoadingTrue())
+      await userService.addTransactionPin(pin)
 
       toast({
-        title: " Verifiction Sucessful",
-        description: "Your phone number has been sucessfully verified. ",
+        title: " Transaction Pin Created",
+
         style: {
           backgroundColor: "#4B0082",
           color: "#fff",
         },
         duration: 2000,
       })
-      setTimeout(() => {
-        methods.reset()
-        dispatch(setLoadingFalse())
-
-        setSuccess(true)
-      }, 1000)
+      Router.push("/profile/bank")
+      dispatch(setLoadingFalse())
     } catch (error) {
       dispatch(setLoadingFalse())
 
@@ -147,18 +108,18 @@ export default function TransactionPin() {
   }
 
   const handleInputChange = (index: number) => {
-    const currentValue = otpInputRefs.current[index]?.value
-    const prevValue = otpInputRefs.current[index - 1]?.value
+    const currentValue = pinInputRefs.current[index]?.value
+    const prevValue = pinInputRefs.current[index - 1]?.value
 
     if (currentValue && currentValue.length === 1) {
-      if (index < otpInputRefs.current.length - 1) {
-        otpInputRefs.current[index + 1]?.focus()
+      if (index < pinInputRefs.current.length - 1) {
+        pinInputRefs.current[index + 1]?.focus()
       } else {
-        otpInputRefs.current[index]?.blur()
+        pinInputRefs.current[index]?.blur()
         // Submit OTP or perform the desired action here
       }
     } else if (!currentValue && prevValue) {
-      otpInputRefs.current[index - 1]?.focus()
+      pinInputRefs.current[index - 1]?.focus()
     }
   }
 
@@ -194,7 +155,7 @@ export default function TransactionPin() {
                             : ""
                         }`}
                         ref={(ref) => {
-                          otpInputRefs.current[index] = ref
+                          pinInputRefs.current[index] = ref
                         }}
                         onChange={(event) => {
                           const { value } = event.target

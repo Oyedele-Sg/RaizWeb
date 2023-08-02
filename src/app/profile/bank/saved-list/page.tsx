@@ -1,18 +1,18 @@
 "use client"
 import { Header, InputContainer } from "@/components"
 import { useUser } from "@/hooks/user/useUser"
-import { BtnMain, IconCloseCircle, SetupLayout } from "@/shared"
+import { AuthButton, BtnMain, IconCloseCircle, SetupLayout } from "@/shared"
 import { useRouter } from "next/navigation"
 import React from "react"
 
 export default function page() {
   const Router = useRouter()
-  const user = useUser()("user", user)
+  const user = useUser()
   return (
     <SetupLayout bg='bg-profile-1'>
       <div className=' pr-[107px]  pl-[60px] flex flex-col gap-[88px]  '>
         <div className=' mt-[180px]'>
-          <Header activeStep={3} />
+          <Header activeStep={4} />
         </div>
         <InputContainer>
           <div className=' flex justify-between items-center  '>
@@ -56,6 +56,14 @@ export default function page() {
             </div>
           ))}
         </InputContainer>
+
+        <div className=' flex items-center  justify-center '>
+          <AuthButton
+            btnText='Done'
+            btnStyle=' px-[100px] '
+            onClick={() => Router.push(`/dashboard`)}
+          />
+        </div>
       </div>
     </SetupLayout>
   )
