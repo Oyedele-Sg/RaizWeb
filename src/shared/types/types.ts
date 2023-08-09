@@ -188,3 +188,23 @@ export interface InternalDebitDataInterface {
   debit_transfer: DebitTransferInterface
   transaction_pin: TransactionPinInterface
 }
+
+export interface CategoryDataInterface {
+  category_id: 0
+  category_name: string
+  created_at: string
+  updated_at: string
+}
+
+export interface ExternalDebitTransferInterface {
+  beneficiary_account_name: string
+  beneficiary_account_number: string
+  transaction_amount: string
+  narration: string
+  beneficiary_bank_code: string
+}
+
+export interface ExternalDebitDataInterface {
+  debit_transfer: ExternalDebitTransferInterface
+  transaction_pin: TransactionPinInterface
+}

@@ -21,7 +21,7 @@ export const ExpenseTile = () => {
   const data = async () => {
     try {
       const res = await userService.getExpenseChart()
-      console.log("expense", res)
+     
       setChartData(res)
     } catch (error) {
       toast({
@@ -38,7 +38,7 @@ export const ExpenseTile = () => {
     }
   }
 
-  // console.log("transactions", transactions)
+  
 
   useEffect(() => {
     data()

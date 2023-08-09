@@ -44,8 +44,6 @@ export const VerifyEmailOTP = () => {
 
     if (!otp.otp) return
 
-    "otp", otp
-
     try {
       dispatch(setLoadingTrue())
       await userService.verifyEmail(otp)
@@ -82,13 +80,18 @@ export const VerifyEmailOTP = () => {
   }
 
   const handleInputChange = (index: number) => {
-    if (otpInputRefs.current[index]?.value.length === 1) {
+    const currentValue = otpInputRefs.current[index]?.value
+    const prevValue = otpInputRefs.current[index - 1]?.value
+
+    if (currentValue && currentValue.length === 1) {
       if (index < otpInputRefs.current.length - 1) {
         otpInputRefs.current[index + 1]?.focus()
       } else {
         otpInputRefs.current[index]?.blur()
         // Submit OTP or perform the desired action here
       }
+    } else if (!currentValue && prevValue) {
+      otpInputRefs.current[index - 1]?.focus()
     }
   }
 
@@ -101,12 +104,14 @@ export const VerifyEmailOTP = () => {
           title='Email Verified Successfully'
           description='Your email has been sucessfully verified and your account is created.'
           btnLink='/login'
+          email
         />
       ) : (
         <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
-          <div>
+          {/* comment out stepper component */}
+          {/* <div>
             <AuthStepper activeStep={0} />
-          </div>
+          </div> */}
 
           <div className=' px-[35px] flex flex-col gap-[80px] '>
             <div className=' text-center flex flex-col gap-2   '>

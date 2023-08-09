@@ -1,48 +1,52 @@
-"use client"
-import { InputContainer } from "@/components"
-import { ComponentOne, ComponentThree, ComponentTwo } from "@/components/send"
-import { Toast } from "@/components/ui/toast"
-import { toast } from "@/components/ui/use-toast"
-import { useUser } from "@/hooks/user/useUser"
-import { userService } from "@/services"
-import { Loading, UserInterface, UserSearchInterface } from "@/shared"
-import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
-import { useAppDispatch } from "@/shared/redux/types"
-import { useRouter } from "next/navigation"
-import React, { useState, useEffect, useMemo } from "react"
-import { FormProvider, useForm } from "react-hook-form"
-
-interface TransferInputProps {
-  phone_number: string
-}
+import { AddFundsCard, BtnMain, IconPesaColored, Logo } from "@/shared"
+import Image from "next/image"
+import React from "react"
 
 export default function page() {
-  const Router = useRouter()
-  const user = useUser() as UserInterface
-  const dispatch = useAppDispatch()
-
-  const [searchResults, setSearchResults] = useState<UserSearchInterface>()
-
-  const methods = useForm<TransferInputProps>({
-    values: {
-      phone_number: "",
+  const cardLink = [
+    {
+      type: "Wallet-to-Wallet",
+      illustration: "fund-one",
+      subText: " Send funds to another user on Pesa ",
+      link: "/send/wallet-transfer",
     },
-  })
-
-  const [currentStep, setCurrentStep] = useState(3)
-
-  const onNext = (step: number) => {
-    setCurrentStep(step) // Update this with the correct step number
-  }
+    {
+      type: "External Transfers",
+      illustration: "fund-two",
+      subText: " Send Funds to external bank accounts   ",
+      link: "/send/external-transfer",
+    },
+  ]
 
   return (
-    <>
-      <Loading />
-      {currentStep === 1 && (
-        <ComponentOne setSearchResults={setSearchResults} onNext={onNext} />
-      )}
-      {currentStep === 2 && <ComponentTwo searchResult={searchResults} />}
-      {currentStep === 3 && <ComponentThree />}
-    </>
+    <main className=' flex flex-col  gap-[100px]'>
+      <header className=' flex  items-center justify-between pt-16  mx-[72px] '>
+        <IconPesaColored />
+
+        <Image
+          src={`/patterns/add-funds-header-pattern.svg`}
+          width={234}
+          height={48}
+          alt=''
+        />
+      </header>
+
+      <section className=' flex flex-col items-center justify-center  gap-6 '>
+        <div className=''>
+          <h1 className=' font-display__medium text-purple text-center '>
+            Send Funds
+          </h1>
+          {/* <p className=' font-title__large text-neutral-70 text-center '>
+            Debit Card {"  "} Bank Transfer
+          </p> */}
+        </div>
+
+        <div className=' flex gap-12   p-16 bg-neutral-30 rounded-lg   '>
+          {cardLink.map((data, index) => (
+            <AddFundsCard data={data} key={index} />
+          ))}
+        </div>
+      </section>
+    </main>
   )
 }

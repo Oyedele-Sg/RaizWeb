@@ -110,7 +110,7 @@ function handleResponse<T>(response: Response): Promise<T> {
     const data = text && JSON.parse(text)
     if (!response.ok) {
       if ([401].includes(response.status) && userService.userValue) {
-        "401", response.status
+      
         // verifyToken()
         // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
 

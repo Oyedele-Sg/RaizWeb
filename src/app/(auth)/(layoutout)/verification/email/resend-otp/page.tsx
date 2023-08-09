@@ -32,7 +32,7 @@ export default function WrongMail() {
   const onSubmit = async (data: WrongEmailFormProps) => {
     try {
       dispatch(setLoadingTrue())
-      const response = await userService.resendEmail(data)("response", response)
+      const response = await userService.resendEmail(data)
       methods.reset()
       toast({
         title: " OTP Sent",

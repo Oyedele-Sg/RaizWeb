@@ -59,7 +59,7 @@ export default function PhoneNumber() {
       const response = await userService.addPhoneToUser({
         phone_number: `+234${data.phone_number}`,
         medium: selectedMedia === "phone" ? "sms" : (selectedMedia as string),
-      })("response", response)
+      })
       toast({
         title: "Phone number added successful",
         description: " ",
