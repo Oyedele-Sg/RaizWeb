@@ -25,7 +25,7 @@ interface InputBVNFormProps extends Partial<FieldValues> {
 export const VerifyBVN = () => {
   const Router = useRouter()
   const dispatch = useAppDispatch()
-  const user = useUser()("user", user)
+  const user = useUser()
 
   const methods = useForm<InputBVNFormProps>({
     defaultValues: {
@@ -36,7 +36,6 @@ export const VerifyBVN = () => {
   const [showBVN, setShowBVN] = useState<boolean>(false)
 
   const onSubmit = async (data: InputBVNFormProps) => {
-    "login data", data
     try {
       dispatch(setLoadingTrue())
       await userService.verifyBVN({ bvn: "11111111111" })

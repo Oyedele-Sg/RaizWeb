@@ -9,13 +9,18 @@ import {
   SpendingTile,
 } from "@/components"
 import { useUser } from "@/hooks/user/useUser"
-import { BtnMain, TimelineSelect, WhiteTileWrap } from "@/shared"
+import { BtnMain, Loading, TimelineSelect, WhiteTileWrap } from "@/shared"
 import { useRouter } from "next/navigation"
 import React from "react"
 
 function page() {
   const user = useUser()
   const Router = useRouter()
+  console.log("user page", user)
+
+  if (user && !user?.username) {
+    Router.push("/profile/username")
+  }
 
   return (
     <>

@@ -34,7 +34,7 @@ export const AddFundsCard = ({ data }: Props) => {
         <div className=' flex items-center justify-center mt-[67px] '>
           <BtnMain
             className='  text-grey  py-4 px-[60px] rounded-lg btn-gradient-default hover:btn-gradient-hovered '
-            btnText='Add Funds to Wallet'
+            btnText={data.type}
             onClick={() => Router.push(data.link)}
           />
         </div>

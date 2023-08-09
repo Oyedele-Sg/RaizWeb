@@ -16,12 +16,14 @@ import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { toast } from "../ui/use-toast"
 import { useUser } from "@/hooks/user/useUser"
+import { useRouter } from "next/navigation"
 
 interface SearchInput {
   amount: string
 }
 
 export function ComponentThree() {
+  const Router = useRouter()
   const methods = useForm<SearchInput>({
     defaultValues: {
       amount: "",
@@ -36,8 +38,6 @@ export function ComponentThree() {
 
     try {
       const res = await userService.searchWallets(data.amount)
-
-      //   setSearchResults(res)
     } catch (error) {
       toast({
         title: "Something Went Wrong",
@@ -107,6 +107,10 @@ export function ComponentThree() {
                       btnText='Bank Transfer'
                       type='reset'
                       btnStyle=' border-purple border-[1px] min-w-[218px]  text-purple   '
+                      onClick={() => {
+                        // Router.push("/send/transfer")
+                        console.log("clicked")
+                      }}
                     />
                     <AuthButton
                       btnText='Wallet Transfer'

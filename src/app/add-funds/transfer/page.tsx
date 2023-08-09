@@ -33,6 +33,12 @@ export default function page() {
   const user = useUser() as UserInterface
   const dispatch = useAppDispatch()
 
+  if (!user) {
+    dispatch(setLoadingTrue())
+  } else {
+    dispatch(setLoadingFalse())
+  }
+
   const methods = useForm<TransferInputProps>({
     values: {
       bank_name: `Providus Bank`,
@@ -46,7 +52,7 @@ export default function page() {
       dispatch(setLoadingTrue())
       setTimeout(() => {
         toast({
-          title: " Account created successfully",
+          title: " Transfer Successful",
           description:
             "User Wallet has been successfull credited with the amount you transferred ",
           style: {
@@ -55,8 +61,7 @@ export default function page() {
           },
         })
         dispatch(setLoadingFalse())
-
-        Router.push("/dashboard")
+        Router.push("/add-funds/transfer/success")
       }, 3000)
     } catch (error) {
       dispatch(setLoadingFalse())
@@ -102,7 +107,7 @@ export default function page() {
 
             <div className=' flex flex-col gap-3 '>
               <div className=''>
-               <BackBtnCircle />
+                <BackBtnCircle />
                 <button title='next' className=''>
                   <NextArrow />
                 </button>
@@ -150,7 +155,10 @@ export default function page() {
                       disabled
                     />
 
-                    <AuthButton btnText=' I have made this transfer ' />
+                    <AuthButton
+                      btnText=' I have made this transfer '
+                      
+                    />
                   </form>
                 </FormProvider>
               </FormTitledContainer>

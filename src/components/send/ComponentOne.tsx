@@ -17,13 +17,14 @@ import { toast } from "@/components/ui/use-toast"
 import { useForm, FormProvider } from "react-hook-form"
 import { useAppDispatch } from "@/shared/redux/types"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
+import { useRouter } from "next/navigation"
 
 interface Prop {
   //   searchQuery: string
   setSearchResults: React.Dispatch<
     React.SetStateAction<UserSearchInterface | undefined>
   >
-  onNext: (step: number) => void
+  setCurrentStep: React.Dispatch<React.SetStateAction<number>>
   //   searchResult: UserSearchInterface
 }
 
@@ -31,7 +32,8 @@ interface SearchInput {
   query: string
 }
 
-export function ComponentOne({ setSearchResults, onNext }: Prop) {
+export function ComponentOne({ setSearchResults, setCurrentStep }: Prop) {
+  const Router = useRouter()
   const methods = useForm<SearchInput>({
     defaultValues: {
       query: "",
@@ -49,7 +51,7 @@ export function ComponentOne({ setSearchResults, onNext }: Prop) {
       const res = await userService.searchWallets(data.query)
       setSearchResults(res)
       dispatch(setLoadingFalse())
-      onNext(2)
+      setCurrentStep(2)
     } catch (error) {
       dispatch(setLoadingFalse())
 
@@ -74,7 +76,7 @@ export function ComponentOne({ setSearchResults, onNext }: Prop) {
           <IconPesaColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div className='' onClick={() => onNext(1)}>
+            <div className='' onClick={() => Router.back}>
               <BackBtnCircle />
               <button title='next' className=''>
                 <NextArrow />
