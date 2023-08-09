@@ -13,6 +13,9 @@ import {
   UserInterface,
   UserSearchInterface,
   TransactionPinInterface,
+  InternalDebitDataInterface,
+  CategoryDataInterface,
+  ExternalDebitDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -55,6 +58,9 @@ export const userService = {
   getIncomeSummary,
   searchWallets,
   addTransactionPin,
+  walletTransfer,
+  getCategory,
+  externalTransfer,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -219,4 +225,18 @@ function searchWallets(query?: string): Promise<UserSearchInterface> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/search/wallets/?search=${query || ""}`
   )
+}
+
+// transfer
+
+function walletTransfer(data: InternalDebitDataInterface): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/transfers/debit/send-internal/`, data)
+}
+function externalTransfer(data: ExternalDebitDataInterface): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/transfers/debit/send-internal/`, data)
+}
+
+// category
+function getCategory(): Promise<CategoryDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/categories/`)
 }

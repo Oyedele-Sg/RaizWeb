@@ -13,6 +13,7 @@ interface Props {
   description: string
   btnLink: string
   btnFunc?: () => void
+  email?: boolean
 }
 
 export const VerifySuccess: React.FC<Props> = ({
@@ -21,15 +22,18 @@ export const VerifySuccess: React.FC<Props> = ({
   description,
   btnLink,
   btnFunc,
+  email,
 }) => {
   const Router = useRouter()
   const dispatch = useAppDispatch()
 
   return (
     <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
-      <div>
-        <AuthStepper activeStep={activeStep} />
-      </div>
+      {!email && (
+        <div>
+          <AuthStepper activeStep={activeStep} />
+        </div>
+      )}
 
       <div className=' px-[35px] flex flex-col gap-8 '>
         <div className='flex items-center justify-center '>
@@ -54,34 +58,9 @@ export const VerifySuccess: React.FC<Props> = ({
             btnText={"Continue"}
             type='reset'
             onClick={() => {
-              try {
-                dispatch(setLoadingTrue())
+              btnFunc && btnFunc()
 
-                btnFunc && btnFunc()
-                toast({
-                  title: " User Wallet Created successfully",
-                  style: {
-                    backgroundColor: "#4caf50",
-                    color: "#fff",
-                  },
-                })
-                dispatch(setLoadingFalse())
-                Router.push(btnLink)
-              } catch (error) {
-                dispatch(setLoadingFalse())
-
-                toast({
-                  title: "Something Went Wrong",
-                  description: `${error}`,
-                  variant: "destructive",
-                  style: {
-                    backgroundColor: "#f44336",
-                    color: "#fff",
-                    top: "20px",
-                    right: "20px",
-                  },
-                })
-              }
+              Router.push(btnLink)
             }}
           />
         </div>

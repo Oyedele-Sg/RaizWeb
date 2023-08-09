@@ -8,6 +8,7 @@ import React from "react"
 export default function page() {
   const Router = useRouter()
   const user = useUser()
+ 
   return (
     <SetupLayout bg='bg-profile-1'>
       <div className=' pr-[107px]  pl-[60px] flex flex-col gap-[88px]  '>

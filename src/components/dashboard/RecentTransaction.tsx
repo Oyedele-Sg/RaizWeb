@@ -32,10 +32,10 @@ export const RecentTransaction = () => {
   const [transactions, setTransactions] =
     React.useState<TransactiontDataInterface[]>()
   const [date, setDate] = React.useState<Date>()
-  console.log("date", date)
+ 
 
   const currentDate = new Date()
-  console.log("curent", formatDateToISOString(currentDate))
+  
 
   const data = async () => {
     try {

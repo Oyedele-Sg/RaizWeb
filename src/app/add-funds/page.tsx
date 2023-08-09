@@ -37,7 +37,7 @@ export default function page() {
             Add Funds to Wallet
           </h1>
           <p className=' font-title__large text-neutral-70 text-center '>
-            Debit Card {"  "} Bank Transfer
+            Debit Card {" - "} Bank Transfer
           </p>
         </div>
 

@@ -4,6 +4,7 @@ import {
   BackBtnCircle,
   BtnMain,
   DebitTransferInterface,
+  ExternalDebitTransferInterface,
   FormTitledContainer,
   IconPesaColored,
   IconScan,
@@ -16,7 +17,7 @@ import {
 } from "@/shared"
 import React, { useEffect, useRef, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import { toast } from "../ui/use-toast"
+
 import { useAppDispatch } from "@/shared/redux/types"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useRouter } from "next/navigation"
@@ -28,36 +29,25 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useCategory } from "@/hooks/category/useCategory"
+import { toast } from "@/components/ui/use-toast"
+import { banks } from "@/shared/data/Banks"
 
-interface SearchInput {
-  transaction_amount: number
-  receiver_account_user_id: string
-
-  transaction_remarks: string
-  category_id: number
-}
-
-interface Props {
-  searchResult: UserSearchInterface | undefined
-  setCurrentStep: React.Dispatch<React.SetStateAction<number>>
-}
-
-export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
+export function ComponentOne() {
   const Router = useRouter()
-  const [debitData, setDebitData] = useState<DebitTransferInterface>()
+  const [debitData, setDebitData] = useState<ExternalDebitTransferInterface>()
   const category = useCategory()
- 
 
-  const methods = useForm<SearchInput>({
+  const methods = useForm<ExternalDebitTransferInterface>({
     defaultValues: {
-      transaction_amount: 0,
-      receiver_account_user_id: searchResult?.account_user_id || "",
-      transaction_remarks: "",
-      category_id: 0,
+      beneficiary_account_name: "",
+      beneficiary_account_number: "",
+      transaction_amount: "",
+      narration: "",
+      beneficiary_bank_code: "",
     },
   })
 
-  const onSubmit = async (data: SearchInput) => {
+  const onSubmit = async (data: ExternalDebitTransferInterface) => {
     try {
       // const res = await userService.searchWallets(data.transaction_amount)+
       //   setSearchResults(res)
@@ -77,14 +67,6 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
     }
   }
 
-  // const getData = async () => {
-  //   await userService.getCategory()
-  // }
-
-  // useEffect(() => {
-  //   getData()
-  // }, [])
-
   return (
     <div>
       <SetupLayout bg='bg-profile-1'>
@@ -92,34 +74,17 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
           <IconPesaColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div className='' onClick={() => Router.refresh}>
+            <div
+              className=''
+              // onClick={() => onNext()}
+            >
               <BackBtnCircle />
               <button title='next' className=''>
                 <NextArrow />
               </button>
             </div>
 
-            <FormTitledContainer
-              title='Send Money'
-              subtitle={debitData ? "Enter Transaction Pin" : "Enter Amount"}
-              utils={<Utils />}
-            >
-              {/* <input
-              type='search'
-              name=''
-              id=''
-              className=' form-input outline-none bg-transparent  w-full max-h-[3rem] placeholder:text-neutral-70 placeholder:font-body__large border-x-0 border-t-0 border-b-[1px] border-b-purple   '
-              placeholder='Search with Username, Phone Number, or Email Address'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <BtnMain btnText='Next' btnStyle=' authBtn ' /> */}
-              {searchResult && (
-                <h2 className='text-purple font-title__large   '>
-                  {searchResult?.first_name} {searchResult?.last_name}
-                </h2>
-              )}
-
+            <FormTitledContainer title='Send Money' subtitle={"Bank Account"}>
               {debitData ? (
                 <Pin debitData={debitData} />
               ) : (
@@ -130,9 +95,26 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
                     className=' flex flex-col gap-6 '
                   >
                     <RegisterInput
+                      name={`beneficiary_account_name`}
+                      inputPlaceholder={`Beneficiary Account Name `}
+                      rules={{
+                        required: " Input Beneficiary account name ",
+                      }}
+                    />
+                    <RegisterInput
+                      name={`beneficiary_account_number`}
+                      inputPlaceholder={`Beneficiary Account Number `}
+                      rules={{
+                        required: "Input an account number",
+                        pattern: {
+                          value: /^\d{10}$/,
+                          message: "Account number must be a 10-digit number",
+                        },
+                      }}
+                    />
+                    <RegisterInput
                       name={`transaction_amount`}
-                      inputPlaceholder={`Enter Amount`}
-                      label='Amount'
+                      inputPlaceholder={`Enter Amount `}
                       rules={{
                         required: "Input an amount",
                         pattern: {
@@ -142,47 +124,48 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
                       }}
                     />
                     <RegisterInput
-                      name={`transaction_remarks`}
+                      name={`narration`}
                       inputPlaceholder={`Transaction description `}
-                      label='Description'
                     />
                     <Select
                       onValueChange={(value) => {
-                        const selectedBank = category?.find(
-                          (cat) => cat.category_name === value
+                        const selectedBank = banks.find(
+                          (bank) => bank.bankName === value
                         )
+                        // @ts-ignore
+                        // methods.setValue("bank_name", selectedBank.bankName)
                         // @ts-ignore
                         methods.setValue(
-                          "category_id",
-                          selectedBank?.category_id as number
+                          "beneficiary_bank_code",
+                          selectedBank?.bankCode as string
                         )
-                        // @ts-ignore
                       }}
                     >
-                      <SelectTrigger className='w-full ro border-b-purple border-[1px] '>
+                      <SelectTrigger className='w-full placeholder:text-purple   border-purple border-[1px] '>
                         <SelectValue
-                          placeholder='Select A category '
-                          className=' text-purple capitalize   '
+                          placeholder='Select A bank '
+                          className='   '
                         />
                       </SelectTrigger>
-                      <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize '>
-                        {category?.map((cat, index) => (
+                      <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto '>
+                        {banks.map((bank, index) => (
                           <SelectItem
-                            key={cat.category_id}
+                            key={parseInt(bank.bankCode)}
                             // @ts-ignore
-                            value={cat.category_name}
+                            value={bank.bankName}
                             className=' hover:bg-neutral-50'
-                            onClick={(value) => {
-                              methods.setValue("category_id", cat.category_id)
-                            }}
+                            // onClick={(value) => {
+                            //   methods.setValue("bank_name", bank.bankName)
+                            //   methods.setValue("bank_code", bank.bankCode)
+                            // }}
                           >
-                            {cat.category_name}
+                            {bank.bankName}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                     <div className=' flex gap-12 '>
-                      <AuthButton btnText='Make Transfer' btnStyle=' w-full ' />
+                      <AuthButton btnText='Continue' btnStyle=' w-full ' />
                     </div>
                   </form>
                 </FormProvider>
@@ -195,19 +178,8 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
   )
 }
 
-function Utils() {
-  return (
-    <>
-      <div className='flex gap-6  items-center  '>
-        <IconSearch />
-        <IconScan />
-      </div>
-    </>
-  )
-}
-
 interface PinProps {
-  debitData?: DebitTransferInterface
+  debitData?: ExternalDebitTransferInterface
 }
 
 function Pin({ debitData }: PinProps) {
@@ -228,15 +200,13 @@ function Pin({ debitData }: PinProps) {
     if (!pin.transaction_pin) return
 
     const transferData = {
-      debit_transfer: debitData as DebitTransferInterface,
+      debit_transfer: debitData as ExternalDebitTransferInterface,
       transaction_pin: pin,
     }
 
-  
-
     try {
       dispatch(setLoadingTrue())
-      await userService.walletTransfer(transferData)
+      await userService.externalTransfer(transferData)
 
       toast({
         title: " Money Sent",

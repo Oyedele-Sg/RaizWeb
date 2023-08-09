@@ -46,8 +46,6 @@ import { useUser } from "@/hooks/user/useUser"
 interface UsernameInputProps extends Partial<FieldValues> {
   username: string
 }
-// create an array of 6 strings with the word 'pesa' in different variations
-const pesa = ["pesa", "Pesa", "PESA", "pEsa", "peSa", "pesA"]
 
 export default function TransactionPin() {
   const Router = useRouter()
@@ -65,8 +63,6 @@ export default function TransactionPin() {
       otp: [{ otp1: "" }, { otp2: "" }, { otp3: "" }, { otp4: "" }],
     },
   })
-
- 
 
   const onSubmit = async (data: OTPFormValues) => {
     const pin = {
