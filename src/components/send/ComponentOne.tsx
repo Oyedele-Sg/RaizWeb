@@ -44,7 +44,7 @@ export function ComponentOne({ setSearchResults, setCurrentStep }: Prop) {
 
   const onSubmit = async (data: SearchInput) => {
     if (data.query.length === 0) return
-    console.log("data", data.query)
+    
 
     try {
       dispatch(setLoadingTrue())

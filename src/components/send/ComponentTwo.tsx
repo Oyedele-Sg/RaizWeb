@@ -46,7 +46,7 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
   const Router = useRouter()
   const [debitData, setDebitData] = useState<DebitTransferInterface>()
   const category = useCategory()
-  console.log("category", category)
+ 
 
   const methods = useForm<SearchInput>({
     defaultValues: {
@@ -232,7 +232,7 @@ function Pin({ debitData }: PinProps) {
       transaction_pin: pin,
     }
 
-    console.log("tranfser", transferData)
+  
 
     try {
       dispatch(setLoadingTrue())

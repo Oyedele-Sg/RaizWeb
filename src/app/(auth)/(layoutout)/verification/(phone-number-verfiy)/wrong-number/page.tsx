@@ -34,7 +34,7 @@ export default function WrongNumber() {
   })
 
   const onSubmit = async (data: WrongNumberFormProps) => {
-    "login data", data
+
     Router.push("/verification/phone-number/verify-otp")
   }
   return (

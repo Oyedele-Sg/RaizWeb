@@ -29,7 +29,7 @@ export const IncomeSummary = () => {
   const data = async () => {
     try {
       const res = await userService.getIncomeSummary()
-      console.log("income", res)
+     
       setSummary(res)
     } catch (error) {
       toast({

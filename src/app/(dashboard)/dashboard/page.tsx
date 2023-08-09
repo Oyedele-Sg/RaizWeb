@@ -16,7 +16,7 @@ import React from "react"
 function page() {
   const user = useUser()
   const Router = useRouter()
-  console.log("user page", user)
+ 
 
   if (user && !user?.username) {
     Router.push("/profile/username")

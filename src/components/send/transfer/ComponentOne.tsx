@@ -36,7 +36,6 @@ export function ComponentOne() {
   const Router = useRouter()
   const [debitData, setDebitData] = useState<ExternalDebitTransferInterface>()
   const category = useCategory()
-  console.log("category", category)
 
   const methods = useForm<ExternalDebitTransferInterface>({
     defaultValues: {
@@ -192,7 +191,6 @@ function Pin({ debitData }: PinProps) {
       otp: [{ otp1: "" }, { otp2: "" }, { otp3: "" }, { otp4: "" }],
     },
   })
-  console.log("debitData", debitData)
 
   const onSubmit = async (data: OTPFormValues) => {
     const pin = {

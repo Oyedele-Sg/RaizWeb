@@ -34,7 +34,7 @@ export function ComponentThree() {
 
   const onSubmit = async (data: SearchInput) => {
     if (data.amount.length === 0) return
-    console.log("data", data.amount)
+  
 
     try {
       const res = await userService.searchWallets(data.amount)
@@ -109,7 +109,7 @@ export function ComponentThree() {
                       btnStyle=' border-purple border-[1px] min-w-[218px]  text-purple   '
                       onClick={() => {
                         // Router.push("/send/transfer")
-                        console.log("clicked")
+                   
                       }}
                     />
                     <AuthButton
