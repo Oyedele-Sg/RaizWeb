@@ -2,7 +2,13 @@
 import { AuthStepper } from "@/components"
 import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
-import { AuthButton, Loading, RegisterInput, VerifySuccess } from "@/shared"
+import {
+  AuthButton,
+  Loading,
+  RegisterInput,
+  VerifySuccess,
+  WhiteWrap,
+} from "@/shared"
 import {
   getSignUpEmail,
   setLoadingFalse,
@@ -68,52 +74,54 @@ export default function WrongMail() {
   return (
     <>
       <Loading />
-      <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
-        {/* <div>
+      <WhiteWrap closeBtn closeLink='/verification/email'>
+        <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
+          {/* <div>
           <AuthStepper activeStep={0} />
         </div> */}
 
-        <div className=' flex flex-col gap-[80px] '>
-          <div className=' text-center flex flex-col gap-2   '>
-            <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-              {" "}
-              Confirm Email Address
-            </h1>
-            <p className=' font-body__large text-neutral-90 '>
-              Enter correct email to verify your account.
-            </p>
-          </div>
+          <div className=' flex flex-col gap-[80px] '>
+            <div className=' text-center flex flex-col gap-2   '>
+              <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+                {" "}
+                Confirm Email Address
+              </h1>
+              <p className=' font-body__large text-neutral-90 '>
+                Enter correct email to verify your account.
+              </p>
+            </div>
 
-          <div className=' '>
-            <FormProvider {...methods}>
-              <form
-                onSubmit={methods.handleSubmit(onSubmit)}
-                className='flex flex-col gap-8'
-              >
-                <RegisterInput
-                  name={`email`}
-                  inputPlaceholder={`Enter Email Address`}
-                  rules={{
-                    required: "Email is required",
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address",
-                    },
-                  }}
-                  label='Email Address'
-                />
-
-                <div className=' flex items-center justify-center   '>
-                  <AuthButton
-                    btnText={"Send OTP"}
-                    btnStyle=' py-4 px-[60px] '
+            <div className=' '>
+              <FormProvider {...methods}>
+                <form
+                  onSubmit={methods.handleSubmit(onSubmit)}
+                  className='flex flex-col gap-8'
+                >
+                  <RegisterInput
+                    name={`email`}
+                    inputPlaceholder={`Enter Email Address`}
+                    rules={{
+                      required: "Email is required",
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: "Invalid email address",
+                      },
+                    }}
+                    label='Email Address'
                   />
-                </div>
-              </form>
-            </FormProvider>
+
+                  <div className=' flex items-center justify-center   '>
+                    <AuthButton
+                      btnText={"Send OTP"}
+                      btnStyle=' py-4 px-[60px] '
+                    />
+                  </div>
+                </form>
+              </FormProvider>
+            </div>
           </div>
         </div>
-      </div>
+      </WhiteWrap>
     </>
   )
 }

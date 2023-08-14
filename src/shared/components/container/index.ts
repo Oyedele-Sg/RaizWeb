@@ -1,1 +1,2 @@
-export { WhiteTileWrap } from './WhiteTileWrap'
+export { WhiteTileWrap } from "./WhiteTileWrap"
+export { WhiteWrap } from "./WhiteWrap"

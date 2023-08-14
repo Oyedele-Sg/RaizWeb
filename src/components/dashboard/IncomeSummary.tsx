@@ -5,6 +5,7 @@ import { SpendingTile } from "./SpendingTile"
 import { userService } from "@/services"
 import { toast } from "../ui/use-toast"
 import { IncomeSummarytDataInterface } from "@/shared"
+import { useUser } from "@/hooks/user/useUser"
 
 export const IncomeSummary = () => {
   const [summary, setSummary] = React.useState<IncomeSummarytDataInterface>()
@@ -26,10 +27,14 @@ export const IncomeSummary = () => {
     },
   ]
 
+  const user = useUser()
+
   const data = async () => {
     try {
+      if (user && !user?.is_bvn_verified && !user?.is_phone_verified) return
+
       const res = await userService.getIncomeSummary()
-     
+
       setSummary(res)
     } catch (error) {
       toast({
