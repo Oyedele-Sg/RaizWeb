@@ -5,6 +5,7 @@ import {
   Loading,
   OTPFormValues,
   VerifySuccess,
+  WhiteWrap,
 } from "@/shared"
 import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import { useRouter } from "next/navigation"
@@ -83,7 +84,6 @@ export const VerifyPhoneOTP = () => {
 
     if (!otp.otp) return
 
-   
     try {
       dispatch(setLoadingTrue())
 
@@ -194,90 +194,92 @@ export const VerifyPhoneOTP = () => {
           btnLink='/verification/bvn'
         />
       ) : (
-        <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
-          <div>
-            <AuthStepper activeStep={1} />
-          </div>
-
-          <div className=' px-[35px] flex flex-col gap-[80px] '>
-            <div className=' text-center flex flex-col gap-2   '>
-              <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                Enter OTP
-              </h1>
-              <p className=' font-body__large text-neutral-90 '>
-                We sent you OTP to your phone number
-              </p>
+        <WhiteWrap closeBtn closeLink='/verification/add-number'>
+          <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
+            <div>
+              <AuthStepper activeStep={1} />
             </div>
 
-            <div>
-              <form
-                onSubmit={methods.handleSubmit(onSubmit)}
-                className=' flex flex-col gap-8 '
-              >
-                <div className='flex gap-[33px] justify-center  '>
-                  {Array.from({ length: 4 }, (_, index) => (
-                    <input
-                      key={index}
-                      type='number'
-                      {...methods.register(`otp${index + 1}`, {
-                        required: true,
-                      })}
-                      inputMode='numeric'
-                      maxLength={1}
-                      className={`form-input otp_field-input spin-button-none ${
-                        methods.formState.errors[`otp${index + 1}`]
-                          ? "otp_field-input_error"
-                          : ""
-                      }`}
-                      ref={(ref) => {
-                        otpInputRefs.current[index] = ref
-                      }}
-                      onChange={(event) => {
-                        const { value } = event.target
-                        methods.setValue(`otp${index + 1}`, value)
-                        handleInputChange(index)
-                      }}
-                    />
-                  ))}
-                </div>
+            <div className=' px-[35px] flex flex-col gap-[80px] '>
+              <div className=' text-center flex flex-col gap-2   '>
+                <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+                  Enter OTP
+                </h1>
+                <p className=' font-body__large text-neutral-90 '>
+                  We sent you OTP to your phone number
+                </p>
+              </div>
 
-                {(methods.formState.errors.otp1 ||
-                  methods.formState.errors.otp2 ||
-                  methods.formState.errors.otp3 ||
-                  methods.formState.errors.otp4) && (
-                  <span className=' text-center  text-error text-t-12  '>
-                    OTP is required and must be 4 digits
+              <div>
+                <form
+                  onSubmit={methods.handleSubmit(onSubmit)}
+                  className=' flex flex-col gap-8 '
+                >
+                  <div className='flex gap-[33px] justify-center  '>
+                    {Array.from({ length: 4 }, (_, index) => (
+                      <input
+                        key={index}
+                        type='number'
+                        {...methods.register(`otp${index + 1}`, {
+                          required: true,
+                        })}
+                        inputMode='numeric'
+                        maxLength={1}
+                        className={`form-input otp_field-input spin-button-none ${
+                          methods.formState.errors[`otp${index + 1}`]
+                            ? "otp_field-input_error"
+                            : ""
+                        }`}
+                        ref={(ref) => {
+                          otpInputRefs.current[index] = ref
+                        }}
+                        onChange={(event) => {
+                          const { value } = event.target
+                          methods.setValue(`otp${index + 1}`, value)
+                          handleInputChange(index)
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {(methods.formState.errors.otp1 ||
+                    methods.formState.errors.otp2 ||
+                    methods.formState.errors.otp3 ||
+                    methods.formState.errors.otp4) && (
+                    <span className=' text-center  text-error text-t-12  '>
+                      OTP is required and must be 4 digits
+                    </span>
+                  )}
+
+                  <span className=' text-center text-neutral-50  '>
+                    {countdown > 0
+                      ? `Resend OTP in ${formatTime(countdown)}`
+                      : ""}
                   </span>
-                )}
 
-                <span className=' text-center text-neutral-50  '>
-                  {countdown > 0
-                    ? `Resend OTP in ${formatTime(countdown)}`
-                    : ""}
-                </span>
-
-                <div className=' flex flex-col justify-center items-center  gap-8 '>
-                  <div className=''>
-                    <div className=' flex gap-12 '>
-                      <BtnMain
-                        btnStyle='  border-purple border-[1px] rounded-[8px] text-purple  px-[42px]  '
-                        btnText={"Resend OTP"}
-                        type='reset'
-                        onClick={handleResendOTP}
-                        disabled={countdown > 0} // Disable the button during the countdown
-                      />
-                      <AuthButton
-                        btnStyle='flex-1 w-full px-[42px] '
-                        btnText={"Verify OTP"}
-                        type='submit'
-                      />
+                  <div className=' flex flex-col justify-center items-center  gap-8 '>
+                    <div className=''>
+                      <div className=' flex gap-12 '>
+                        <BtnMain
+                          btnStyle='  border-purple border-[1px] rounded-[8px] text-purple  px-[42px]  '
+                          btnText={"Resend OTP"}
+                          type='reset'
+                          onClick={handleResendOTP}
+                          disabled={countdown > 0} // Disable the button during the countdown
+                        />
+                        <AuthButton
+                          btnStyle='flex-1 w-full px-[42px] '
+                          btnText={"Verify OTP"}
+                          type='submit'
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
+        </WhiteWrap>
       )}
     </>
   )

@@ -5,15 +5,14 @@ import { Header } from "./Header"
 import { useRouter } from "next/navigation"
 
 interface Prop {
-  addFunc: () => void
   cancelFunc: () => void
 }
 
-export const AddBankSuccess = ({ addFunc, cancelFunc }: Prop) => {
+export const AddBankSuccess = ({ cancelFunc }: Prop) => {
   const Router = useRouter()
   return (
     <div className='flex  flex-col gap-3  '>
-      <div className=' flex justify-between items-center'>
+      {/* <div className=' flex justify-between items-center'>
         <h2 className='pl-3 font-body__large  text-purple font-semi-mid text-[18px]   '>
           Add Traditional Bank Number
         </h2>
@@ -25,7 +24,7 @@ export const AddBankSuccess = ({ addFunc, cancelFunc }: Prop) => {
             Saved List{" "}
           </span>
         </div>
-      </div>
+      </div> */}
 
       <div className=' px-8 flex flex-col gap-8 bg-neutral-20 py-16 rounded-lg '>
         <div className='flex items-center justify-center '>
@@ -48,11 +47,11 @@ export const AddBankSuccess = ({ addFunc, cancelFunc }: Prop) => {
           </div>
         </div>
         <div className=' flex items-center justify-center  gap-12 px-4 '>
-          <BtnMain
+          {/* <BtnMain
             btnText='Add More'
             btnStyle=' border  w-full border-purple text-purple  '
             onClick={() => addFunc()}
-          />
+          /> */}
           <BtnMain
             btnText='Done'
             btnStyle=' w-full  bg-purple text-grey   '

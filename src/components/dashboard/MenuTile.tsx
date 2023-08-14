@@ -21,22 +21,22 @@ export function Menucard() {
     {
       name: "Request",
       icon: "money-time",
-      link: "/send",
+      link: "/request",
     },
     {
       name: "Ajo",
       icon: "bank",
-      link: "/send",
+      link: "",
     },
     {
       name: "Split Bills",
       icon: "arrow-split",
-      link: "/send",
+      link: "",
     },
     {
       name: "More",
       icon: "arrow-split",
-      link: "/send",
+      link: "",
     },
   ]
 
