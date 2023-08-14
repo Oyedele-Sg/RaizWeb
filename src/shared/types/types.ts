@@ -208,3 +208,11 @@ export interface ExternalDebitDataInterface {
   debit_transfer: ExternalDebitTransferInterface
   transaction_pin: TransactionPinInterface
 }
+
+export interface RequestDataInterface {
+  requestee_account_id: string
+  transaction_amount: number
+  currency: "NGN"
+  narration: string
+  category_id: number
+}

@@ -12,16 +12,21 @@ import Image from "next/image"
 import React, { useEffect } from "react"
 import { toast } from "../ui/use-toast"
 import { useRouter } from "next/navigation"
+import { useUser } from "@/hooks/user/useUser"
 
 export const ExpenseTile = () => {
   const Router = useRouter()
   const [chartData, setChartData] = React.useState<ExpenseChartInterface>()
   const [date, setDate] = React.useState<Date>()
 
+  const user = useUser()
+
   const data = async () => {
     try {
+      if (user && !user?.is_bvn_verified && !user?.is_phone_verified) return
+
       const res = await userService.getExpenseChart()
-     
+
       setChartData(res)
     } catch (error) {
       toast({
@@ -37,8 +42,6 @@ export const ExpenseTile = () => {
       })
     }
   }
-
-  
 
   useEffect(() => {
     data()

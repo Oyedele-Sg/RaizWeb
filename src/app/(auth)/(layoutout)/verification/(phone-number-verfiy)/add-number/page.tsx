@@ -10,6 +10,7 @@ import {
   PhoneNumberInput,
   RegisterInput,
   Stepper,
+  WhiteWrap,
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
@@ -95,67 +96,73 @@ export default function PhoneNumber() {
   return (
     <>
       <Loading />
-      <div className=' max-w-[502px] mx-auto flex flex-col gap-12 b  '>
-        <div>
-          <AuthStepper activeStep={1} />
-        </div>
 
-        <div className=' flex flex-col gap-[56px] '>
-          <div className=' text-center flex flex-col gap-2   '>
-            <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-              {" "}
-              Enter Phone Number
-            </h1>
-            <p className=' font-body__large text-neutral-90 '>
-              Enter phone number to verify your account.
-            </p>
+      <WhiteWrap closeBtn closeLink=' /dashboard '>
+        <div className=' max-w-[502px] mx-auto flex flex-col gap-12 b  '>
+          <div>
+            <AuthStepper activeStep={1} />
           </div>
 
-          <div className=' '>
-            <FormProvider {...methods}>
-              <form
-                onSubmit={methods.handleSubmit(onSubmit)}
-                className='flex flex-col gap-8'
-              >
-                <PhoneNumberInput
-                  name={`phone_number`}
-                  inputPlaceholder={`8034 567 890`}
-                  rules={{
-                    required: "Phone number is required",
-                    minLength: {
-                      value: 10,
-                      message: "Invalid Phone Number must be 10 characters",
-                    },
-                    pattern: {
-                      value: /^[0-9]{10}$/,
-                      message: "Invalid phone number",
-                    },
-                  }}
-                  label='Phone Number'
-                />
+          <div className=' flex flex-col gap-[56px] '>
+            <div className=' text-center flex flex-col gap-2   '>
+              <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+                {" "}
+                Enter Phone Number
+              </h1>
+              <p className=' font-body__large text-neutral-90 '>
+                Enter phone number to verify your account.
+              </p>
+            </div>
 
-                <RadioGroup
-                  defaultValue={`phone`}
-                  className='text-purple'
-                  onValueChange={handleRadioChange}
+            <div className=' '>
+              <FormProvider {...methods}>
+                <form
+                  onSubmit={methods.handleSubmit(onSubmit)}
+                  className='flex flex-col gap-8'
                 >
-                  <div className='flex items-center space-x-2'>
-                    <RadioGroupItem value='phone' id='phone' />
-                    <label htmlFor='phone'>SMS OTP</label>
+                  <PhoneNumberInput
+                    name={`phone_number`}
+                    inputPlaceholder={`8034 567 890`}
+                    rules={{
+                      required: "Phone number is required",
+                      minLength: {
+                        value: 10,
+                        message: "Invalid Phone Number must be 10 characters",
+                      },
+                      pattern: {
+                        value: /^[0-9]{10}$/,
+                        message: "Invalid phone number",
+                      },
+                    }}
+                    label='Phone Number'
+                  />
+
+                  <RadioGroup
+                    defaultValue={`phone`}
+                    className='text-purple'
+                    onValueChange={handleRadioChange}
+                  >
+                    <div className='flex items-center space-x-2'>
+                      <RadioGroupItem value='phone' id='phone' />
+                      <label htmlFor='phone'>SMS OTP</label>
+                    </div>
+                    <div className='flex items-center space-x-2'>
+                      <RadioGroupItem value='voice' id='voice' />
+                      <label htmlFor='voice'>Voice OTP</label>
+                    </div>
+                  </RadioGroup>
+                  <div className=' flex items-center justify-center   '>
+                    <AuthButton
+                      btnStyle=' px-[101.5px] '
+                      btnText={"Send OTP"}
+                    />
                   </div>
-                  <div className='flex items-center space-x-2'>
-                    <RadioGroupItem value='voice' id='voice' />
-                    <label htmlFor='voice'>Voice OTP</label>
-                  </div>
-                </RadioGroup>
-                <div className=' flex items-center justify-center   '>
-                  <AuthButton btnStyle=' px-[101.5px] ' btnText={"Send OTP"} />
-                </div>
-              </form>
-            </FormProvider>
+                </form>
+              </FormProvider>
+            </div>
           </div>
         </div>
-      </div>
+      </WhiteWrap>
     </>
   )
 }

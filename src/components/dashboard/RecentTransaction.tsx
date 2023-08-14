@@ -27,17 +27,19 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { formatDateToISOString } from "@/utils/helpers"
+import { useUser } from "@/hooks/user/useUser"
 
 export const RecentTransaction = () => {
   const [transactions, setTransactions] =
     React.useState<TransactiontDataInterface[]>()
   const [date, setDate] = React.useState<Date>()
- 
+  const user = useUser()
 
   const currentDate = new Date()
-  
 
   const data = async () => {
+    if (user && !user?.is_bvn_verified && !user?.is_phone_verified) return
+
     try {
       const res = await userService.getRecentTransactions(
         undefined,

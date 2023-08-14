@@ -29,14 +29,11 @@ export default function Bank() {
       <SetupLayout bg='bg-profile-1'>
         <div className=' px-[60px]  pt-[50px] flex flex-col gap-[70px] '>
           <SkipLink link='/profile/bank/saved-list' />
-          <Header activeStep={2} />
+          <Header activeStep={success ? 3 : 2} />
           {!success ? (
             <AddBankForm setSuccess={setSuccess} />
           ) : (
-            <AddBankSuccess
-              addFunc={() => Router.push("/profile/bank/add-more")}
-              cancelFunc={() => Router.push("/profile/bank/saved-list")}
-            />
+            <AddBankSuccess cancelFunc={() => Router.push("/dashboard")} />
           )}
         </div>
       </SetupLayout>

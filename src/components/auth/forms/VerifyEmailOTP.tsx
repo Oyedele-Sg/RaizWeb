@@ -5,6 +5,8 @@ import {
   Loading,
   OTPFormValues,
   VerifySuccess,
+  WhiteTileWrap,
+  WhiteWrap,
 } from "@/shared"
 import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import { useRouter } from "next/navigation"
@@ -107,95 +109,97 @@ export const VerifyEmailOTP = () => {
           email
         />
       ) : (
-        <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
-          {/* comment out stepper component */}
-          {/* <div>
+        <WhiteWrap extraStyle=''>
+          <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
+            {/* comment out stepper component  */}
+            {/* <div>
             <AuthStepper activeStep={0} />
           </div> */}
 
-          <div className=' px-[35px] flex flex-col gap-[80px] '>
-            <div className=' text-center flex flex-col gap-2   '>
-              <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                Email Verification OTP
-              </h1>
-              <p className=' font-body__large text-neutral-90 '>
-                {" "}
-                Please check your email{" "}
-                <span className=' underline '>{signupEmail}</span> for the OTP
-                code sent.{" "}
-              </p>
-            </div>
+            <div className=' px-[35px] flex flex-col gap-[80px] '>
+              <div className=' text-center flex flex-col gap-2  '>
+                <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+                  Email Verification OTP
+                </h1>
+                <p className=' font-body__large text-neutral-90 '>
+                  {" "}
+                  Please check your email{" "}
+                  <span className=' underline '>{signupEmail}</span> for the OTP
+                  code sent.{" "}
+                </p>
+              </div>
 
-            <div>
-              <form
-                onSubmit={methods.handleSubmit(onSubmit)}
-                className=' flex flex-col gap-8 '
-              >
-                <div className='flex gap-[33px] justify-center  '>
-                  {Array.from({ length: 4 }, (_, index) => (
-                    <input
-                      key={index}
-                      type='number'
-                      {...methods.register(`otp${index + 1}`, {
-                        required: true,
-                      })}
-                      inputMode='numeric'
-                      maxLength={1}
-                      className={`form-input otp_field-input spin-button-none ${
-                        methods.formState.errors[`otp${index + 1}`]
-                          ? "otp_field-input_error"
-                          : ""
-                      }`}
-                      ref={(ref) => {
-                        otpInputRefs.current[index] = ref
-                      }}
-                      onChange={(event) => {
-                        const { value } = event.target
-                        methods.setValue(`otp${index + 1}`, value)
-                        handleInputChange(index)
-                      }}
-                    />
-                  ))}
-                </div>
-
-                {(methods.formState.errors.otp1 ||
-                  methods.formState.errors.otp2 ||
-                  methods.formState.errors.otp3 ||
-                  methods.formState.errors.otp4) && (
-                  <span className=' text-center  text-error text-t-12  '>
-                    OTP is required and must be digits
-                  </span>
-                )}
-
-                <div className=' flex flex-col justify-center items-center  gap-8 '>
-                  <div className=' flex gap-12 '>
-                    <BtnMain
-                      btnStyle='  border-purple border-[1px] rounded-[8px] text-purple  px-[42px]  '
-                      btnText={"Resend OTP"}
-                      type='reset'
-                      onClick={async () => {
-                        Router.push("/verification/email/resend-otp")
-                      }}
-                    />
-                    <AuthButton
-                      btnStyle='flex-1 w-full px-[42px] '
-                      btnText={"Verify OTP"}
-                      type='submit'
-                    />
+              <div>
+                <form
+                  onSubmit={methods.handleSubmit(onSubmit)}
+                  className=' flex flex-col gap-8 '
+                >
+                  <div className='flex gap-[33px] justify-center  '>
+                    {Array.from({ length: 4 }, (_, index) => (
+                      <input
+                        key={index}
+                        type='number'
+                        {...methods.register(`otp${index + 1}`, {
+                          required: true,
+                        })}
+                        inputMode='numeric'
+                        maxLength={1}
+                        className={`form-input otp_field-input spin-button-none ${
+                          methods.formState.errors[`otp${index + 1}`]
+                            ? "otp_field-input_error"
+                            : ""
+                        }`}
+                        ref={(ref) => {
+                          otpInputRefs.current[index] = ref
+                        }}
+                        onChange={(event) => {
+                          const { value } = event.target
+                          methods.setValue(`otp${index + 1}`, value)
+                          handleInputChange(index)
+                        }}
+                      />
+                    ))}
                   </div>
 
-                  {/* <div>
+                  {(methods.formState.errors.otp1 ||
+                    methods.formState.errors.otp2 ||
+                    methods.formState.errors.otp3 ||
+                    methods.formState.errors.otp4) && (
+                    <span className=' text-center  text-error text-t-12  '>
+                      OTP is required and must be digits
+                    </span>
+                  )}
+
+                  <div className=' flex flex-col justify-center items-center  gap-8 '>
+                    <div className=' flex gap-12 '>
+                      <BtnMain
+                        btnStyle='  border-purple border-[1px] rounded-[8px] text-purple  px-[42px]  '
+                        btnText={"Resend OTP"}
+                        type='reset'
+                        onClick={async () => {
+                          Router.push("/verification/email/resend-otp")
+                        }}
+                      />
+                      <AuthButton
+                        btnStyle='flex-1 w-full px-[42px] '
+                        btnText={"Verify OTP"}
+                        type='submit'
+                      />
+                    </div>
+
+                    {/* <div>
           <Link href={"  "} className=' text-neutral-90  text-center '>
             Wrong Email?
           </Link>
         </div> */}
-                </div>
-              </form>
+                  </div>
+                </form>
 
-              {/* <DevTool control={methods.control} />  */}
+                {/* <DevTool control={methods.control} />  */}
+              </div>
             </div>
           </div>
-        </div>
+        </WhiteWrap>
       )}
     </>
   )

@@ -16,6 +16,7 @@ import {
   InternalDebitDataInterface,
   CategoryDataInterface,
   ExternalDebitDataInterface,
+  RequestDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -61,6 +62,8 @@ export const userService = {
   walletTransfer,
   getCategory,
   externalTransfer,
+  requestFunds,
+  loadFunds,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -239,4 +242,12 @@ function externalTransfer(data: ExternalDebitDataInterface): Promise<void> {
 // category
 function getCategory(): Promise<CategoryDataInterface[]> {
   return fetchWrapper.get(`${baseUrl}/categories/`)
+}
+
+function requestFunds(data: RequestDataInterface): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/transfers/credit/request-funds/`, data)
+}
+
+function loadFunds(): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/transfers/credit/load-account/`, {})
 }
