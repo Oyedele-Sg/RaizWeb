@@ -144,19 +144,19 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
                       // @ts-ignore
                     }}
                   >
-                    <SelectTrigger className='w-full ro border-b-purple border-[1px] '>
+                    <SelectTrigger className='w-full ro border-b-purple border-[1px] z-50 '>
                       <SelectValue
                         placeholder='Select A category '
                         className=' text-purple capitalize   '
                       />
                     </SelectTrigger>
-                    <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize '>
+                    <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize z-50 '>
                       {category?.map((cat, index) => (
                         <SelectItem
                           key={cat.category_id}
                           // @ts-ignore
                           value={cat.category_name}
-                          className=' hover:bg-neutral-50'
+                          className=' hover:bg-neutral-50 z-50'
                           onClick={(value) => {
                             methods.setValue("category_id", cat.category_id)
                           }}

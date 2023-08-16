@@ -225,14 +225,13 @@ function getIncomeSummary(
   )
 }
 
-function searchWallets(query?: string): Promise<UserSearchInterface> {
+function searchWallets(query?: string): Promise<UserSearchInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/search/wallets/?search=${query || ""}`
   )
 }
 
 // transfer
-
 function walletTransfer(data: InternalDebitDataInterface): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/transfers/debit/send-internal/`, data)
 }
