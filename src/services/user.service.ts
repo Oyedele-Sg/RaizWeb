@@ -64,6 +64,7 @@ export const userService = {
   externalTransfer,
   requestFunds,
   loadFunds,
+  nipAccountLookup,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -250,4 +251,16 @@ function requestFunds(data: RequestDataInterface): Promise<void> {
 
 function loadFunds(): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/transfers/credit/load-account/`, {})
+}
+
+function nipAccountLookup(
+  account_number?: string,
+  bank_code?: string
+): Promise<IncomeSummarytDataInterface> {
+  return fetchWrapper.get(
+    `${baseUrl}/nip-lookup/bank-account-details/?${createSearchParams({
+      account_number,
+      bank_code,
+    })}`
+  )
 }
