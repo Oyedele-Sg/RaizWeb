@@ -17,6 +17,7 @@ import {
   CategoryDataInterface,
   ExternalDebitDataInterface,
   RequestDataInterface,
+  NIPLookupDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -236,7 +237,7 @@ function walletTransfer(data: InternalDebitDataInterface): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/transfers/debit/send-internal/`, data)
 }
 function externalTransfer(data: ExternalDebitDataInterface): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/transfers/debit/send-internal/`, data)
+  return fetchWrapper.post(`${baseUrl}/transfers/external/send/`, data)
 }
 
 // category
@@ -255,7 +256,7 @@ function loadFunds(): Promise<void> {
 function nipAccountLookup(
   account_number?: string,
   bank_code?: string
-): Promise<IncomeSummarytDataInterface> {
+): Promise<NIPLookupDataInterface> {
   return fetchWrapper.get(
     `${baseUrl}/nip-lookup/bank-account-details/?${createSearchParams({
       account_number,

@@ -1,3 +1,4 @@
+"use client"
 import { userService } from "@/services"
 import {
   AuthButton,
@@ -36,6 +37,7 @@ export function ComponentOne() {
   const Router = useRouter()
   const [debitData, setDebitData] = useState<ExternalDebitTransferInterface>()
   const category = useCategory()
+  const dispatch = useAppDispatch()
 
   const methods = useForm<ExternalDebitTransferInterface>({
     defaultValues: {
@@ -44,6 +46,7 @@ export function ComponentOne() {
       transaction_amount: "",
       narration: "",
       beneficiary_bank_code: "",
+      beneficiary_bank_name: "",
     },
   })
 
@@ -66,6 +69,47 @@ export function ComponentOne() {
       })
     }
   }
+
+  const doNIPAccountLookup = async (
+    accountNumber: string,
+    bankCode: string
+  ) => {
+    try {
+      dispatch(setLoadingTrue())
+      const res = await userService.nipAccountLookup(accountNumber, bankCode)
+
+      methods.setValue("beneficiary_account_name", res.account_name)
+      dispatch(setLoadingFalse())
+    } catch (error) {
+      toast({
+        title: "Something Went Wrong",
+        description: `${error}`,
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+      })
+      dispatch(setLoadingFalse())
+    }
+  }
+
+  useEffect(() => {
+    if (
+      methods.watch("beneficiary_bank_code") &&
+      methods.watch("beneficiary_account_number").length === 10
+    ) {
+      doNIPAccountLookup(
+        methods.watch("beneficiary_account_number"),
+        methods.watch("beneficiary_bank_code")
+      )
+    }
+  }, [
+    methods.watch("beneficiary_bank_code"),
+    methods.watch("beneficiary_account_number"),
+  ])
 
   return (
     <div>
@@ -100,6 +144,7 @@ export function ComponentOne() {
                       rules={{
                         required: " Input Beneficiary account name ",
                       }}
+                      disabled
                     />
                     <RegisterInput
                       name={`beneficiary_account_number`}
@@ -139,21 +184,25 @@ export function ComponentOne() {
                           "beneficiary_bank_code",
                           selectedBank?.bankCode as string
                         )
+                        methods.setValue(
+                          "beneficiary_bank_name",
+                          selectedBank?.bankName as string
+                        )
                       }}
                     >
-                      <SelectTrigger className='w-full placeholder:text-purple   border-purple border-[1px] '>
+                      <SelectTrigger className='w-full placeholder:text-purple   border-purple border-[1px] z-50 '>
                         <SelectValue
                           placeholder='Select A bank '
                           className='   '
                         />
                       </SelectTrigger>
-                      <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto '>
+                      <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto z-50 '>
                         {banks.map((bank, index) => (
                           <SelectItem
                             key={parseInt(bank.bankCode)}
                             // @ts-ignore
                             value={bank.bankName}
-                            className=' hover:bg-neutral-50'
+                            className=' hover:bg-neutral-50 z-50 '
                             // onClick={(value) => {
                             //   methods.setValue("bank_name", bank.bankName)
                             //   methods.setValue("bank_code", bank.bankCode)
