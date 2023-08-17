@@ -46,7 +46,6 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
   const Router = useRouter()
   const [debitData, setDebitData] = useState<DebitTransferInterface>()
   const category = useCategory()
- 
 
   const methods = useForm<SearchInput>({
     defaultValues: {
@@ -165,13 +164,13 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
                           className=' text-purple capitalize   '
                         />
                       </SelectTrigger>
-                      <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize '>
+                      <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize z-50 bug '>
                         {category?.map((cat, index) => (
                           <SelectItem
                             key={cat.category_id}
                             // @ts-ignore
                             value={cat.category_name}
-                            className=' hover:bg-neutral-50'
+                            className=' hover:bg-neutral-50 z-50 '
                             onClick={(value) => {
                               methods.setValue("category_id", cat.category_id)
                             }}
@@ -231,8 +230,6 @@ function Pin({ debitData }: PinProps) {
       debit_transfer: debitData as DebitTransferInterface,
       transaction_pin: pin,
     }
-
-  
 
     try {
       dispatch(setLoadingTrue())

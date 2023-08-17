@@ -48,7 +48,7 @@ export function ComponentOne({ setSearchResults, setCurrentStep }: Prop) {
     try {
       dispatch(setLoadingTrue())
       const res = await userService.searchWallets(data.query)
-      setSearchResults(res)
+      // setSearchResults(res)
       dispatch(setLoadingFalse())
       setCurrentStep(2)
     } catch (error) {

@@ -10,6 +10,7 @@ import {
   NextArrow,
   RegisterInput,
   SetupLayout,
+  UserInterface,
   UserSearchInterface,
 } from "@/shared"
 import React, { useEffect, useState } from "react"
@@ -25,48 +26,65 @@ interface Prop {
     React.SetStateAction<UserSearchInterface | undefined>
   >
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>
-  //   searchResult: UserSearchInterface
+  searchResults: UserSearchInterface | undefined
+  title: string
+  subtitle: string
 }
 
 interface SearchInput {
   query: string
 }
 
-export function ComponentOne({ setSearchResults, setCurrentStep }: Prop) {
+export function ComponentOne({
+  setSearchResults,
+  setCurrentStep,
+  searchResults,
+  title,
+  subtitle,
+}: Prop) {
   const Router = useRouter()
-  const methods = useForm<SearchInput>({
+  const methods = useForm<UserSearchInterface>({
     defaultValues: {
-      query: "",
+      account_user_id: "",
+      first_name: "",
+      last_name: "",
+      username: "",
     },
   })
 
   const dispatch = useAppDispatch()
+  const [searchQuery, setSearchQuery] = useState<UserSearchInterface[]>([])
 
-  const onSubmit = async (data: SearchInput) => {
-    if (data.query.length === 0) return
-    
+  const onSubmit = async (data: UserSearchInterface) => {
+    if (
+      !data.account_user_id ||
+      !data.first_name ||
+      !data.last_name ||
+      !data.username
+    )
+      return
+    setCurrentStep(2)
 
-    try {
-      dispatch(setLoadingTrue())
-      const res = await userService.searchWallets(data.query)
-      setSearchResults(res)
-      dispatch(setLoadingFalse())
-      setCurrentStep(2)
-    } catch (error) {
-      dispatch(setLoadingFalse())
+    // try {
+    //   // dispatch(setLoadingTrue())
+    //   // setSearchResults(data)
+    //   // dispatch(setLoadingFalse())
+    //   setCurrentStep(2)
+    // } catch (error) {
+    //   dispatch(setLoadingFalse())
 
-      toast({
-        title: "Something Went Wrong",
-        description: `${error}`,
-        variant: "destructive",
-        style: {
-          backgroundColor: "#f44336",
-          color: "#fff",
-          top: "20px",
-          right: "20px",
-        },
-      })
-    }
+    //   toast({
+    //     title: "Something Went Wrong",
+    //     description: `${error}`,
+    //     variant: "destructive",
+    //     style: {
+    //       backgroundColor: "#f44336",
+    //       color: "#fff",
+    //       top: "20px",
+    //       right: "20px",
+    //     },
+    //   })
+    // }
   }
 
   return (
@@ -84,20 +102,16 @@ export function ComponentOne({ setSearchResults, setCurrentStep }: Prop) {
             </div>
 
             <FormTitledContainer
-              title='Send Money'
-              subtitle='Find User(s)'
+              title={title}
+              subtitle={subtitle}
               utils={<Utils />}
             >
-              {/* <input
-                type='search'
-                name=''
-                id=''
-                className=' form-input outline-none bg-transparent  w-full max-h-[3rem] placeholder:text-neutral-70 placeholder:font-body__large border-x-0 border-t-0 border-b-[1px] border-b-purple   '
-                placeholder='Search with Username, Phone Number, or Email Address'
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <BtnMain btnText='Next' btnStyle=' authBtn ' /> */}
+              {/* <BtnMain btnText='Next' btnStyle=' authBtn ' /> */}
+              {searchResults && (
+                <h2 className='text-purple font-title__large   '>
+                  {searchResults?.first_name} {searchResults?.last_name}
+                </h2>
+              )}
 
               <FormProvider {...methods}>
                 <form
@@ -105,10 +119,55 @@ export function ComponentOne({ setSearchResults, setCurrentStep }: Prop) {
                   onSubmit={methods.handleSubmit(onSubmit)}
                   className=' flex flex-col gap-6 '
                 >
-                  <RegisterInput
+                  <div className=''>
+                    <input
+                      type='search'
+                      name=''
+                      id=''
+                      className=' form-input outline-none bg-transparent  w-full max-h-[3rem] placeholder:text-neutral-70 placeholder:font-body__large border-x-0 border-t-0 border-b-[1px] border-b-purple   '
+                      placeholder='Search with Username, Phone Number, or Email Address'
+                      // value={searchQuery}
+                      onChange={async (e) => {
+                        if (!e.target.value) {
+                          setSearchQuery([])
+                          return
+                        }
+                        const response = await userService.searchWallets(
+                          e.target.value
+                        )
+                        setSearchQuery(response)
+                        // setSearchQuery(e.target.value)
+                      }}
+                    />
+
+                    <div className=' bg-neutral-20 w-full '>
+                      {searchQuery.map((user) => (
+                        <div
+                          className='flex w-full hover:bg-neutral-30    '
+                          onClick={() => {
+                            methods.setValue("first_name", user.first_name)
+                            methods.setValue("last_name", user.last_name)
+                            methods.setValue("username", user.username)
+                            methods.setValue(
+                              "account_user_id",
+                              user.account_user_id
+                            )
+                            setSearchResults(user)
+                            setSearchQuery([])
+                          }}
+                        >
+                          <p className='text-neutral-90  p-[0.5rem]'>
+                            {user.first_name} {user.last_name}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* <RegisterInput
                     name={`query`}
                     inputPlaceholder={`Search with User's Username, Phone Number, or Email Address`}
-                  />
+                  /> */}
                   <AuthButton btnText='Next' />
                 </form>
               </FormProvider>

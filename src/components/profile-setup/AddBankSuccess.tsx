@@ -3,12 +3,14 @@ import Image from "next/image"
 import React from "react"
 import { Header } from "./Header"
 import { useRouter } from "next/navigation"
+import { useUser } from "@/hooks/user/useUser"
 
 interface Prop {
   cancelFunc: () => void
 }
 
 export const AddBankSuccess = ({ cancelFunc }: Prop) => {
+  const user = useUser()
   const Router = useRouter()
   return (
     <div className='flex  flex-col gap-3  '>

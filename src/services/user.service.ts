@@ -17,6 +17,7 @@ import {
   CategoryDataInterface,
   ExternalDebitDataInterface,
   RequestDataInterface,
+  NIPLookupDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -64,6 +65,7 @@ export const userService = {
   externalTransfer,
   requestFunds,
   loadFunds,
+  nipAccountLookup,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -224,19 +226,18 @@ function getIncomeSummary(
   )
 }
 
-function searchWallets(query?: string): Promise<UserSearchInterface> {
+function searchWallets(query?: string): Promise<UserSearchInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/search/wallets/?search=${query || ""}`
   )
 }
 
 // transfer
-
 function walletTransfer(data: InternalDebitDataInterface): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/transfers/debit/send-internal/`, data)
 }
 function externalTransfer(data: ExternalDebitDataInterface): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/transfers/debit/send-internal/`, data)
+  return fetchWrapper.post(`${baseUrl}/transfers/external/send/`, data)
 }
 
 // category
@@ -250,4 +251,16 @@ function requestFunds(data: RequestDataInterface): Promise<void> {
 
 function loadFunds(): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/transfers/credit/load-account/`, {})
+}
+
+function nipAccountLookup(
+  account_number?: string,
+  bank_code?: string
+): Promise<NIPLookupDataInterface> {
+  return fetchWrapper.get(
+    `${baseUrl}/nip-lookup/bank-account-details/?${createSearchParams({
+      account_number,
+      bank_code,
+    })}`
+  )
 }
