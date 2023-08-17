@@ -1,4 +1,6 @@
 import { BankInterface } from "@/shared"
+import { DateRange } from "react-day-picker"
+
 
 export function removeDuplicateObjects(banks: BankInterface[]): any[] {
   // Helper function to check if two objects are equal
@@ -49,4 +51,41 @@ export function formatDateToISOString(date: Date): string {
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`
 }
 
+
+
+export const calculateNewDateRange = (selectedValue: string): DateRange => {
+  const currentDate = new Date();
+  const fromDate = new Date();
+
+  switch (selectedValue) {
+    case '0': // Today
+      return {
+        from: currentDate,
+        to: currentDate,
+      };
+    case '1': // Tomorrow
+      fromDate.setDate(currentDate.getDate() + 1);
+      return {
+        from: fromDate,
+        to: fromDate,
+      };
+    case '3': // In 3 days
+      fromDate.setDate(currentDate.getDate() + 3);
+      return {
+        from: fromDate,
+        to: fromDate,
+      };
+    case '7': // In a week
+      fromDate.setDate(currentDate.getDate() + 7);
+      return {
+        from: fromDate,
+        to: fromDate,
+      };
+    default:
+      return {
+        from: currentDate,
+        to: currentDate,
+      };
+  }
+};
 

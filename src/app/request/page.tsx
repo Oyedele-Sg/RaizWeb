@@ -1,6 +1,7 @@
 "use client"
 import { InputContainer } from "@/components"
-import { ComponentOne, ComponentTwo } from "@/components/request"
+import { ComponentTwo } from "@/components/request"
+import { ComponentOne } from "@/components/send"
 
 import { Toast } from "@/components/ui/toast"
 import { toast } from "@/components/ui/use-toast"
@@ -38,6 +39,9 @@ export default function page() {
         <ComponentOne
           setSearchResults={setSearchResults}
           setCurrentStep={setCurrentStep}
+          title='Request Money'
+          subtitle='Find User'
+          searchResults={searchResults}
         />
       )}
       {currentStep === 2 && (

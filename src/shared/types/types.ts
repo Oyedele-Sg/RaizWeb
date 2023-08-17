@@ -202,6 +202,7 @@ export interface ExternalDebitTransferInterface {
   transaction_amount: string
   narration: string
   beneficiary_bank_code: string
+  beneficiary_bank_name: string
 }
 
 export interface ExternalDebitDataInterface {
@@ -215,4 +216,9 @@ export interface RequestDataInterface {
   currency: "NGN"
   narration: string
   category_id: number
+}
+
+export interface NIPLookupDataInterface {
+  account_name: string
+  account_number: string
 }

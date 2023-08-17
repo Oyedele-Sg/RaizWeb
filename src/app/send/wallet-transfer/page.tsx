@@ -20,7 +20,9 @@ export default function page() {
   const user = useUser() as UserInterface
   const dispatch = useAppDispatch()
 
-  const [searchResults, setSearchResults] = useState<UserSearchInterface>()
+  const [searchResults, setSearchResults] = useState<
+    UserSearchInterface | undefined
+  >()
 
   const methods = useForm<TransferInputProps>({
     values: {
@@ -37,6 +39,9 @@ export default function page() {
         <ComponentOne
           setSearchResults={setSearchResults}
           setCurrentStep={setCurrentStep}
+          searchResults={searchResults}
+          title='Send Money'
+          subtitle='Find User(s)'
         />
       )}
       {currentStep === 2 && (

@@ -21,9 +21,11 @@ import { loginSchema } from "@/shared/types/yupSchema"
 import { toast } from "@/components/ui/use-toast"
 import { useAppDispatch } from "@/shared/redux/types"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
+import { useUser } from "@/hooks/user/useUser"
 
 export const LoginForm: FC = () => {
   const Router = useRouter()
+
   const methods = useForm<LoginDataInterface>({
     defaultValues: {
       email: "",

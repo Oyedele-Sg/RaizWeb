@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { userService } from "@/services"
 
 import { UserInterface, queryKeys } from "@/shared"
+import { useEffect } from "react"
 
 async function getUser(): Promise<UserInterface> {
   const response = await userService.getCurrentUser()
@@ -9,9 +10,15 @@ async function getUser(): Promise<UserInterface> {
 }
 
 export function useUser(): UserInterface | undefined {
+  // const queryClient = useQueryClient()
   const { data } = useQuery({
     queryKey: [queryKeys.user],
     queryFn: getUser,
   })
+
+  // useEffect(() => {
+  //   // Refetch the data on page reload
+  //   queryClient.prefetchQuery([queryKeys.user], getUser)
+  // }, [queryClient])
   return data
 }
