@@ -56,15 +56,15 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
       //   setSearchResults(res)
       dispatch(setLoadingTrue())
       await userService.requestFunds(data)
-      toast({
-        title: " Request sent successfully",
-        description:
-          " Your request has been sent successfully, you will be notified when the request is accepted  ",
-        style: {
-          backgroundColor: "#4B0082",
-          color: "#fff",
-        },
-      })
+      // toast({
+      //   title: " Request sent successfully",
+      //   description:
+      //     " Your request has been sent successfully, you will be notified when the request is accepted  ",
+      //   style: {
+      //     backgroundColor: "#4B0082",
+      //     color: "#fff",
+      //   },
+      // })
       dispatch(setLoadingFalse())
       Router.push("/request/success")
     } catch (error) {
@@ -144,9 +144,9 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
                       // @ts-ignore
                     }}
                   >
-                    <SelectTrigger className='w-full ro border-b-purple border-[1px] z-50 '>
+                    <SelectTrigger className='w-full  rounded-none border-b-purple border-[1px] border-t-0 border-x-0 input_field-input capitalize  z-50 '>
                       <SelectValue
-                        placeholder='Select A category '
+                        placeholder='Select a category '
                         className=' text-purple capitalize   '
                       />
                     </SelectTrigger>
@@ -156,7 +156,7 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
                           key={cat.category_id}
                           // @ts-ignore
                           value={cat.category_name}
-                          className=' hover:bg-neutral-50 z-50'
+                          className=' hover:bg-neutral-50 z-50 '
                           onClick={(value) => {
                             methods.setValue("category_id", cat.category_id)
                           }}
