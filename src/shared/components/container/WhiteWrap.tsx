@@ -17,15 +17,17 @@ export const WhiteWrap = ({
 }: Props) => {
   return (
     <div
-      className={` bg-grey px-[60px] pt-[60px] pb-10 min-w-[45rem] ${extraStyle} whiteWrap__container `}
+      className={` bg-grey ${extraStyle} lg:px-[60px] lg:pt-[60px] lg:pb-10 lg:min-w-[45rem]  lg:rounded-[80px] whiteWrap__container `}
       {...rest}
     >
-      {closeBtn && (
-        <div className=' mb-[50px] '>
-          <CloseIcon link={closeLink} />
-        </div>
-      )}
-      {children}
+      <div className='  '>
+        {closeBtn && (
+          <div className=' hidden lg:block mb-[50px] ml-[50px] '>
+            <CloseIcon link={closeLink} />
+          </div>
+        )}
+        {children}
+      </div>
     </div>
   )
 }

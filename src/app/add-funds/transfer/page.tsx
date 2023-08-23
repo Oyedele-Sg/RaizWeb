@@ -56,7 +56,7 @@ export default function page() {
           description:
             "User Wallet has been successfull credited with the amount you transferred ",
           style: {
-            backgroundColor: "#4caf50",
+            backgroundColor: "#4B0082",
             color: "#fff",
           },
         })
@@ -155,10 +155,7 @@ export default function page() {
                       disabled
                     />
 
-                    <AuthButton
-                      btnText=' I have made this transfer '
-                      
-                    />
+                    <AuthButton btnText=' I have made this transfer ' />
                   </form>
                 </FormProvider>
               </FormTitledContainer>

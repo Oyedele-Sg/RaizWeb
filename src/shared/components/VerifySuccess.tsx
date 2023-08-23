@@ -29,47 +29,47 @@ export const VerifySuccess: React.FC<Props> = ({
   const dispatch = useAppDispatch()
 
   return (
-    <WhiteWrap>
-      <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
-        {!email && (
-          <div>
-            <AuthStepper activeStep={activeStep} />
-          </div>
-        )}
-
-        <div className=' px-[35px] flex flex-col gap-8 '>
-          <div className='flex items-center justify-center '>
-            <Image
-              src='/illustrations/verify-success.svg'
-              width={167.5}
-              height={129.07}
-              alt='success'
-            />
-          </div>
-          <div className=''>
-            <div className=' text-center flex flex-col gap-2   '>
-              <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                {title}
-              </h1>
-              <p className=' font-body__large text-neutral-90 '>
-                {description}
-              </p>
+    <div className=' h-screen flex items-center justify-center '>
+      <WhiteWrap extraStyle=' rounded-2xl mx-[1.25rem] py-[5.12rem] '>
+        <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
+          {!email && (
+            <div>
+              <AuthStepper activeStep={activeStep} />
+            </div>
+          )}
+          <div className=' px-[35px] flex flex-col gap-8 '>
+            <div className='flex items-center justify-center '>
+              <Image
+                src='/illustrations/verify-success.svg'
+                width={167.5}
+                height={129.07}
+                alt='success'
+              />
+            </div>
+            <div className=''>
+              <div className=' text-center flex flex-col gap-2   '>
+                <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+                  {title}
+                </h1>
+                <p className=' font-body__large text-neutral-90 '>
+                  {description}
+                </p>
+              </div>
+            </div>
+            <div className=' flex items-center justify-center   '>
+              <BtnMain
+                btnStyle=' authBtn text-purple  px-[42px]  '
+                btnText={"Continue"}
+                type='reset'
+                onClick={() => {
+                  btnFunc && btnFunc()
+                  Router.push(btnLink)
+                }}
+              />
             </div>
           </div>
-          <div className=' flex items-center justify-center   '>
-            <BtnMain
-              btnStyle=' authBtn text-purple  px-[42px]  '
-              btnText={"Continue"}
-              type='reset'
-              onClick={() => {
-                btnFunc && btnFunc()
-
-                Router.push(btnLink)
-              }}
-            />
-          </div>
         </div>
-      </div>
-    </WhiteWrap>
+      </WhiteWrap>
+    </div>
   )
 }

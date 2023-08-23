@@ -25,7 +25,7 @@ export default function SucessOTP() {
             toast({
               title: " User Wallet Created successfully",
               style: {
-                backgroundColor: "#4caf50",
+                backgroundColor: "#4B0082",
                 color: "#fff",
               },
             })

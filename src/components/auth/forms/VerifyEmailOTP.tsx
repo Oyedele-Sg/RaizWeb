@@ -22,6 +22,7 @@ import {
   useFieldArray,
 } from "react-hook-form"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
+import Image from "next/image"
 
 export const VerifyEmailOTP = () => {
   const Router = useRouter()
@@ -109,24 +110,34 @@ export const VerifyEmailOTP = () => {
           email
         />
       ) : (
-        <WhiteWrap extraStyle=''>
-          <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
+        <WhiteWrap extraStyle=' h-screen lg:h-full w-full   flex items-center justify-center  '>
+          <div className=' max-w-[502px] mx-auto flex flex-col gap-12   '>
             {/* comment out stepper component  */}
             {/* <div>
             <AuthStepper activeStep={0} />
           </div> */}
 
             <div className=' px-[35px] flex flex-col gap-[80px] '>
-              <div className=' text-center flex flex-col gap-2  '>
-                <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                  Email Verification OTP
-                </h1>
-                <p className=' font-body__large text-neutral-90 '>
-                  {" "}
-                  Please check your email{" "}
-                  <span className=' underline '>{signupEmail}</span> for the OTP
-                  code sent.{" "}
-                </p>
+              <div className=' flex flex-col justify-center items-center gap-[3rem] '>
+                <div className='lg:hidden'>
+                  <Image
+                    src='/illustrations/email-mobile.svg'
+                    alt='otp'
+                    width={153}
+                    height={167}
+                  />
+                </div>
+                <div className=' text-center flex flex-col gap-2  '>
+                  <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+                    Email Verification OTP
+                  </h1>
+                  <p className=' font-body__large text-neutral-90 '>
+                    {" "}
+                    Please check your email{" "}
+                    <span className=' underline '>{signupEmail}</span> for the
+                    OTP code sent.{" "}
+                  </p>
+                </div>
               </div>
 
               <div>
