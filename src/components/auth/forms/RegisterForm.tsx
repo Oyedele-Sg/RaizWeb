@@ -77,15 +77,15 @@ export const RegisterForm: FC = () => {
 
       await userService.signup(data)
 
-      toast({
-        title: " Account created successfully",
-        description:
-          "We've created your account for you. Lets verify your email ",
-        style: {
-          backgroundColor: "#4caf50",
-          color: "#fff",
-        },
-      })
+      // toast({
+      //   title: " Account created successfully",
+      //   description:
+      //     "We've created your account for you. Lets verify your email ",
+      //   style: {
+      //     backgroundColor: "#4B0082",
+      //     color: "#fff",
+      //   },
+      // })
 
       dispatch(getSignUpEmail(data.email))
       methods.reset()

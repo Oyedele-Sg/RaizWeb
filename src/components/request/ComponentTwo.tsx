@@ -61,7 +61,7 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
         description:
           " Your request has been sent successfully, you will be notified when the request is accepted  ",
         style: {
-          backgroundColor: "#4caf50",
+          backgroundColor: "#4B0082",
           color: "#fff",
         },
       })

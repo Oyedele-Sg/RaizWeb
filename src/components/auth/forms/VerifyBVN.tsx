@@ -50,7 +50,7 @@ export const VerifyBVN = () => {
         title: " Your BVN has been successfully verified",
         description: "",
         style: {
-          backgroundColor: "#4caf50",
+          backgroundColor: "#4B0082",
           color: "#fff",
         },
       })

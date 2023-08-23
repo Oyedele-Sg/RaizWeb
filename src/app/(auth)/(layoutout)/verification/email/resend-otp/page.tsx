@@ -15,6 +15,7 @@ import {
   setLoadingTrue,
 } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import React, { useState } from "react"
 import { useForm, FormProvider, FieldValues } from "react-hook-form"
@@ -45,7 +46,7 @@ export default function WrongMail() {
         description:
           "OTP has been sent to your email address. Please check your inbox. ",
         style: {
-          backgroundColor: "#4caf50",
+          backgroundColor: "#4B0082",
           color: "#fff",
         },
       })
@@ -74,21 +75,35 @@ export default function WrongMail() {
   return (
     <>
       <Loading />
-      <WhiteWrap closeBtn closeLink='/verification/email'>
+      <WhiteWrap
+        extraStyle=' h-screen lg:h-full w-full   flex flex-col  justify-center  '
+        closeBtn
+        closeLink='/verification/email'
+      >
         <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
           {/* <div>
           <AuthStepper activeStep={0} />
         </div> */}
 
           <div className=' flex flex-col gap-[80px] '>
-            <div className=' text-center flex flex-col gap-2   '>
-              <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                {" "}
-                Confirm Email Address
-              </h1>
-              <p className=' font-body__large text-neutral-90 '>
-                Enter correct email to verify your account.
-              </p>
+            <div className=' flex flex-col justify-center items-center gap-[3rem]  '>
+              <div className='lg:hidden'>
+                <Image
+                  src='/illustrations/email-mobile.svg'
+                  alt='otp'
+                  width={153}
+                  height={167}
+                />
+              </div>
+              <div className=' text-center flex flex-col gap-2   '>
+                <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+                  {" "}
+                  Confirm Email Address
+                </h1>
+                <p className=' font-body__large text-neutral-90 '>
+                  Enter correct email to verify your account.
+                </p>
+              </div>
             </div>
 
             <div className=' '>

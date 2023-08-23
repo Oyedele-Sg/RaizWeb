@@ -9,10 +9,10 @@ export default function VerifyLayout({
   children: React.ReactNode
 }) {
   return (
-    <main className=' flex items-center  justify-center min-h-screen  '>
+    <main className=' lg:flex lg:items-center  lg:justify-center min-h-screen   '>
       <div className='   '>
         {/* <CloseIcon link='/login' /> */}
-        <div className=' mt-10 '>{children}</div>
+        <div className=' lg:mt-10 '>{children}</div>
       </div>
     </main>
   )

@@ -63,7 +63,7 @@ export default function Username() {
         title: " Username added successfully",
 
         style: {
-          backgroundColor: "#4caf50",
+          backgroundColor: "#4B0082",
           color: "#fff",
         },
       })

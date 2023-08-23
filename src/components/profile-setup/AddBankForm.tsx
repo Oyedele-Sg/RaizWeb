@@ -49,7 +49,6 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
       methods.watch("account_number").length === 10
     ) {
       dispatch(setLoadingTrue())
-      
     }
   }, [methods.watch("account_number")])
 
@@ -76,7 +75,7 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
         description:
           "We've created your account for you. Lets verify your email ",
         style: {
-          backgroundColor: "#4caf50",
+          backgroundColor: "#4B0082",
           color: "#fff",
         },
       })
