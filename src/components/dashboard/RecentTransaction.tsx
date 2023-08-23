@@ -141,9 +141,9 @@ export const RecentTransaction = () => {
             </PopoverContent>
           </Popover>
         </div>
-        {transactions ? (
+        {transactions && transactions?.length !== 0 ? (
           <div className=' flex flex-col gap-8  overflow-auto '>
-            {transactions.map((transaction, index) => (
+            {transactions?.map((transaction, index) => (
               <div key={index} className=' flex justify-between items-center '>
                 <div className=' flex flex-col gap-1  '>
                   <h3 className=' text-purple text-[18px] font-semi-mid    '>
