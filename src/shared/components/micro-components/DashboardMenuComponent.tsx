@@ -14,10 +14,10 @@ interface Props {
 
 export function DashboardMenuComponent({ menu }: Props) {
   return (
-    <div className=' bg-grey rounded-xl  py-[14px]   '>
+    <div className=' bg-grey rounded-xl  py-[14px]    '>
       <Link
         href={menu.link}
-        className=' flex  flex-col items-center justify-center gap-2'
+        className=' flex  flex-col items-center justify-center gap-2 no-underline '
       >
         <Image
           src={`/icons/dashboard/${menu.icon}.svg`}
@@ -26,8 +26,7 @@ export function DashboardMenuComponent({ menu }: Props) {
           alt={menu.name}
         />
 
-        <span className=' font-label__large text-neutral-100  '>
-          {" "}
+        <span className=' font-label__large text-neutral-100 no-underline bug  '>
           {menu.name}{" "}
         </span>
       </Link>
