@@ -86,7 +86,7 @@ export const ExpenseTile = () => {
         </div>
         <div className='  flex flex-col gap-12 '>
           <TimelineSelect />
-          <div className=' mx-auto bug flex items-center justify-center '>
+          <div className=' mx-auto  flex items-center justify-center '>
             <Image
               src={`/illustrations/expenses-dummy.svg`}
               width={174}

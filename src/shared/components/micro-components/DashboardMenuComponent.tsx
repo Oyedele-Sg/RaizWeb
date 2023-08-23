@@ -26,7 +26,7 @@ export function DashboardMenuComponent({ menu }: Props) {
           alt={menu.name}
         />
 
-        <span className=' font-label__large text-neutral-100 no-underline bug  '>
+        <span className=' font-label__large text-neutral-100 no-underline   '>
           {menu.name}{" "}
         </span>
       </Link>
