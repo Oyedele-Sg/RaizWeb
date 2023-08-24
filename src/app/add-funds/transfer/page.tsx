@@ -130,7 +130,11 @@ export default function page() {
                         required: "Input a bank name",
                       }}
                       label='Account number'
-                      children={<IconCopy />}
+                      children={
+                        <CopyComponent
+                          value={user?.wallets[0]?.account_number}
+                        />
+                      }
                       disabled
                     />
                     <RegisterInput
@@ -140,7 +144,9 @@ export default function page() {
                         required: "Input a bank name",
                       }}
                       label='Beneficiary name'
-                      children={<IconCopy />}
+                      children={
+                        <CopyComponent value={user?.wallets[0]?.wallet_name} />
+                      }
                       disabled
                     />
 
@@ -151,7 +157,7 @@ export default function page() {
                         required: "Input a bank name",
                       }}
                       label='Bank name'
-                      children={<IconCopy />}
+                      children={<CopyComponent value='Providus Bank' />}
                       disabled
                     />
 
@@ -164,5 +170,31 @@ export default function page() {
         </SetupLayout>
       </div>
     </>
+  )
+}
+
+interface CopyComponentProps {
+  value: string
+}
+
+function CopyComponent({ value }: CopyComponentProps) {
+  return (
+    <div
+      className=' '
+      onClick={() =>
+        navigator.clipboard.writeText(value).then(() => {
+          toast({
+            title: "Copied to Clipboard",
+
+            style: {
+              backgroundColor: "#7E6298",
+              color: "#fff",
+            },
+          })
+        })
+      }
+    >
+      <IconCopy />
+    </div>
   )
 }
