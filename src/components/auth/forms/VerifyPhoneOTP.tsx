@@ -22,6 +22,7 @@ import {
 } from "react-hook-form"
 import { useUser } from "@/hooks/user/useUser"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
+import Image from "next/image"
 
 export const VerifyPhoneOTP = () => {
   const Router = useRouter()
@@ -194,20 +195,34 @@ export const VerifyPhoneOTP = () => {
           btnLink='/verification/bvn'
         />
       ) : (
-        <WhiteWrap closeBtn closeLink='/verification/add-number'>
+        <WhiteWrap
+          extraStyle=' h-screen lg:h-full w-full   flex items-center justify-center  '
+          closeBtn
+          closeLink='/verification/add-number'
+        >
           <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
             <div>
               <AuthStepper activeStep={1} />
             </div>
 
             <div className=' px-[35px] flex flex-col gap-[80px] '>
-              <div className=' text-center flex flex-col gap-2   '>
-                <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                  Enter OTP
-                </h1>
-                <p className=' font-body__large text-neutral-90 '>
-                  We sent you OTP to your phone number
-                </p>
+              <div className=' flex flex-col justify-center items-center gap-[3rem] '>
+                <div className='lg:hidden'>
+                  <Image
+                    src='/illustrations/phone-mobile.svg'
+                    alt='otp'
+                    width={153}
+                    height={167}
+                  />
+                </div>
+                <div className=' text-center flex flex-col gap-2   '>
+                  <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+                    Enter OTP
+                  </h1>
+                  <p className=' font-body__large text-neutral-90 '>
+                    We sent you OTP to your phone number
+                  </p>
+                </div>
               </div>
 
               <div>
