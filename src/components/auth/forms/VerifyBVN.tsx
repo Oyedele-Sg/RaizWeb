@@ -74,28 +74,42 @@ export const VerifyBVN = () => {
   return (
     <>
       <Loading />
-      <WhiteWrap closeBtn closeLink='/dashboard'>
-        <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
+      <WhiteWrap
+        extraStyle=' h-screen lg:h-full w-full  flex items-center justify-center px-[20px]'
+        closeBtn
+        closeLink='/dashboard'
+      >
+        <div className=' w-screen max-w-[502px] mx-[20px] flex flex-col gap-12  '>
           <div>
             <AuthStepper activeStep={2} />
           </div>
 
           <div className=' flex flex-col gap-[56px] '>
-            <div className=' text-center flex flex-col gap-2   '>
-              <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                {" "}
-                Bank Verification Number
-              </h1>
-              <p className=' font-body__large text-neutral-90 '>
-                Enter BVN to verify your account.
-              </p>
+            <div className=' flex flex-col justify-center items-center gap-[3rem] '>
+              <div className='lg:hidden'>
+                <Image
+                  src='/illustrations/bvn-mobile.svg'
+                  alt='otp'
+                  width={153}
+                  height={167}
+                />
+              </div>
+              <div className=' text-center flex flex-col gap-2   '>
+                <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+                  {" "}
+                  Bank Verification Number
+                </h1>
+                <p className=' font-body__large text-neutral-90 '>
+                  Enter BVN to verify your account.
+                </p>
+              </div>
             </div>
 
             <div className=' '>
               <FormProvider {...methods}>
                 <form
                   onSubmit={methods.handleSubmit(onSubmit)}
-                  className='flex flex-col gap-8'
+                  className='flex flex-col gap-8 mx-[20px]'
                 >
                   <RegisterInput
                     name={`bvn`}
