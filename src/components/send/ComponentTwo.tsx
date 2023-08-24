@@ -164,7 +164,7 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
                           className=' text-purple capitalize   '
                         />
                       </SelectTrigger>
-                      <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize z-50 bug '>
+                      <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize z-50 '>
                         {category?.map((cat, index) => (
                           <SelectItem
                             key={cat.category_id}

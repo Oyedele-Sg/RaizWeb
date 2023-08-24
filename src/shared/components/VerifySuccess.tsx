@@ -30,7 +30,7 @@ export const VerifySuccess: React.FC<Props> = ({
 
   return (
     <div className=' h-screen flex items-center justify-center '>
-      <WhiteWrap extraStyle=' rounded-2xl mx-[1.25rem] py-[5.12rem] '>
+      <WhiteWrap extraStyle=' rounded-2xl mx-[1.25rem] py-[5.12rem]  '>
         <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
           {!email && (
             <div>
