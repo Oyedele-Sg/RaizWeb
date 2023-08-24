@@ -97,21 +97,35 @@ export default function PhoneNumber() {
     <>
       <Loading />
 
-      <WhiteWrap closeBtn closeLink=' /dashboard '>
-        <div className=' max-w-[502px] mx-auto flex flex-col gap-12 b  '>
+      <WhiteWrap
+        extraStyle=' h-screen lg:h-full w-full   flex items-center justify-center'
+        closeBtn
+        closeLink=' /dashboard '
+      >
+        <div className=' min-w-[375px] w-full  flex flex-col gap-12  '>
           <div>
             <AuthStepper activeStep={1} />
           </div>
 
           <div className=' flex flex-col gap-[56px] '>
-            <div className=' text-center flex flex-col gap-2   '>
-              <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                {" "}
-                Enter Phone Number
-              </h1>
-              <p className=' font-body__large text-neutral-90 '>
-                Enter phone number to verify your account.
-              </p>
+            <div className=' flex flex-col justify-center items-center gap-[3rem] '>
+              <div className='lg:hidden'>
+                <Image
+                  src='/illustrations/phone-mobile.svg'
+                  alt='otp'
+                  width={153}
+                  height={167}
+                />
+              </div>
+              <div className=' text-center flex flex-col gap-2   '>
+                <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+                  {" "}
+                  Enter Phone Number
+                </h1>
+                <p className=' font-body__large text-neutral-90 '>
+                  Enter phone number to verify your account.
+                </p>
+              </div>
             </div>
 
             <div className=' '>
