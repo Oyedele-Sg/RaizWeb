@@ -21,6 +21,12 @@ import { useAppDispatch } from "@/shared/redux/types"
 import { useRouter } from "next/navigation"
 import React, { useEffect, useMemo } from "react"
 import { FormProvider, useForm } from "react-hook-form"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 interface TransferInputProps {
   bank_name: string
@@ -179,22 +185,31 @@ interface CopyComponentProps {
 
 function CopyComponent({ value }: CopyComponentProps) {
   return (
-    <div
-      className=' '
-      onClick={() =>
-        navigator.clipboard.writeText(value).then(() => {
-          toast({
-            title: "Copied to Clipboard",
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div
+            className=' '
+            onClick={() =>
+              navigator.clipboard.writeText(value).then(() => {
+                toast({
+                  title: "Copied to Clipboard",
 
-            style: {
-              backgroundColor: "#7E6298",
-              color: "#fff",
-            },
-          })
-        })
-      }
-    >
-      <IconCopy />
-    </div>
+                  style: {
+                    backgroundColor: "#7E6298",
+                    color: "#fff",
+                  },
+                })
+              })
+            }
+          >
+            <IconCopy />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent className=' text-neutral-70 bg-neutral-30  '>
+          <p>Copy to clipboard </p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
