@@ -18,6 +18,9 @@ import {
   ExternalDebitDataInterface,
   RequestDataInterface,
   NIPLookupDataInterface,
+  FavoriteAccountsDataInterface,
+  ExternalFavoriteAccountsDataInterface,
+  PendingRequestDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -66,6 +69,9 @@ export const userService = {
   requestFunds,
   loadFunds,
   nipAccountLookup,
+  getFavoriteAccounts,
+  getExternalFavoriteAccounts,
+  getPendingRequests,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -263,4 +269,19 @@ function nipAccountLookup(
       bank_code,
     })}`
   )
+}
+
+// favourites
+function getFavoriteAccounts(): Promise<FavoriteAccountsDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/favourite_accounts/`)
+}
+
+function getExternalFavoriteAccounts(): Promise<
+  ExternalFavoriteAccountsDataInterface[]
+> {
+  return fetchWrapper.get(`${baseUrl}/favourite_external_accounts/`)
+}
+
+function getPendingRequests(): Promise<PendingRequestDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/transfers/debit/get-pending-requests/`)
 }

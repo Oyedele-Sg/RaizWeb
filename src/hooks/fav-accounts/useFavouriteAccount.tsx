@@ -1,20 +1,21 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { userService } from "@/services"
 
-import { UserInterface, queryKeys } from "@/shared"
+import { FavoriteAccountsDataInterface, queryKeys } from "@/shared"
 import { useEffect } from "react"
 
-async function getUser(): Promise<UserInterface> {
-  const response = await userService.getCurrentUser()
+async function getFavAccounts(): Promise<FavoriteAccountsDataInterface[]> {
+  const response = await userService.getFavoriteAccounts()
   return response
 }
 
-export function useUser(): UserInterface | undefined {
+export function useFavouriteAccounts():
+  | FavoriteAccountsDataInterface[]
+  | undefined {
   // const queryClient = useQueryClient()
   const { data } = useQuery({
-    queryKey: [queryKeys.user],
-    queryFn: getUser,
-    refetchInterval: 30000,
+    queryKey: [queryKeys.favaccounts],
+    queryFn: getFavAccounts,
   })
 
   // useEffect(() => {
