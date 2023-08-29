@@ -190,7 +190,7 @@ export interface InternalDebitDataInterface {
 }
 
 export interface CategoryDataInterface {
-  category_id: 0
+  category_id: number
   category_name: string
   created_at: string
   updated_at: string
@@ -221,4 +221,64 @@ export interface RequestDataInterface {
 export interface NIPLookupDataInterface {
   account_name: string
   account_number: string
+}
+
+export interface FavoriteAccountsDataInterface {
+  account_user_id: string
+  favourite_account_user_id: string
+  favourite: boolean
+  ranking: number
+  favourite_wallet_id: string
+  created_at: Date
+  updated_at: Date
+  favourite_account_user: UserSearchInterface
+}
+
+export interface ExternalAccountDataInterface {
+  bank_short_code: string
+  bank_account_number: string
+  bank_account_name: string
+  bank_name: string
+  external_account_id: string
+  created_at: Date
+  updated_at: Date
+}
+export interface ExternalFavoriteAccountsDataInterface {
+  account_user_id: string
+  external_account_id: string
+  favourite: boolean
+  ranking: number
+  favourite_external_account_id: string
+  created_at: Date
+  updated_at: Date
+  external_account: ExternalAccountDataInterface
+}
+
+export interface AccountInterface {
+  first_name: string
+  last_name: string
+  username: string
+  account_user_id: string
+}
+export interface PendingRequestDataInterface {
+  requestee_account_id: string
+  transaction_amount: number
+  currency: "NGN"
+  narration: string
+  category_id: number
+  requester_account_id: string
+  status_id: number
+  request_transfer_id: string
+  requester_account: AccountInterface
+  requestee_account: AccountInterface
+  status: {
+    status: string
+    description: string
+    request_fund_status_id: number
+    created_at: Date
+    updated_at: Date
+  }
+  created_at: Date
+  updated_at: Date
+  category: CategoryDataInterface
 }

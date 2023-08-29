@@ -48,6 +48,7 @@ export default function page() {
         <ComponentTwo
           searchResult={searchResults}
           setCurrentStep={setCurrentStep}
+          setSearchResults={setSearchResults}
         />
       )}
       {/* {currentStep === 3 && <ComponentThree />} */}

@@ -1,6 +1,7 @@
 import { userService } from "@/services"
 import {
   AuthButton,
+  BackArrow,
   BackBtnCircle,
   BtnMain,
   DebitTransferInterface,
@@ -40,9 +41,16 @@ interface SearchInput {
 interface Props {
   searchResult: UserSearchInterface | undefined
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>
+  setSearchResults: React.Dispatch<
+    React.SetStateAction<UserSearchInterface | undefined>
+  >
 }
 
-export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
+export function ComponentTwo({
+  searchResult,
+  setCurrentStep,
+  setSearchResults,
+}: Props) {
   const Router = useRouter()
   const [debitData, setDebitData] = useState<DebitTransferInterface>()
   const category = useCategory()
@@ -91,8 +99,17 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
           <IconPesaColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div className='' onClick={() => Router.refresh}>
-              <BackBtnCircle />
+            <div className=''>
+              <button
+                title='back'
+                className=''
+                onClick={() => {
+                  setSearchResults(undefined)
+                  setCurrentStep(1)
+                }}
+              >
+                <BackArrow />
+              </button>
               <button title='next' className=''>
                 <NextArrow />
               </button>
@@ -103,16 +120,6 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
               subtitle={debitData ? "Enter Transaction Pin" : "Enter Amount"}
               utils={<Utils />}
             >
-              {/* <input
-              type='search'
-              name=''
-              id=''
-              className=' form-input outline-none bg-transparent  w-full max-h-[3rem] placeholder:text-neutral-70 placeholder:font-body__large border-x-0 border-t-0 border-b-[1px] border-b-purple   '
-              placeholder='Search with Username, Phone Number, or Email Address'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <BtnMain btnText='Next' btnStyle=' authBtn ' /> */}
               {searchResult && (
                 <h2 className='text-purple font-title__large   '>
                   {searchResult?.first_name} {searchResult?.last_name}
@@ -158,10 +165,10 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
                         // @ts-ignore
                       }}
                     >
-                      <SelectTrigger className='w-full ro border-b-purple border-[1px] '>
+                      <SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50  '>
                         <SelectValue
                           placeholder='Select A category '
-                          className=' text-purple capitalize   '
+                          className=' text-purple capitalize placeholder:text-neutral-50   '
                         />
                       </SelectTrigger>
                       <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize z-50 '>
@@ -235,15 +242,15 @@ function Pin({ debitData }: PinProps) {
       dispatch(setLoadingTrue())
       await userService.walletTransfer(transferData)
 
-      toast({
-        title: " Money Sent",
+      // toast({
+      //   title: " Money Sent",
 
-        style: {
-          backgroundColor: "#4B0082",
-          color: "#fff",
-        },
-        duration: 2000,
-      })
+      //   style: {
+      //     backgroundColor: "#4B0082",
+      //     color: "#fff",
+      //   },
+      //   duration: 2000,
+      // })
       Router.push("/send/success")
       dispatch(setLoadingFalse())
     } catch (error) {

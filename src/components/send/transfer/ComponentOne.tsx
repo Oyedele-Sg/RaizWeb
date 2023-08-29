@@ -32,6 +32,7 @@ import {
 import { useCategory } from "@/hooks/category/useCategory"
 import { toast } from "@/components/ui/use-toast"
 import { banks } from "@/shared/data/Banks"
+import { RecentAccountExternalComponent } from "../RecentAccountExternal"
 
 export function ComponentOne() {
   const Router = useRouter()
@@ -128,6 +129,8 @@ export function ComponentOne() {
               </button>
             </div>
 
+            <RecentAccountExternalComponent methods={methods} />
+
             <FormTitledContainer title='Send Money' subtitle={"Bank Account"}>
               {debitData ? (
                 <Pin debitData={debitData} />
@@ -190,7 +193,7 @@ export function ComponentOne() {
                         )
                       }}
                     >
-                      <SelectTrigger className='w-full placeholder:text-purple   border-purple border-[1px] z-50 '>
+                      <SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50 '>
                         <SelectValue
                           placeholder='Select A bank '
                           className='   '
@@ -257,15 +260,15 @@ function Pin({ debitData }: PinProps) {
       dispatch(setLoadingTrue())
       await userService.externalTransfer(transferData)
 
-      toast({
-        title: " Money Sent",
+      // toast({
+      //   title: " Money Sent",
 
-        style: {
-          backgroundColor: "#4B0082",
-          color: "#fff",
-        },
-        duration: 2000,
-      })
+      //   style: {
+      //     backgroundColor: "#4B0082",
+      //     color: "#fff",
+      //   },
+      //   duration: 2000,
+      // })
       Router.push("/send/success")
       dispatch(setLoadingFalse())
     } catch (error) {
