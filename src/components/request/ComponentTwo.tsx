@@ -13,6 +13,7 @@ import {
   RegisterInput,
   SetupLayout,
   UserSearchInterface,
+  BackArrow,
 } from "@/shared"
 import React, { useEffect, useRef, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -32,9 +33,16 @@ import { useCategory } from "@/hooks/category/useCategory"
 interface Props {
   searchResult: UserSearchInterface | undefined
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>
+  setSearchResults?: React.Dispatch<
+    React.SetStateAction<UserSearchInterface | undefined>
+  >
 }
 
-export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
+export function ComponentTwo({
+  searchResult,
+  setSearchResults,
+  setCurrentStep,
+}: Props) {
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const category = useCategory()
@@ -90,8 +98,14 @@ export function ComponentTwo({ searchResult, setCurrentStep }: Props) {
           <IconPesaColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div className='' onClick={() => Router.refresh}>
-              <BackBtnCircle />
+            <div
+              className=''
+              onClick={() => {
+                // setSear
+                setCurrentStep(1)
+              }}
+            >
+              <BackArrow />
               <button title='next' className=''>
                 <NextArrow />
               </button>

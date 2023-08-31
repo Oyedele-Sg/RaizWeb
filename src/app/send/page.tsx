@@ -21,9 +21,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 
 export default function page() {
   const Router = useRouter()
+  const dispatch = useAppDispatch()
+  const selectedRequest = useAppSelector((state) => state.selectedRequest)
+  console.log("selected reuest", selectedRequest)
   const cardLink = [
     {
       type: "Internal Transfer",
@@ -40,6 +44,7 @@ export default function page() {
   ]
 
   const requests = usePendingRequest()
+  console.log("requests", requests) 
 
   return (
     <div>
@@ -97,18 +102,18 @@ export default function page() {
                         <SelectItem
                           key={request.requester_account_id}
                           // @ts-ignore
-                          value={`${request.requestee_account.first_name} ${request.requestee_account.last_name} `}
-                          className=' hover:bg-neutral-50 z-50 '
+                          value={`${request.requester_account.first_name} ${request.requester_account.last_name} `}
+                          className=' hover:bg-neutral-50 z-50  select-item-reset '
                           onClick={(value) => {
                             // methods.setValue("category_id", cat.category_id)
                           }}
                         >
-                          <div className=' flex justify-between'>
-                            <span className=' text-neutral-90 '>{`${request.requestee_account.first_name} ${request.requestee_account.last_name} `}</span>
-                            <span className=' text-purple '>
-                              {request.transaction_amount}{" "}
-                            </span>{" "}
-                          </div>
+                          {/* <div className=' bug  '> */}
+                          <span className=' text-neutral-90 '>{`${request.requester_account.first_name} ${request.requester_account.last_name} `}</span>
+                          <span className=' text-purple '>
+                            {request.transaction_amount}{" "}
+                          </span>{" "}
+                          {/* </div> */}
                         </SelectItem>
                       ))}
                     </SelectContent>
