@@ -18,7 +18,7 @@ import {
   UserSearchInterface,
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
-import { useAppDispatch } from "@/shared/redux/types"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import React, { useState, useEffect, useMemo } from "react"
@@ -26,6 +26,8 @@ import { FormProvider, useForm } from "react-hook-form"
 
 export default function page() {
   const Router = useRouter()
+  const request = useAppSelector((state) => state.selectedRequest)
+  console.log("request", request)
   return (
     <div className=''>
       <SetupLayout bg='bg-profile-1'>

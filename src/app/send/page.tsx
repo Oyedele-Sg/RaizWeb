@@ -8,6 +8,7 @@ import {
   IconPesaColored,
   Logo,
   NextArrow,
+  PendingRequestDataInterface,
   RouteCardSmall,
   SetupLayout,
 } from "@/shared"
@@ -22,6 +23,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
+import { SearchSelect, SearchSelectItem } from "@tremor/react"
+import { getSelectedRequest } from "@/shared/redux/features/request"
 
 export default function page() {
   const Router = useRouter()
@@ -44,7 +47,7 @@ export default function page() {
   ]
 
   const requests = usePendingRequest()
-  console.log("requests", requests) 
+  console.log("requests", requests)
 
   return (
     <div>
@@ -66,11 +69,12 @@ export default function page() {
               // utils={<Utils />}
             >
               <div className='flex gap-6  '>
-                {cardLink.map((card) => (
+                {cardLink.map((card, index) => (
                   <RouteCardSmall
                     type={card.type}
                     subText={card.subText}
                     link={card.link}
+                    key={index}
                   />
                 ))}
               </div>
@@ -78,46 +82,33 @@ export default function page() {
               {requests && requests?.length > 0 && (
                 <div>
                   <h3 className=' text-neutral-80  '>Pending Requests</h3>
-                  <Select
+
+                  <SearchSelect
+                    placeholder='Select...'
+                    className=''
                     onValueChange={(value) => {
-                      // const selectedBank = category?.find(
-                      //   (cat) => cat.category_name === value
-                      // )
-                      // @ts-ignore
-                      // methods.setValue(
-                      //   "category_id",
-                      //   selectedBank?.category_id as number
-                      // )
-                      // @ts-ignore
+                      const selectedRequest = requests?.find(
+                        (request) => request.request_transfer_id === value
+                      )
+
+                      dispatch(
+                        getSelectedRequest(
+                          selectedRequest as PendingRequestDataInterface
+                        )
+                      )
+
+                      Router.push("/request/approve")
                     }}
                   >
-                    <SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50  '>
-                      <SelectValue
-                        placeholder='Select  '
-                        className=' text-purple capitalize placeholder:text-neutral-50   '
-                      />
-                    </SelectTrigger>
-                    <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize z-50 '>
-                      {requests?.map((request, index) => (
-                        <SelectItem
-                          key={request.requester_account_id}
-                          // @ts-ignore
-                          value={`${request.requester_account.first_name} ${request.requester_account.last_name} `}
-                          className=' hover:bg-neutral-50 z-50  select-item-reset '
-                          onClick={(value) => {
-                            // methods.setValue("category_id", cat.category_id)
-                          }}
-                        >
-                          {/* <div className=' bug  '> */}
-                          <span className=' text-neutral-90 '>{`${request.requester_account.first_name} ${request.requester_account.last_name} `}</span>
-                          <span className=' text-purple '>
-                            {request.transaction_amount}{" "}
-                          </span>{" "}
-                          {/* </div> */}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    {requests?.map((request, index) => (
+                      <SearchSelectItem
+                        value={request.request_transfer_id}
+                        key={index}
+                      >
+                        {`${request.requester_account.first_name} ${request.requester_account.last_name}`}
+                      </SearchSelectItem>
+                    ))}
+                  </SearchSelect>
                 </div>
               )}
             </FormTitledContainer>
@@ -138,3 +129,46 @@ export default function page() {
 //     </>
 //   )
 // }
+
+{
+  /* <Select
+onValueChange={(value) => {
+  console.log("value", value)
+  // const selectedRequest = requests?.find(
+  //   (request) => request.category_id === value
+  // )
+  // @ts-ignore
+  // methods.setValue(
+  //   "category_id",
+  //   selectedBank?.category_id as number
+  // )
+  // @ts-ignore
+}}
+>
+<SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50  '>
+  <SelectValue
+    placeholder='Select  '
+    className=' text-purple capitalize placeholder:text-neutral-50   '
+  />
+</SelectTrigger>
+<SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize z-50 '>
+  {requests?.map((request, index) => (
+    <SelectItem
+      key={request.requester_account_id}
+      // @ts-ignore
+      value={request.requester_account_id}
+      className=' hover:bg-neutral-50 z-50  select-item-reset '
+      onClick={(value) => {
+        // methods.setValue("category_id", cat.category_id)
+      }}
+    >
+      
+      <span className=' text-neutral-90 '>{`${request.requester_account.first_name} ${request.requester_account.last_name} `}</span>
+      <span className=' text-purple '>
+        {request.transaction_amount}{" "}
+      </span>{" "}
+    </SelectItem>
+  ))}
+</SelectContent>
+</Select> */
+}
