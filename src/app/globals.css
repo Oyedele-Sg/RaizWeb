@@ -425,7 +425,11 @@ input[type="number"] {
 }
 
 .select-item-reset {
-  width: 100% !important;
   display: flex !important;
   justify-content: space-between !important;
+}
+
+.force-padding{
+  padding-top:  4px !important;
+  padding-bottom:  4px !important;
 }

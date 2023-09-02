@@ -72,6 +72,8 @@ export const userService = {
   getFavoriteAccounts,
   getExternalFavoriteAccounts,
   getPendingRequests,
+  approveRequest,
+  disapproveRequest,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -282,6 +284,24 @@ function getExternalFavoriteAccounts(): Promise<
   return fetchWrapper.get(`${baseUrl}/favourite_external_accounts/`)
 }
 
+// requsts
+
 function getPendingRequests(): Promise<PendingRequestDataInterface[]> {
   return fetchWrapper.get(`${baseUrl}/transfers/debit/get-pending-requests/`)
+}
+
+function approveRequest(
+  request_id: string,
+  data: { transaction_pin: string }
+): Promise<void> {
+  return fetchWrapper.patch(
+    `${baseUrl}/transfers/debit/request-funds/${request_id}/accept/`,
+    data
+  )
+}
+function disapproveRequest(request_id: string): Promise<void> {
+  return fetchWrapper.patch(
+    `${baseUrl}/transfers/debit/request-funds/${request_id}/decline/`,
+    {}
+  )
 }
