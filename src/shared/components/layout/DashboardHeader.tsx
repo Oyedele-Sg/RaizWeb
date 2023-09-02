@@ -9,13 +9,13 @@ import { useRouter } from "next/navigation"
 export const DashboardHeader = () => {
   const Router = useRouter()
   return (
-    <header className=' ml-[144px] py-8 px-12 '>
+    <header className=' lg:ml-[144px] py-12 px-5  lg:py-8 lg:px-12 '>
       <div className=' flex items-center justify-between '>
         <h1 className=' font-display__small text-purple font-semi-mid   '>
           Dashboard
         </h1>
 
-        <div className=' font bg-grey py-3 px-4  rounded-lg flex items-center gap-4 '>
+        <div className=' bug hidden  font bg-grey py-3 px-4  rounded-lg lg:flex items-center gap-4  '>
           <IconSearch />
           <input
             type='search'
@@ -33,7 +33,7 @@ export const DashboardHeader = () => {
           </div>
 
           <div
-            className=''
+            className=' hidden lg:block '
             onClick={() => {
               userService.logout()
               Router.push(`/login`)

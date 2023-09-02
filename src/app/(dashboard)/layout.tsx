@@ -14,7 +14,7 @@ function Dashboardlayout({ children }: { children: React.ReactNode }) {
         <div className=' h-full  '>
           <Sidebar />
           <DashboardHeader />
-          <div className='ml-[144px] px-12   '>{children}</div>
+          <div className='lg:ml-[144px] px-12   '>{children}</div>
         </div>
       </div>
     </>
