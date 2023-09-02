@@ -15,8 +15,8 @@ export const Sidebar = () => {
   const utilsIcon = ["toggle-off-circle", "setting"]
 
   return (
-    <aside className='   w-[144px] pt-8 pb-[80px]   z-10 absolute   min-h-screen bg-grey '>
-      <div className='  flex flex-col gap-[300px]  '>
+    <aside className=' w-full  lg:w-[144px]   lg:pt-8 lg:pb-[80px]   z-10 fixed lg:absolute bottom-0 lg:bottom-auto  lg:min-h-screen bg-grey '>
+      <div className='  flex lg:flex-col gap-[300px]  '>
         <div className=' flex flex-col items-center gap-[84px]  '>
           <div className=''>
             <Image
@@ -26,7 +26,7 @@ export const Sidebar = () => {
               alt='pesa icon logo'
             />
           </div>
-          <div className=' flex flex-col gap-[52px] '>
+          {/* <div className=' flex flex-col gap-[52px] '>
             {dashboardIcon.map((icon, index) => (
               <div key={index} className=''>
                 <Image
@@ -37,9 +37,9 @@ export const Sidebar = () => {
                 />
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
-        <div className=' flex flex-col items-center gap-[52px] '>
+        {/* <div className=' flex flex-col items-center gap-[52px] '>
           {utilsIcon.map((icon, index) => (
             <div key={index} className=''>
               <Image
@@ -50,7 +50,7 @@ export const Sidebar = () => {
               />
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </aside>
   )
