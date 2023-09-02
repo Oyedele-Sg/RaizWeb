@@ -104,8 +104,13 @@ export default function page() {
                       <SearchSelectItem
                         value={request.request_transfer_id}
                         key={index}
+                        className=' select-item-reset  '
                       >
-                        {`${request.requester_account.first_name} ${request.requester_account.last_name}`}
+                        <span className=' text-purple  '>{`${request.requester_account.first_name} ${request.requester_account.last_name}`}</span>
+                        {"         "}
+                        <span className=' text-purple   font-semi-mid'>
+                          (₦{request.transaction_amount})
+                        </span>
                       </SearchSelectItem>
                     ))}
                   </SearchSelect>
