@@ -73,20 +73,28 @@ export const RecentTransaction = () => {
     }
   }
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 768
+  )
   const [showTransaction, setShowTransaction] = useState(false)
 
   useEffect(() => {
     // Update the isMobile state when the window is resized
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768)
+      if (typeof window !== "undefined") {
+        setIsMobile(window.innerWidth <= 768)
+      }
     }
 
-    window.addEventListener("resize", handleResize)
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", handleResize)
+    }
 
     return () => {
       // Clean up the event listener when the component unmounts
-      window.removeEventListener("resize", handleResize)
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", handleResize)
+      }
     }
   }, [])
 
@@ -173,7 +181,7 @@ export const RecentTransaction = () => {
           </div>
         </div>
         {transactions && transactions?.length !== 0 ? (
-          isMobile ? (
+          <div className=' overflow-auto '>
             <div className=' hidden  lg:flex flex-col gap-8  overflow-auto   '>
               {transactions?.map((transaction, index) => (
                 <div
@@ -184,7 +192,6 @@ export const RecentTransaction = () => {
                     <h3 className=' text-purple text-[18px] font-semi-mid    '>
                       {transaction.third_party_name}
                     </h3>
-
                     <p className=' text-neutral-70 font-title__medium   '>
                       {" "}
                       {moment(transaction.transaction_date_time).format(
@@ -192,7 +199,6 @@ export const RecentTransaction = () => {
                       )}{" "}
                     </p>
                   </div>
-
                   <h2
                     className={` ${
                       transaction.transaction_type.transaction_type === `debit`
@@ -209,8 +215,7 @@ export const RecentTransaction = () => {
                 </div>
               ))}
             </div>
-          ) : (
-            showTransaction && (
+            {showTransaction && (
               <div className='lg:hidden flex flex-col gap-8  overflow-auto '>
                 {transactions?.map((transaction, index) => (
                   <div
@@ -248,8 +253,8 @@ export const RecentTransaction = () => {
                   </div>
                 ))}
               </div>
-            )
-          )
+            )}
+          </div>
         ) : (
           <RecentTransactionDefault />
         )}
