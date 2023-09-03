@@ -24,11 +24,11 @@ function page() {
 
   return (
     <>
-      <div className=' grid grid-rows-[30.1875rem_1fr] grid-cols-[1fr_2.5fr] gap-[24px]  '>
-        <div className=' w-full min-w-[300px]  '>
+      <div className=' grid grid-rows-[30.1875rem_1fr] lg:grid-cols-[1fr_2.5fr] gap-[24px] '>
+        <div className=' w-full min-w-[300px] px-5 lg:px-0 '>
           <Menucard />
         </div>
-        <div className='  grid grid-cols-[1fr_318px] gap-6 h-[30.1875rem]  '>
+        <div className=' hidden lg:grid grid-cols-[1fr_318px] gap-6 h-[30.1875rem]  '>
           <div className=' grid grid-rows-[1fr_2fr] gap-6   '>
             <IncomeSummary />
             <div className=''>
@@ -61,7 +61,7 @@ function page() {
           </div>
         </div>
 
-        <div className='  '>
+        <div className='  hidden lg:block  '>
           <CardTile />
         </div>
         <div className='  '>

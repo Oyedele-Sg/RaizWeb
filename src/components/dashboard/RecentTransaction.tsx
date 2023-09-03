@@ -4,7 +4,7 @@ import { userService } from "@/services"
 import { Loading, TransactiontDataInterface, WhiteTileWrap } from "@/shared"
 import Image from "next/image"
 import Link from "next/link"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { RecentTransactionDefault } from "../default"
 import { toast } from "../ui/use-toast"
 import moment from "moment"
@@ -73,6 +73,23 @@ export const RecentTransaction = () => {
     }
   }
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+  const [showTransaction, setShowTransaction] = useState(false)
+
+  useEffect(() => {
+    // Update the isMobile state when the window is resized
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      // Clean up the event listener when the component unmounts
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
+
   useEffect(() => {
     data()
   }, [date])
@@ -85,95 +102,154 @@ export const RecentTransaction = () => {
             Recent Transactions
           </h3>
 
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                id='date'
-                variant={"outline"}
-                className={cn(
-                  "w-[250px] justify-center text-center font-normal  bg-transparent border-[1px] border-neutral-40    ",
-                  !date && "text-muted-foreground"
-                )}
-              >
-                <CalendarIcon className='mr-2 h-4 w-4' />
-                {date?.from ? (
-                  date.to ? (
-                    <>
-                      {format(date.from, "LLL dd, y")} -{" "}
-                      {format(date.to, "LLL dd, y")}
-                    </>
+          <div className=' hidden lg:block  '>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  id='date'
+                  variant={"outline"}
+                  className={cn(
+                    "w-[250px] justify-center text-center font-normal  bg-transparent border-[1px] border-neutral-40    ",
+                    !date && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className='mr-2 h-4 w-4' />
+                  {date?.from ? (
+                    date.to ? (
+                      <>
+                        {format(date.from, "LLL dd, y")} -{" "}
+                        {format(date.to, "LLL dd, y")}
+                      </>
+                    ) : (
+                      format(date.from, "LLL dd, y")
+                    )
                   ) : (
-                    format(date.from, "LLL dd, y")
-                  )
-                ) : (
-                  <span>Pick a date</span>
-                )}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className='w-auto p-0' align='start'>
-              <Select
-                onValueChange={
-                  (value) => {
-                    const newDateRange = calculateNewDateRange(value)
-                    setDate(newDateRange)
+                    <span>Pick a date</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className='w-auto p-0' align='start'>
+                <Select
+                  onValueChange={
+                    (value) => {
+                      const newDateRange = calculateNewDateRange(value)
+                      setDate(newDateRange)
+                    }
+                    // setDate(addDays(new Date(), parseInt(value)))
                   }
-                  // setDate(addDays(new Date(), parseInt(value)))
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder='Select' />
-                </SelectTrigger>
-                <SelectContent position='popper'>
-                  <SelectItem value='0'>Today</SelectItem>
-                  <SelectItem value='1'>Tomorrow</SelectItem>
-                  <SelectItem value='3'>In 3 days</SelectItem>
-                  <SelectItem value='7'>In a week</SelectItem>
-                </SelectContent>
-              </Select>
-              <Calendar
-                initialFocus
-                mode='range'
-                defaultMonth={date?.from}
-                selected={date}
-                onSelect={setDate}
-                numberOfMonths={2}
-              />
-            </PopoverContent>
-          </Popover>
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder='Select' />
+                  </SelectTrigger>
+                  <SelectContent position='popper'>
+                    <SelectItem value='0'>Today</SelectItem>
+                    <SelectItem value='1'>Tomorrow</SelectItem>
+                    <SelectItem value='3'>In 3 days</SelectItem>
+                    <SelectItem value='7'>In a week</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Calendar
+                  initialFocus
+                  mode='range'
+                  defaultMonth={date?.from}
+                  selected={date}
+                  onSelect={setDate}
+                  numberOfMonths={2}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+          <div
+            className=' lg:hidden '
+            onClick={() => setShowTransaction(!showTransaction)}
+          >
+            <Image
+              src='/icons/arrow-down-mobile.svg'
+              alt='arrow'
+              width={20}
+              height={20}
+              className=' cursor-pointer '
+            />
+          </div>
         </div>
         {transactions && transactions?.length !== 0 ? (
-          <div className=' flex flex-col gap-8  overflow-auto '>
-            {transactions?.map((transaction, index) => (
-              <div key={index} className=' flex justify-between items-center '>
-                <div className=' flex flex-col gap-1  '>
-                  <h3 className=' text-purple text-[18px] font-semi-mid    '>
-                    {transaction.third_party_name}
-                  </h3>
-
-                  <p className=' text-neutral-70 font-title__medium   '>
-                    {" "}
-                    {moment(transaction.transaction_date_time).format(
-                      "DD MMMM YYYY, h:mmA"
-                    )}{" "}
-                  </p>
-                </div>
-
-                <h2
-                  className={` ${
-                    transaction.transaction_type.transaction_type === `debit`
-                      ? ` text-neutral-70`
-                      : `text-purple`
-                  }  font-title__large  `}
+          isMobile ? (
+            <div className=' hidden  lg:flex flex-col gap-8  overflow-auto   '>
+              {transactions?.map((transaction, index) => (
+                <div
+                  key={index}
+                  className=' flex justify-between items-center '
                 >
-                  {`${
-                    transaction.transaction_type.transaction_type === `debit`
-                      ? `-`
-                      : `+`
-                  } ₦${transaction.transaction_amount.toLocaleString()} `}
-                </h2>
+                  <div className=' flex flex-col gap-1  '>
+                    <h3 className=' text-purple text-[18px] font-semi-mid    '>
+                      {transaction.third_party_name}
+                    </h3>
+
+                    <p className=' text-neutral-70 font-title__medium   '>
+                      {" "}
+                      {moment(transaction.transaction_date_time).format(
+                        "DD MMMM YYYY, h:mmA"
+                      )}{" "}
+                    </p>
+                  </div>
+
+                  <h2
+                    className={` ${
+                      transaction.transaction_type.transaction_type === `debit`
+                        ? ` text-neutral-70`
+                        : `text-purple`
+                    }  font-title__large  `}
+                  >
+                    {`${
+                      transaction.transaction_type.transaction_type === `debit`
+                        ? `-`
+                        : `+`
+                    } ₦${transaction.transaction_amount.toLocaleString()} `}
+                  </h2>
+                </div>
+              ))}
+            </div>
+          ) : (
+            showTransaction && (
+              <div className='lg:hidden flex flex-col gap-8  overflow-auto '>
+                {transactions?.map((transaction, index) => (
+                  <div
+                    key={index}
+                    className=' flex justify-between items-center '
+                  >
+                    <div className=' flex flex-col gap-1  '>
+                      <h3 className=' text-purple text-[18px] font-semi-mid    '>
+                        {transaction.third_party_name}
+                      </h3>
+
+                      <p className=' text-neutral-70 font-title__medium   '>
+                        {" "}
+                        {moment(transaction.transaction_date_time).format(
+                          "DD MMMM YYYY, h:mmA"
+                        )}{" "}
+                      </p>
+                    </div>
+
+                    <h2
+                      className={` ${
+                        transaction.transaction_type.transaction_type ===
+                        `debit`
+                          ? ` text-neutral-70`
+                          : `text-purple`
+                      }  font-title__large  `}
+                    >
+                      {`${
+                        transaction.transaction_type.transaction_type ===
+                        `debit`
+                          ? `-`
+                          : `+`
+                      } ₦${transaction.transaction_amount.toLocaleString()} `}
+                    </h2>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            )
+          )
         ) : (
           <RecentTransactionDefault />
         )}
