@@ -1,6 +1,6 @@
 "use client"
 import { useUser } from "@/hooks/user/useUser"
-import { BtnMain, WhiteTileWrap } from "@/shared"
+import { AuthButton, BtnMain, WhiteTileWrap } from "@/shared"
 
 import { useRouter } from "next/navigation"
 import React from "react"
@@ -23,12 +23,19 @@ export const VerifyModal = () => {
                 </p>
               </div>
 
-              <div>
+              <div className=' flex  gap-5  '>
                 <BtnMain
-                  btnText=' Go to verification page '
-                  btnStyle=' border-error border text-error px-[42px]  '
+                  btnText=' Go to Verification'
+                  btnStyle=' border-error border text-error w-full px-5  '
                   onClick={() => Router.push("/verification/add-number")}
                 />
+                {!user?.username && !user.withdrawal_accounts[0] && (
+                  <AuthButton
+                    btnText=' Go to Profile Creation '
+                    btnStyle='w-full px-5   '
+                    onClick={() => Router.push("/profile/username")}
+                  />
+                )}
               </div>
             </div>
           </WhiteTileWrap>
