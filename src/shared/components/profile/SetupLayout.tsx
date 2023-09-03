@@ -10,7 +10,7 @@ export const SetupLayout: FC<Props> = ({ children, bg }) => {
     <main className=' flex  '>
       <div className='flex-[1]  h-full '>{children}</div>
       <div
-        className={`flex-1 ${bg} bg-no-repeat bg-cover  min-h-screen `}
+        className={`hidden lg:block flex-1 ${bg} bg-no-repeat bg-cover  min-h-screen `}
       ></div>
     </main>
   )
