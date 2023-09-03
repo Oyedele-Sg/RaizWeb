@@ -15,7 +15,7 @@ export const DashboardHeader = () => {
           Dashboard
         </h1>
 
-        <div className=' bug hidden  font bg-grey py-3 px-4  rounded-lg lg:flex items-center gap-4  '>
+        <div className='  hidden  font bg-grey py-3 px-4  rounded-lg lg:flex items-center gap-4  '>
           <IconSearch />
           <input
             type='search'

@@ -110,8 +110,8 @@ export const VerifyEmailOTP = () => {
           email
         />
       ) : (
-        <WhiteWrap extraStyle=' h-screen lg:h-full w-full  flex items-center justify-center bug '>
-          <div className=' max-w-[502px] mx-auto flex flex-col gap-12  bug '>
+        <WhiteWrap extraStyle=' h-screen lg:h-full w-full  flex items-center justify-center  '>
+          <div className=' max-w-[502px] mx-auto flex flex-col gap-12   '>
             {/* comment out stepper component  */}
             {/* <div>
             <AuthStepper activeStep={0} />

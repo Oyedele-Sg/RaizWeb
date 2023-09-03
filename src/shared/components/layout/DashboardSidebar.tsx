@@ -11,14 +11,21 @@ export const Sidebar = () => {
     "icon-receipt",
     "chart",
   ]
+  const mobileSashboardIcon = [
+    "dashboard",
+    "wallet",
+    "icon-card",
+    "icon-receipt",
+    "chart",
+  ]
 
   const utilsIcon = ["toggle-off-circle", "setting"]
 
   return (
-    <aside className=' w-full  lg:w-[144px]   lg:pt-8 lg:pb-[80px]   z-10 fixed lg:absolute bottom-0 lg:bottom-auto  lg:min-h-screen bg-grey '>
-      <div className='  flex lg:flex-col gap-[300px]  '>
-        <div className=' flex flex-col items-center gap-[84px]  '>
-          <div className=''>
+    <aside className=' w-full px-5 py-4 lg:w-[144px]   lg:pt-8 lg:pb-[80px]   z-10 fixed lg:absolute bottom-0 lg:bottom-auto  lg:min-h-screen bg-grey '>
+      <div className='  flex  lg:flex-col lg:gap-[300px]'>
+        <div className=' flex  w-full  lg:flex-col lg:items-center lg:gap-[84px]  '>
+          <div className='hidden lg:block'>
             <Image
               src={`/icons/pesa-logo-light.svg`}
               width={48}
@@ -26,7 +33,7 @@ export const Sidebar = () => {
               alt='pesa icon logo'
             />
           </div>
-          {/* <div className=' flex flex-col gap-[52px] '>
+          <div className=' flex   justify-between w-full lg:items-center lg:flex-col  gap-[52px] '>
             {dashboardIcon.map((icon, index) => (
               <div key={index} className=''>
                 <Image
@@ -37,9 +44,9 @@ export const Sidebar = () => {
                 />
               </div>
             ))}
-          </div> */}
+          </div>
         </div>
-        {/* <div className=' flex flex-col items-center gap-[52px] '>
+        <div className=' hidden lg:flex flex-col items-center gap-[52px] '>
           {utilsIcon.map((icon, index) => (
             <div key={index} className=''>
               <Image
@@ -50,7 +57,7 @@ export const Sidebar = () => {
               />
             </div>
           ))}
-        </div> */}
+        </div>
       </div>
     </aside>
   )
