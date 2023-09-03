@@ -18,9 +18,9 @@ function page() {
   const user = useUser()
   const Router = useRouter()
 
-  if (user && !user?.username) {
-    Router.push("/profile/username")
-  }
+  // if (user && !user?.username) {
+  //   Router.push("/profile/username")
+  // }
 
   return (
     <>

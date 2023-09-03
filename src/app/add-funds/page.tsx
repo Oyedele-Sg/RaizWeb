@@ -23,12 +23,14 @@ export default function page() {
       <header className=' flex  items-center justify-between pt-16  mx-[72px] '>
         <IconPesaColored />
 
-        <Image
-          src={`/patterns/add-funds-header-pattern.svg`}
-          width={234}
-          height={48}
-          alt=''
-        />
+        <div className='hidden lg:block'>
+          <Image
+            src={`/patterns/add-funds-header-pattern.svg`}
+            width={234}
+            height={48}
+            alt=''
+          />
+        </div>
       </header>
 
       <section className=' flex flex-col items-center justify-center  gap-6 '>
@@ -41,7 +43,7 @@ export default function page() {
           </p>
         </div>
 
-        <div className=' flex gap-12   p-16 bg-neutral-30 rounded-lg   '>
+        <div className=' flex flex-col gap-12   p-16 bg-neutral-30 rounded-lg   '>
           {cardLink.map((data, index) => (
             <AddFundsCard data={data} key={index} />
           ))}
