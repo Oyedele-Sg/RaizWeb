@@ -17,7 +17,7 @@ import { useState } from "react"
 export default function Bank() {
   const Router = useRouter()
 
-  const [success, setSuccess] = useState<boolean>(false)
+  const [success, setSuccess] = useState<boolean>(true)
 
   // const banks = useBank()
   // ("bamks", banks)
@@ -27,7 +27,7 @@ export default function Bank() {
       <Loading />
 
       <SetupLayout bg='bg-profile-1'>
-        <div className=' px-[60px]  pt-[50px] flex flex-col gap-[70px] '>
+        <div className=' px-5 lg:px-[60px]  py-[50px] flex flex-col gap-[70px] '>
           <SkipLink link='/profile/bank/saved-list' />
           <Header activeStep={success ? 3 : 2} />
           {!success ? (

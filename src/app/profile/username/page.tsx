@@ -98,7 +98,7 @@ export default function Username() {
       <Loading />
 
       <SetupLayout bg='bg-profile-1'>
-        <div className=' px-[60px]  py-[50px] flex flex-col justify-center gap-[112px] '>
+        <div className=' px-5 lg:px-[60px]  py-[50px] flex flex-col justify-center gap-[112px] '>
           <SkipLink link='/profile/bank' />
           <Header activeStep={0} />
 
