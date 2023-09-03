@@ -104,7 +104,7 @@ export const RecentTransaction = () => {
   return (
     <>
       <Loading />
-      <WhiteTileWrap extraStyle=' p-8 h-full  flex flex-col gap-[54px] max-h-[400px] '>
+      <WhiteTileWrap extraStyle=' p-8 h-full  flex flex-col lg:gap-[54px] lg:max-h-[400px] '>
         <div className=' flex items-center justify-between '>
           <h3 className=' text-neutral-100 font-title__medium   '>
             Recent Transactions
@@ -181,7 +181,7 @@ export const RecentTransaction = () => {
           </div>
         </div>
         {transactions && transactions?.length !== 0 ? (
-          <div className=' overflow-auto '>
+          <div className=' overflow-auto mt-[24px] lg:mt-0 '>
             <div className=' hidden  lg:flex flex-col gap-8  overflow-auto   '>
               {transactions?.map((transaction, index) => (
                 <div
