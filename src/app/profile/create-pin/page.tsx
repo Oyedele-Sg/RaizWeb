@@ -167,7 +167,7 @@ export default function TransactionPin() {
                     methods.formState.errors.otp3 ||
                     methods.formState.errors.otp4) && (
                     <span className=' text-center  text-error text-t-12  '>
-                      OTP is required and must be 4 digits
+                      Pin is required and must be 4 digits
                     </span>
                   )}
 

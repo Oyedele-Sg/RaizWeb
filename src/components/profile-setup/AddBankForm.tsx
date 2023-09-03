@@ -43,14 +43,14 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
 
   console.log("account", methods.watch("account_number"))
 
-  useEffect(() => {
-    if (
-      methods.watch("bank_code") &&
-      methods.watch("account_number").length === 10
-    ) {
-      dispatch(setLoadingTrue())
-    }
-  }, [methods.watch("account_number")])
+  // useEffect(() => {
+  //   if (
+  //     methods.watch("bank_code") &&
+  //     methods.watch("account_number").length === 10
+  //   ) {
+  //     dispatch(setLoadingTrue())
+  //   }
+  // }, [methods.watch("account_number")])
 
   const onSubmit = async (data: BankInputProps) => {
     if (data.bank_name === "" || data.bank_code === "") {
