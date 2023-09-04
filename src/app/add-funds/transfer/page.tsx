@@ -59,7 +59,10 @@ export default function page() {
       dispatch(setLoadingFalse())
       Router.push("/add-funds/transfer/success")
     } catch (error) {
+      
+      
       dispatch(setLoadingFalse())
+
       toast({
         title: "Something Went Wrong",
         description: `${error}`,
