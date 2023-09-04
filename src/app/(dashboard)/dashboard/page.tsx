@@ -24,7 +24,7 @@ function page() {
 
   return (
     <>
-      <div className=' grid grid-rows-[30.1875rem_1fr] lg:grid-cols-[1fr_2.5fr] gap-[24px]  pb-[100px] '>
+      <div className=' grid grid-rows-[30.1875rem_1fr] lg:grid-cols-[1fr_2fr] gap-[24px]  pb-[100px] lg:pb-0  '>
         <div className=' w-full min-w-[300px] px-5 lg:px-0 '>
           <Menucard />
         </div>
