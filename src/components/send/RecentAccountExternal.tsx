@@ -43,7 +43,7 @@ export function RecentAccountExternalComponent({
                   )
                   methods.setValue(
                     "beneficiary_account_number",
-                    account.external_account.bank_short_code
+                    account.external_account.bank_account_number
                   )
                 }}
               >

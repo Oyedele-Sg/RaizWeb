@@ -115,7 +115,7 @@ export function ComponentOne() {
   return (
     <div>
       <SetupLayout bg='bg-profile-1'>
-        <div className=' m-[72px] flex flex-col gap-[84px] '>
+        <div className=' mx-5 lg:mx-[72px] my-[72px] flex flex-col gap-[84px] '>
           <IconPesaColored />
 
           <div className=' flex flex-col gap-3 '>
