@@ -149,15 +149,8 @@ function Utils({ request_id }: { request_id: string }) {
                 dispatch(setLoadingTrue())
                 await userService.disapproveRequest(request_id)
 
-                toast({
-                  title: " Request Declined",
-                  description: " ",
-                  style: {
-                    backgroundColor: "#4B0082",
-                    color: "#fff",
-                  },
-                })
-                Router.push("/send")
+                
+                Router.push("/request/decline")
                 dispatch(setLoadingFalse())
               } catch (error) {
                 dispatch(setLoadingFalse())
