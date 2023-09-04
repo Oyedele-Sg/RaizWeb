@@ -273,6 +273,9 @@ function Pin({ debitData }: PinProps) {
       dispatch(setLoadingFalse())
     } catch (error) {
       dispatch(setLoadingFalse())
+      if (error === "Insufficient funds") {
+        Router.push("/send/failed")
+      }
 
       toast({
         title: "Error",
