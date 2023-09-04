@@ -164,7 +164,6 @@ export function ComponentTwo({
                         )
                         // @ts-ignore
                       }}
-                      
                     >
                       <SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50  '>
                         <SelectValue
@@ -256,6 +255,10 @@ function Pin({ debitData }: PinProps) {
       dispatch(setLoadingFalse())
     } catch (error) {
       dispatch(setLoadingFalse())
+
+      if (error === "Insufficient funds") {
+        Router.push("/send/failed")
+      }
 
       toast({
         title: "Error",
