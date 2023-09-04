@@ -17,9 +17,9 @@ export const RecentTransactionDefault = () => {
         </h2>
         <p className=' text-neutral-90 font-body__large  flex flex-col lg:flex-row items-center gap-3  '>
           No Transaction has occurred in your account.
-          <span className=' text-neutral-70 underline  '>
-            <Link href=''> Get started. </Link>
-          </span>
+          {/* <span className=' text-neutral-70 underline  '>
+            <Link href='/'> Get started.
+          </span> */}
         </p>
       </div>
     </div>

@@ -45,33 +45,35 @@ export const RecentTransaction = () => {
   })
 
   console.log("date", date)
-  // const user = useUser()
+  const user = useUser()
 
   const currentDate = new Date()
 
-  // const data = async () => {
-  //   if (user && !user?.is_bvn_verified && !user?.is_phone_verified) return
+  const data = async () => {
+    if (user && !user?.is_bvn_verified && !user?.is_phone_verified) return
 
-  //   try {
-  //     const res = await userService.getRecentTransactions(
-  //       formatDateToISOString(date?.from as Date),
-  //       formatDateToISOString(date?.to as Date)
-  //     )
-  //     setTransactions(res)
-  //   } catch (error) {
-  //     toast({
-  //       title: "Something Went Wrong",
-  //       description: `${error}`,
-  //       variant: "destructive",
-  //       style: {
-  //         backgroundColor: "#f44336",
-  //         color: "#fff",
-  //         top: "20px",
-  //         right: "20px",
-  //       },
-  //     })
-  //   }
-  // }
+    if (!date?.from || !date?.to) return
+
+    try {
+      const res = await userService.getRecentTransactions(
+        formatDateToISOString(date?.from as Date),
+        formatDateToISOString(date?.to as Date)
+      )
+      setTransactions(res)
+    } catch (error) {
+      toast({
+        title: "Something Went Wrong",
+        description: `${error}`,
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+      })
+    }
+  }
 
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" && window.innerWidth <= 768
@@ -99,7 +101,7 @@ export const RecentTransaction = () => {
   }, [])
 
   useEffect(() => {
-    // data()
+    data()
   }, [date])
   return (
     <>
