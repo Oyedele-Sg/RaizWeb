@@ -95,7 +95,7 @@ export function ComponentTwo({
   return (
     <div>
       <SetupLayout bg='bg-profile-1'>
-        <div className=' m-[72px] flex flex-col gap-[84px] '>
+        <div className='  mx-5  my-[72px] flex flex-col gap-[84px] '>
           <IconPesaColored />
 
           <div className=' flex flex-col gap-3 '>
@@ -164,6 +164,7 @@ export function ComponentTwo({
                         )
                         // @ts-ignore
                       }}
+                      
                     >
                       <SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50  '>
                         <SelectValue

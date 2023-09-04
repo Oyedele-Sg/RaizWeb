@@ -21,6 +21,7 @@ import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useRouter } from "next/navigation"
 import { useFavouriteAccounts } from "@/hooks/fav-accounts/useFavouriteAccount"
 import { RecentAccountsComponent } from "./RecentAccountsComponent"
+import { SearchSelect, SearchSelectItem } from "@tremor/react"
 
 interface Prop {
   //   searchQuery: string
@@ -94,7 +95,7 @@ export function ComponentOne({
   return (
     <div>
       <SetupLayout bg='bg-profile-1'>
-        <div className=' m-[72px] flex flex-col gap-[84px] '>
+        <div className=' my-[72px] mx-5 lg:mx-[72px] flex flex-col gap-[84px] '>
           <IconPesaColored />
 
           <div className=' flex flex-col gap-3 '>
@@ -148,6 +149,7 @@ export function ComponentOne({
                           setSearchQuery(response)
                           // setSearchQuery(e.target.value)
                         }}
+                       
                       />
 
                       <div className=' bg-neutral-20 w-full '>
