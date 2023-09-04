@@ -16,8 +16,8 @@ export default function Sucess() {
 
   return (
     <>
-      <div className=' flex items-center justify-center h-screen w-full  '>
-        <div className=' w-[771px]  bg-grey rounded-[80px] pt-[166px] pb-[113px] '>
+      <div className=' flex items-center justify-center h-screen w-fullbug  '>
+        <div className=' w-[771px]  bg-grey rounded-[80px] pt-[166px] pb-[113px] mx-5 '>
           <div className=' flex justify-center  flex-col gap-11  '>
             <div className='flex items-center justify-center '>
               <Image

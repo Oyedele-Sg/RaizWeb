@@ -1,4 +1,4 @@
-"use client" 
+"use client"
 import { InputContainer } from "@/components"
 import { toast } from "@/components/ui/use-toast"
 import { useUser } from "@/hooks/user/useUser"
@@ -53,21 +53,11 @@ export default function page() {
   })
 
   const onSubmit = async (data: TransferInputProps) => {
+    dispatch(setLoadingTrue())
+
     try {
-      dispatch(setLoadingTrue())
-      setTimeout(() => {
-        toast({
-          title: " Transfer Successful",
-          description:
-            "User Wallet has been successfull credited with the amount you transferred ",
-          style: {
-            backgroundColor: "#4B0082",
-            color: "#fff",
-          },
-        })
-        dispatch(setLoadingFalse())
-        Router.push("/add-funds/transfer/success")
-      }, 3000)
+      dispatch(setLoadingFalse())
+      Router.push("/add-funds/transfer/success")
     } catch (error) {
       dispatch(setLoadingFalse())
       toast({
