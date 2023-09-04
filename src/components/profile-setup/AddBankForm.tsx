@@ -24,6 +24,8 @@ import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { banks } from "@/shared/data/Banks"
 import { userService } from "@/services"
 import { BtnMain, IconSavedList, RegisterInput } from "@/shared"
+import { SearchSelect, SearchSelectItem } from "@tremor/react"
+import { useBank } from "@/hooks/banks/useBank"
 
 interface Prop {
   setSuccess: React.Dispatch<React.SetStateAction<boolean>>
@@ -41,16 +43,53 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
     },
   })
 
+  const { banks } = useBank() || { banks: [] }
+  console.log("banks", banks)
+
   console.log("account", methods.watch("account_number"))
 
-  // useEffect(() => {
-  //   if (
-  //     methods.watch("bank_code") &&
-  //     methods.watch("account_number").length === 10
-  //   ) {
-  //     dispatch(setLoadingTrue())
-  //   }
-  // }, [methods.watch("account_number")])
+  const doNIPAccountLookup = async (
+    accountNumber: string,
+    bankCode: string
+  ) => {
+    try {
+      dispatch(setLoadingTrue())
+      const res = await userService.nipAccountLookup(accountNumber, bankCode)
+      toast({
+        title: " Account Number verified successfully",
+        style: {
+          backgroundColor: "#4B0082",
+          color: "#fff",
+        },
+      })
+      dispatch(setLoadingFalse())
+    } catch (error) {
+      toast({
+        title: "Something Went Wrong",
+        description: `${error}`,
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+      })
+      dispatch(setLoadingFalse())
+    }
+  }
+
+  useEffect(() => {
+    if (
+      methods.watch("bank_code") &&
+      methods.watch("account_number").length === 10
+    ) {
+      doNIPAccountLookup(
+        methods.watch("account_number"),
+        methods.watch("bank_code")
+      )
+    }
+  }, [methods.watch("account_number")])
 
   const onSubmit = async (data: BankInputProps) => {
     if (data.bank_name === "" || data.bank_code === "") {
@@ -121,16 +160,61 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
               onSubmit={methods.handleSubmit(onSubmit)}
               className=' flex flex-col gap-8 items-center  '
             >
-              {/* <RegisterInput
-                    name={`user_name`}
-                    inputPlaceholder={`Type a bank`}
-                    rules={{
-                      required: "Input a bank name",
-                    }}
-                    label='Bank name'
-                  /> */}
+              <SearchSelect
+                placeholder='Select Bank'
+                className=''
+                onValueChange={(value) => {
+                  const selectedBank = banks.find(
+                    (bank) => bank.bankCode === value
+                  )
 
-              <Select
+                  // @ts-ignore
+                  methods.setValue("bank_name", selectedBank.bankName)
+                  // @ts-ignore
+                  methods.setValue("bank_code", selectedBank.bankCode)
+                }}
+              >
+                {banks.map((bank, index) => (
+                  <SearchSelectItem
+                    value={bank.bankCode}
+                    key={index}
+                    className=' select-item-reset  '
+                  >
+                    <span className=' text-purple  '>{`${bank.bankName}`}</span>
+                    {"         "}
+                  </SearchSelectItem>
+                ))}
+              </SearchSelect>
+
+              <RegisterInput
+                name={`account_number`}
+                inputPlaceholder={` Enter account number  `}
+                rules={{
+                  required: "Input an account number",
+                  pattern: {
+                    value: /^\d{10}$/,
+                    message: "Account number must be a 10-digit number",
+                  },
+                }}
+                label='Account number'
+              />
+
+              <BtnMain
+                btnText='Add Account'
+                btnStyle=' bg-purple text-grey font-body__medium text-[18px]  w-[200px] h-[50px]  rounded-[8px] '
+              />
+            </form>
+          </FormProvider>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default AddBankForm
+
+{
+  /* <Select
                 onValueChange={(value) => {
                   const selectedBank = banks.find(
                     (bank) => bank.bankName === value
@@ -163,36 +247,12 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
                     </SelectItem>
                   ))}
                 </SelectContent>
-              </Select>
-
-              {/* {(!methods.watch("bank_name") ||
-                    !methods.watch("bank_code")) && (
-                    <span className='error-message'>Pick a bank</span>
-                  )} */}
-
-              <RegisterInput
-                name={`account_number`}
-                inputPlaceholder={` Enter account number  `}
-                rules={{
-                  required: "Input an account number",
-                  pattern: {
-                    value: /^\d{10}$/,
-                    message: "Account number must be a 10-digit number",
-                  },
-                }}
-                label='Account number'
-              />
-
-              <BtnMain
-                btnText='Add Account'
-                btnStyle=' bg-purple text-grey font-body__medium text-[18px]  w-[200px] h-[50px]  rounded-[8px] '
-              />
-            </form>
-          </FormProvider>
-        </div>
-      </div>
-    </div>
-  )
+              </Select> */
 }
 
-export default AddBankForm
+{
+  /* {(!methods.watch("bank_name") ||
+                    !methods.watch("bank_code")) && (
+                    <span className='error-message'>Pick a bank</span>
+                  )} */
+}
