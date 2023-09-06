@@ -19,9 +19,11 @@ export default function page() {
   ]
 
   return (
-    <main className=' flex flex-col  gap-[100px]'>
-      <header className=' flex  items-center justify-between pt-16  mx-[72px] '>
-        <IconPesaColored />
+    <main className=' flex flex-col  gap-[100px] '>
+      <header className=' flex  items-center justify-between lg:pt-16  lg:mx-[72px]   '>
+        <div className=' hidden lg:block '>
+          <IconPesaColored />
+        </div>
 
         <div className='hidden lg:block'>
           <Image
@@ -33,17 +35,17 @@ export default function page() {
         </div>
       </header>
 
-      <section className=' flex flex-col items-center justify-center  gap-6 '>
+      <section className=' flex flex-col items-center justify-center  gap-6  mx-[37px] lg:mx-0 '>
         <div className=''>
-          <h1 className=' font-display__medium text-purple text-center '>
+          <h1 className=' font-display__medium text-purple lg:first-letter:text-center '>
             Add Funds to Wallet
           </h1>
-          <p className=' font-title__large text-neutral-70 text-center '>
-            Debit Card {" - "} Bank Transfer
+          <p className=' font-title__large text-neutral-70 lg:text-center '>
+            Debit Card or Bank Transfer
           </p>
         </div>
 
-        <div className=' flex flex-col gap-12   p-16 bg-neutral-30 rounded-lg   '>
+        <div className=' flex flex-col lg:flex-row gap-12   lg:p-16  rounded-lg   '>
           {cardLink.map((data, index) => (
             <AddFundsCard data={data} key={index} />
           ))}
