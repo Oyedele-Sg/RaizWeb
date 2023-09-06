@@ -27,6 +27,7 @@ import {
 } from "react-hook-form"
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useUser } from "@/hooks/user/useUser"
 
 interface PhoneNumberFormProps extends Partial<FieldValues> {
   phone_number: string
@@ -40,6 +41,8 @@ export default function PhoneNumber() {
     },
   })
   const dispatch = useAppDispatch()
+  const user = useUser()
+
 
   const [selectedOption, setSelectedOption] = useState("phone")
 
