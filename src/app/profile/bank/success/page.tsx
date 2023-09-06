@@ -1,6 +1,7 @@
 'use client'
 
 import { Header } from '@/components'
+import { useUser } from '@/hooks/user/useUser'
 import { BtnMain, SetupLayout } from '@/shared'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -8,6 +9,8 @@ import React from 'react'
 
 export default function BankSuccess() {
 	const Router = useRouter()
+	const user = useUser()
+
 	return (
 		<SetupLayout bg='bg-profile-1'>
 			<div className=' max-w-[502px] mx-auto  flex-col   h-full flex gap-[88px]   mt-[184px] '>
