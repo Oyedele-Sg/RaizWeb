@@ -29,11 +29,16 @@ import {
 import { calculateNewDateRange, formatDateToISOString } from "@/utils/helpers"
 import { useUser } from "@/hooks/user/useUser"
 import { DateRange } from "react-day-picker"
+import {
+  DateRangePicker,
+  DateRangePickerItem,
+  DateRangePickerValue,
+} from "@tremor/react"
 
 export const RecentTransaction = () => {
   const [transactions, setTransactions] =
     React.useState<TransactiontDataInterface[]>()
-  const [date, setDate] = React.useState<DateRange | undefined>(() => {
+  const [date, setDate] = React.useState<DateRangePickerValue>(() => {
     const currentDate = new Date()
     const fromDate = new Date()
     fromDate.setDate(currentDate.getDate() - 20)
@@ -113,7 +118,7 @@ export const RecentTransaction = () => {
           </h3>
 
           <div className=' hidden lg:block  '>
-            <Popover>
+            {/* <Popover>
               <PopoverTrigger asChild>
                 <Button
                   id='date'
@@ -167,7 +172,15 @@ export const RecentTransaction = () => {
                   numberOfMonths={2}
                 />
               </PopoverContent>
-            </Popover>
+            </Popover> */}
+
+            <DateRangePicker
+              className='max-w-md mx-auto bg-transparent'
+              value={date}
+              onValueChange={setDate}
+              selectPlaceholder='Select a range'
+              color='rose'
+            />
           </div>
           <div
             className=' lg:hidden '

@@ -1,4 +1,12 @@
-import { AddFundsCard, BtnMain, IconPesaColored, Logo } from "@/shared"
+import {
+  AddFundsCard,
+  BtnMain,
+  IconAvatar,
+  IconNotification,
+  IconPesaColored,
+  IconScan,
+  Logo,
+} from "@/shared"
 import Image from "next/image"
 import React from "react"
 
@@ -25,13 +33,15 @@ export default function page() {
           <IconPesaColored />
         </div>
 
-        <div className='hidden lg:block'>
-          <Image
-            src={`/patterns/add-funds-header-pattern.svg`}
-            width={234}
-            height={48}
-            alt=''
-          />
+        <div className='hidden lg:flex items-center gap-[60px]  '>
+          <div className=' flex gap-8'>
+            <IconScan />
+            <IconNotification />
+          </div>
+
+          <div className=''>
+            <IconAvatar />
+          </div>
         </div>
       </header>
 
