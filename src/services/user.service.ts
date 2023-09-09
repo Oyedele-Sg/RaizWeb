@@ -21,6 +21,8 @@ import {
   FavoriteAccountsDataInterface,
   ExternalFavoriteAccountsDataInterface,
   PendingRequestDataInterface,
+  ForgotPasswordDataInterface,
+  ResetPasswordDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -74,6 +76,8 @@ export const userService = {
   getPendingRequests,
   approveRequest,
   disapproveRequest,
+  forgotPassword,
+  resetPassword,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -129,9 +133,16 @@ function verifyBVN(data: { bvn: string }): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/bvn/verification/`, data)
 }
 
-// function forgotPassword(data): Promise<void> {
-//   return fetchWrapper.post(`${baseUrl}/auth/forgot-password/`, data);
-// }
+function forgotPassword(data: ForgotPasswordDataInterface): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/auth/forgot-password/?email=${data.email}`,
+    {}
+  )
+}
+
+function resetPassword(data: ResetPasswordDataInterface): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/auth/reset-password/`, data)
+}
 
 // function resetPassword(data): Promise<void> {
 //   return fetchWrapper.post(`${baseUrl}/auth/reset-password/`, data);

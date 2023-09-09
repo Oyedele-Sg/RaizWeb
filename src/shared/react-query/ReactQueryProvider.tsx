@@ -31,7 +31,7 @@ export const ReactQueryProvider = ({
     "/login",
     "/forgot-password",
     "/register",
-    "/password-reset",
+    "/reset-password",
     "/verify",
     "/verification/email",
     "/verification/email/resend-otp",
