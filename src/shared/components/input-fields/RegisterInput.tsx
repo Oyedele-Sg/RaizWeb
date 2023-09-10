@@ -66,7 +66,7 @@ export const RegisterInput: React.FC<RegisterInputProps> = ({
     >
       {label && (
         <label
-          className={`font-label__large text-purple ${
+          className={`font-label__large text-neutral-90 ${
             errors[name] ? "text-error" : ""
           }  `}
           htmlFor={name}
@@ -78,7 +78,7 @@ export const RegisterInput: React.FC<RegisterInputProps> = ({
       <div className=' relative  '>
         <div className=' flex flex-col gap-2 '>
           <input
-            className={` form-input   input_field-input  ${
+            className={` form-input pl-0   input_field-input  ${
               errors[name] ? "input_field-input_error" : ""
             }`}
             type={type || "text"}
