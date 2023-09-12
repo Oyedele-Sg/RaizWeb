@@ -19,8 +19,7 @@ import { DonutChart } from "@tremor/react"
 
 export const ExpenseTile = () => {
   const Router = useRouter()
-  // const [chartData, setChartData] = React.useState<ExpenseChartInterface>()
-  // console.log("chart data", chartData)
+ 
   const [date, setDate] = React.useState<Date>()
 
   const chartData = [
@@ -49,33 +48,7 @@ export const ExpenseTile = () => {
   const user = useUser()
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"]
 
-  // const data = async () => {
-  //   try {
-  //     if (user && !user?.is_bvn_verified && !user?.is_phone_verified) return
 
-  //     const res = await userService.getExpenseChart()
-
-  //     // setChartData(res)
-  //   } catch (error) {
-  //     toast({
-  //       title: "Something Went Wrong",
-  //       description: `${error}`,
-  //       variant: "destructive",
-  //       style: {
-  //         backgroundColor: "#f44336",
-  //         color: "#fff",
-  //         top: "20px",
-  //         right: "20px",
-  //       },
-  //     })
-  //   }
-  // }
-
-  // const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"]
-
-  // useEffect(() => {
-  //   data()
-  // }, [])
   return (
     <div className='   h-[30.1875rem] '>
       <WhiteTileWrap extraStyle=' pt-[22px]  pb-[31px] px-4  flex flex-col gap-4 h-full  '>
@@ -86,14 +59,14 @@ export const ExpenseTile = () => {
           <IconMore />
         </div>
         <div className='  flex flex-col gap-12 '>
-          {/* <TimelineSelect /> */}
+        
 
           <DonutChart
             className='mt-6'
             data={chartData}
             category='value'
             index='name'
-            // valueFormatter={valueFormatter}
+           
             colors={["slate", "violet", "indigo", "rose", "cyan", "amber"]}
           />
 

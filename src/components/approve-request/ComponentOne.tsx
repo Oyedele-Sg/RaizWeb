@@ -104,7 +104,7 @@ export function ComponentOne({ request }: Prop) {
                     <BtnMain
                       btnText='Split Bill'
                       btnStyle=' py-2 px-4 border-purple border text-purple rounded-lg font-label__large flex-1 '
-                      // onClick={() => setShowDele}
+                     
                     />
                     <AuthButton
                       btnText='Pay'
@@ -196,19 +196,11 @@ function Pin({ request_id }: PinProps) {
 
     if (!pin.transaction_pin) return
 
-    console.log("pin", request_id)
 
     try {
       dispatch(setLoadingTrue())
       await userService.approveRequest(request_id, pin)
-      // toast({
-      //   title: " Money Sent",
-      //   style: {
-      //     backgroundColor: "#4B0082",
-      //     color: "#fff",
-      //   },
-      //   duration: 2000,
-      // })
+    
       Router.push("/request/approve/success")
       dispatch(setLoadingFalse())
     } catch (error) {

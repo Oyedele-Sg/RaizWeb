@@ -81,10 +81,7 @@ export default function WrongMail() {
         closeLink='/verification/email'
       >
         <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
-          {/* <div>
-          <AuthStepper activeStep={0} />
-        </div> */}
-
+        
           <div className=' flex flex-col gap-[80px] '>
             <div className=' flex flex-col justify-center items-center gap-[3rem]  '>
               <div className='lg:hidden'>

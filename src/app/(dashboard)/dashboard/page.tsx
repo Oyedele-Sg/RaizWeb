@@ -18,10 +18,6 @@ function page() {
   const user = useUser()
   const Router = useRouter()
 
-  // if (user && !user?.username) {
-  //   Router.push("/profile/username")
-  // }
-
   return (
     <>
       <div className=' grid grid-rows-[30.1875rem_1fr] lg:grid-cols-[1fr_2fr] gap-[24px]  pb-[100px] lg:pb-0  '>
@@ -38,16 +34,11 @@ function page() {
                     Analytics Report
                   </h3>
                   <TimelineSelect />
-                  {/* <BtnMain
-                    btnText=' Top-Up '
-                    btnStyle=' py-2 px-4 bg-purple text-grey rounded-lg font-label__large  '
-                    onClick={() => Router.push("/add-funds")}
-                  /> */}
                 </div>
                 <div className='  relative h-full'>
                   <Image
                     src='/dummy/chart.svg'
-                    // width={566.72}
+                   
                     style={{ objectFit: "contain" }}
                     fill={true}
                     alt='analytics'
