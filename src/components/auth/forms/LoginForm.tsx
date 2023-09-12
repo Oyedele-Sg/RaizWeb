@@ -98,7 +98,7 @@ export const LoginForm: FC = () => {
                   extraClass={`mt-6  `}
                 >
                   <Image
-                    src={`/icons/eye-slash.svg`}
+                    src={`/icons/${showPassword ? "eye" : "eye-slash"}.svg`}
                     alt='show password'
                     width={24}
                     height={24}

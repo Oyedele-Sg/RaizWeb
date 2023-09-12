@@ -28,10 +28,8 @@ export const VerifyEmailOTP = () => {
   const Router = useRouter()
   const signupEmail = useAppSelector((state) => state.signupEmail)
   const dispatch = useAppDispatch()
-  
 
   const [success, setSuccess] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
 
   const otpInputRefs = useRef<Array<HTMLInputElement | null>>([])
 
@@ -111,24 +109,24 @@ export const VerifyEmailOTP = () => {
           email
         />
       ) : (
-        <WhiteWrap extraStyle=' h-screen lg:h-full w-full  flex items-center justify-center  '>
-          <div className=' max-w-[502px] mx-auto flex flex-col gap-12   '>
-            {/* comment out stepper component  */}
-            {/* <div>
+        <WhiteWrap extraStyle=' h-screen lg:h-full w-full  flex items-center justify-center lg:rounded-[80px]  '>
+          <div className=' text-center flex flex-col gap-2  '>
+            <div className=' max-w-[502px] mx-auto flex flex-col gap-12   '>
+              {/* comment out stepper component  */}
+              {/* <div>
             <AuthStepper activeStep={0} />
           </div> */}
 
-            <div className=' px-[35px] flex flex-col gap-[80px] '>
-              <div className=' flex flex-col justify-center items-center gap-[3rem] '>
-                <div className='lg:hidden'>
-                  <Image
-                    src='/illustrations/email-mobile.svg'
-                    alt='otp'
-                    width={153}
-                    height={167}
-                  />
-                </div>
-                <div className=' text-center flex flex-col gap-2  '>
+              <div className=' px-[35px] flex flex-col gap-[80px] '>
+                <div className=' flex flex-col justify-center items-center gap-[3rem] '>
+                  <div className='lg:hidden'>
+                    <Image
+                      src='/illustrations/email-mobile.svg'
+                      alt='otp'
+                      width={153}
+                      height={167}
+                    />
+                  </div>
                   <h1 className=' font-headline__large  font-semi-mid text-purple   '>
                     Email Verification OTP
                   </h1>
@@ -150,7 +148,7 @@ export const VerifyEmailOTP = () => {
                     {Array.from({ length: 4 }, (_, index) => (
                       <input
                         key={index}
-                        type='number'
+                        type='password'
                         {...methods.register(`otp${index + 1}`, {
                           required: true,
                         })}

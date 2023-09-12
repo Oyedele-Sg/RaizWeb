@@ -52,10 +52,12 @@ export default function page() {
   return (
     <div>
       <SetupLayout bg='bg-profile-1'>
-        <div className=' m-[72px] flex flex-col gap-[84px] '>
-          <IconPesaColored />
+        <div className='mx-5 mt-[70px]  lg:m-[72px] flex flex-col gap-[84px] '>
+          <div className=' hidden lg:block'>
+            <IconPesaColored />
+          </div>
 
-          <div className=' flex flex-col gap-3 '>
+          <div className=' flex flex-col gap-3  '>
             <div className='' onClick={() => Router.back}>
               <BackBtnCircle />
               <button title='next' className=''>
@@ -68,7 +70,7 @@ export default function page() {
               subtitle={"Choose Transfer Type"}
               // utils={<Utils />}
             >
-              <div className='flex gap-6  '>
+              <div className='flex flex-col lg:flex-row gap-6  '>
                 {cardLink.map((card, index) => (
                   <RouteCardSmall
                     type={card.type}

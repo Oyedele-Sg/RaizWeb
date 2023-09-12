@@ -20,19 +20,12 @@ export const IncomeSummary = () => {
       amount: summary?.total_expense,
       icon: "income",
     },
-    {
-      type: "Total Balance",
-      amount: summary?.total_balance,
-      icon: "limit",
-    },
   ]
 
   const user = useUser()
 
   const data = async () => {
     try {
-      if (user && !user?.is_bvn_verified && !user?.is_phone_verified) return
-
       const res = await userService.getIncomeSummary()
 
       setSummary(res)
