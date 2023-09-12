@@ -62,7 +62,7 @@ export function ComponentThree() {
           <div className=' flex flex-col gap-3 '>
             <div
               className=''
-              // onClick={() => onNext()}
+              
             >
               <BackBtnCircle />
               <button title='next' className=''>
@@ -75,22 +75,7 @@ export function ComponentThree() {
               subtitle='Enter Amount'
               utils={<Utils />}
             >
-              {/* <input
-            type='search'
-            name=''
-            id=''
-            className=' form-input outline-none bg-transparent  w-full max-h-[3rem] placeholder:text-neutral-70 placeholder:font-body__large border-x-0 border-t-0 border-b-[1px] border-b-purple   '
-            placeholder='Search with Username, Phone Number, or Email Address'
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <BtnMain btnText='Next' btnStyle=' authBtn ' /> */}
-              {/* {searchResult && (
-                <h2 className='text-purple font-title__large   '>
-                  {searchResult?.first_name} {searchResult?.last_name}
-                </h2>
-              )} */}
-
+           
               <FormProvider {...methods}>
                 <form
                   action=''

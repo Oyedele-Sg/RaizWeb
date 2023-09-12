@@ -6,7 +6,7 @@ import { useState } from "react"
 
 export default function page() {
   const request = useAppSelector((state) => state.selectedRequest)
-  console.log("request", request)
+
   const [currentStep, setCurrentStep] = useState(1)
   return (
     <>

@@ -44,9 +44,6 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
   })
 
   const { banks } = useBank() || { banks: [] }
-  console.log("banks", banks)
-
-  console.log("account", methods.watch("account_number"))
 
   const doNIPAccountLookup = async (
     accountNumber: string,

@@ -49,7 +49,7 @@ export const RecentTransaction = () => {
     }
   })
 
-  console.log("date", date)
+
   const user = useUser()
 
   const currentDate = new Date()
@@ -118,61 +118,7 @@ export const RecentTransaction = () => {
           </h3>
 
           <div className=' hidden lg:block  '>
-            {/* <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  id='date'
-                  variant={"outline"}
-                  className={cn(
-                    "w-[250px] justify-center text-center font-normal  bg-transparent border-[1px] border-neutral-40    ",
-                    !date && "text-muted-foreground"
-                  )}
-                >
-                  <CalendarIcon className='mr-2 h-4 w-4' />
-                  {date?.from ? (
-                    date.to ? (
-                      <>
-                        {format(date.from, "LLL dd, y")} -{" "}
-                        {format(date.to, "LLL dd, y")}
-                      </>
-                    ) : (
-                      format(date.from, "LLL dd, y")
-                    )
-                  ) : (
-                    <span>Pick a date</span>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className='w-auto p-0' align='start'>
-                <Select
-                  onValueChange={
-                    (value) => {
-                      const newDateRange = calculateNewDateRange(value)
-                      setDate(newDateRange)
-                    }
-                    // setDate(addDays(new Date(), parseInt(value)))
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder='Select' />
-                  </SelectTrigger>
-                  <SelectContent position='popper'>
-                    <SelectItem value='0'>Today</SelectItem>
-                    <SelectItem value='1'>Tomorrow</SelectItem>
-                    <SelectItem value='3'>In 3 days</SelectItem>
-                    <SelectItem value='7'>In a week</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Calendar
-                  initialFocus
-                  mode='range'
-                  defaultMonth={date?.from}
-                  selected={date}
-                  onSelect={setDate}
-                  numberOfMonths={2}
-                />
-              </PopoverContent>
-            </Popover> */}
+        
 
             <DateRangePicker
               className='max-w-md mx-auto bg-transparent'

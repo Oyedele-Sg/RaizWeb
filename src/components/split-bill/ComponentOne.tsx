@@ -68,27 +68,6 @@ export function ComponentOne({
 
     setCurrentStep(2)
     methods.reset()
-
-    // try {
-    //   // dispatch(setLoadingTrue())
-    //   // setSearchResults(data)
-    //   // dispatch(setLoadingFalse())
-    //   setCurrentStep(2)
-    // } catch (error) {
-    //   dispatch(setLoadingFalse())
-
-    //   toast({
-    //     title: "Something Went Wrong",
-    //     description: `${error}`,
-    //     variant: "destructive",
-    //     style: {
-    //       backgroundColor: "#f44336",
-    //       color: "#fff",
-    //       top: "20px",
-    //       right: "20px",
-    //     },
-    //   })
-    // }
   }
 
   return (

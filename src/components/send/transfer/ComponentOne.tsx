@@ -206,10 +206,7 @@ export function ComponentOne() {
                             // @ts-ignore
                             value={bank.bankName}
                             className=' hover:bg-neutral-50 z-50 '
-                            // onClick={(value) => {
-                            //   methods.setValue("bank_name", bank.bankName)
-                            //   methods.setValue("bank_code", bank.bankCode)
-                            // }}
+                           
                           >
                             {bank.bankName}
                           </SelectItem>
@@ -260,15 +257,6 @@ function Pin({ debitData }: PinProps) {
       dispatch(setLoadingTrue())
       await userService.externalTransfer(transferData)
 
-      // toast({
-      //   title: " Money Sent",
-
-      //   style: {
-      //     backgroundColor: "#4B0082",
-      //     color: "#fff",
-      //   },
-      //   duration: 2000,
-      // })
       Router.push("/send/success")
       dispatch(setLoadingFalse())
     } catch (error) {
