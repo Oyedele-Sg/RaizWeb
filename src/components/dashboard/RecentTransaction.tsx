@@ -11,29 +11,10 @@ import moment from "moment"
 import { addDays, format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { calculateNewDateRange, formatDateToISOString } from "@/utils/helpers"
+import { formatDateToISOString } from "@/utils/helpers"
 import { useUser } from "@/hooks/user/useUser"
-import { DateRange } from "react-day-picker"
-import {
-  DateRangePicker,
-  DateRangePickerItem,
-  DateRangePickerValue,
-} from "@tremor/react"
+
+import { DateRangePicker, DateRangePickerValue } from "@tremor/react"
 
 export const RecentTransaction = () => {
   const [transactions, setTransactions] =
@@ -118,61 +99,7 @@ export const RecentTransaction = () => {
           </h3>
 
           <div className=' hidden lg:block  '>
-            {/* <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  id='date'
-                  variant={"outline"}
-                  className={cn(
-                    "w-[250px] justify-center text-center font-normal  bg-transparent border-[1px] border-neutral-40    ",
-                    !date && "text-muted-foreground"
-                  )}
-                >
-                  <CalendarIcon className='mr-2 h-4 w-4' />
-                  {date?.from ? (
-                    date.to ? (
-                      <>
-                        {format(date.from, "LLL dd, y")} -{" "}
-                        {format(date.to, "LLL dd, y")}
-                      </>
-                    ) : (
-                      format(date.from, "LLL dd, y")
-                    )
-                  ) : (
-                    <span>Pick a date</span>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className='w-auto p-0' align='start'>
-                <Select
-                  onValueChange={
-                    (value) => {
-                      const newDateRange = calculateNewDateRange(value)
-                      setDate(newDateRange)
-                    }
-                    // setDate(addDays(new Date(), parseInt(value)))
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder='Select' />
-                  </SelectTrigger>
-                  <SelectContent position='popper'>
-                    <SelectItem value='0'>Today</SelectItem>
-                    <SelectItem value='1'>Tomorrow</SelectItem>
-                    <SelectItem value='3'>In 3 days</SelectItem>
-                    <SelectItem value='7'>In a week</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Calendar
-                  initialFocus
-                  mode='range'
-                  defaultMonth={date?.from}
-                  selected={date}
-                  onSelect={setDate}
-                  numberOfMonths={2}
-                />
-              </PopoverContent>
-            </Popover> */}
+           
 
             <DateRangePicker
               className='max-w-md mx-auto bg-transparent'

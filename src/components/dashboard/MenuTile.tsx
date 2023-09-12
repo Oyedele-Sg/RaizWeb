@@ -4,7 +4,8 @@ import { userService } from "@/services"
 import { DashboardMenuComponent, WhiteTileWrap } from "@/shared"
 import moment from "moment"
 import Image from "next/image"
-import React, { useEffect } from "react"
+import React, { useContext, useEffect } from "react"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 
 export function Menucard() {
   const dahsboardMenu = [
@@ -40,7 +41,7 @@ export function Menucard() {
     },
   ]
 
-  const user = useUser()
+  const { currentUser } = useContext(CurrentUserContext)
 
   return (
     <WhiteTileWrap extraStyle='  p-8 pb-[35px] flex flex-col gap-12 h-[30.1875rem] '>
@@ -57,7 +58,7 @@ export function Menucard() {
           </span>
         </div>
         <h3 className=' font-display__medium font-semibold  gradient-text '>
-          ₦{user?.wallets[0]?.account_balance?.toLocaleString() || `0`}
+          ₦{currentUser?.wallets[0]?.account_balance.toLocaleString() || `0`}
         </h3>
         <div className=' font-label__large text-neutral-70  flex gap-2 items-center   '>
           <span> {moment().format("MMMM DD,YYYY")} </span>

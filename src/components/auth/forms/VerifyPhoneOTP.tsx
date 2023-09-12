@@ -196,7 +196,7 @@ export const VerifyPhoneOTP = () => {
         />
       ) : (
         <WhiteWrap
-          extraStyle=' h-screen lg:h-full w-full   flex items-center justify-center  '
+          extraStyle=' h-screen lg:h-full w-full   flex items-center justify-center lg:rounded-[80px]  '
           closeBtn
           closeLink='/verification/add-number'
         >
