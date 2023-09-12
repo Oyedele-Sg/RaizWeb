@@ -43,7 +43,6 @@ export default function PhoneNumber() {
   const dispatch = useAppDispatch()
   const user = useUser()
 
-
   const [selectedOption, setSelectedOption] = useState("phone")
 
   const handleRadioChange = (value: string) => {
@@ -101,7 +100,7 @@ export default function PhoneNumber() {
       <Loading />
 
       <WhiteWrap
-        extraStyle=' h-screen lg:h-full w-full   flex items-center justify-center'
+        extraStyle=' h-screen lg:h-full w-full   flex items-center justify-center rounded-[80px] '
         closeBtn
         closeLink=' /dashboard '
       >
@@ -156,7 +155,7 @@ export default function PhoneNumber() {
 
                   <RadioGroup
                     defaultValue={`phone`}
-                    className='text-purple'
+                    className='text-purple flex  gap-5 items-center '
                     onValueChange={handleRadioChange}
                   >
                     <div className='flex items-center space-x-2'>

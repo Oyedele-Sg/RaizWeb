@@ -76,7 +76,7 @@ export default function WrongMail() {
     <>
       <Loading />
       <WhiteWrap
-        extraStyle=' h-screen lg:h-full w-full   flex flex-col  justify-center  '
+        extraStyle=' h-screen lg:h-full w-full   flex flex-col  justify-center lg:rounded-[80px]  '
         closeBtn
         closeLink='/verification/email'
       >
