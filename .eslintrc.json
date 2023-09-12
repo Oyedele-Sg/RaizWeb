@@ -1,0 +1,20 @@
+{
+  "extends": "next/core-web-vitals",
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/react"]
+    }
+  ],
+  "presets": ["next/babel"],
+  "plugins": [
+    "testing-library"
+  ],
+  "rules": {
+    "import/no-unresolved": "off",
+    "import/extensions": "off"
+  }
+}
