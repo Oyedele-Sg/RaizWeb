@@ -9,16 +9,20 @@ import {
   SpendingTile,
 } from "@/components"
 import { useUser } from "@/hooks/user/useUser"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
+
 import { BtnMain, Loading, TimelineSelect, WhiteTileWrap } from "@/shared"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import React from "react"
+import React, { useContext } from "react"
 
 function page() {
-  const user = useUser()
+  // const user = useUser()
   const Router = useRouter()
 
-  // if (user && !user?.username) {
+  // const { currentUser } = useContext(CurrentUserContext)
+
+  // if (currentUser && !currentUser?.username) {
   //   Router.push("/profile/username")
   // }
 
@@ -28,33 +32,9 @@ function page() {
         <div className=' w-full min-w-[300px] px-5 lg:px-0 '>
           <Menucard />
         </div>
-        <div className=' hidden lg:grid grid-cols-[1fr_318px] gap-6 h-[30.1875rem]  '>
-          <div className=' grid grid-rows-[1fr_2fr] gap-6   '>
+        <div className=' hidden lg:grid grid-cols-[1fr_218px] gap-5 h-[30.1875rem] '>
+          <div className=' grid grid-rows-[1fr_2fr] gap-5   '>
             <IncomeSummary />
-            <div className=''>
-              <WhiteTileWrap extraStyle=' pt-8  pb-[22px] px-[34px] h-full flex flex-col gap-6 '>
-                <div className=' flex justify-between items-center  '>
-                  <h3 className=' text-neutral-100 font-title__medium   '>
-                    Analytics Report
-                  </h3>
-                  <TimelineSelect />
-                  {/* <BtnMain
-                    btnText=' Top-Up '
-                    btnStyle=' py-2 px-4 bg-purple text-grey rounded-lg font-label__large  '
-                    onClick={() => Router.push("/add-funds")}
-                  /> */}
-                </div>
-                <div className='  relative h-full'>
-                  <Image
-                    src='/dummy/chart.svg'
-                    // width={566.72}
-                    style={{ objectFit: "contain" }}
-                    fill={true}
-                    alt='analytics'
-                  />
-                </div>
-              </WhiteTileWrap>
-            </div>
           </div>
           <div className='  '>
             <ExpenseTile />

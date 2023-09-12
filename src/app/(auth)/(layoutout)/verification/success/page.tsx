@@ -21,7 +21,7 @@ export default function SucessOTP() {
         btnFunc={async () => {
           try {
             dispatch(setLoadingTrue())
-            await userService.CreateWallet()
+            // await userService.CreateWallet()
             toast({
               title: " User Wallet Created successfully",
               style: {

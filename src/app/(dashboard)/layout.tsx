@@ -1,4 +1,5 @@
 import { VerifyModal } from "@/components"
+import CurrentUserProvider from "@/providers/CurrentUserProvider"
 import { DashboardHeader, Sidebar } from "@/shared"
 
 export const metadata = {
@@ -9,14 +10,16 @@ export const metadata = {
 function Dashboardlayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <VerifyModal />
-      <div className=' bg-neutral-20 min-h-screen  '>
-        <div className=' h-full  '>
-          <Sidebar />
-          <DashboardHeader />
-          <div className='lg:ml-[144px] lg:px-12   '>{children}</div>
+      <CurrentUserProvider>
+        <VerifyModal />
+        <div className=' bg-neutral-20 min-h-screen  '>
+          <div className=' h-full  '>
+            <Sidebar />
+            <DashboardHeader />
+            <div className='lg:ml-[144px] lg:px-12   '>{children}</div>
+          </div>
         </div>
-      </div>
+      </CurrentUserProvider>
     </>
   )
 }

@@ -222,8 +222,8 @@ function getRecentTransactions(
 }
 
 function getExpenseChart(
-  start_date?: Date,
-  end_date?: Date
+  start_date?: string,
+  end_date?: string
 ): Promise<ExpenseChartInterface> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/spend-chart/?${createSearchParams({
