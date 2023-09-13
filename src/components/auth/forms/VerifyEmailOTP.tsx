@@ -78,7 +78,7 @@ export const VerifyEmailOTP = () => {
         },
       })
     }
-    // onOtpSubmit(otp)
+  
   }
 
   const handleInputChange = (index: number) => {

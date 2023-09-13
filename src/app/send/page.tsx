@@ -30,7 +30,7 @@ export default function page() {
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const selectedRequest = useAppSelector((state) => state.selectedRequest)
-  console.log("selected reuest", selectedRequest)
+  
   const cardLink = [
     {
       type: "Internal Transfer",
@@ -47,7 +47,7 @@ export default function page() {
   ]
 
   const requests = usePendingRequest()
-  console.log("requests", requests)
+ 
 
   return (
     <div>
@@ -68,7 +68,7 @@ export default function page() {
             <FormTitledContainer
               title={"Send Money"}
               subtitle={"Choose Transfer Type"}
-              // utils={<Utils />}
+             
             >
               <div className='flex flex-col lg:flex-row gap-6  '>
                 {cardLink.map((card, index) => (
@@ -126,56 +126,4 @@ export default function page() {
   )
 }
 
-// function Utils() {
-//   return (
-//     <>
-//       <div className='flex gap-6  items-center  '>
-//         <IconSearch />
-//         <IconScan />
-//       </div>
-//     </>
-//   )
-// }
 
-{
-  /* <Select
-onValueChange={(value) => {
-  console.log("value", value)
-  // const selectedRequest = requests?.find(
-  //   (request) => request.category_id === value
-  // )
-  // @ts-ignore
-  // methods.setValue(
-  //   "category_id",
-  //   selectedBank?.category_id as number
-  // )
-  // @ts-ignore
-}}
->
-<SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50  '>
-  <SelectValue
-    placeholder='Select  '
-    className=' text-purple capitalize placeholder:text-neutral-50   '
-  />
-</SelectTrigger>
-<SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize z-50 '>
-  {requests?.map((request, index) => (
-    <SelectItem
-      key={request.requester_account_id}
-      // @ts-ignore
-      value={request.requester_account_id}
-      className=' hover:bg-neutral-50 z-50  select-item-reset '
-      onClick={(value) => {
-        // methods.setValue("category_id", cat.category_id)
-      }}
-    >
-      
-      <span className=' text-neutral-90 '>{`${request.requester_account.first_name} ${request.requester_account.last_name} `}</span>
-      <span className=' text-purple '>
-        {request.transaction_amount}{" "}
-      </span>{" "}
-    </SelectItem>
-  ))}
-</SelectContent>
-</Select> */
-}

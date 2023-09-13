@@ -21,12 +21,6 @@ function page() {
   // const user = useUser()
   const Router = useRouter()
 
-  // const { currentUser } = useContext(CurrentUserContext)
-
-  // if (currentUser && !currentUser?.username) {
-  //   Router.push("/profile/username")
-  // }
-
   return (
     <>
       <div className=' grid grid-rows-[30.1875rem_1fr] lg:grid-cols-[1fr_2fr] gap-[24px]  pb-[100px] lg:pb-0  '>

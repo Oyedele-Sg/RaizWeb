@@ -19,8 +19,7 @@ export default function Bank() {
 
   const [success, setSuccess] = useState<boolean>(false)
 
-  // const banks = useBank()
-  // ("bamks", banks)
+ 
 
   return (
     <>
