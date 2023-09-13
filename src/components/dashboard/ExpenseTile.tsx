@@ -24,7 +24,12 @@ import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 
 export const ExpenseTile = () => {
   const Router = useRouter()
+
   const [chartData, setChartData] = React.useState<ExpenseChartInterface>()
+
+ 
+ 
+
 
 
   const [selectedRange, setSelectedRange] = useState<
@@ -41,6 +46,7 @@ export const ExpenseTile = () => {
   })
 
   const { currentUser } = useContext(CurrentUserContext)
+
 
   const data = async () => {
     try {
@@ -82,6 +88,7 @@ export const ExpenseTile = () => {
   useEffect(() => {
     data()
   }, [selectedRange])
+
   return (
     <div className='   max-w-[218px] h-[30.1875rem] '>
       <WhiteTileWrap extraStyle=' py-[22px]  pb-[31px] px-4  flex flex-col gap-4 h-full  '>
@@ -91,6 +98,7 @@ export const ExpenseTile = () => {
           </h3>
           <IconMore />
         </div>
+
 
         <TimelineSelect
           setSelectedRange={setSelectedRange}
@@ -110,6 +118,7 @@ export const ExpenseTile = () => {
               colors={["slate", "violet", "indigo", "rose", "cyan", "amber"]}
               showTooltip={true}
             />
+
 
             <div className=' flex flex-col gap-2  '>
               {chartData?.chart_data.map((item, index) => (
