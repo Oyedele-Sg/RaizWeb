@@ -17,7 +17,7 @@ export const WhiteWrap = ({
 }: Props) => {
   return (
     <div
-      className={` bg-grey ${extraStyle} lg:px-[60px] lg:pt-[60px] lg:pb-10 lg:min-w-[45rem]  lg:rounded-[80px] whiteWrap__container `}
+      className={` bg-grey whiteWrap__container   ${extraStyle}  lg:px-[60px] lg:pt-[60px] px-5 pt-[80px] pb-[60px]  lg:pb-10    `}
       {...rest}
     >
       <div className='  '>

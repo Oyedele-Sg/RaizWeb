@@ -28,3 +28,19 @@ export const registerSchema = yup.object().shape({
 })
 
 
+export const forgotPasswordSchema = yup.object().shape({
+  email: yup.string().email("Wrong Email format").required("Email is required"),
+})
+export const resetPasswordSchema = yup.object().shape({
+ otp: yup.string().required("OTP is required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*]{8,}$/,
+      "Password must have at least 1 uppercase letter, 1 lowercase letter, and 1 number "
+    )
+    .required(),
+})
+
+

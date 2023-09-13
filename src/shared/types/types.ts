@@ -77,6 +77,13 @@ export interface LoginDataInterface extends Partial<FieldValues> {
   email: string
   password: string
 }
+export interface ForgotPasswordDataInterface extends Partial<FieldValues> {
+  email: string
+}
+export interface ResetPasswordDataInterface extends Partial<FieldValues> {
+  password: string
+  otp: string
+}
 
 export interface OTPFormValues extends FieldValues {
   otp1: string
