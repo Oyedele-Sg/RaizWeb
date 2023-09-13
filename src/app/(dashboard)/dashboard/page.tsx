@@ -30,7 +30,9 @@ function page() {
         <div className=' hidden lg:grid grid-cols-[1fr_218px] gap-5 h-[30.1875rem]  '>
           <div className=' grid grid-rows-[1fr_2fr] gap-5   '>
             <IncomeSummary />
+
             <AnalyticReport />
+
           </div>
           <div className='  '>
             <ExpenseTile />
