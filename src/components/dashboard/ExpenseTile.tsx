@@ -25,7 +25,7 @@ import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 export const ExpenseTile = () => {
   const Router = useRouter()
   const [chartData, setChartData] = React.useState<ExpenseChartInterface>()
-  console.log("chart data", chartData)
+
 
   const [selectedRange, setSelectedRange] = useState<
     { from: Date; to: Date } | undefined

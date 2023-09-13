@@ -1,6 +1,7 @@
 "use client"
 
 import {
+  AnalyticReport,
   CardTile,
   ExpenseTile,
   IncomeSummary,
@@ -32,9 +33,10 @@ function page() {
         <div className=' w-full min-w-[300px] px-5 lg:px-0 '>
           <Menucard />
         </div>
-        <div className=' hidden lg:grid grid-cols-[1fr_218px] gap-5 h-[30.1875rem] '>
+        <div className=' hidden lg:grid grid-cols-[1fr_218px] gap-5 h-[30.1875rem]  '>
           <div className=' grid grid-rows-[1fr_2fr] gap-5   '>
             <IncomeSummary />
+            <AnalyticReport />
           </div>
           <div className='  '>
             <ExpenseTile />

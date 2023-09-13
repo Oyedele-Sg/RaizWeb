@@ -150,6 +150,17 @@ export interface TransactiontDataInterface {
   payment_method: PaymentMethodInterface
 }
 
+export interface DailyAnalysistDataInterface {
+  date: string
+  credit: number
+  debit: number
+}
+
+export interface DailyAnalysistChartInterface {
+  account_analysis: DailyAnalysistDataInterface[]
+  period: number
+}
+
 export interface ExpenseChartDataInterface {
   category_name: string
   total_amount: number
