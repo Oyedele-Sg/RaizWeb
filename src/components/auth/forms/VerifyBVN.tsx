@@ -75,7 +75,7 @@ export const VerifyBVN = () => {
     <>
       <Loading />
       <WhiteWrap
-        extraStyle=' h-screen lg:h-full w-full  flex items-center justify-center px-[20px]'
+        extraStyle=' h-screen lg:h-full w-full  flex items-center justify-center px-[20px] lg:rounded-[80px] '
         closeBtn
         closeLink='/dashboard'
       >
@@ -141,7 +141,7 @@ export const VerifyBVN = () => {
 
                   <div className=' flex items-center justify-center   '>
                     <BtnMain
-                      btnStyle='authBtn px-[20px]'
+                      btnStyle='authBtn px-[102px] '
                       btnText={"Verify BVN"}
                      
                     />

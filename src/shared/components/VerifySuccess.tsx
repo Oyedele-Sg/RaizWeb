@@ -30,14 +30,14 @@ export const VerifySuccess: React.FC<Props> = ({
 
   return (
     <div className=' h-screen flex items-center justify-center '>
-      <WhiteWrap extraStyle=' rounded-2xl mx-[1.25rem] py-[5.12rem]  '>
-        <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
+      <WhiteWrap extraStyle=' rounded-2xl mx-[1.25rem] py-[5.12rem] rounded-[80px]   '>
+        <div className=' max-w-[502px] mx-auto flex flex-col gap-12 mt-10  '>
           {!email && (
             <div>
               <AuthStepper activeStep={activeStep} />
             </div>
           )}
-          <div className=' px-[35px] flex flex-col gap-8 '>
+          <div className='  flex flex-col gap-8'>
             <div className='flex items-center justify-center '>
               <Image
                 src='/illustrations/verify-success.svg'

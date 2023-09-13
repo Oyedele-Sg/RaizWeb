@@ -23,6 +23,7 @@ import {
   PendingRequestDataInterface,
   ForgotPasswordDataInterface,
   ResetPasswordDataInterface,
+  DailyAnalysistChartInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -78,6 +79,7 @@ export const userService = {
   disapproveRequest,
   forgotPassword,
   resetPassword,
+  getDailyAnalysisReport,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -222,8 +224,8 @@ function getRecentTransactions(
 }
 
 function getExpenseChart(
-  start_date?: Date,
-  end_date?: Date
+  start_date?: string,
+  end_date?: string
 ): Promise<ExpenseChartInterface> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/spend-chart/?${createSearchParams({
@@ -241,6 +243,15 @@ function getIncomeSummary(
     `${baseUrl}/account_users/income-summary/?${createSearchParams({
       start_date,
       end_date,
+    })}`
+  )
+}
+function getDailyAnalysisReport(
+  number_of_days?: number
+): Promise<DailyAnalysistChartInterface> {
+  return fetchWrapper.get(
+    `${baseUrl}/account_users/daily-account-analysis/?${createSearchParams({
+      number_of_days,
     })}`
   )
 }
