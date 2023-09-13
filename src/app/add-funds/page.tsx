@@ -1,3 +1,5 @@
+"use client"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 import {
   AddFundsCard,
   BtnMain,
@@ -6,9 +8,12 @@ import {
   IconPesaColored,
   IconScan,
   Logo,
+  QrCode,
+  WhiteTileWrap,
 } from "@/shared"
 import Image from "next/image"
-import React from "react"
+import React, { useContext } from "react"
+import QRCode from "react-qr-code"
 
 export default function page() {
   const cardLink = [
@@ -28,6 +33,7 @@ export default function page() {
 
   return (
     <main className=' flex flex-col  gap-[100px] '>
+      <QrCode />
       <header className=' flex  items-center justify-between lg:pt-16  lg:mx-[72px]   '>
         <div className=' hidden lg:block '>
           <IconPesaColored />

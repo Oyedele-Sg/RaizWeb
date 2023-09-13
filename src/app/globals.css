@@ -315,9 +315,26 @@ body {
   @apply flex flex-col gap-4;
 }
 
+.input_field:hover > label {
+  @apply text-neutral-80;
+}
+
 .input_field-input {
   @apply w-full h-full    font-body__large text-neutral-90 placeholder:text-neutral-50  bg-transparent pb-2 border-none outline-none;
   border-bottom: solid 1px #4b0082 !important;
+  padding-left: 0px !important;
+}
+
+.input_field-input:hover {
+  @apply w-full h-full    font-body__large text-neutral-70 placeholder:text-neutral-70  bg-transparent pb-2 border-none outline-none;
+  border-bottom: solid 1px #bfabd3 !important;
+  padding-left: 0px !important;
+}
+
+.input_field-input:focus {
+  @apply w-full h-full    font-body__large text-neutral-90 placeholder:text-neutral-90  bg-transparent pb-2 border-none outline-none;
+  border-bottom: solid 1px #9881ae !important;
+  padding-left: 0px !important;
 }
 
 .otp_field-input {
@@ -340,7 +357,7 @@ body {
 .password_field-input {
   position: absolute !important;
   top: 0px !important ;
-  right: 20px !important  ;
+  right: 0px !important  ;
   translate: transform(-50%, -50%) !important;
   height: 1.5rem;
   width: 1.5rem;
@@ -429,7 +446,7 @@ input[type="number"] {
   justify-content: space-between !important;
 }
 
-.force-padding{
-  padding-top:  4px !important;
-  padding-bottom:  4px !important;
+.force-padding {
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
 }

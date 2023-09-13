@@ -6,7 +6,7 @@ import React from "react"
 export function ExpenseTileDummy() {
   const Router = useRouter()
   return (
-    <div className='flex flex-col gap-12 '>
+    <div className='flex flex-col gap-12 items-stretch justify-between  h-full '>
       <div className=' mx-auto  flex items-center justify-center'>
         <Image
           src={`/illustrations/expenses-dummy.svg`}
@@ -14,44 +14,6 @@ export function ExpenseTileDummy() {
           height={174}
           alt=''
         />
-        {/* <PieChart width={800} height={400}>
-                <Pie
-                  data={chartData}
-                  cx={120}
-                  cy={200}
-                  innerRadius={60}
-                  outerRadius={80}
-                  fill='#8884d8'
-                  paddingAngle={5}
-                  dataKey='value'
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-                <Pie
-                  data={chartData}
-                  cx={420}
-                  cy={200}
-                  startAngle={180}
-                  endAngle={0}
-                  innerRadius={60}
-                  outerRadius={80}
-                  fill='#8884d8'
-                  paddingAngle={5}
-                  dataKey='value'
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-              </PieChart> */}
       </div>
       <div className=' flex flex-col items-center gap-3 '>
         <h4 className=' text-[18px] gradient-text font-semi-mid '>
@@ -68,4 +30,3 @@ export function ExpenseTileDummy() {
     </div>
   )
 }
-
