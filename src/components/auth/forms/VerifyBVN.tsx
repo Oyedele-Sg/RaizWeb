@@ -143,7 +143,7 @@ export const VerifyBVN = () => {
                     <BtnMain
                       btnStyle='authBtn px-[20px]'
                       btnText={"Verify BVN"}
-                      // onClick={() => Router.push("/verification/bvn/success")}
+                     
                     />
                   </div>
                 </form>

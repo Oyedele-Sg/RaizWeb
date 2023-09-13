@@ -77,23 +77,7 @@ export default function page() {
     }
   }
 
-  // useEffect(() => {
-  //   const wallet = user && user.wallets[0]
-  //   const beneficiaryName = wallet?.wallet_name
-  //   const bankName = "PROVIDUS BANK"
-  //   const accountNumber = wallet?.account_number
 
-  //   methods.setValue("beneficiary_name", beneficiaryName)
-  //   methods.setValue("bank_name", bankName)
-  //   methods.setValue("account_number", accountNumber)
-  //   ("user EFFFECT", user)
-
-  //   // if (user) {
-  //   //   methods.setValue("beneficiary_name", `${user?.wallets[0].wallet_name}`)
-  //   //   methods.setValue("bank_name", `PROVIDUS BANK`)
-  //   //   methods.setValue("account_number", `${user?.wallets[0].account_number}`)
-  //   // }
-  // }, [user])
 
   return (
     <>
