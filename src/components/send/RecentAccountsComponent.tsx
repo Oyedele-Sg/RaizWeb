@@ -1,7 +1,6 @@
 import { FavoriteAccountsDataInterface, UserSearchInterface } from "@/shared"
 import React from "react"
 import { useForm, FormProvider, UseFormReturn } from "react-hook-form"
-// import { UseFormReturn } from "react-hook-form/dist/types/form"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useFavouriteAccounts } from "@/hooks/fav-accounts/useFavouriteAccount"
 

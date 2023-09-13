@@ -66,8 +66,7 @@ export function ComponentTwo({
 
   const onSubmit = async (data: SearchInput) => {
     try {
-      // const res = await userService.searchWallets(data.transaction_amount)+
-      //   setSearchResults(res)
+      
       setDebitData(data)
     } catch (error) {
       toast({
@@ -84,13 +83,6 @@ export function ComponentTwo({
     }
   }
 
-  // const getData = async () => {
-  //   await userService.getCategory()
-  // }
-
-  // useEffect(() => {
-  //   getData()
-  // }, [])
 
   return (
     <div>
@@ -241,16 +233,6 @@ function Pin({ debitData }: PinProps) {
     try {
       dispatch(setLoadingTrue())
       await userService.walletTransfer(transferData)
-
-      // toast({
-      //   title: " Money Sent",
-
-      //   style: {
-      //     backgroundColor: "#4B0082",
-      //     color: "#fff",
-      //   },
-      //   duration: 2000,
-      // })
       Router.push("/send/success")
       dispatch(setLoadingFalse())
     } catch (error) {

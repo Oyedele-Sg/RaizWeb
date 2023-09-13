@@ -41,14 +41,7 @@ export const LoginForm: FC = () => {
     try {
       dispacth(setLoadingTrue())
       const response = await userService.login(data)
-      // toast({
-      //   title: " Login Successful",
-      //   description: " ",
-      //   style: {
-      //     backgroundColor: "#4B0082",
-      //     color: "#fff",
-      //   },
-      // })
+  
       dispacth(setLoadingFalse())
       Router.push("/dashboard")
     } catch (error) {
