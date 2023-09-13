@@ -30,16 +30,6 @@ export function ComponentTwo({ request_id }: PinProps) {
 
     try {
       dispatch(setLoadingTrue())
-
-      // toast({
-      //   title: " Money Sent",
-
-      //   style: {
-      //     backgroundColor: "#4B0082",
-      //     color: "#fff",
-      //   },
-      //   duration: 2000,
-      // })
       Router.push("/send/success")
       dispatch(setLoadingFalse())
     } catch (error) {

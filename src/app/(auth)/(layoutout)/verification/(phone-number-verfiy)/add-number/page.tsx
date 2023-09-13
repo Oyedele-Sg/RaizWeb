@@ -56,7 +56,7 @@ export default function PhoneNumber() {
 
   const onSubmit = async (data: PhoneNumberFormProps) => {
     const selectedMedia = sessionStorage.getItem("pesaOTP")
-    // ("login data", selectedMedia)
+    
 
     try {
       dispatch(setLoadingTrue())
