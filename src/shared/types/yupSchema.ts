@@ -27,6 +27,7 @@ export const registerSchema = yup.object().shape({
   user_type_id: yup.number().required(),
 })
 
+
 export const forgotPasswordSchema = yup.object().shape({
   email: yup.string().email("Wrong Email format").required("Email is required"),
 })
@@ -41,4 +42,5 @@ export const resetPasswordSchema = yup.object().shape({
     )
     .required(),
 })
+
 
