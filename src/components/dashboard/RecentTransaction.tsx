@@ -4,7 +4,7 @@ import { userService } from "@/services"
 import { Loading, TransactiontDataInterface, WhiteTileWrap } from "@/shared"
 import Image from "next/image"
 import Link from "next/link"
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { RecentTransactionDefault } from "../default"
 import { toast } from "../ui/use-toast"
 import moment from "moment"
@@ -15,6 +15,7 @@ import { formatDateToISOString } from "@/utils/helpers"
 import { useUser } from "@/hooks/user/useUser"
 
 import { DateRangePicker, DateRangePickerValue } from "@tremor/react"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 
 export const RecentTransaction = () => {
   const [transactions, setTransactions] =
@@ -30,13 +31,17 @@ export const RecentTransaction = () => {
     }
   })
 
-
-  const user = useUser()
+  const { currentUser } = useContext(CurrentUserContext)
 
   const currentDate = new Date()
 
   const data = async () => {
-    if (user && !user?.is_bvn_verified && !user?.is_phone_verified) return
+    if (
+      currentUser &&
+      !currentUser?.is_bvn_verified &&
+      !currentUser?.is_phone_verified
+    )
+      return
 
     if (!date?.from || !date?.to) return
 
@@ -99,8 +104,6 @@ export const RecentTransaction = () => {
           </h3>
 
           <div className=' hidden lg:block  '>
-        
-
             <DateRangePicker
               className='max-w-md mx-auto bg-transparent'
               value={date}
@@ -213,5 +216,3 @@ export const RecentTransaction = () => {
     </>
   )
 }
-
-
