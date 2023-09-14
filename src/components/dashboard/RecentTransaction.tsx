@@ -31,7 +31,9 @@ export const RecentTransaction = () => {
     }
   })
 
+
   const { currentUser } = useContext(CurrentUserContext)
+
 
   const currentDate = new Date()
 
@@ -216,3 +218,19 @@ export const RecentTransaction = () => {
     </>
   )
 }
+
+
+// seacrh component to be integrated later
+{
+  /* <div className='  hidden  font bg-grey py-3 px-4  rounded-lg lg:flex items-center gap-4  '>
+          <IconSearch />
+          <input
+            type='search'
+            name=''
+            id=''
+            className=' form-input outline-none bg-transparent border-none w-[20.125rem] max-h-[3rem] placeholder:text-neutral-70 placeholder:font-body__large   '
+            placeholder='Search for transaction, people, etc.'
+          />
+        </div> */
+}
+
