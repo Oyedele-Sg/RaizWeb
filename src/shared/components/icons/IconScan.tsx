@@ -1,12 +1,69 @@
+"use client"
+import { toast } from "@/components/ui/use-toast"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
+import { userService } from "@/services"
 import { setQRTrue } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
-import { FC, ReactElement } from "react"
+import { usePathname, useRouter } from "next/navigation"
+import { FC, ReactElement, useContext } from "react"
 
 export const IconScan: FC = (): ReactElement => {
+  const Router = useRouter()
+  const pathname = usePathname()
   const dispatch = useAppDispatch()
 
+  const { currentUser } = useContext(CurrentUserContext)
+
+  const handleClick = async () => {
+    if (currentUser?.qr_code === null) {
+      try {
+        toast({
+          title: "Generating User QR Code, Please Wait..",
+          variant: "default",
+
+          style: {
+            backgroundColor: "#4B0082",
+            color: "#fff",
+            top: "20px",
+            right: "20px",
+          },
+          duration: 2000,
+        })
+        await userService.generateQRCode()
+        toast({
+          title: "User QR Code Generated, Try again ",
+          variant: "default",
+
+          style: {
+            backgroundColor: "#4B0082",
+            color: "#fff",
+            top: "20px",
+            right: "20px",
+          },
+          duration: 3000,
+        })
+        Router.push("/pathname")
+        return
+      } catch (error) {
+        toast({
+          title: "Something Went Wrong",
+          description: `${error}`,
+          variant: "destructive",
+          style: {
+            backgroundColor: "#f44336",
+            color: "#fff",
+            top: "20px",
+            right: "20px",
+          },
+          duration: 5000,
+        })
+      }
+    }
+    dispatch(setQRTrue())
+  }
+
   return (
-    <div className='  ' onClick={() => dispatch(setQRTrue())}>
+    <div className='  ' onClick={() => handleClick()}>
       <svg
         width='32'
         height='32'

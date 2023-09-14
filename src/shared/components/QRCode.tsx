@@ -34,7 +34,7 @@ export function QrCode() {
   return (
     <>
       {isShowing && (
-        <div className=' absolute top-0 left-0 right-0 bottom-0  bg-loading-bg  flex  items-center  justify-center z-[10000] '>
+        <div className=' fixed top-0 left-0 right-0 bottom-0  bg-loading-bg  flex  items-center  justify-center z-[10000] '>
           <div className='' ref={modalRef}>
             {currentUser && (
               <WhiteTileWrap extraStyle=' px-6 py-12 '>
@@ -49,13 +49,15 @@ export function QrCode() {
                   </div>
 
                   <div className=' relative '>
-                    <Image
-                      src='/icons/icon-mark.svg'
-                      width={50}
-                      height={50}
-                      alt=''
-                      className=' rounded-r-8 absolute translate-x-full right-1/2 translate-y-full bottom-1/2 '
-                    />
+                    <div className=' absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center  '>
+                      <Image
+                        src='/icons/icon-mark.svg'
+                        width={50}
+                        height={50}
+                        alt=''
+                        className=' rounded-r-8  '
+                      />
+                    </div>
 
                     <div
                       style={{
