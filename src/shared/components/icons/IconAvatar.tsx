@@ -1,8 +1,10 @@
+
 import { FC, ReactElement } from "react"
 
 export const IconAvatar: FC = (): ReactElement => {
+
   return (
-    <div className=' bg-white p-3 rounded-full '>
+    <div className=' bg-neutral-50 p-3 rounded-full '>
       <svg
         width='33'
         height='32'
