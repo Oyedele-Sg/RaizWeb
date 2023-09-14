@@ -48,6 +48,7 @@ export const RegisterForm: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const onSubmit = async (data: RegisterDataInterface) => {
+   
     try {
       if (!checked) {
         toast({
@@ -77,13 +78,29 @@ export const RegisterForm: FC = () => {
 
       await userService.signup(data)
 
-
       dispatch(getSignUpEmail(data.email))
       methods.reset()
       dispatch(setLoadingFalse())
       Router.push("/verification/email")
     } catch (error) {
       dispatch(setLoadingFalse())
+      console.log("error", error)
+
+      if (error === "Duplicate entry") {
+        toast({
+          title: "Error",
+          description: `Email already exists`,
+          variant: "destructive",
+          style: {
+            backgroundColor: "#f44336",
+            color: "#fff",
+            top: "20px",
+            right: "20px",
+          },
+        })
+
+        return
+      }
 
       toast({
         title: "Something Went Wrong",
