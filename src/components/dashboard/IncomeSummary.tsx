@@ -1,11 +1,12 @@
 "use client"
-import React, { useEffect } from "react"
+import React, { useContext, useEffect } from "react"
 
 import { SpendingTile } from "./SpendingTile"
 import { userService } from "@/services"
 import { toast } from "../ui/use-toast"
 import { IncomeSummarytDataInterface } from "@/shared"
 import { useUser } from "@/hooks/user/useUser"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 
 export const IncomeSummary = () => {
   const [summary, setSummary] = React.useState<IncomeSummarytDataInterface>()
@@ -22,9 +23,15 @@ export const IncomeSummary = () => {
     },
   ]
 
-  const user = useUser()
+  const { currentUser } = useContext(CurrentUserContext)
 
   const data = async () => {
+    if (
+      currentUser &&
+      !currentUser?.is_bvn_verified &&
+      !currentUser?.is_phone_verified
+    )
+      return
     try {
       const res = await userService.getIncomeSummary()
 
