@@ -27,11 +27,6 @@ export const ExpenseTile = () => {
 
   const [chartData, setChartData] = React.useState<ExpenseChartInterface>()
 
- 
- 
-
-
-
   const [selectedRange, setSelectedRange] = useState<
     { from: Date; to: Date } | undefined
   >(() => {
@@ -47,16 +42,14 @@ export const ExpenseTile = () => {
 
   const { currentUser } = useContext(CurrentUserContext)
 
-
   const data = async () => {
+    if (
+      currentUser &&
+      !currentUser?.is_bvn_verified &&
+      !currentUser?.is_phone_verified
+    )
+      return
     try {
-      if (
-        currentUser &&
-        !currentUser?.is_bvn_verified &&
-        !currentUser?.is_phone_verified
-      )
-        return
-
       const res = await userService.getExpenseChart(
         formatDateToISOString(selectedRange?.from as Date),
         formatDateToISOString(selectedRange?.to as Date)
@@ -99,7 +92,6 @@ export const ExpenseTile = () => {
           <IconMore />
         </div>
 
-
         <TimelineSelect
           setSelectedRange={setSelectedRange}
           selectedRange={selectedRange}
@@ -118,7 +110,6 @@ export const ExpenseTile = () => {
               colors={["slate", "violet", "indigo", "rose", "cyan", "amber"]}
               showTooltip={true}
             />
-
 
             <div className=' flex flex-col gap-2  '>
               {chartData?.chart_data.map((item, index) => (
