@@ -9,6 +9,7 @@ import {
   IconScan,
   Logo,
   QrCode,
+  UtilityIcons,
   WhiteTileWrap,
 } from "@/shared"
 import Image from "next/image"
@@ -39,16 +40,7 @@ export default function page() {
           <IconPesaColored />
         </div>
 
-        <div className='hidden lg:flex items-center gap-[60px]  '>
-          <div className=' flex gap-8'>
-            <IconScan />
-            <IconNotification />
-          </div>
-
-          <div className=''>
-            <IconAvatar />
-          </div>
-        </div>
+        <UtilityIcons />
       </header>
 
       <section className=' flex flex-col items-center justify-center  gap-6  mx-[37px] lg:mx-0 '>

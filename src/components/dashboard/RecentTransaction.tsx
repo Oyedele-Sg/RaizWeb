@@ -30,7 +30,6 @@ export const RecentTransaction = () => {
     }
   })
 
-
   const user = useUser()
 
   const currentDate = new Date()
@@ -99,8 +98,6 @@ export const RecentTransaction = () => {
           </h3>
 
           <div className=' hidden lg:block  '>
-        
-
             <DateRangePicker
               className='max-w-md mx-auto bg-transparent'
               value={date}
@@ -214,4 +211,16 @@ export const RecentTransaction = () => {
   )
 }
 
-
+// seacrh compnent
+{
+  /* <div className='  hidden  font bg-grey py-3 px-4  rounded-lg lg:flex items-center gap-4  '>
+          <IconSearch />
+          <input
+            type='search'
+            name=''
+            id=''
+            className=' form-input outline-none bg-transparent border-none w-[20.125rem] max-h-[3rem] placeholder:text-neutral-70 placeholder:font-body__large   '
+            placeholder='Search for transaction, people, etc.'
+          />
+        </div> */
+}
