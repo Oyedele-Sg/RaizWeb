@@ -80,6 +80,7 @@ export const userService = {
   forgotPassword,
   resetPassword,
   getDailyAnalysisReport,
+  generateQRCode,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -256,10 +257,15 @@ function getDailyAnalysisReport(
   )
 }
 
+// wallet
 function searchWallets(query?: string): Promise<UserSearchInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/search/wallets/?search=${query || ""}`
   )
+}
+
+function generateQRCode(): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/account_users/qr_code/`, {})
 }
 
 // transfer
