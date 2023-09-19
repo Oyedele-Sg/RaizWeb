@@ -9,6 +9,7 @@ import {
   IconSearch,
   NavigationButtons,
   NextArrow,
+  QrCode,
   RegisterInput,
   SetupLayout,
   UserInterface,
@@ -73,96 +74,101 @@ export function ComponentOne({
   }
 
   return (
-    <div>
-      <SetupLayout bg='bg-profile-1'>
-        <div className=' my-[72px] mx-5 lg:mx-[72px] flex flex-col gap-[84px] '>
-          <IconPesaColored />
+    <>
+      <QrCode />
+      <div>
+        <SetupLayout bg='bg-profile-1'>
+          <div className=' my-[72px] mx-5 lg:mx-[72px] flex flex-col gap-[84px] '>
+            <IconPesaColored />
 
-          <div className=' flex flex-col gap-3 '>
-            <NavigationButtons />
+            <div className=' flex flex-col gap-3 '>
+              <NavigationButtons />
 
-            <FormTitledContainer
-              title={title}
-              subtitle={subtitle}
-              utils={<Utils />}
-            >
-              {/* <BtnMain btnText='Next' btnStyle=' authBtn ' /> */}
-              {searchResults && (
-                <h2 className='text-purple font-title__large   '>
-                  {searchResults?.first_name} {searchResults?.last_name}
-                </h2>
-              )}
-              <RecentAccountsComponent
-                methods={methods}
-                setSearchResults={setSearchResults}
-              />
+              <FormTitledContainer
+                title={title}
+                subtitle={subtitle}
+                utils={<Utils />}
+              >
+                {/* <BtnMain btnText='Next' btnStyle=' authBtn ' /> */}
+                {searchResults && (
+                  <h2 className='text-purple font-title__large   '>
+                    {searchResults?.first_name} {searchResults?.last_name}
+                  </h2>
+                )}
+                <RecentAccountsComponent
+                  methods={methods}
+                  setSearchResults={setSearchResults}
+                />
 
-              <div className=''>
-                <h3 className=' font-label__large text-neutral-80 '>Search</h3>
-                <FormProvider {...methods}>
-                  <form
-                    action=''
-                    onSubmit={methods.handleSubmit(onSubmit)}
-                    className=' flex flex-col gap-6 '
-                  >
-                    <div className=''>
-                      <input
-                        type='search'
-                        name=''
-                        id=''
-                        className=' form-input outline-none bg-transparent  w-full max-h-[3rem] placeholder:text-neutral-70 placeholder:font-body__large border-x-0 border-t-0 border-b-[1px] border-b-purple   '
-                        placeholder='Search with Username, Phone Number, or Email Address'
-                        // value={searchQuery}
-                        onChange={async (e) => {
-                          if (!e.target.value) {
-                            setSearchQuery([])
-                            return
-                          }
-                          const response = await userService.searchWallets(
-                            e.target.value
-                          )
-                          setSearchQuery(response)
-                          // setSearchQuery(e.target.value)
-                        }}
-                      />
-
-                      <div className=' bg-neutral-20 w-full '>
-                        {searchQuery.map((user) => (
-                          <div
-                            className='flex w-full hover:bg-neutral-30    '
-                            onClick={() => {
-                              methods.setValue("first_name", user.first_name)
-                              methods.setValue("last_name", user.last_name)
-                              methods.setValue("username", user.username)
-                              methods.setValue(
-                                "account_user_id",
-                                user.account_user_id
-                              )
-                              setSearchResults(user)
+                <div className=''>
+                  <h3 className=' font-label__large text-neutral-80 '>
+                    Search
+                  </h3>
+                  <FormProvider {...methods}>
+                    <form
+                      action=''
+                      onSubmit={methods.handleSubmit(onSubmit)}
+                      className=' flex flex-col gap-6 '
+                    >
+                      <div className=''>
+                        <input
+                          type='search'
+                          name=''
+                          id=''
+                          className=' form-input outline-none bg-transparent  w-full max-h-[3rem] placeholder:text-neutral-70 placeholder:font-body__large border-x-0 border-t-0 border-b-[1px] border-b-purple   '
+                          placeholder='Search with Username, Phone Number, or Email Address'
+                          // value={searchQuery}
+                          onChange={async (e) => {
+                            if (!e.target.value) {
                               setSearchQuery([])
-                            }}
-                          >
-                            <p className='text-neutral-90  p-[0.5rem]'>
-                              {user.first_name} {user.last_name}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                              return
+                            }
+                            const response = await userService.searchWallets(
+                              e.target.value
+                            )
+                            setSearchQuery(response)
+                            // setSearchQuery(e.target.value)
+                          }}
+                        />
 
-                    {/* <RegisterInput
+                        <div className=' bg-neutral-20 w-full '>
+                          {searchQuery.map((user) => (
+                            <div
+                              className='flex w-full hover:bg-neutral-30    '
+                              onClick={() => {
+                                methods.setValue("first_name", user.first_name)
+                                methods.setValue("last_name", user.last_name)
+                                methods.setValue("username", user.username)
+                                methods.setValue(
+                                  "account_user_id",
+                                  user.account_user_id
+                                )
+                                setSearchResults(user)
+                                setSearchQuery([])
+                              }}
+                            >
+                              <p className='text-neutral-90  p-[0.5rem]'>
+                                {user.first_name} {user.last_name}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* <RegisterInput
                     name={`query`}
                     inputPlaceholder={`Search with User's Username, Phone Number, or Email Address`}
                   /> */}
-                    <AuthButton btnText='Next' />
-                  </form>
-                </FormProvider>
-              </div>
-            </FormTitledContainer>
+                      <AuthButton btnText='Next' />
+                    </form>
+                  </FormProvider>
+                </div>
+              </FormTitledContainer>
+            </div>
           </div>
-        </div>
-      </SetupLayout>
-    </div>
+        </SetupLayout>
+      </div>
+    </>
   )
 }
 
