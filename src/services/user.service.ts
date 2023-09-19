@@ -24,6 +24,8 @@ import {
   ForgotPasswordDataInterface,
   ResetPasswordDataInterface,
   DailyAnalysistChartInterface,
+  ChangePasswordDataInterface,
+  NotificationDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -82,6 +84,8 @@ export const userService = {
   getDailyAnalysisReport,
   generateQRCode,
   suggestUsername,
+  changePassword,
+  getNotifications,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -104,6 +108,11 @@ function logout(): void {
 function signup(data: RegisterDataInterface): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/signup/`, data)
 }
+
+function changePassword(data: ChangePasswordDataInterface): Promise<void> {
+  return fetchWrapper.patch(`${baseUrl}/account_users/change-password/`, data)
+}
+
 function verifyEmail(data: { otp: string }): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=email`, data)
 }
@@ -343,11 +352,11 @@ function disapproveRequest(request_id: string): Promise<void> {
 
 // notifications
 function getNotifications(
-  page: string,
+  page?: string,
   notification_category_id?: string,
   read?: string
-): Promise<void> {
+): Promise<NotificationDataInterface[]> {
   return fetchWrapper.get(
-    `${baseUrl}/account_users/notifications/{notification-category-id}/?notification_category_id=2&read=true&limit=10&page=1`
+    `${baseUrl}/account_users/notifications/?limit=10&page=1`
   )
 }

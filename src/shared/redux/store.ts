@@ -1,5 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { signupEmailReducer, loadingReducer, showQRReducer } from "./features"
+import {
+  signupEmailReducer,
+  loadingReducer,
+  showQRReducer,
+  showNotificationDropReducer,
+} from "./features"
 import { selectedRequestReducer } from "./features/request"
 // import authReducer from "./features/lice
 
@@ -9,6 +14,7 @@ export const store = configureStore({
     loading: loadingReducer,
     selectedRequest: selectedRequestReducer,
     showQR: showQRReducer,
+    showNotificationDrop: showNotificationDropReducer,
   },
 })
 
