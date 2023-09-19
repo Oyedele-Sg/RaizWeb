@@ -88,7 +88,6 @@ export default function Username() {
   const handleClick = (index: number, word: string) => {
     if (clickedIndex === index) {
       // If the same item is clicked again, hide the image
-      console.log("clickedIndex", word)
       setClickedIndex(-1)
     } else {
       // Otherwise, show the image for the clicked item
@@ -104,9 +103,7 @@ export default function Username() {
         methods.watch("username")
       )
       setSuggestions(response)
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {
