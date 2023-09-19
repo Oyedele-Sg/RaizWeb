@@ -1,9 +1,10 @@
-" use client "
-
+"use client"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import React from "react"
 
 export const Sidebar = () => {
+  const Router = useRouter()
   const dashboardIcon = [
     "dashboard",
     "wallet",
@@ -47,16 +48,23 @@ export const Sidebar = () => {
           </div>
         </div>
         <div className=' hidden lg:flex flex-col items-center gap-[52px] '>
-          {utilsIcon.map((icon, index) => (
-            <div key={index} className=''>
-              <Image
-                src={`/icons/${icon}.svg`}
-                width={32}
-                height={32}
-                alt={`dashboard ${icon} icon`}
-              />
-            </div>
-          ))}
+          <div className=''>
+            <Image
+              src={`/icons/toggle-off-circle.svg`}
+              width={32}
+              height={32}
+              alt={`dashboard toggle-off-circle icon`}
+            />
+          </div>
+
+          <div className='' onClick={() => Router.push("/settings")}>
+            <Image
+              src={`/icons/setting.svg`}
+              width={32}
+              height={32}
+              alt={`dashboard setting icon`}
+            />
+          </div>
         </div>
       </div>
     </aside>

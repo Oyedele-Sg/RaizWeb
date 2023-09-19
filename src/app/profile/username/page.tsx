@@ -14,7 +14,7 @@ import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 import {
   useForm,
@@ -55,18 +55,16 @@ export default function Username() {
     },
   })
 
+  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [username, setUsername] = useState<string>("")
+
   const onSubmit = async (data: UsernameInputProps) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.updateUsername(data)
-      toast({
-        title: " Username added successfully",
+      await userService.updateUsername(
+        data.username ? data : { username: username }
+      )
 
-        style: {
-          backgroundColor: "#4B0082",
-          color: "#fff",
-        },
-      })
       Router.push("/profile/create-pin")
       dispatch(setLoadingFalse())
     } catch (error) {
@@ -85,13 +83,35 @@ export default function Username() {
     }
   }
 
+  const [clickedIndex, setClickedIndex] = useState(-1)
+
+  const handleClick = (index: number, word: string) => {
+    if (clickedIndex === index) {
+      // If the same item is clicked again, hide the image
+      console.log("clickedIndex", word)
+      setClickedIndex(-1)
+    } else {
+      // Otherwise, show the image for the clicked item
+      setClickedIndex(index)
+      setUsername(word)
+      methods.resetField("username")
+    }
+  }
+
   const getData = async () => {
-    const response = await userService.getBanks()
+    try {
+      const response = await userService.suggestUsername(
+        methods.watch("username")
+      )
+      setSuggestions(response)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [methods.watch("username")])
 
   return (
     <>
@@ -109,14 +129,46 @@ export default function Username() {
                   className=' flex  flex-col gap-4 '
                   onSubmit={methods.handleSubmit(onSubmit)}
                 >
-                  <RegisterInput
-                    name={`username`}
-                    inputPlaceholder={`Enter Username`}
-                    rules={{
-                      required: "Username is required",
-                    }}
-                    label='Username'
-                  />
+                  {username ? (
+                    <div className=''>
+                      <div className='flex flex-col gap-3 '>
+                        <p className={`font-label__large text-neutral-90  `}>
+                          Username
+                        </p>
+                        <div className=' flex justify-between '>
+                          <h2 className=' text-purple font-semi-bold text-t-18  '>
+                            {" "}
+                            {username}{" "}
+                          </h2>
+
+                          <div
+                            className=''
+                            onClick={() => {
+                              setUsername("")
+                              methods.setValue("username", "")
+                              setClickedIndex(-1)
+                            }}
+                          >
+                            <Image
+                              src='/icons/close-circle.svg'
+                              alt=''
+                              width={20}
+                              height={20}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <RegisterInput
+                      name={`username`}
+                      inputPlaceholder={`Enter Username`}
+                      rules={{
+                        required: "Username is required",
+                      }}
+                      label='Username'
+                    />
+                  )}
 
                   <BtnMain
                     btnText='Submit'
@@ -132,12 +184,21 @@ export default function Username() {
               </h2>
 
               <div className=' flex flex-wrap gap-4 '>
-                {pesa.map((word, index) => (
+                {suggestions.map((word, index) => (
                   <div
                     key={index}
                     className=' flex items-center gap-4  cursor-pointer rounded-lg bg-purple px-8 py-2 '
+                    onClick={() => handleClick(index, word)}
                   >
                     <p className=' font-body__large text-grey '>{word}</p>
+                    {clickedIndex === index && (
+                      <Image
+                        src='/icons/check.svg'
+                        alt=''
+                        width={20}
+                        height={20}
+                      />
+                    )}
                   </div>
                 ))}
               </div>
