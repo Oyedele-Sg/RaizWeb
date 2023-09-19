@@ -11,6 +11,7 @@ import {
   IconSearch,
   NextArrow,
   OTPFormValues,
+  QrCode,
   RegisterInput,
   SetupLayout,
   UserSearchInterface,
@@ -66,7 +67,6 @@ export function ComponentTwo({
 
   const onSubmit = async (data: SearchInput) => {
     try {
-      
       setDebitData(data)
     } catch (error) {
       toast({
@@ -83,113 +83,118 @@ export function ComponentTwo({
     }
   }
 
-
   return (
-    <div>
-      <SetupLayout bg='bg-profile-1'>
-        <div className='  mx-5  my-[72px] flex flex-col gap-[84px] '>
-          <IconPesaColored />
+    <>
+      <QrCode />
+      <div>
+        <SetupLayout bg='bg-profile-1'>
+          <div className='  mx-5  my-[72px] flex flex-col gap-[84px] '>
+            <IconPesaColored />
 
-          <div className=' flex flex-col gap-3 '>
-            <div className=''>
-              <button
-                title='back'
-                className=''
-                onClick={() => {
-                  setSearchResults(undefined)
-                  setCurrentStep(1)
-                }}
+            <div className=' flex flex-col gap-3 '>
+              <div className=''>
+                <button
+                  title='back'
+                  className=''
+                  onClick={() => {
+                    setSearchResults(undefined)
+                    setCurrentStep(1)
+                  }}
+                >
+                  <BackArrow />
+                </button>
+                <button title='next' className=''>
+                  <NextArrow />
+                </button>
+              </div>
+
+              <FormTitledContainer
+                title='Send Money'
+                subtitle={debitData ? "Enter Transaction Pin" : "Enter Amount"}
+                utils={<Utils />}
               >
-                <BackArrow />
-              </button>
-              <button title='next' className=''>
-                <NextArrow />
-              </button>
-            </div>
+                {searchResult && (
+                  <h2 className='text-purple font-title__large   '>
+                    {searchResult?.first_name} {searchResult?.last_name}
+                  </h2>
+                )}
 
-            <FormTitledContainer
-              title='Send Money'
-              subtitle={debitData ? "Enter Transaction Pin" : "Enter Amount"}
-              utils={<Utils />}
-            >
-              {searchResult && (
-                <h2 className='text-purple font-title__large   '>
-                  {searchResult?.first_name} {searchResult?.last_name}
-                </h2>
-              )}
-
-              {debitData ? (
-                <Pin debitData={debitData} />
-              ) : (
-                <FormProvider {...methods}>
-                  <form
-                    action=''
-                    onSubmit={methods.handleSubmit(onSubmit)}
-                    className=' flex flex-col gap-6 '
-                  >
-                    <RegisterInput
-                      name={`transaction_amount`}
-                      inputPlaceholder={`Enter Amount`}
-                      label='Amount'
-                      rules={{
-                        required: "Input an amount",
-                        pattern: {
-                          value: /^[0-9]*$/,
-                          message: " Amount must be a number ",
-                        },
-                      }}
-                    />
-                    <RegisterInput
-                      name={`transaction_remarks`}
-                      inputPlaceholder={`Transaction description `}
-                      label='Description'
-                    />
-                    <Select
-                      onValueChange={(value) => {
-                        const selectedBank = category?.find(
-                          (cat) => cat.category_name === value
-                        )
-                        // @ts-ignore
-                        methods.setValue(
-                          "category_id",
-                          selectedBank?.category_id as number
-                        )
-                        // @ts-ignore
-                      }}
+                {debitData ? (
+                  <Pin debitData={debitData} />
+                ) : (
+                  <FormProvider {...methods}>
+                    <form
+                      action=''
+                      onSubmit={methods.handleSubmit(onSubmit)}
+                      className=' flex flex-col gap-6 '
                     >
-                      <SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50  '>
-                        <SelectValue
-                          placeholder='Select A category '
-                          className=' text-purple capitalize placeholder:text-neutral-50   '
+                      <RegisterInput
+                        name={`transaction_amount`}
+                        inputPlaceholder={`Enter Amount`}
+                        label='Amount'
+                        rules={{
+                          required: "Input an amount",
+                          pattern: {
+                            value: /^[0-9]*$/,
+                            message: " Amount must be a number ",
+                          },
+                        }}
+                      />
+                      <RegisterInput
+                        name={`transaction_remarks`}
+                        inputPlaceholder={`Transaction description `}
+                        label='Description'
+                      />
+                      <Select
+                        onValueChange={(value) => {
+                          const selectedBank = category?.find(
+                            (cat) => cat.category_name === value
+                          )
+                          // @ts-ignore
+                          methods.setValue(
+                            "category_id",
+                            selectedBank?.category_id as number
+                          )
+                          // @ts-ignore
+                        }}
+                      >
+                        <SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50  '>
+                          <SelectValue
+                            placeholder='Select A category '
+                            className=' text-purple capitalize placeholder:text-neutral-50   '
+                          />
+                        </SelectTrigger>
+                        <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize z-50 '>
+                          {category?.map((cat, index) => (
+                            <SelectItem
+                              key={cat.category_id}
+                              // @ts-ignore
+                              value={cat.category_name}
+                              className=' hover:bg-neutral-50 z-50 '
+                              onClick={(value) => {
+                                methods.setValue("category_id", cat.category_id)
+                              }}
+                            >
+                              {cat.category_name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <div className=' flex gap-12 '>
+                        <AuthButton
+                          btnText='Make Transfer'
+                          btnStyle=' w-full '
                         />
-                      </SelectTrigger>
-                      <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto capitalize z-50 '>
-                        {category?.map((cat, index) => (
-                          <SelectItem
-                            key={cat.category_id}
-                            // @ts-ignore
-                            value={cat.category_name}
-                            className=' hover:bg-neutral-50 z-50 '
-                            onClick={(value) => {
-                              methods.setValue("category_id", cat.category_id)
-                            }}
-                          >
-                            {cat.category_name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <div className=' flex gap-12 '>
-                      <AuthButton btnText='Make Transfer' btnStyle=' w-full ' />
-                    </div>
-                  </form>
-                </FormProvider>
-              )}
-            </FormTitledContainer>
+                      </div>
+                    </form>
+                  </FormProvider>
+                )}
+              </FormTitledContainer>
+            </div>
           </div>
-        </div>
-      </SetupLayout>
-    </div>
+        </SetupLayout>
+      </div>
+    </>
   )
 }
 

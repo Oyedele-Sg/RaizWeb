@@ -129,9 +129,11 @@ export function ComponentOne() {
               </button>
             </div>
 
-            <RecentAccountExternalComponent methods={methods} />
-
             <FormTitledContainer title='Send Money' subtitle={"Bank Account"}>
+              {!debitData && (
+                <RecentAccountExternalComponent methods={methods} />
+              )}
+
               {debitData ? (
                 <Pin debitData={debitData} />
               ) : (
@@ -206,7 +208,6 @@ export function ComponentOne() {
                             // @ts-ignore
                             value={bank.bankName}
                             className=' hover:bg-neutral-50 z-50 '
-                           
                           >
                             {bank.bankName}
                           </SelectItem>
