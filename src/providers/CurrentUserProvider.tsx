@@ -5,10 +5,18 @@ import { toast } from "@/components/ui/use-toast"
 import { UserInterface } from "@/shared"
 import { useRouter } from "next/navigation"
 
-export const CurrentUserContext = React.createContext<any>({})
+// Define the CurrentUserContext with a UserInterface type
+export const CurrentUserContext = React.createContext<{
+  currentUser: UserInterface | undefined
+  isLoading: boolean
+}>({ currentUser: undefined, isLoading: false })
 
-const CurrentUserProvider = (props: { children: any }) => {
-  const [currentUser, setCurrentUser] = useState<UserInterface>()
+const CurrentUserProvider: React.FC<{ children: React.ReactNode }> = (
+  props
+) => {
+  const [currentUser, setCurrentUser] = useState<UserInterface | undefined>(
+    undefined
+  )
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const Router = useRouter()
 
@@ -20,7 +28,7 @@ const CurrentUserProvider = (props: { children: any }) => {
       if (response) {
         response.username === null && Router.push("/profile/username")
         setIsLoading(false)
-        setCurrentUser(response) 
+        setCurrentUser(response)
       }
     } catch (e: any) {
       setIsLoading(false)

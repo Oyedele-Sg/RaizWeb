@@ -22,6 +22,7 @@ interface RegisterInputProps
   childrenHandleClick?: () => void
   onchange?: () => void
   disabled?: boolean
+  value?: string
 }
 
 export const RegisterInput: React.FC<RegisterInputProps> = ({
@@ -38,6 +39,7 @@ export const RegisterInput: React.FC<RegisterInputProps> = ({
   childrenHandleClick,
   onchange,
   disabled,
+  value
 }) => {
   const {
     register,
@@ -87,6 +89,7 @@ export const RegisterInput: React.FC<RegisterInputProps> = ({
             {...register(name as any, rules)}
             autoComplete='off'
             // onChange={onchange}
+            value={value}
 
             disabled={disabled}
           />

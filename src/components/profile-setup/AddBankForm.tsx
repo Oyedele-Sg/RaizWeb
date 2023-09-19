@@ -52,13 +52,7 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
     try {
       dispatch(setLoadingTrue())
       const res = await userService.nipAccountLookup(accountNumber, bankCode)
-      toast({
-        title: " Account Number verified successfully",
-        style: {
-          backgroundColor: "#4B0082",
-          color: "#fff",
-        },
-      })
+      
       dispatch(setLoadingFalse())
     } catch (error) {
       toast({
