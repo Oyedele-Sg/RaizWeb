@@ -5,4 +5,5 @@ export const queryKeys = {
   favaccounts: "favaccounts",
   exfavaccounts: "exfavaccounts",
   requests: "requests",
+  notifications: "notifications",
 }

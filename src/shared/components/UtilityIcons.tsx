@@ -2,9 +2,13 @@ import React from "react"
 import { IconAvatar, IconNotification, IconScan } from "./icons"
 import { useRouter } from "next/navigation"
 import { userService } from "@/services"
+import { useNotification } from "@/hooks/notification/useNotification"
+import moment from "moment"
+import { NotificationDrop } from "./NotificationDrop"
 
 export function UtilityIcons() {
   const Router = useRouter()
+  const notification = useNotification()
 
   return (
     <div className='hidden lg:flex items-center gap-[60px]  '>
@@ -13,11 +17,7 @@ export function UtilityIcons() {
         <div className='relative'>
           <IconNotification />
 
-          <div className=' bg-grey border-[1px] border-neutral-70 p-8  absolute top-[70px] w-[450px] bug  '>
-            <div className=''>
-              <h2 className=''> Notifications </h2>
-            </div>
-          </div>
+          <NotificationDrop />
         </div>
       </div>
 

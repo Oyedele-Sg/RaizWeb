@@ -41,7 +41,7 @@ export const LoginForm: FC = () => {
     try {
       dispacth(setLoadingTrue())
       const response = await userService.login(data)
-  
+
       dispacth(setLoadingFalse())
       Router.push("/dashboard")
     } catch (error) {
