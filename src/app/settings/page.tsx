@@ -42,6 +42,7 @@ export default function page() {
       title: "Login and security",
       description: "Keep your account secured",
       image: "key",
+      link: "login-and-security",
     },
     {
       title: "Manage connected accounts",

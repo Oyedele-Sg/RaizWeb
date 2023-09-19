@@ -9,9 +9,13 @@ interface Props {
 export function ContentWrap({ children, title }: Props) {
   return (
     <div className=' flex flex-col gap-3 '>
-      <div className='flex items-center gap-[150px] '>
+      <div className='flex items-center  '>
         <BackBtnCircle />
-        <h1 className=' text-purple text-t-24 font-semi-mid   '>{title}</h1>
+        <div className=' w-full '>
+          <h1 className=' text-purple text-center text-t-24 font-semi-mid  '>
+            {title}
+          </h1>
+        </div>
       </div>
 
       <div className=' p-12 rounded-r-8  bg-neutral-20   flex flex-col gap-9 '>
