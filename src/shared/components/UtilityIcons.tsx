@@ -10,7 +10,15 @@ export function UtilityIcons() {
     <div className='hidden lg:flex items-center gap-[60px]  '>
       <div className=' flex gap-8'>
         <IconScan />
-        <IconNotification />
+        <div className='relative'>
+          <IconNotification />
+
+          <div className=' bg-grey border-[1px] border-neutral-70 p-8  absolute top-[70px] w-[450px] bug  '>
+            <div className=''>
+              <h2 className=''> Notifications </h2>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div

@@ -17,6 +17,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className='  '>
         <div className='  '>
+          
           <ReactQueryProvider>{children}</ReactQueryProvider>
           <Toaster />
         </div>

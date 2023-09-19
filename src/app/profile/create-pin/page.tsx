@@ -75,15 +75,7 @@ export default function TransactionPin() {
       dispatch(setLoadingTrue())
       await userService.addTransactionPin(pin)
 
-      toast({
-        title: " Transaction Pin Created",
-
-        style: {
-          backgroundColor: "#4B0082",
-          color: "#fff",
-        },
-        duration: 2000,
-      })
+    
       Router.push("/profile/bank")
       dispatch(setLoadingFalse())
     } catch (error) {
