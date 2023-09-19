@@ -7,7 +7,6 @@ interface Props {
   value: string
   border?: boolean
 }
-
 export function AccountDetailsItems({ title, icon, value, border }: Props) {
   return (
     <div
