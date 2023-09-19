@@ -53,7 +53,7 @@ export default function page() {
           </p>
         </div>
 
-        <div className=' flex flex-col lg:flex-row gap-12   lg:p-16  rounded-lg   '>
+        <div className=' flex flex-col lg:flex-row gap-12   lg:p-16  rounded-lg mb-[40px]  '>
           {cardLink.map((data, index) => (
             <AddFundsCard data={data} key={index} />
           ))}

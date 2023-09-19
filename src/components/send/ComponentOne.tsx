@@ -7,6 +7,7 @@ import {
   IconPesaColored,
   IconScan,
   IconSearch,
+  NavigationButtons,
   NextArrow,
   RegisterInput,
   SetupLayout,
@@ -69,7 +70,6 @@ export function ComponentOne({
 
     setCurrentStep(2)
     methods.reset()
-
   }
 
   return (
@@ -79,12 +79,7 @@ export function ComponentOne({
           <IconPesaColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div className='' onClick={() => Router.back}>
-              <BackBtnCircle />
-              <button title='next' className=''>
-                <NextArrow />
-              </button>
-            </div>
+            <NavigationButtons />
 
             <FormTitledContainer
               title={title}
@@ -129,7 +124,6 @@ export function ComponentOne({
                           setSearchQuery(response)
                           // setSearchQuery(e.target.value)
                         }}
-                       
                       />
 
                       <div className=' bg-neutral-20 w-full '>

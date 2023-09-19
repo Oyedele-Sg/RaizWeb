@@ -48,7 +48,6 @@ export const RegisterForm: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const onSubmit = async (data: RegisterDataInterface) => {
-   
     try {
       if (!checked) {
         toast({
@@ -84,7 +83,6 @@ export const RegisterForm: FC = () => {
       Router.push("/verification/email")
     } catch (error) {
       dispatch(setLoadingFalse())
-      console.log("error", error)
 
       if (error === "Duplicate entry") {
         toast({
@@ -162,19 +160,13 @@ export const RegisterForm: FC = () => {
                 <CheckBox checked={checked} setChecked={setChecked} />
                 <div className='text-neutral-80 '>
                   I agree to the company’s{" "}
-                  <Link
-                    className='text-neutral-90 underline '
-                    href='/forgot-password'
-                  >
-                    terms of use
-                  </Link>{" "}
+                  <span className='text-neutral-90 underline '>
+                    Terms of Use
+                  </span>{" "}
                   and{" "}
-                  <Link
-                    className='text-neutral-90 underline '
-                    href='/forgot-password'
-                  >
-                    privacy policy
-                  </Link>
+                  <span className='text-neutral-90 underline '>
+                    Privacy Policy
+                  </span>
                 </div>
               </div>
             </AuthFormWrap>

@@ -167,7 +167,7 @@ export const RecentTransaction = () => {
                 {transactions?.map((transaction, index) => (
                   <div
                     key={index}
-                    className=' flex justify-between items-center '
+                    className=' flex justify-between items-center'
                   >
                     <div className=' flex flex-col gap-1  '>
                       <h3 className=' text-purple text-[18px] font-semi-mid    '>

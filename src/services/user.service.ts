@@ -81,6 +81,7 @@ export const userService = {
   resetPassword,
   getDailyAnalysisReport,
   generateQRCode,
+  suggestUsername,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -175,8 +176,14 @@ function updateUserProfileImage(): Promise<UserInterface> {
   return fetchWrapper.get(`${baseUrl}/account_users/me/`)
 }
 
+//profile user
 function updateUsername(data: { username: string }): Promise<UserInterface> {
   return fetchWrapper.patch(`${baseUrl}/account_users/username/`, data)
+}
+function suggestUsername(data: string): Promise<string[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/account_users/usernames/suggestions/?username=${data}`
+  )
 }
 
 // lookup
@@ -331,5 +338,16 @@ function disapproveRequest(request_id: string): Promise<void> {
   return fetchWrapper.patch(
     `${baseUrl}/transfers/debit/request-funds/${request_id}/decline/`,
     {}
+  )
+}
+
+// notifications
+function getNotifications(
+  page: string,
+  notification_category_id?: string,
+  read?: string
+): Promise<void> {
+  return fetchWrapper.get(
+    `${baseUrl}/account_users/notifications/{notification-category-id}/?notification_category_id=2&read=true&limit=10&page=1`
   )
 }
