@@ -8,7 +8,7 @@ import React, { useContext } from "react"
 function page() {
   const { currentUser } = useContext(CurrentUserContext)
   return (
-    <>
+    <div>
       {currentUser && (
         <ContentWrap title='Account Information'>
           <AccountDetailsItems
@@ -35,16 +35,18 @@ function page() {
             icon='phone'
             value={`${currentUser?.phone_number}`}
           />
-
-          {/* <AccountDetailsItems
-      title='Address'
-      icon='location'
-      value={`${currentUser?.}`}
-      border
-    /> */}
         </ContentWrap>
       )}
-    </>
+
+      <div className=' bg-[#FFEDC7] w-full flex mt-8 '>
+        <div className=' w-2 bg-[#FFE09D] min-h-full '> </div>
+        <div className=' text-neutral-100 py-6 pl-4  pr-[60px] text-t-14 leading-5 '>
+          You are unable to edit this profile because your account has already
+          been verified. If you feel that you need to edit, please reach out to
+          customer support.
+        </div>
+      </div>
+    </div>
   )
 }
 

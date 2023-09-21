@@ -52,11 +52,7 @@ export default function TransactionPin() {
   const dispatch = useAppDispatch()
 
   const pinInputRefs = useRef<Array<HTMLInputElement | null>>([])
-  const OTPPreference =
-    typeof sessionStorage !== "undefined"
-      ? sessionStorage.getItem("pesaOTP")
-      : null
-  const user = useUser()
+
 
   const methods = useForm<OTPFormValues>({
     defaultValues: {

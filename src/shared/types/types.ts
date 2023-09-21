@@ -90,12 +90,8 @@ export interface ChangePasswordDataInterface extends Partial<FieldValues> {
   new_password: string
 }
 
-export interface OTPFormValues extends FieldValues {
-  otp1: string
-  otp2: string
-  otp3: string
-  otp4: string
-  otp5: string
+export interface TransactionPinFormInterface extends FieldValues {
+  transaction_pin: string
 }
 
 export interface BankInterface {
