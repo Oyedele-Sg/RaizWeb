@@ -202,9 +202,9 @@ export interface UserSearchInterface {
 
 export interface DebitTransferInterface {
   receiver_account_user_id: string
-  transaction_amount: number
+  transaction_amount: number | null
   transaction_remarks: string
-  category_id: number
+  category_id: number | null
 }
 
 export interface TransactionPinInterface {
