@@ -6,9 +6,11 @@ import {
   AuthButton,
   Loading,
   TransactionPinFormInterface,
+  transactionPinSchema,
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
+import { yupResolver } from "@hookform/resolvers/yup"
 import { Pin } from "lucide-react"
 import { useRouter } from "next/navigation"
 import React, { useRef, useState } from "react"
@@ -23,6 +25,7 @@ function page() {
     defaultValues: {
       transaction_pin: "",
     },
+    resolver: yupResolver(transactionPinSchema),
   })
 
   const onSubmit = async (data: TransactionPinFormInterface) => {
@@ -107,6 +110,12 @@ function page() {
             autoSelect={true}
             regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
           />
+
+          {methods.formState.errors.transaction_pin && (
+            <span className=' text-center  text-error text-t-12  '>
+              OTP is required and must be 4 digits
+            </span>
+          )}
 
           <div className=' flex gap-8 '>
             <AuthButton

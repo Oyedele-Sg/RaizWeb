@@ -4,6 +4,7 @@ import AddBankForm from "@/components/profile-setup/AddBankForm"
 import { useBank } from "@/hooks/banks/useBank"
 import {
   BtnMain,
+  IconPesaColored,
   Loading,
   RegisterInput,
   SetupLayout,
@@ -19,15 +20,19 @@ export default function Bank() {
 
   const [success, setSuccess] = useState<boolean>(false)
 
- 
-
   return (
     <>
       <Loading />
 
       <SetupLayout bg='bg-profile-1'>
         <div className=' px-5 lg:px-[60px]  py-[50px] flex flex-col gap-[70px] '>
-          <SkipLink link='/dashboard' />
+          <div className='flex justify-between items-center  '>
+            <div className='hidden lg:block'>
+              <IconPesaColored />
+            </div>
+            <SkipLink link='/dashboard' />
+          </div>
+
           <Header activeStep={success ? 3 : 2} />
           {!success ? (
             <AddBankForm setSuccess={setSuccess} />

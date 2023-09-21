@@ -6,11 +6,13 @@ import { userService } from "@/services"
 import {
   AuthButton,
   BtnMain,
+  IconPesaColored,
   Loading,
-  OTPFormValues,
   RegisterInput,
   SetupLayout,
   SkipLink,
+  TransactionPinFormInterface,
+  transactionPinSchema,
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
@@ -42,6 +44,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useUser } from "@/hooks/user/useUser"
+import PinInput from "react-pin-input"
+import { yupResolver } from "@hookform/resolvers/yup"
 
 interface UsernameInputProps extends Partial<FieldValues> {
   username: string
@@ -53,25 +57,32 @@ export default function TransactionPin() {
 
   const pinInputRefs = useRef<Array<HTMLInputElement | null>>([])
 
-
-  const methods = useForm<OTPFormValues>({
+  const methods = useForm<TransactionPinFormInterface>({
     defaultValues: {
-      otp: [{ otp1: "" }, { otp2: "" }, { otp3: "" }, { otp4: "" }],
+      transaction_pin: "",
     },
+    resolver: yupResolver(transactionPinSchema),
   })
 
-  const onSubmit = async (data: OTPFormValues) => {
-    const pin = {
-      transaction_pin: `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`,
+  const onSubmit = async (data: TransactionPinFormInterface) => {
+    if (!data.transaction_pin) {
+      toast({
+        title: "Transaction pin is required",
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+      })
+      return
     }
-
-    if (!pin.transaction_pin) return
 
     try {
       dispatch(setLoadingTrue())
-      await userService.addTransactionPin(pin)
+      await userService.addTransactionPin(data)
 
-    
       Router.push("/profile/bank")
       dispatch(setLoadingFalse())
     } catch (error) {
@@ -91,29 +102,21 @@ export default function TransactionPin() {
     }
   }
 
-  const handleInputChange = (index: number) => {
-    const currentValue = pinInputRefs.current[index]?.value
-    const prevValue = pinInputRefs.current[index - 1]?.value
-
-    if (currentValue && currentValue.length === 1) {
-      if (index < pinInputRefs.current.length - 1) {
-        pinInputRefs.current[index + 1]?.focus()
-      } else {
-        pinInputRefs.current[index]?.blur()
-        // Submit OTP or perform the desired action here
-      }
-    } else if (!currentValue && prevValue) {
-      pinInputRefs.current[index - 1]?.focus()
-    }
+  const handleInputChange = (value: string, index: number) => {
+    methods.setValue("transaction_pin", value)
   }
-
   return (
     <>
       <Loading />
 
       <SetupLayout bg='bg-profile-1'>
         <div className=' px-5 lg:px-[60px]  py-[50px] flex flex-col justify-center gap-[112px] '>
-          <SkipLink link='/profile/bank' />
+          <div className='flex justify-between items-center  '>
+            <div className='hidden lg:block'>
+              <IconPesaColored />
+            </div>
+            <SkipLink link='/profile/bank' />
+          </div>
           <Header activeStep={1} />
 
           <div className=' bg-neutral-20 py-16 px-8 rounded-xl flex flex-col gap-[88px] '>
@@ -123,39 +126,34 @@ export default function TransactionPin() {
                   onSubmit={methods.handleSubmit(onSubmit)}
                   className=' flex flex-col gap-8 '
                 >
-                  <div className='flex gap-[33px] justify-between  '>
-                    {Array.from({ length: 4 }, (_, index) => (
-                      <input
-                        key={index}
-                        type='number'
-                        {...methods.register(`otp${index + 1}`, {
-                          required: true,
-                        })}
-                        inputMode='numeric'
-                        maxLength={1}
-                        className={`form-input otp_field-input spin-button-none ${
-                          methods.formState.errors[`otp${index + 1}`]
-                            ? "otp_field-input_error"
-                            : ""
-                        }`}
-                        ref={(ref) => {
-                          pinInputRefs.current[index] = ref
-                        }}
-                        onChange={(event) => {
-                          const { value } = event.target
-                          methods.setValue(`otp${index + 1}`, value)
-                          handleInputChange(index)
-                        }}
-                      />
-                    ))}
-                  </div>
+                  <PinInput
+                    length={4}
+                    initialValue=''
+                    secret
+                    onChange={(value, index) => handleInputChange(value, index)}
+                    type='numeric'
+                    inputMode='number'
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                    inputStyle={{
+                      padding: "10px",
+                      borderTop: "none",
+                      borderLeft: "none",
+                      borderRight: "none",
+                      borderBottom: "1px solid #4B0082",
+                    }}
+                    inputFocusStyle={{
+                      borderBottom: "1px solid #4B0082",
+                    }}
+                    autoSelect={true}
+                    regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                  />
 
-                  {(methods.formState.errors.otp1 ||
-                    methods.formState.errors.otp2 ||
-                    methods.formState.errors.otp3 ||
-                    methods.formState.errors.otp4) && (
+                  {methods.formState.errors.transaction_pin && (
                     <span className=' text-center  text-error text-t-12  '>
-                      Pin is required and must be 4 digits
+                      OTP is required and must be 4 digits
                     </span>
                   )}
 

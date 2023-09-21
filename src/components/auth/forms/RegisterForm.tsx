@@ -141,7 +141,7 @@ export const RegisterForm: FC = () => {
                 />
                 <RegisterInput
                   name={`password`}
-                  inputPlaceholder={`Enter 8 characters long`}
+                  inputPlaceholder={`Enter Password`}
                   label='Password'
                   childrenHandleClick={() => setShowPassword((state) => !state)}
                   type={showPassword ? "text" : "password"}

@@ -3,7 +3,8 @@ import {
   AuthButton,
   BtnMain,
   Loading,
-  OTPFormValues,
+  VerifyEmailFormInterface,
+  VerifyFail,
   VerifySuccess,
   WhiteWrap,
 } from "@/shared"
@@ -23,12 +24,13 @@ import {
 import { useUser } from "@/hooks/user/useUser"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import Image from "next/image"
+import PinInput from "react-pin-input"
 
 export const VerifyPhoneOTP = () => {
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const user = useUser()
-  const [success, setSuccess] = useState<boolean>(false)
+  const [success, setSuccess] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
   const otpInputRefs = useRef<Array<HTMLInputElement | null>>([])
@@ -37,9 +39,9 @@ export const VerifyPhoneOTP = () => {
       ? sessionStorage.getItem("pesaOTP")
       : null
 
-  const methods = useForm<OTPFormValues>({
+  const methods = useForm<VerifyEmailFormInterface>({
     defaultValues: {
-      otp: [{ otp1: "" }, { otp2: "" }, { otp3: "" }, { otp4: "" }],
+      otp: "",
     },
   })
 
@@ -78,19 +80,27 @@ export const VerifyPhoneOTP = () => {
     }
   }, [])
 
-  const onSubmit = async (data: OTPFormValues) => {
-    const otp = {
-      otp: `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`,
+  const onSubmit = async (data: VerifyEmailFormInterface) => {
+    if (!data.otp) {
+      toast({
+        title: "OTP is required",
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+      })
+      return
     }
-
-    if (!otp.otp) return
 
     try {
       dispatch(setLoadingTrue())
 
       OTPPreference === "phone"
-        ? await userService.verifyPhone(otp)
-        : await userService.verifyVoiceOTP(otp)
+        ? await userService.verifyPhone(data)
+        : await userService.verifyVoiceOTP(data)
 
       toast({
         title: " Verifiction Sucessful",
@@ -105,10 +115,14 @@ export const VerifyPhoneOTP = () => {
         methods.reset()
         dispatch(setLoadingFalse())
 
-        setSuccess(true)
+        setSuccess("success")
       }, 1000)
     } catch (error) {
       dispatch(setLoadingFalse())
+      if (error === "Invalid OTP") {
+        setSuccess("failed")
+        return
+      }
 
       toast({
         title: "Error",
@@ -121,22 +135,6 @@ export const VerifyPhoneOTP = () => {
           right: "20px",
         },
       })
-    }
-  }
-
-  const handleInputChange = (index: number) => {
-    const currentValue = otpInputRefs.current[index]?.value
-    const prevValue = otpInputRefs.current[index - 1]?.value
-
-    if (currentValue && currentValue.length === 1) {
-      if (index < otpInputRefs.current.length - 1) {
-        otpInputRefs.current[index + 1]?.focus()
-      } else {
-        otpInputRefs.current[index]?.blur()
-        // Submit OTP or perform the desired action here
-      }
-    } else if (!currentValue && prevValue) {
-      otpInputRefs.current[index - 1]?.focus()
     }
   }
 
@@ -184,15 +182,27 @@ export const VerifyPhoneOTP = () => {
     }
   }
 
+  const handleInputChange = (value: string, index: number) => {
+    methods.setValue("otp", value)
+  }
+
   return (
     <>
       <Loading />
-      {success ? (
+      {success === "success" ? (
         <VerifySuccess
           activeStep={1}
           title='Phone Number Verified Successfully'
           description='Your phone number has been sucessfully verified.'
           btnLink='/verification/bvn'
+        />
+      ) : success === "failed" ? (
+        <VerifyFail
+          title='Phone OTP Incorrect'
+          description='Phone OTP is incorrect, please try again'
+          btnLink='/verification/verify-number'
+          btnText='Re-send OTP'
+          btnFunc={() => setSuccess("")}
         />
       ) : (
         <WhiteWrap
@@ -200,7 +210,7 @@ export const VerifyPhoneOTP = () => {
           closeBtn
           closeLink='/verification/add-number'
         >
-          <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
+          <div className='lg:w-[502px] mx-auto flex flex-col gap-12  '>
             <div>
               <AuthStepper activeStep={1} />
             </div>
@@ -230,41 +240,30 @@ export const VerifyPhoneOTP = () => {
                   onSubmit={methods.handleSubmit(onSubmit)}
                   className=' flex flex-col gap-8 '
                 >
-                  <div className='flex gap-[33px] justify-center  '>
-                    {Array.from({ length: 4 }, (_, index) => (
-                      <input
-                        key={index}
-                        type='number'
-                        {...methods.register(`otp${index + 1}`, {
-                          required: true,
-                        })}
-                        inputMode='numeric'
-                        maxLength={1}
-                        className={`form-input otp_field-input spin-button-none ${
-                          methods.formState.errors[`otp${index + 1}`]
-                            ? "otp_field-input_error"
-                            : ""
-                        }`}
-                        ref={(ref) => {
-                          otpInputRefs.current[index] = ref
-                        }}
-                        onChange={(event) => {
-                          const { value } = event.target
-                          methods.setValue(`otp${index + 1}`, value)
-                          handleInputChange(index)
-                        }}
-                      />
-                    ))}
-                  </div>
-
-                  {(methods.formState.errors.otp1 ||
-                    methods.formState.errors.otp2 ||
-                    methods.formState.errors.otp3 ||
-                    methods.formState.errors.otp4) && (
-                    <span className=' text-center  text-error text-t-12  '>
-                      OTP is required and must be 4 digits
-                    </span>
-                  )}
+                  <PinInput
+                    length={4}
+                    initialValue=''
+                    secret
+                    onChange={(value, index) => handleInputChange(value, index)}
+                    type='numeric'
+                    inputMode='number'
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                    inputStyle={{
+                      padding: "10px",
+                      borderTop: "none",
+                      borderLeft: "none",
+                      borderRight: "none",
+                      borderBottom: "1px solid #4B0082",
+                    }}
+                    inputFocusStyle={{
+                      borderBottom: "1px solid #4B0082",
+                    }}
+                    autoSelect={true}
+                    regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                  />
 
                   <span className=' text-center text-neutral-50  '>
                     {countdown > 0

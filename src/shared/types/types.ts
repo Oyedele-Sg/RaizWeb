@@ -94,6 +94,14 @@ export interface TransactionPinFormInterface extends FieldValues {
   transaction_pin: string
 }
 
+export interface TransactionPinFormInterface extends FieldValues {
+  transaction_pin: string
+}
+
+export interface VerifyEmailFormInterface extends FieldValues {
+  otp: string
+}
+
 export interface BankInterface {
   bankCode: string
   bankName: string

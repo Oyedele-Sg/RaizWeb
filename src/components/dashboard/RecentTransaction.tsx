@@ -31,9 +31,7 @@ export const RecentTransaction = () => {
     }
   })
 
-
   const { currentUser } = useContext(CurrentUserContext)
-
 
   const currentDate = new Date()
 
@@ -195,7 +193,7 @@ export const RecentTransaction = () => {
                         `debit`
                           ? `-`
                           : `+`
-                      } ₦${transaction.transaction_amount.toLocaleString()} `}
+                      } ₦ ${transaction.transaction_amount.toLocaleString()} `}
                     </h2>
                   </div>
                 ))}
@@ -219,7 +217,6 @@ export const RecentTransaction = () => {
   )
 }
 
-
 // seacrh component to be integrated later
 {
   /* <div className='  hidden  font bg-grey py-3 px-4  rounded-lg lg:flex items-center gap-4  '>
@@ -233,4 +230,3 @@ export const RecentTransaction = () => {
           />
         </div> */
 }
-
