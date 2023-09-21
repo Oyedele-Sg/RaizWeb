@@ -33,11 +33,7 @@ export function SettingItem({ link }: Props) {
         <h3 className=' text-neutral-70 text-t-16   '> {link.title} </h3>
       </div>
 
-      {link.title === "Enable/disable Face or Touch ID" ? (
-        <Switch />
-      ) : (
-        <Image src={`/icons/arrow-right.svg`} alt='' width={24} height={24} />
-      )}
+      <Image src={`/icons/arrow-right.svg`} alt='' width={24} height={24} />
     </div>
   )
 }

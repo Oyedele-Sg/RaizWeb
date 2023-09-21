@@ -1,6 +1,7 @@
 "use client"
 import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 import {
+  BtnMain,
   DailyAnalysistChartInterface,
   DailyAnalysistDataInterface,
   TimelineSelect,
@@ -13,6 +14,7 @@ import { formatDateToISOString } from "@/utils/helpers"
 import { userService } from "@/services"
 import { toast } from "../ui/use-toast"
 import { Card, Title, BarChart, Subtitle } from "@tremor/react"
+import { differenceInDays } from "date-fns"
 
 export function AnalyticReport() {
   const [selectedRange, setSelectedRange] = useState<
@@ -42,7 +44,11 @@ export function AnalyticReport() {
       )
         return
 
-      const res = await userService.getDailyAnalysisReport()
+      const numberOfDays = selectedRange
+        ? differenceInDays(selectedRange.to, selectedRange.from)
+        : 0
+
+      const res = await userService.getDailyAnalysisReport(numberOfDays)
 
       setChartData(res)
     } catch (error) {
@@ -81,7 +87,25 @@ export function AnalyticReport() {
         onClick={() => Router.push("/add-funds")}
       /> */}
         </div>
-        {/* <div className='  relative h-full'>
+
+        <div className=' '>
+          <BarChart
+            className='mt-6'
+            data={chartData?.account_analysis as DailyAnalysistDataInterface[]}
+            index='date'
+            categories={["credit", "debit"]}
+            colors={["blue", "teal", "amber", "rose", "indigo", "emerald"]}
+            // valueFormatter={dataFormatter}
+            yAxisWidth={48}
+          />
+        </div>
+      </WhiteTileWrap>
+    </div>
+  )
+}
+
+{
+  /* <div className='  relative h-full'>
           <Image
             src='/dummy/chart.svg'
             // width={566.72}
@@ -89,24 +113,5 @@ export function AnalyticReport() {
             fill={true}
             alt='analytics'
           />
-        </div> */}
-        {/* <BarChart
-          className='mt-6'
-          data={chartData?.account_analysis as DailyAnalysistDataInterface[]}
-          index='date'
-          categories={[
-            "Group A",
-            "Group B",
-            "Group C",
-            "Group D",
-            "Group E",
-            "Group F",
-          ]}
-          colors={["blue", "teal", "amber", "rose", "indigo", "emerald"]}
-          // valueFormatter={dataFormatter}
-          yAxisWidth={48}
-        /> */}
-      </WhiteTileWrap>
-    </div>
-  )
+        </div> */
 }

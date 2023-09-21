@@ -46,14 +46,7 @@ export const VerifyBVN = () => {
     try {
       dispatch(setLoadingTrue())
       await userService.verifyBVN({ bvn: "11111111111" })
-      toast({
-        title: " Your BVN has been successfully verified",
-        description: "",
-        style: {
-          backgroundColor: "#4B0082",
-          color: "#fff",
-        },
-      })
+
       dispatch(setLoadingFalse())
       Router.push("/verification/success")
     } catch (error) {
@@ -129,6 +122,7 @@ export const VerifyBVN = () => {
                     childrenHandleClick={() => setShowBVN((state) => !state)}
                     type={showBVN ? "text" : "password"}
                     extraClass={`mt-6`}
+                    length={11}
                   >
                     <Image
                       src={`/icons/eye-slash.svg`}
@@ -143,7 +137,6 @@ export const VerifyBVN = () => {
                     <BtnMain
                       btnStyle='authBtn px-[102px] '
                       btnText={"Verify BVN"}
-                     
                     />
                   </div>
                 </form>

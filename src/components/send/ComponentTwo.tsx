@@ -10,7 +10,6 @@ import {
   IconScan,
   IconSearch,
   NextArrow,
-  OTPFormValues,
   QrCode,
   RegisterInput,
   SetupLayout,

@@ -1,7 +1,7 @@
 "use client"
 import { InputContainer } from "@/components"
 import { toast } from "@/components/ui/use-toast"
-import { useUser } from "@/hooks/user/useUser"
+
 import {
   AuthButton,
   BackArrow,
@@ -18,7 +18,7 @@ import {
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
 import { useRouter } from "next/navigation"
-import React, { useEffect, useMemo } from "react"
+import React, { useContext, useEffect, useMemo } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import {
   Tooltip,
@@ -26,6 +26,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 
 interface TransferInputProps {
   bank_name: string
@@ -35,10 +36,10 @@ interface TransferInputProps {
 
 export default function page() {
   const Router = useRouter()
-  const user = useUser() as UserInterface
+  const { currentUser } = useContext(CurrentUserContext)
   const dispatch = useAppDispatch()
 
-  if (!user) {
+  if (!currentUser) {
     dispatch(setLoadingTrue())
   } else {
     dispatch(setLoadingFalse())
@@ -47,8 +48,8 @@ export default function page() {
   const methods = useForm<TransferInputProps>({
     values: {
       bank_name: `Providus Bank`,
-      account_number: `${user?.wallets[0]?.account_number}`,
-      beneficiary_name: `${user?.wallets[0]?.wallet_name}`,
+      account_number: `${currentUser?.wallets[0]?.account_number}`,
+      beneficiary_name: `${currentUser?.wallets[0]?.wallet_name}`,
     },
   })
 
@@ -59,8 +60,6 @@ export default function page() {
       dispatch(setLoadingFalse())
       Router.push("/add-funds/transfer/success")
     } catch (error) {
-      
-      
       dispatch(setLoadingFalse())
 
       toast({
@@ -76,8 +75,6 @@ export default function page() {
       })
     }
   }
-
-
 
   return (
     <>
@@ -114,7 +111,9 @@ export default function page() {
                       label='Account number'
                       children={
                         <CopyComponent
-                          value={user?.wallets[0]?.account_number}
+                          value={
+                            currentUser?.wallets[0]?.account_number as string
+                          }
                         />
                       }
                       disabled
@@ -127,7 +126,9 @@ export default function page() {
                       }}
                       label='Beneficiary name'
                       children={
-                        <CopyComponent value={user?.wallets[0]?.wallet_name} />
+                        <CopyComponent
+                          value={currentUser?.wallets[0]?.wallet_name as string}
+                        />
                       }
                       disabled
                     />

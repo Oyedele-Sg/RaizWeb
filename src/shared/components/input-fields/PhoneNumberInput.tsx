@@ -68,13 +68,13 @@ export const PhoneNumberInput: React.FC<PhoneNumberProps> = ({
       )}
 
       <div className=' relative  '>
-        <div className=' flex flex-col gap-2 '>
+        <div className=' flex flex-col gap-2  '>
           <div
-            className={` flex items-center gap-10 border-b-purple border-b-[1px]  ${
+            className={` flex items-center  border-b-purple border-b-[1px]  ${
               errors[name] ? "input_field-input_error" : ""
             } `}
           >
-            <span className=' text-neutral-60 pl-4 '>+234</span>
+            <span className=' text-neutral-60  '>+234</span>
             <input
               className={` form-input   w-full h-full    font-body__large text-neutral-90 placeholder:text-neutral-50  bg-transparent pb-2 border-none outline-none `}
               type={"tel"}

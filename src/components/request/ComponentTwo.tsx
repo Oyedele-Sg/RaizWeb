@@ -6,10 +6,7 @@ import {
   RequestDataInterface,
   FormTitledContainer,
   IconPesaColored,
-  IconScan,
-  IconSearch,
   NextArrow,
-  OTPFormValues,
   RegisterInput,
   SetupLayout,
   UserSearchInterface,
@@ -83,28 +80,25 @@ export function ComponentTwo({
   return (
     <div>
       <SetupLayout bg='bg-profile-1'>
-        <div className=' m-[72px] flex flex-col gap-[84px] '>
+        <div className='my-[72px] mx-5 lg:mx-[72px] flex flex-col gap-[84px] '>
           <IconPesaColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div
-              className=''
-              onClick={() => {
-              
-                setCurrentStep(1)
-              }}
-            >
-              <BackArrow />
+            <div className='flex'>
+              <div
+                className=''
+                onClick={() => {
+                  setCurrentStep(1)
+                }}
+              >
+                <BackArrow />
+              </div>
               <button title='next' className=''>
                 <NextArrow />
               </button>
             </div>
 
-            <FormTitledContainer
-              title='Request '
-              subtitle={"Enter Amount"}
-              
-            >
+            <FormTitledContainer title='Request ' subtitle={"Enter Amount"}>
               {searchResult && (
                 <h2 className='text-purple font-title__large   '>
                   {searchResult?.first_name} {searchResult?.last_name}
@@ -181,5 +175,3 @@ export function ComponentTwo({
     </div>
   )
 }
-
-

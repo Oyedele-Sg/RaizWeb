@@ -44,7 +44,7 @@ export function Menucard() {
   const { currentUser } = useContext(CurrentUserContext)
 
   return (
-    <WhiteTileWrap extraStyle='  p-8 pb-[35px] flex flex-col gap-12 h-[30.1875rem] '>
+    <WhiteTileWrap extraStyle='  p-8 pb-[35px] flex flex-col gap-12 h-full '>
       <div className=' flex flex-col items-center gap-3  '>
         <div className=' flex justify-center  items-center gap-3  '>
           <Image

@@ -13,11 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-export interface BankInputProps extends Partial<FieldValues> {
-  bank_name: string
-  account_number: string
-  bank_code: string
-}
+
 import { useAppDispatch } from "@/shared/redux/types"
 import { toast } from "@/components/ui/use-toast"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
@@ -26,6 +22,12 @@ import { userService } from "@/services"
 import { BtnMain, IconSavedList, RegisterInput } from "@/shared"
 import { SearchSelect, SearchSelectItem } from "@tremor/react"
 import { useBank } from "@/hooks/banks/useBank"
+
+export interface BankInputProps extends Partial<FieldValues> {
+  bank_name: string
+  account_number: string
+  bank_code: string
+}
 
 interface Prop {
   setSuccess: React.Dispatch<React.SetStateAction<boolean>>
@@ -40,10 +42,11 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
       account_number: "",
       bank_code: "",
       bank_name: "",
+      account_name: "",
     },
   })
 
-  const { banks } = useBank() || { banks: [] }
+  // const { banks } = useBank() || { banks: [] }
 
   const doNIPAccountLookup = async (
     accountNumber: string,
@@ -52,7 +55,8 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
     try {
       dispatch(setLoadingTrue())
       const res = await userService.nipAccountLookup(accountNumber, bankCode)
-      
+      methods.setValue("account_name", res.account_name)
+
       dispatch(setLoadingFalse())
     } catch (error) {
       toast({
@@ -97,9 +101,16 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
       })
       return
     }
+
+    const newData = {
+      bank_name: data.bank_name,
+      account_number: data.account_number,
+      bank_code: data.bank_code,
+    }
+
     try {
       dispatch(setLoadingTrue())
-      await userService.addBank(data)
+      await userService.addBank(newData)
       toast({
         title: " Account created successfully",
         description:
@@ -188,6 +199,14 @@ export const AddBankForm = ({ setSuccess, add }: Prop) => {
                   },
                 }}
                 label='Account number'
+                length={10}
+              />
+
+              <RegisterInput
+                name={`account_name`}
+                inputPlaceholder={` Account Name  `}
+                label='Account name'
+                disabled
               />
 
               <BtnMain

@@ -41,15 +41,7 @@ export default function WrongMail() {
       dispatch(setLoadingTrue())
       const response = await userService.resendEmail(data)
       methods.reset()
-      toast({
-        title: " OTP Sent",
-        description:
-          "OTP has been sent to your email address. Please check your inbox. ",
-        style: {
-          backgroundColor: "#4B0082",
-          color: "#fff",
-        },
-      })
+      
       dispatch(getSignUpEmail(data.email))
       dispatch(setLoadingFalse())
 
@@ -80,8 +72,7 @@ export default function WrongMail() {
         closeBtn
         closeLink='/verification/email'
       >
-        <div className=' max-w-[502px] mx-auto flex flex-col gap-12  '>
-        
+        <div className=' max-w-[502px] lg:min-[484px] mx-auto lg:mx-[75px] flex flex-col gap-12  '>
           <div className=' flex flex-col gap-[80px] '>
             <div className=' flex flex-col justify-center items-center gap-[3rem]  '>
               <div className='lg:hidden'>
@@ -97,7 +88,7 @@ export default function WrongMail() {
                   {" "}
                   Confirm Email Address
                 </h1>
-                <p className=' font-body__large text-neutral-90 '>
+                <p className=' font-body__large text-neutral-90 w- '>
                   Enter correct email to verify your account.
                 </p>
               </div>
@@ -125,7 +116,7 @@ export default function WrongMail() {
                   <div className=' flex items-center justify-center   '>
                     <AuthButton
                       btnText={"Send OTP"}
-                      btnStyle=' py-4 px-[60px] '
+                      btnStyle=' py-4 px-[100px] w-full lg:w-auto '
                     />
                   </div>
                 </form>

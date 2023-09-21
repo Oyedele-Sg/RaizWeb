@@ -41,7 +41,7 @@ module.exports = {
           background: {
             muted: "#f9fafb", // gray-50
             subtle: "#f3f4f6", // gray-100
-            DEFAULT: "#ffffff", // white
+            DEFAULT: "#F4F4F4", // white
             emphasis: "#374151", // gray-700
           },
           border: {
@@ -167,9 +167,6 @@ module.exports = {
         "extra-bold": 800,
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
         "r-8": "8px",
         "r-12": "12px",
         "r-6": "6px",
@@ -182,17 +179,6 @@ module.exports = {
         match: "0px 16px 42px rgba(0, 0, 0, 0.07)",
         opening: "0px 1px 4px rgba(17, 17, 17, 0.12)",
         // light
-        "tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        "tremor-card":
-          "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-        "tremor-dropdown":
-          "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-        // dark
-        "dark-tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        "dark-tremor-card":
-          "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-        "dark-tremor-dropdown":
-          "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
       },
       lineHeight: {
         "extra-loose": "2.5",
@@ -331,3 +317,19 @@ module.exports = {
     require("@headlessui/tailwindcss"),
   ],
 }
+
+// tremor style
+// "tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+// "tremor-card":
+//   "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+// "tremor-dropdown":
+//   "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+// // dark
+// "dark-tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+// "dark-tremor-card":
+//   "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+// "dark-tremor-dropdown":
+//   "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+// lg: "var(--radius)",
+// md: "calc(var(--radius) - 2px)",
+// sm: "calc(var(--radius) - 4px)",

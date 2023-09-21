@@ -5,6 +5,7 @@ import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
 import {
   BtnMain,
+  IconPesaColored,
   Loading,
   RegisterInput,
   SetupLayout,
@@ -116,7 +117,12 @@ export default function Username() {
 
       <SetupLayout bg='bg-profile-1'>
         <div className=' px-5 lg:px-[60px]  py-[50px] flex flex-col justify-center gap-[112px] '>
-          <SkipLink link='/profile/create-pin' />
+          <div className='flex justify-between items-center  '>
+            <div className='hidden lg:block'>
+              <IconPesaColored />
+            </div>
+            <SkipLink link='/profile/create-pin' />
+          </div>
           <Header activeStep={0} />
 
           <div className=' bg-neutral-20 py-16 px-8 rounded-xl flex flex-col gap-[88px] '>

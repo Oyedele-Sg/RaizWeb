@@ -6,8 +6,6 @@ import React, { useContext } from "react"
 import { useRouter } from "next/navigation"
 
 function page() {
-  
-
   const links = [
     {
       title: "Reset Password",
@@ -19,11 +17,7 @@ function page() {
       image: "login/pin",
       link: "reset-pin",
     },
-    {
-      title: "Enable/disable Face or Touch ID",
-      image: "login/scan",
-      link: "login-and-security",
-    },
+
     {
       title: "Reset Security Questions",
       image: "login/pin",
@@ -33,7 +27,7 @@ function page() {
   return (
     <ContentWrap title='Login and Security'>
       {links.map((link, index) => (
-       <SettingItem link={link} key={index} />
+        <SettingItem link={link} key={index} />
       ))}
     </ContentWrap>
   )
