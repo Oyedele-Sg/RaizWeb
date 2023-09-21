@@ -14,8 +14,6 @@ import {
   TransactionPinInterface,
   RegisterInput,
   SetupLayout,
-  UserSearchInterface,
-  TransactionPinInterface,
   transactionPinSchema,
 } from "@/shared"
 import React, { useEffect, useRef, useState } from "react"
