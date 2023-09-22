@@ -67,3 +67,11 @@ export const transactionPinSchema = yup.object().shape({
     .min(4, "Password must be at least 8 characters")
     .required("OTP is required"),
 })
+
+export const splitGroupSchema = yup.object().shape({
+  split_group_name: yup.string().required("Group Name is required"),
+  total_amount: yup
+    .number()
+    .required("Amount is required")
+    .typeError("Amount must be a number"),
+})

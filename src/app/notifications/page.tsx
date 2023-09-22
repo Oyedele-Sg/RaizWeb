@@ -1,11 +1,13 @@
 "use client"
 import { useNotification } from "@/hooks/notification/useNotification"
-import { BackBtnCircle } from "@/shared"
+import { BackBtnCircle, NotificationDataInterface } from "@/shared"
 import moment from "moment"
-import React from "react"
+import React, { useState } from "react"
 
 function page() {
   const notification = useNotification()
+  const [details, setDetail] = useState<NotificationDataInterface>()
+
   return (
     <div className=' flex flex-col gap-3 '>
       <div className='flex items-center  '>
