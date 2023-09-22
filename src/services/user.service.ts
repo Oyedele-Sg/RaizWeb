@@ -26,6 +26,8 @@ import {
   DailyAnalysistChartInterface,
   ChangePasswordDataInterface,
   NotificationDataInterface,
+  PendingSplitRequestDataInterface,
+  SplitRequestDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -86,7 +88,9 @@ export const userService = {
   suggestUsername,
   changePassword,
   getNotifications,
-  changeTransactionPin
+  changeTransactionPin,
+  getPendingSplitRequests,
+  requestSplitFunds,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -342,6 +346,12 @@ function getPendingRequests(): Promise<PendingRequestDataInterface[]> {
   return fetchWrapper.get(`${baseUrl}/transfers/debit/get-pending-requests/`)
 }
 
+function getPendingSplitRequests(): Promise<
+  PendingSplitRequestDataInterface[]
+> {
+  return fetchWrapper.get(`${baseUrl}transfers/debit/get-my-split-requests/`)
+}
+
 function approveRequest(
   request_id: string,
   data: { transaction_pin: string }
@@ -366,5 +376,13 @@ function getNotifications(
 ): Promise<NotificationDataInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/notifications/?limit=10&page=1`
+  )
+}
+
+function requestSplitFunds(data: SplitRequestDataInterface): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/transfers/credit/request-split/
+  `,
+    data
   )
 }

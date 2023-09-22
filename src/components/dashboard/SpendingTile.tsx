@@ -13,7 +13,9 @@ interface Props {
 
 export const SpendingTile = ({ data, style }: Props) => {
   return (
-    <WhiteTileWrap extraStyle={`p-3 flex-1 flex items-center  ${style} `}>
+    <WhiteTileWrap
+      extraStyle={`p-3 flex-1 flex items-center max-h-[126px]  ${style} `}
+    >
       <div className='  flex gap-4 justify-between w-full '>
         <div className='  flex flex-col justify gap-[18px] '>
           <Image

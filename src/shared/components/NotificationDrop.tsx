@@ -54,7 +54,7 @@ export function NotificationDrop() {
             </div>
 
             <div className='flex flex-col gap-7 '>
-              {notification?.slice(3).map((item, index) => (
+              {notification?.slice(0, 3).map((item, index) => (
                 <div
                   className=' flex gap-4 cursor-default items-start p-3 hover:bg-neutral-20 '
                   key={index}
