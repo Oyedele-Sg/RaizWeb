@@ -32,7 +32,7 @@ export function Menucard() {
     {
       name: "Split Bills",
       icon: "arrow-split",
-      link: "",
+      link: "/split-bill",
     },
     {
       name: "More",

@@ -1,7 +1,7 @@
 "use client"
-import { ComponentOne } from "@/components/split-bill"
+import { ComponentOne, ComponentTwo } from "@/components/split-bill"
 import { useUser } from "@/hooks/user/useUser"
-import { Loading, UserInterface, UserSearchInterface } from "@/shared"
+import { Loading, QrCode, UserInterface, UserSearchInterface } from "@/shared"
 import { useAppDispatch } from "@/shared/redux/types"
 import React, { useState, useEffect, useMemo } from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -14,7 +14,10 @@ export default function page() {
   const user = useUser() as UserInterface
   const dispatch = useAppDispatch()
 
-  const [searchResults, setSearchResults] = useState<UserSearchInterface>()
+  const [selectedUsers, setSelectedUsers] = useState<UserSearchInterface[]>([])
+  const [groupName, setGroupName] = useState<string>("")
+  const [total, setTotal] = useState<number>(0)
+ 
 
   const methods = useForm<TransferInputProps>({
     values: {
@@ -27,22 +30,30 @@ export default function page() {
   return (
     <>
       <Loading />
+      <QrCode />
       {currentStep === 1 && (
         <ComponentOne
-          setSearchResults={setSearchResults}
+          setSelectedUsers={setSelectedUsers}
           setCurrentStep={setCurrentStep}
-          title='Request Money'
-          subtitle='Find User'
-          searchResults={searchResults}
+          title='Split Bill'
+          subtitle='Find User(s) to split with'
+          selectedUsers={selectedUsers}
+          setGroupName={setGroupName}
+          setTotal={setTotal}
         />
       )}
-      {/* {currentStep === 2 && (
+      {currentStep === 2 && (
         <ComponentTwo
-          searchResult={searchResults}
+          setSelectedUsers={setSelectedUsers}
           setCurrentStep={setCurrentStep}
-          setSearchResults={setSearchResults}
+          title='Bill Request'
+          subtitle='Custom Spilt'
+          selectedUsers={selectedUsers}
+          setGroupName={setGroupName}
+          groupName={groupName}
+          total_amount={total}
         />
-      )} */}
+      )}
       {/* {currentStep === 3 && <ComponentThree />} */}
     </>
   )

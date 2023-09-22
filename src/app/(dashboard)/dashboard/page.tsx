@@ -23,15 +23,14 @@ function page() {
 
   return (
     <>
-      <div className=' grid grid-rows-[1.8fr_1fr] lg:grid-cols-[1fr_2fr] gap-[24px]  pb-[100px] lg:pb-0  '>
+      <div className=' grid grid-rows-[30.1875rem_1fr] lg:grid-cols-[1fr_2fr] gap-[24px]  pb-[100px] lg:pb-0  '>
         <div className=' w-full min-w-[300px] px-5 lg:px-0 '>
           <Menucard />
         </div>
-        <div className=' hidden lg:grid grid-cols-[1fr_218px] gap-5 h-[30.1875rem]'>
-          <div className=' grid grid-rows-[1fr_2fr] gap-5   '>
+        <div className=' hidden lg:grid grid-cols-[1fr_218px] gap-5 h-[30.1875rem] '>
+          <div className=' grid grid-rows-[126px_1fr] gap-5   '>
             <IncomeSummary />
-
-            <AnalyticReport />
+            <RecentTransaction />
           </div>
           <div className='  '>
             <ExpenseTile />
@@ -42,7 +41,12 @@ function page() {
           <CardTile />
         </div>
         <div className='  '>
-          <RecentTransaction />
+          <div className='hidden lg:block '>
+            <AnalyticReport />
+          </div>
+          <div className=' lg:hidden '>
+            <RecentTransaction />
+          </div>
         </div>
       </div>
     </>
