@@ -11,10 +11,10 @@ import {
   IconScan,
   IconSearch,
   NextArrow,
-  OTPFormValues,
+  TransactionPinInterface,
   RegisterInput,
   SetupLayout,
-  UserSearchInterface,
+  transactionPinSchema,
 } from "@/shared"
 import React, { useEffect, useRef, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -33,6 +33,8 @@ import { useCategory } from "@/hooks/category/useCategory"
 import { toast } from "@/components/ui/use-toast"
 import { banks } from "@/shared/data/Banks"
 import { RecentAccountExternalComponent } from "../RecentAccountExternal"
+import PinInput from "react-pin-input"
+import { yupResolver } from "@hookform/resolvers/yup"
 
 export function ComponentOne() {
   const Router = useRouter()
@@ -235,23 +237,31 @@ interface PinProps {
 function Pin({ debitData }: PinProps) {
   const dispatch = useAppDispatch()
   const Router = useRouter()
-  const pinInputRefs = useRef<Array<HTMLInputElement | null>>([])
-  const methods = useForm<OTPFormValues>({
+  const methods = useForm<TransactionPinInterface>({
     defaultValues: {
-      otp: [{ otp1: "" }, { otp2: "" }, { otp3: "" }, { otp4: "" }],
+      transaction_pin: "",
     },
+    resolver: yupResolver(transactionPinSchema),
   })
 
-  const onSubmit = async (data: OTPFormValues) => {
-    const pin = {
-      transaction_pin: `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`,
+  const onSubmit = async (data: TransactionPinInterface) => {
+    if (!data.transaction_pin) {
+      toast({
+        title: "OTP is required",
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+      })
+      return
     }
-
-    if (!pin.transaction_pin) return
 
     const transferData = {
       debit_transfer: debitData as ExternalDebitTransferInterface,
-      transaction_pin: pin,
+      transaction_pin: data,
     }
 
     try {
@@ -280,21 +290,10 @@ function Pin({ debitData }: PinProps) {
     }
   }
 
-  const handleInputChange = (index: number) => {
-    const currentValue = pinInputRefs.current[index]?.value
-    const prevValue = pinInputRefs.current[index - 1]?.value
-
-    if (currentValue && currentValue.length === 1) {
-      if (index < pinInputRefs.current.length - 1) {
-        pinInputRefs.current[index + 1]?.focus()
-      } else {
-        pinInputRefs.current[index]?.blur()
-        // Submit OTP or perform the desired action here
-      }
-    } else if (!currentValue && prevValue) {
-      pinInputRefs.current[index - 1]?.focus()
-    }
+  const handleInputChange = (value: string, index: number) => {
+    methods.setValue("transaction_pin", value)
   }
+
   return (
     <>
       <div className=' '>
@@ -302,37 +301,32 @@ function Pin({ debitData }: PinProps) {
           onSubmit={methods.handleSubmit(onSubmit)}
           className=' flex flex-col gap-8 '
         >
-          <div className='flex gap-[33px] justify-between  '>
-            {Array.from({ length: 4 }, (_, index) => (
-              <input
-                key={index}
-                type='number'
-                {...methods.register(`otp${index + 1}`, {
-                  required: true,
-                })}
-                inputMode='numeric'
-                maxLength={1}
-                className={`form-input otp_field-input spin-button-none ${
-                  methods.formState.errors[`otp${index + 1}`]
-                    ? "otp_field-input_error"
-                    : ""
-                }`}
-                ref={(ref) => {
-                  pinInputRefs.current[index] = ref
-                }}
-                onChange={(event) => {
-                  const { value } = event.target
-                  methods.setValue(`otp${index + 1}`, value)
-                  handleInputChange(index)
-                }}
-              />
-            ))}
-          </div>
+          <PinInput
+            length={4}
+            initialValue=''
+            secret
+            onChange={(value, index) => handleInputChange(value, index)}
+            type='numeric'
+            inputMode='number'
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+            inputStyle={{
+              padding: "10px",
+              borderTop: "none",
+              borderLeft: "none",
+              borderRight: "none",
+              borderBottom: "1px solid #4B0082",
+            }}
+            inputFocusStyle={{
+              borderBottom: "1px solid #4B0082",
+            }}
+            autoSelect={true}
+            regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+          />
 
-          {(methods.formState.errors.otp1 ||
-            methods.formState.errors.otp2 ||
-            methods.formState.errors.otp3 ||
-            methods.formState.errors.otp4) && (
+          {methods.formState.errors.transaction_pin && (
             <span className=' text-center  text-error text-t-12  '>
               OTP is required and must be 4 digits
             </span>

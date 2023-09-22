@@ -83,7 +83,7 @@ export const ExpenseTile = () => {
   }, [selectedRange])
 
   return (
-    <div className='   max-w-[218px] h-[30.1875rem] '>
+    <div className='   max-w-[218px] h-full '>
       <WhiteTileWrap extraStyle=' py-[22px]  pb-[31px] px-4  flex flex-col gap-4 h-full  '>
         <div className=' flex justify-between items-center  '>
           <h3 className=' text-neutral-100 font-title__medium   '>
@@ -100,7 +100,7 @@ export const ExpenseTile = () => {
         {chartData?.chart_data.length === 0 ? (
           <ExpenseTileDummy />
         ) : (
-          <div className='  flex flex-col gap-12 '>
+          <div className='  flex flex-col gap-16  h-full '>
             <DonutChart
               className='mt-6'
               data={chartData?.chart_data as ExpenseChartDataInterface[]}
@@ -111,7 +111,7 @@ export const ExpenseTile = () => {
               showTooltip={true}
             />
 
-            <div className=' flex flex-col gap-2  '>
+            <div className=' flex flex-col gap-5 '>
               {chartData?.chart_data.map((item, index) => (
                 <div className='  flex items-center justify-between '>
                   <div className=' flex items-center gap-2 '>

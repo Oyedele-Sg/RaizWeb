@@ -60,3 +60,10 @@ export const resetPasswordSchema = yup.object().shape({
     )
     .required(),
 })
+
+export const transactionPinSchema = yup.object().shape({
+  transaction_pin: yup
+    .string()
+    .min(4, "Password must be at least 8 characters")
+    .required("OTP is required"),
+})

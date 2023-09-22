@@ -86,6 +86,7 @@ export const userService = {
   suggestUsername,
   changePassword,
   getNotifications,
+  changeTransactionPin
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -209,6 +210,13 @@ function addBank(data: BankInputProps): Promise<void> {
 
 function addTransactionPin(data: TransactionPinInterface): Promise<void> {
   return fetchWrapper.patch(`${baseUrl}/account_users/transaction-pin/`, data)
+}
+
+function changeTransactionPin(data: TransactionPinInterface): Promise<void> {
+  return fetchWrapper.patch(
+    `${baseUrl}/account_users/transaction-pin/update/`,
+    data
+  )
 }
 
 // wallet

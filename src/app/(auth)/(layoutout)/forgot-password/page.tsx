@@ -56,11 +56,11 @@ export default function ForgotPassword() {
     <>
       <Loading />
       <WhiteWrap
-        extraStyle=' rounded-[80px] w-[350px] md:w-[500px]  lg:w-[771px]   mx-5'
+        extraStyle=' rounded-[80px] w-[400px] md:w-[550px]  lg:w-[771px]   mx-5'
         closeBtn
         closeLink='/login'
       >
-        <div className='  pt-[72px] lg:px-[35.5px]  mb-[50px]   '>
+        <div className='   lg:px-[35.5px]  mb-[50px]  '>
           <div className='    flex flex-col gap-[80px] '>
             <div className=' flex flex-col gap-2 items-center  '>
               <h1 className=' text-neutral-90 text-[2rem] font-semi-mid leading-10  '>

@@ -18,33 +18,6 @@ export default function SucessOTP() {
         description='Your BVN has been sucessfully verified and your account is
 				created.'
         btnLink='dashboard'
-        btnFunc={async () => {
-          try {
-            dispatch(setLoadingTrue())
-            // await userService.CreateWallet()
-            toast({
-              title: " User Wallet Created successfully",
-              style: {
-                backgroundColor: "#4B0082",
-                color: "#fff",
-              },
-            })
-            dispatch(setLoadingFalse())
-          } catch (error) {
-            toast({
-              title: "Something Went Wrong",
-              description: `${error}`,
-              variant: "destructive",
-              style: {
-                backgroundColor: "#f44336",
-                color: "#fff",
-                top: "20px",
-                right: "20px",
-              },
-            })
-            dispatch(setLoadingFalse())
-          }
-        }}
       />
     </>
   )

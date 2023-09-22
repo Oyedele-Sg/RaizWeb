@@ -53,6 +53,7 @@ export default function page() {
       title: "About",
       description: "Information about RAIZ",
       image: "about",
+      link: "about",
     },
     {
       title: "Logout",
@@ -89,12 +90,18 @@ export default function page() {
         <div className='flex flex-col gap-[45px] '>
           {settings.map((setting, index) => (
             <div
-              className='flex items-center justify-between hover:bg-neutral-20  cursor-pointer  '
+              className='flex items-center justify-between hover:bg-neutral-20  cursor-pointer '
               key={index}
               onClick={() => handleLink(setting.link)}
             >
               <div className='flex items-center gap-5 '>
-                <div className=' bg-neutral-20  p-3 rounded-full text-neutral-20 '>
+                <div
+                  className={` ${
+                    setting.title === "Logout"
+                      ? " border-[2px] border-neutral-20 rounded-full"
+                      : "bg-neutral-20"
+                  }  p-3 rounded-full text-neutral-20 `}
+                >
                   <Image
                     src={`/settings/${setting.image}.svg`}
                     width={24}
@@ -103,7 +110,15 @@ export default function page() {
                   />
                 </div>
                 <div className=''>
-                  <h2 className='text-purple '>{setting.title}</h2>
+                  <h2
+                    className={`${
+                      setting.title === "Logout"
+                        ? " text-error"
+                        : "text-neutral-90"
+                    } text-t-20 font-semi-mid  `}
+                  >
+                    {setting.title}
+                  </h2>
                   <p className='text-neutral-70'>{setting.description}</p>
                 </div>
               </div>

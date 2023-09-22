@@ -90,12 +90,16 @@ export interface ChangePasswordDataInterface extends Partial<FieldValues> {
   new_password: string
 }
 
-export interface OTPFormValues extends FieldValues {
-  otp1: string
-  otp2: string
-  otp3: string
-  otp4: string
-  otp5: string
+export interface TransactionPinFormInterface extends FieldValues {
+  transaction_pin: string
+}
+
+export interface TransactionPinFormInterface extends FieldValues {
+  transaction_pin: string
+}
+
+export interface VerifyEmailFormInterface extends FieldValues {
+  otp: string
 }
 
 export interface BankInterface {
@@ -198,9 +202,9 @@ export interface UserSearchInterface {
 
 export interface DebitTransferInterface {
   receiver_account_user_id: string
-  transaction_amount: number
+  transaction_amount: number | null
   transaction_remarks: string
-  category_id: number
+  category_id: number | null
 }
 
 export interface TransactionPinInterface {

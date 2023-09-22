@@ -9,9 +9,16 @@ interface Prop {
   setSearchResults: React.Dispatch<
     React.SetStateAction<UserSearchInterface | undefined>
   >
+  setSearchQuery?: React.Dispatch<React.SetStateAction<UserSearchInterface[]>>
+  setCurrentStep?: React.Dispatch<React.SetStateAction<number>>
 }
 
-export function RecentAccountsComponent({ methods, setSearchResults }: Prop) {
+export function RecentAccountsComponent({
+  methods,
+  setSearchResults,
+  setSearchQuery,
+  setCurrentStep,
+}: Prop) {
   const accounts = useFavouriteAccounts()
 
   return (
@@ -21,9 +28,9 @@ export function RecentAccountsComponent({ methods, setSearchResults }: Prop) {
           <h3 className=' font-label__large text-neutral-80 '>Recent</h3>
           <div className=' flex gap-2  '>
             {accounts?.map((account) => (
-              <Avatar
+              <div
+                className='flex flex-col gap-2 items-center'
                 key={account.account_user_id}
-                className=' cursor-pointer border-neutral-30 border-[2px] w-[44px] h-[44px] bg-neutral-20 '
                 onClick={() => {
                   methods.setValue(
                     "first_name",
@@ -42,14 +49,22 @@ export function RecentAccountsComponent({ methods, setSearchResults }: Prop) {
                     account.favourite_account_user.account_user_id
                   )
                   setSearchResults(account.favourite_account_user)
+                  setSearchQuery && setSearchQuery([])
+                  setCurrentStep && setCurrentStep(2)
+                  methods.reset()
                 }}
               >
-                {/* <AvatarImage src='https://github.com/shadcn.png' /> */}
-                <AvatarFallback className=' text-purple font-bold   '>
-                  {account.favourite_account_user.first_name.charAt(0)}
-                  {account.favourite_account_user.last_name.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
+                <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[44px] h-[44px] bg-neutral-20 '>
+                  {/* <AvatarImage src='https://github.com/shadcn.png' /> */}
+                  <AvatarFallback className=' text-purple font-bold   '>
+                    {account.favourite_account_user.first_name.charAt(0)}
+                    {account.favourite_account_user.last_name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                <p className=' capitalize text-purple text-t-14   '>
+                  {account.favourite_account_user.username}
+                </p>
+              </div>
             ))}
           </div>
         </div>

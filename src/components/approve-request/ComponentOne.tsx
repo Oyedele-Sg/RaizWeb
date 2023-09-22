@@ -11,13 +11,10 @@ import {
   DeletePopUp,
   FormTitledContainer,
   IconPesaColored,
-  Loading,
   NextArrow,
-  OTPFormValues,
-  PendingRequestDataInterface,
+  TransactionPinInterface,
   SetupLayout,
-  UserInterface,
-  UserSearchInterface,
+  transactionPinSchema,
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
@@ -27,20 +24,19 @@ import React, { useState, useEffect, useMemo, useRef } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Router } from "lucide-react"
+import PinInput from "react-pin-input"
+import { yupResolver } from "@hookform/resolvers/yup"
 
-interface Prop {
-  request: PendingRequestDataInterface
-}
-
-export function ComponentOne({ request }: Prop) {
+export function ComponentOne() {
   const Router = useRouter()
   const [showPin, setShowPin] = useState(false)
   const dispatch = useAppDispatch()
+  const request = useAppSelector((state) => state.selectedRequest)
 
   return (
     <div className=''>
       <SetupLayout bg='bg-profile-1'>
-        <div className='m-[72px] flex flex-col gap-[84px]'>
+        <div className='my-[72px] mx-5 lg:mx-[72px] flex flex-col gap-[84px] '>
           <IconPesaColored />
 
           <div className='flex flex-col gap-3  '>
@@ -104,7 +100,6 @@ export function ComponentOne({ request }: Prop) {
                     <BtnMain
                       btnText='Split Bill'
                       btnStyle=' py-2 px-4 border-purple border text-purple rounded-lg font-label__large flex-1 '
-                     
                     />
                     <AuthButton
                       btnText='Pay'
@@ -149,7 +144,6 @@ function Utils({ request_id }: { request_id: string }) {
                 dispatch(setLoadingTrue())
                 await userService.disapproveRequest(request_id)
 
-                
                 Router.push("/request/decline")
                 dispatch(setLoadingFalse())
               } catch (error) {
@@ -183,24 +177,32 @@ function Pin({ request_id }: PinProps) {
   const dispatch = useAppDispatch()
   const Router = useRouter()
   const pinInputRefs = useRef<Array<HTMLInputElement | null>>([])
-  const methods = useForm<OTPFormValues>({
+  const methods = useForm<TransactionPinInterface>({
     defaultValues: {
-      otp: [{ otp1: "" }, { otp2: "" }, { otp3: "" }, { otp4: "" }],
+      transaction_pin: "",
     },
+    resolver: yupResolver(transactionPinSchema),
   })
 
-  const onSubmit = async (data: OTPFormValues) => {
-    const pin = {
-      transaction_pin: `${data.otp1}${data.otp2}${data.otp3}${data.otp4}`,
+  const onSubmit = async (data: TransactionPinInterface) => {
+    if (!data.transaction_pin) {
+      toast({
+        title: "OTP is required",
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+      })
+      return
     }
-
-    if (!pin.transaction_pin) return
-
 
     try {
       dispatch(setLoadingTrue())
-      await userService.approveRequest(request_id, pin)
-    
+      await userService.approveRequest(request_id, data)
+
       Router.push("/request/approve/success")
       dispatch(setLoadingFalse())
     } catch (error) {
@@ -220,20 +222,8 @@ function Pin({ request_id }: PinProps) {
     }
   }
 
-  const handleInputChange = (index: number) => {
-    const currentValue = pinInputRefs.current[index]?.value
-    const prevValue = pinInputRefs.current[index - 1]?.value
-
-    if (currentValue && currentValue.length === 1) {
-      if (index < pinInputRefs.current.length - 1) {
-        pinInputRefs.current[index + 1]?.focus()
-      } else {
-        pinInputRefs.current[index]?.blur()
-        // Submit OTP or perform the desired action here
-      }
-    } else if (!currentValue && prevValue) {
-      pinInputRefs.current[index - 1]?.focus()
-    }
+  const handleInputChange = (value: string, index: number) => {
+    methods.setValue("transaction_pin", value)
   }
   return (
     <>
@@ -242,37 +232,32 @@ function Pin({ request_id }: PinProps) {
           onSubmit={methods.handleSubmit(onSubmit)}
           className=' flex flex-col gap-8 '
         >
-          <div className='flex gap-[33px] justify-between  '>
-            {Array.from({ length: 4 }, (_, index) => (
-              <input
-                key={index}
-                type='number'
-                {...methods.register(`otp${index + 1}`, {
-                  required: true,
-                })}
-                inputMode='numeric'
-                maxLength={1}
-                className={`form-input otp_field-input spin-button-none ${
-                  methods.formState.errors[`otp${index + 1}`]
-                    ? "otp_field-input_error"
-                    : ""
-                }`}
-                ref={(ref) => {
-                  pinInputRefs.current[index] = ref
-                }}
-                onChange={(event) => {
-                  const { value } = event.target
-                  methods.setValue(`otp${index + 1}`, value)
-                  handleInputChange(index)
-                }}
-              />
-            ))}
-          </div>
+          <PinInput
+            length={4}
+            initialValue=''
+            secret
+            onChange={(value, index) => handleInputChange(value, index)}
+            type='numeric'
+            inputMode='number'
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+            inputStyle={{
+              padding: "10px",
+              borderTop: "none",
+              borderLeft: "none",
+              borderRight: "none",
+              borderBottom: "1px solid #4B0082",
+            }}
+            inputFocusStyle={{
+              borderBottom: "1px solid #4B0082",
+            }}
+            autoSelect={true}
+            regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+          />
 
-          {(methods.formState.errors.otp1 ||
-            methods.formState.errors.otp2 ||
-            methods.formState.errors.otp3 ||
-            methods.formState.errors.otp4) && (
+          {methods.formState.errors.transaction_pin && (
             <span className=' text-center  text-error text-t-12  '>
               OTP is required and must be 4 digits
             </span>
