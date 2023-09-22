@@ -332,3 +332,66 @@ export interface NotificationDataInterface {
   updated_at: Date
   notification_category: NotificationCategoryInterface
 }
+
+export interface SplitMemberDataInterface {
+  split_members_id: string
+  created_at: Date
+  updated_at: Date
+  split_group_id: string
+  member_id: string
+  amount: number
+  status_id: number
+  member: {
+    first_name: string
+    last_name: string
+    username: string
+    account_user_id: string
+  }
+  status: {
+    status: string
+    description: string
+    status_code: number
+    request_fund_status_id: number
+    created_at: Date
+    updated_at: Date
+  }
+}
+
+export interface PendingSplitRequestDataInterface {
+  split_group_id: string
+  created_at: Date
+  updated_at: Date
+  split_members: SplitMemberDataInterface[]
+  split_group_reason: string
+  total_amount: number
+  current_amount: number
+  currency: string
+  created_by_id: string
+  created_by: {
+    first_name: string
+    last_name: string
+    username: string
+    account_user_id: string
+  }
+  category_id: number
+  category: CategoryDataInterface
+}
+
+export interface SplitRequestDataInterface {
+  split_group: {
+    split_group_reason: string
+    split_members: [
+      {
+        member_id: string
+        amount: number
+        status_id: 2
+      }
+    ]
+    total_amount: number
+    currency: "NGN"
+    category_id: null
+  }
+  transaction_pin: {
+    transaction_pin: string
+  }
+}
