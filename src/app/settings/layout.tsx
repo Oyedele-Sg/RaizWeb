@@ -19,7 +19,9 @@ export default function SettingsLayout({
           <div className=' bg-grey min-h-screen '>
             <SetupLayout bg='bg-profile-1'>
               <div className=' my-[72px] mx-5 lg:mx-[72px] flex flex-col gap-[84px] '>
-                <IconPesaColored />
+                <div className=' hidden lg:block '>
+                  <IconPesaColored />
+                </div>
                 <div className=' '>{children}</div>
               </div>
             </SetupLayout>

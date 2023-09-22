@@ -55,7 +55,6 @@ export default function PhoneNumber() {
 
   const onSubmit = async (data: PhoneNumberFormProps) => {
     const selectedMedia = sessionStorage.getItem("pesaOTP")
-    
 
     try {
       dispatch(setLoadingTrue())
@@ -100,11 +99,11 @@ export default function PhoneNumber() {
       <Loading />
 
       <WhiteWrap
-        extraStyle=' h-screen lg:h-full w-full   flex items-center justify-center rounded-[80px] '
+        extraStyle=' h-screen lg:h-full w-full   flex items-center justify-center lg:rounded-[80px] '
         closeBtn
         closeLink=' /dashboard '
       >
-        <div className=' min-w-[375px] w-full  flex flex-col gap-12  '>
+        <div className=' lg:w-[502px] min-w-[375px] w-full  flex flex-col gap-12  '>
           <div>
             <AuthStepper activeStep={1} />
           </div>
