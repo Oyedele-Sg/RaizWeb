@@ -450,3 +450,8 @@ input[type="number"] {
   padding-top: 4px !important;
   padding-bottom: 4px !important;
 }
+
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
