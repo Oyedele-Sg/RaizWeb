@@ -97,7 +97,7 @@ export const RecentTransaction = () => {
   return (
     <>
       <Loading />
-      <WhiteTileWrap extraStyle=' p-8 h-full  flex flex-col lg:gap-[54px] lg:max-h-[333px] '>
+      <WhiteTileWrap extraStyle=' p-8 min-h-full  flex flex-col lg:gap-[54px] lg:max-h-[333px] '>
         <div className=' flex items-center justify-between '>
           <h3 className=' text-neutral-100 font-title__medium   '>
             Recent Transactions

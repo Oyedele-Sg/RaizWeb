@@ -67,7 +67,7 @@ export function Menucard() {
         </div>
       </div>
 
-      <div className=' rounded-lg py-8 px-5  bg-neutral-30  grid grid-cols-3 grid-rows-2 gap-5  '>
+      <div className=' rounded-lg py-8 px-5  bg-neutral-30  grid grid-cols-3 grid-rows-2 gap-x-5 gap-y-6  '>
         {dahsboardMenu.map((menu, index) => (
           <DashboardMenuComponent menu={menu} key={index} />
         ))}

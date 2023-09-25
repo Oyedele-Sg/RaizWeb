@@ -14,7 +14,7 @@ interface Props {
 
 export function DashboardMenuComponent({ menu }: Props) {
   return (
-    <div className=' bg-grey hover:bg-neutral-20 focus:bg-purple  rounded-xl  py-[14px]   '>
+    <div className=' bg-grey hover:bg-neutral-20 focus:bg-purple  rounded-xl  py-[14px] min-w-[84px]  '>
       <Link
         href={menu.link}
         className=' flex  flex-col items-center justify-center gap-2 no-underline '
