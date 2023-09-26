@@ -81,8 +81,10 @@ export default function page() {
       <Loading />
       <div>
         <SetupLayout bg='bg-profile-1'>
-          <div className=' m-[72px] flex flex-col gap-[84px] '>
-            <IconPesaColored />
+          <div className='mx-5 lg:m-[72px] flex flex-col gap-[84px] '>
+            <div className='ml-5 pt-[72px] lg:pt-0 lg:ml-0 '>
+              <IconPesaColored />
+            </div>
 
             <div className=' flex flex-col gap-3 '>
               <div className=''>

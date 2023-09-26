@@ -36,7 +36,7 @@ export default function page() {
     <main className=' flex flex-col  gap-[100px] '>
       <QrCode />
       <header className=' flex  items-center justify-between lg:pt-5  lg:mx-[72px]   '>
-        <div className=' hidden lg:block '>
+        <div className=' ml-[37px] pt-[72px] lg:pt-0 lg:ml-0  '>
           <IconPesaColored />
         </div>
 
