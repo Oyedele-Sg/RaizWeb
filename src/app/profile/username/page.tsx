@@ -44,8 +44,7 @@ import {
 interface UsernameInputProps extends Partial<FieldValues> {
   username: string
 }
-// create an array of 6 strings with the word 'pesa' in different variations
-const pesa = ["pesa", "Pesa", "PESA", "pEsa", "peSa", "pesA"]
+
 
 export default function Username() {
   const Router = useRouter()

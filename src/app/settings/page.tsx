@@ -69,13 +69,18 @@ export default function page() {
 
       <div className='  p-12 rounded-r-8  border-neutral-20 border-[2px]  flex flex-col gap-9  '>
         <div className=' flex  gap-8 '>
-          <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[64px] h-[64px]  '>
-            {/* <AvatarImage src='https://github.com/shadcn.png' /> */}
-            <AvatarFallback className=' text-purple font-bold  uppercase '>
-              {currentUser?.first_name.charAt(0)}
-              {currentUser?.last_name.charAt(1)}
-            </AvatarFallback>
-          </Avatar>
+          <div className=' relative '>
+            <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[64px] h-[64px]  '>
+              {/* <AvatarImage src='https://github.com/shadcn.png' /> */}
+              <AvatarFallback className=' text-purple font-bold  uppercase '>
+                {currentUser?.first_name.charAt(0)}
+                {currentUser?.last_name.charAt(1)}
+              </AvatarFallback>
+            </Avatar>
+            <div className=' p-1 rounded-full  bg-neutral-20 absolute right-0 bottom-0 '>
+              <Image src={`/icons/camera.svg`} width={16} height={16} alt='' />
+            </div>
+          </div>
 
           <div className=' flex flex-col justify-between '>
             <h1 className=' text-purple font-semi-mid text-t-24   '>

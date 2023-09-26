@@ -21,7 +21,7 @@ const CurrentUserProvider: React.FC<{ children: React.ReactNode }> = (
   const Router = useRouter()
 
   const getCurrentUser = async () => {
-    // setIsLoading(true)
+    setIsLoading(true)
 
     try {
       const response = await userService.getCurrentUser()
@@ -47,8 +47,18 @@ const CurrentUserProvider: React.FC<{ children: React.ReactNode }> = (
   }
 
   useEffect(() => {
+    // Call getCurrentUser immediately when the component mounts
     getCurrentUser()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // Set up an interval to call getCurrentUser every 30 seconds
+    const intervalId = setInterval(() => {
+      getCurrentUser()
+    }, 30000) // 30,000 milliseconds = 30 seconds
+
+    // Clear the interval when the component unmounts to prevent memory leaks
+    return () => {
+      clearInterval(intervalId)
+    }
   }, [])
 
   return (

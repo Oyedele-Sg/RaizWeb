@@ -31,6 +31,12 @@ function page() {
             border
           />
           <AccountDetailsItems
+            title=' Username'
+            icon='profile-user'
+            value={`${currentUser?.username}`}
+            border
+          />
+          <AccountDetailsItems
             title='Phone Number '
             icon='phone'
             value={`${currentUser?.phone_number}`}
