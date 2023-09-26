@@ -23,28 +23,30 @@ function page() {
 
   return (
     <>
-      <div className=' grid grid-rows-[30.1875rem_1fr] lg:grid-cols-[1fr_2fr] gap-[24px]  pb-[100px] lg:pb-0  '>
-        <div className=' w-full min-w-[300px] px-5 lg:px-0 '>
+      <div className=' flex gap-6 pb-[100px] lg:pb-0 '>
+        <div className=' flex flex-col gap-6 w-full lg:basis-[396px] '>
           <Menucard />
-        </div>
-        <div className=' hidden lg:grid grid-cols-[1fr_218px] gap-5 h-[30.1875rem] '>
-          <div className=' grid grid-rows-[126px_1fr] gap-5   '>
-            <IncomeSummary />
+          <div className=' lg:hidden '>
             <RecentTransaction />
           </div>
-          <div className='  '>
-            <ExpenseTile />
-          </div>
-        </div>
-
-        <div className='  hidden lg:block  '>
           <CardTile />
         </div>
-        <div className='  '>
-          <div className='hidden lg:block '>
-            <AnalyticReport />
+        <div className=' flex-1 lg:flex flex-col gap-6 justify-around hidden '>
+          <div className=' hidden lg:flex gap-6 min-h-[30.1875rem] '>
+            <div className=' flex-1 flex flex-col   gap-5   '>
+              <div className=' basis-[126px] '>
+                <IncomeSummary />
+              </div>
+              <div className=' h-full  '>
+                <AnalyticReport />
+              </div>
+            </div>
+            <div className=' basis-[218px] '>
+              <ExpenseTile />
+            </div>
           </div>
-          <div className=' lg:hidden '>
+
+          <div className='hidden lg:block  h-full '>
             <RecentTransaction />
           </div>
         </div>

@@ -106,7 +106,7 @@ export const ExpenseTile = () => {
               data={chartData?.chart_data as ExpenseChartDataInterface[]}
               category='total_amount'
               index='category_name'
-              // valueFormatter={valueFormatter}
+             
               colors={["slate", "violet", "indigo", "rose", "cyan", "amber"]}
               showTooltip={true}
             />
