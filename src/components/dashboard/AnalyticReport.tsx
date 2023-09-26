@@ -79,7 +79,7 @@ export function AnalyticReport() {
     }
   }
 
-  const formatXAxisTick = (date: Date) => moment(date).format("DD-MMM")
+  const formatXAxisTick = (date: string) => moment(date).format("DD-MMM")
 
   useEffect(() => {
     data()
