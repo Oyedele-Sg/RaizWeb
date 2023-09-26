@@ -1,12 +1,15 @@
-import React from 'react'
+import React from "react"
 
 interface Props {
-	extraStyle?: string
-	children: React.ReactNode
+  extraStyle?: string
+  children: React.ReactNode
 }
 
 export const WhiteTileWrap = ({ extraStyle, children }: Props) => {
-	return (
-		<div className={` bg-grey rounded-lg ${extraStyle}  `}> {children} </div>
-	)
+  return (
+    <div className={`  bg-grey rounded-lg ${extraStyle}  `}>
+      {" "}
+      {children}{" "}
+    </div>
+  )
 }

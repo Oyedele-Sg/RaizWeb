@@ -9,12 +9,24 @@ import {
 } from "@/shared"
 import { addDays } from "date-fns"
 import Image from "next/image"
-import React, { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { formatDateToISOString } from "@/utils/helpers"
 import { userService } from "@/services"
 import { toast } from "../ui/use-toast"
-import { Card, Title, BarChart, Subtitle } from "@tremor/react"
+// import { Card, Title, BarChart, Subtitle } from "@tremor/react"
 import { differenceInDays } from "date-fns"
+import React, { PureComponent } from "react"
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts"
 
 export function AnalyticReport() {
   const [selectedRange, setSelectedRange] = useState<
@@ -71,8 +83,8 @@ export function AnalyticReport() {
   }, [selectedRange])
 
   return (
-    <div className=''>
-      <WhiteTileWrap extraStyle=' pt-8  pb-[22px] px-[34px] h-full flex flex-col gap-6 '>
+    <div className='h-full'>
+      <WhiteTileWrap extraStyle=' pt-8  pb-[22px] px-[34px]  flex flex-col gap-6 h-full '>
         <div className=' flex justify-between items-center  '>
           <h3 className=' text-neutral-100 font-title__medium   '>
             Analytics Report
@@ -82,22 +94,34 @@ export function AnalyticReport() {
             selectedRange={selectedRange}
           />
           {/* <BtnMain
-        btnText=' Top-Up '
-        btnStyle=' py-2 px-4 bg-purple text-grey rounded-lg font-label__large  '
-        onClick={() => Router.push("/add-funds")}
-      /> */}
+            btnText=' Top-Up '
+            btnStyle=' py-2 px-4 bg-purple text-grey rounded-lg font-label__large  '
+            // onClick={() => Router.push("/add-funds")}
+          /> */}
         </div>
 
-        <div className=' '>
-          <BarChart
-            className='mt-6'
-            data={chartData?.account_analysis as DailyAnalysistDataInterface[]}
-            index='date'
-            categories={["credit", "debit"]}
-            colors={["blue", "teal", "amber", "rose", "indigo", "emerald"]}
-            // valueFormatter={dataFormatter}
-            yAxisWidth={48}
-          />
+        <div className='h-full'>
+          <ResponsiveContainer width='100%' height='100%'>
+            <BarChart
+              // width={500}
+              // height={300}
+              data={chartData?.account_analysis}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray='3 3' />
+              <XAxis dataKey='date' />
+              <YAxis />
+              <Tooltip />
+              {/* <Legend /> */}
+              <Bar dataKey='credit' fill='#0496FF' />
+              <Bar dataKey='debit' fill='#4B0082' />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </WhiteTileWrap>
     </div>
