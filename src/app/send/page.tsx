@@ -30,7 +30,7 @@ export default function page() {
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const selectedRequest = useAppSelector((state) => state.selectedRequest)
-  
+
   const cardLink = [
     {
       type: "Internal Transfer",
@@ -47,15 +47,12 @@ export default function page() {
   ]
 
   const requests = usePendingRequest()
- 
 
   return (
     <div>
       <SetupLayout bg='bg-profile-1'>
         <div className='mx-5 mt-[70px]  lg:m-[72px] flex flex-col gap-[84px] '>
-          <div className=' hidden lg:block'>
-            <IconPesaColored />
-          </div>
+          <IconPesaColored />
 
           <div className=' flex flex-col gap-3  '>
             <div className='' onClick={() => Router.back}>
@@ -68,7 +65,6 @@ export default function page() {
             <FormTitledContainer
               title={"Send Money"}
               subtitle={"Choose Transfer Type"}
-             
             >
               <div className='flex flex-col lg:flex-row gap-6  '>
                 {cardLink.map((card, index) => (
@@ -125,5 +121,3 @@ export default function page() {
     </div>
   )
 }
-
-
