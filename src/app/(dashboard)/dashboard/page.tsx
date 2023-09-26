@@ -31,11 +31,15 @@ function page() {
           </div>
           <CardTile />
         </div>
-        <div className=' flex-1 lg:flex flex-col gap-6 justify-around hidden bug '>
-          <div className=' hidden lg:flex gap-6 h-[30.1875rem] '>
+        <div className=' flex-1 lg:flex flex-col gap-6 justify-around hidden '>
+          <div className=' hidden lg:flex gap-6 min-h-[30.1875rem] '>
             <div className=' flex-1 flex flex-col   gap-5   '>
-              <IncomeSummary />
-              <AnalyticReport />
+              <div className=' basis-[126px] '>
+                <IncomeSummary />
+              </div>
+              <div className=' h-full  '>
+                <AnalyticReport />
+              </div>
             </div>
             <div className=' basis-[218px] '>
               <ExpenseTile />
