@@ -337,7 +337,9 @@ function getFavoriteAccounts(): Promise<FavoriteAccountsDataInterface[]> {
 function getExternalFavoriteAccounts(): Promise<
   ExternalFavoriteAccountsDataInterface[]
 > {
-  return fetchWrapper.get(`${baseUrl}/favourite_external_accounts/`)
+  return fetchWrapper.get(
+    `${baseUrl}/favourite_external_accounts/account-user/get/`
+  )
 }
 
 // requsts
