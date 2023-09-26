@@ -55,8 +55,7 @@ export function ComponentOne() {
 
   const onSubmit = async (data: ExternalDebitTransferInterface) => {
     try {
-      // const res = await userService.searchWallets(data.transaction_amount)+
-      //   setSearchResults(res)
+      
       setDebitData(data)
     } catch (error) {
       toast({
@@ -123,7 +122,7 @@ export function ComponentOne() {
           <div className=' flex flex-col gap-3 '>
             <div
               className=''
-              // onClick={() => onNext()}
+              
             >
               <BackBtnCircle />
               <button title='next' className=''>
