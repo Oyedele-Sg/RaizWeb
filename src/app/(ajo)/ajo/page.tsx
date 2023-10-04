@@ -1,40 +1,29 @@
-import { IllustrationComponent, LoginForm } from "@/components"
-import { BtnMain, IconPesa, WhiteTileWrap } from "@/shared"
-import Image from "next/image"
+"use client"
+
+import { ActivityItemWrap, HomeHeader, SubHeaders } from "@/components/ajo"
 import React from "react"
 
 export default function Ajo() {
   return (
-    <div className=' p-[4.5rem] '>
-      <IconPesa />
+    <div className='  '>
+      <HomeHeader />
 
-      <div className=' flex items-center gap-[104px]  h-full    '>
-        <div className=' flex-1 flex flex-col gap-[4.5rem] items-start  '>
-          <h1 className='  font-display__large text-grey   '>
-            {" "}
-            Multiply your Savings with{" "}
-            <span className=' text-yellow '>Community Power</span>{" "}
-          </h1>
+      <div className=' flex gap-10 min-h-full bug '>
+        <div className=' flex-1 '></div>
+        <aside className=' basis-[348px] bg-grey rounded-lg '>
+          <div className='flex flex-col gap-[58px] pt-12 px-6 '>
+            <h2 className=' font-semibold text-purple text-t-24 '>
+              {" "}
+              Activities{" "}
+            </h2>
 
-          <BtnMain
-            btnText=' Get Started'
-            btnStyle=' text-purple px-[3.75rem]  btn-gradient-golden font-body__large '
-          />
-        </div>
-        <div className=' flex-1 h-full   '>
-          <WhiteTileWrap extraStyle='  flex items-center justify-center px-4 pt-[238px] pb-10   '>
-            <div className=' flex flex-col gap-[186px]  items-center   '>
-              <Image
-                src={`/illustrations/ajoOne.svg`}
-                alt=''
-                width={577.742} // 577.742
-                height={340} // 340
-              />
+            <ActivityItemWrap>
+              <SubHeaders text='New' />
 
-              <div></div>
-            </div>
-          </WhiteTileWrap>
-        </div>
+              did
+            </ActivityItemWrap>
+          </div>
+        </aside>
       </div>
     </div>
   )

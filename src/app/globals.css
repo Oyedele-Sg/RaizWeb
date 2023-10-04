@@ -70,6 +70,11 @@
       rgba(255, 255, 255, 0.994792) -37.17%,
       #9881ae 100%
     );
+    --background-greadient-green: linear-gradient(
+      90deg,
+      #00bfa3 0%,
+      #00a381 85.15%
+    );
   }
 
   .dark {
@@ -301,6 +306,9 @@ body {
 .bg-gradient-three {
   background: var(--background-gradient-three);
 }
+.bg-gradient-ajo {
+  background: var(--background-greadient-green);
+}
 
 .bug {
   @apply border-red-500  border-[2px];
@@ -451,7 +459,10 @@ input[type="number"] {
   padding-bottom: 4px !important;
 }
 
-
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.force-height {
+  height: 100% !important;
 }
