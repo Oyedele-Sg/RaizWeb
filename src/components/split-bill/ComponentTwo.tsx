@@ -1,5 +1,6 @@
 import { userService } from "@/services"
 import {
+  AccountInterface,
   AuthButton,
   BackBtnCircle,
   BtnMain,
@@ -33,8 +34,10 @@ import PinInput from "react-pin-input"
 
 interface Prop {
   //   searchQuery: string
-  setSelectedUsers: React.Dispatch<React.SetStateAction<UserSearchInterface[]>>
-  selectedUsers: UserSearchInterface[]
+  setSelectedUsers: React.Dispatch<
+    React.SetStateAction<(UserSearchInterface | AccountInterface)[]>
+  >
+  selectedUsers: (UserSearchInterface | AccountInterface)[]
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>
   setGroupName: React.Dispatch<React.SetStateAction<string>>
   groupName: string

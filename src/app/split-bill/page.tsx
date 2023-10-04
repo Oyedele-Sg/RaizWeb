@@ -1,8 +1,14 @@
 "use client"
 import { ComponentOne, ComponentTwo } from "@/components/split-bill"
 import { useUser } from "@/hooks/user/useUser"
-import { Loading, QrCode, UserInterface, UserSearchInterface } from "@/shared"
-import { useAppDispatch } from "@/shared/redux/types"
+import {
+  AccountInterface,
+  Loading,
+  QrCode,
+  UserInterface,
+  UserSearchInterface,
+} from "@/shared"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import React, { useState, useEffect, useMemo } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
@@ -13,11 +19,14 @@ interface TransferInputProps {
 export default function page() {
   const user = useUser() as UserInterface
   const dispatch = useAppDispatch()
+  const request = useAppSelector((state) => state.selectedRequest)
+  console.log("request", request)
 
-  const [selectedUsers, setSelectedUsers] = useState<UserSearchInterface[]>([])
+  const [selectedUsers, setSelectedUsers] = useState<
+    (UserSearchInterface | AccountInterface)[]
+  >([])
   const [groupName, setGroupName] = useState<string>("")
-  const [total, setTotal] = useState<number>(0)
- 
+  const [total, setTotal] = useState<number>(request.transaction_amount)
 
   const methods = useForm<TransferInputProps>({
     values: {
@@ -39,7 +48,7 @@ export default function page() {
           subtitle='Find User(s) to split with'
           selectedUsers={selectedUsers}
           setGroupName={setGroupName}
-          setTotal={setTotal}
+          total={total}
         />
       )}
       {currentStep === 2 && (
@@ -48,7 +57,7 @@ export default function page() {
           setCurrentStep={setCurrentStep}
           title='Bill Request'
           subtitle='Custom Spilt'
-          selectedUsers={selectedUsers}
+          selectedUsers={[user,...selectedUsers ]}
           setGroupName={setGroupName}
           groupName={groupName}
           total_amount={total}

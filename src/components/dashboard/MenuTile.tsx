@@ -29,11 +29,11 @@ export function Menucard() {
       icon: "bank",
       link: "",
     },
-    {
-      name: "Split Bills",
-      icon: "arrow-split",
-      link: "/split-bill",
-    },
+    // {
+    //   name: "Split Bills",
+    //   icon: "arrow-split",
+    //   link: "/split-bill",
+    // },
     {
       name: "More",
       icon: "arrow-split",
