@@ -87,7 +87,7 @@ export function ComponentOne({
     }
     setCurrentStep(2)
     setGroupName(data.split_group_name)
- 
+
     methods.reset()
   }
 
@@ -102,7 +102,7 @@ export function ComponentOne({
   return (
     <div>
       <SetupLayout bg='bg-profile-1'>
-        <div className=' m-[72px] flex flex-col gap-[84px] '>
+        <div className='  mx-5 mt-[72px]   lg:mx-[72px] flex flex-col gap-[84px] '>
           <IconPesaColored />
 
           <div className=' flex flex-col gap-3 '>
