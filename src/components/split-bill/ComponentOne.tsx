@@ -33,7 +33,7 @@ interface Prop {
   selectedUsers: UserSearchInterface[]
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>
   setGroupName: React.Dispatch<React.SetStateAction<string>>
-  setTotal: React.Dispatch<React.SetStateAction<number>>
+  total: number
 
   title: string
   subtitle: string
@@ -50,7 +50,7 @@ export function ComponentOne({
   title,
   subtitle,
   setGroupName,
-  setTotal,
+  total,
 }: Prop) {
   const Router = useRouter()
   const methods = useForm<{
@@ -59,7 +59,7 @@ export function ComponentOne({
   }>({
     defaultValues: {
       split_group_name: "",
-      total_amount: 0,
+      total_amount: total,
     },
     resolver: yupResolver(splitGroupSchema),
   })
@@ -87,7 +87,7 @@ export function ComponentOne({
     }
     setCurrentStep(2)
     setGroupName(data.split_group_name)
-    setTotal(data.total_amount)
+ 
     methods.reset()
   }
 
@@ -168,6 +168,7 @@ export function ComponentOne({
                       name='total_amount'
                       inputPlaceholder='Enter Amount'
                       label='Total Amount'
+                      disabled
                     />
                     <div className=''>
                       <h3 className=' font-label__large text-neutral-80 '>
