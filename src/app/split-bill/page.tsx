@@ -20,8 +20,7 @@ export default function page() {
   const user = useUser() as UserInterface
   const dispatch = useAppDispatch()
   const request = useAppSelector((state) => state.selectedRequest)
-  console.log("request", request)
-
+ 
   const [selectedUsers, setSelectedUsers] = useState<
     (UserSearchInterface | AccountInterface)[]
   >([])
