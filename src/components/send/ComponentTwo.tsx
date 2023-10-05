@@ -4,6 +4,7 @@ import {
   BackArrow,
   BackBtnCircle,
   BtnMain,
+  CheckBox,
   DebitTransferInterface,
   FormTitledContainer,
   IconPesaColored,
@@ -57,6 +58,7 @@ export function ComponentTwo({
 }: Props) {
   const Router = useRouter()
   const [debitData, setDebitData] = useState<DebitTransferInterface>()
+  const [favorite, setFavorite] = useState<boolean>(false)
   const category = useCategory()
 
   const methods = useForm<SearchInput>({
@@ -85,6 +87,11 @@ export function ComponentTwo({
       })
     }
   }
+
+  const handleInputChange = () => {
+    
+  }
+
 
   return (
     <>
@@ -183,6 +190,13 @@ export function ComponentTwo({
                           ))}
                         </SelectContent>
                       </Select>
+
+                      <div className=' flex items-center gap-2  '>
+                        <CheckBox checked={favorite} setChecked={setFavorite} handleClick={() =>  handleInputChange() }  />{" "}
+                        <span className='text-neutral-90'>
+                          Save as beneficiary
+                        </span>
+                      </div>
                       <div className=' flex gap-12 '>
                         <AuthButton
                           btnText='Make Transfer'
