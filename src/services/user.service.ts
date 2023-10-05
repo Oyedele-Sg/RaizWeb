@@ -381,6 +381,16 @@ function getNotifications(
   )
 }
 
+function getNotificationsByID(
+  page?: string,
+  notification_category_id?: string,
+  read?: string
+): Promise<NotificationDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/account_users/notifications/${notification_category_id}/?limit=10&page=1`
+  )
+}
+
 function requestSplitFunds(data: SplitRequestDataInterface): Promise<void> {
   return fetchWrapper.post(
     `${baseUrl}/transfers/credit/request-split/
