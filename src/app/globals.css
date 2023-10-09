@@ -451,7 +451,10 @@ input[type="number"] {
   padding-bottom: 4px !important;
 }
 
-
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.pie-chart {
+  height: 334px !important;
 }
