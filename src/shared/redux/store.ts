@@ -4,6 +4,7 @@ import {
   loadingReducer,
   showQRReducer,
   showNotificationDropReducer,
+  selectedNotificationReducer,
 } from "./features"
 import { selectedRequestReducer } from "./features/request"
 // import authReducer from "./features/lice
@@ -15,6 +16,7 @@ export const store = configureStore({
     selectedRequest: selectedRequestReducer,
     showQR: showQRReducer,
     showNotificationDrop: showNotificationDropReducer,
+    selectedNotification: selectedNotificationReducer,
   },
 })
 

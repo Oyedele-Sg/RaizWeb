@@ -4,7 +4,10 @@ import moment from "moment"
 import { useRouter } from "next/navigation"
 import React, { useEffect, useRef } from "react"
 import { useAppDispatch, useAppSelector } from "../redux/types"
-import { setNotificationFalse } from "../redux/features"
+import {
+  getSelectedNotification,
+  setNotificationFalse,
+} from "../redux/features"
 
 export function NotificationDrop() {
   const dispatch = useAppDispatch()
@@ -40,10 +43,6 @@ export function NotificationDrop() {
         <div
           className=' bg-grey border-[1px] border-neutral-70 p-8  absolute top-[70px] w-[450px] right-1/2 translate-x-1/2  rounded-lg z-[1000000000000] mr-[100px] '
           ref={modalRef}
-          onClick={() => {
-            Router.push(`/notifications`)
-            dispatch(setNotificationFalse())
-          }}
         >
           <div className='flex flex-col gap-12 '>
             <div className=''>
@@ -56,10 +55,17 @@ export function NotificationDrop() {
             <div className='flex flex-col gap-7 '>
               {notification?.slice(0, 3).map((item, index) => (
                 <div
-                  className=' flex gap-4 cursor-default items-start p-3 hover:bg-neutral-20 '
+                  className=' flex gap-4 cursor-default items-center p-3 hover:bg-neutral-20 '
                   key={index}
+                  onClick={() => {
+                    Router.push(`/notifications`)
+                    dispatch(setNotificationFalse())
+                    dispatch(getSelectedNotification(item))
+                  }}
                 >
-                  <div className=' rounded-full w-[11px] h-[11px] bg-yellow   '></div>
+                  {!item.read && (
+                    <div className=' rounded-full w-[11px] h-[11px] bg-yellow   '></div>
+                  )}
                   <div className='   w-full flex flex-col gap-2 '>
                     <div className=' flex  justify-between   '>
                       <div className='flex'>
