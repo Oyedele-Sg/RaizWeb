@@ -12,6 +12,7 @@ import {
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
+import { passwordHash } from "@/utils/helpers"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
@@ -33,9 +34,11 @@ export default function ResetPassword() {
   const onSubmit = async (data: ResetPasswordDataInterface) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.resetPassword(data)
+      await userService.resetPassword({
+        ...data,
+        password: passwordHash(data.password),
+      })
       dispatch(setLoadingFalse())
-
       Router.push("/login")
     } catch (error) {
       dispatch(setLoadingFalse())

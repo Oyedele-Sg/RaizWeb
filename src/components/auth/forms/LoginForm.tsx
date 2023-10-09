@@ -22,6 +22,7 @@ import { toast } from "@/components/ui/use-toast"
 import { useAppDispatch } from "@/shared/redux/types"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useUser } from "@/hooks/user/useUser"
+import { passwordHash } from "@/utils/helpers"
 
 export const LoginForm: FC = () => {
   const Router = useRouter()
@@ -40,7 +41,10 @@ export const LoginForm: FC = () => {
   const onSubmit = async (data: LoginDataInterface) => {
     try {
       dispacth(setLoadingTrue())
-      const response = await userService.login(data)
+      const response = await userService.login({
+        ...data,
+        password: passwordHash(data.password),
+      })
 
       dispacth(setLoadingFalse())
       Router.push("/dashboard")
@@ -100,7 +104,7 @@ export const LoginForm: FC = () => {
                 </RegisterInput>
               </AuthFieldWrap>
 
-              <div className=' self-end '>
+              <div className=' self-end'>
                 <Link
                   className='text-neutral-80 underline '
                   href='/forgot-password'
