@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -37,7 +37,7 @@
 
     --radius: 0.5rem;
 
-    --f-body: "League Spartan", sans-serif;
+    --f-body: 'League Spartan', sans-serif;
     --btn-gradient-hovered: linear-gradient(
       90deg,
       #4b0082 29.88%,
@@ -377,21 +377,21 @@ body {
 }
 
 /* clears the ‘X’ from Internet Explorer */
-input[type="search"]::-ms-clear {
+input[type='search']::-ms-clear {
   display: none;
   width: 0;
   height: 0;
 }
-input[type="search"]::-ms-reveal {
+input[type='search']::-ms-reveal {
   display: none;
   width: 0;
   height: 0;
 }
 /* clears the ‘X’ from Chrome */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
   display: none;
 }
 
@@ -418,7 +418,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -webkit-appearance: textfield; /* Safari, Chrome, Edge */
   -moz-appearance: textfield; /* Firefox */
   appearance: textfield; /* Standard */
@@ -451,7 +451,11 @@ input[type="number"] {
   padding-bottom: 4px !important;
 }
 
-
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.read {
+  background-color: #bfabd3;
+  opacity: 0.5;
 }
