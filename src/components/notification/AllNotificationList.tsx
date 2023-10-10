@@ -39,7 +39,9 @@ export function AllNotificationList({
       await userService.readNotification(item.notification_id);
       item.read = true;
     }
-    if (item.notification_url.includes('transfers/credit/')) {
+    if (item.notification_url.includes('split')) {
+      setNotificationType('other');
+    } else if (item.notification_url.includes('transfers/credit/')) {
       const res = await userService.getCreditTransferDetail({
         notification_url: item.notification_url,
       });

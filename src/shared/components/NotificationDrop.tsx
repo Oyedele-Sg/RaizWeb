@@ -63,7 +63,7 @@ export function NotificationDrop() {
                     dispatch(getSelectedNotification(item));
                   }}
                 >
-                  {!item.read ? (
+                  {item.read ? (
                     <div className=" rounded-full w-[11px] h-[11px] read  "></div>
                   ) : (
                     <div className=" rounded-full w-[11px] h-[11px] bg-yellow   "></div>
