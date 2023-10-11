@@ -110,9 +110,9 @@ export const ExpenseTile = () => {
           <ExpenseTileDummy />
         ) : (
           <div className='  flex flex-col justify-between  h-full '>
-            <div className='w-full max-w-[218px] h-[300px] '>
+            <div className='w-full max-w-[218px] h-[200px] '>
               <ResponsiveContainer width={"100%"} height={"100%"}>
-                <PieChart height={300} className='pie-chart'>
+                <PieChart height={200} className='pie-chart'>
                   <Pie
                     data={chartData?.chart_data as ExpenseChartDataInterface[]}
                     innerRadius={60}
@@ -121,7 +121,7 @@ export const ExpenseTile = () => {
                     paddingAngle={0}
                     dataKey='total_amount'
                     className='pie-chart'
-                    height={300}
+                    height={200}
                   >
                     {chartData?.chart_data.map((entry, index) => (
                       <Cell
