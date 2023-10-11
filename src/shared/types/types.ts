@@ -395,3 +395,65 @@ export interface SplitRequestDataInterface {
     transaction_pin: string
   }
 }
+
+export interface AjoCycleInterface {
+  ajo_id: string
+  target_amount: number
+  start_date: Date
+  end_date: Date
+  number_of_slots: number
+  number_of_cycles: number
+  amount_per_cycle: number
+  collection_frequency_id: number
+  available_slots: number
+  current_cycle: number
+  current_slot: number
+  ajo_cycle_id: string
+  has_started: boolean
+  has_ended: boolean
+  created_at: Date
+  updated_at: Date
+  collection_frequency: {
+    frequency_name: string
+    frequency_description: string
+    frequency_code: number
+    no_of_days: number
+    frequency_id: number
+    created_at: Date
+    updated_at: Date
+  }
+  next_payment_date: Date
+}
+
+export interface AjoDataInterface {
+  ajo_id: string
+  ajo_name: string
+  public: boolean
+  image_url: string
+  created_by_id: string
+  created_at: Date
+  updated_at: Date
+  ajo_cycles: AjoCycleInterface[]
+}
+
+export interface AjoFormInterface {
+  ajo_name: string
+  public: boolean
+  image_url: string
+  target_amount: number | null
+  start_date: Date | null
+  end_date: Date | null
+  number_of_slots: number | null
+  amount_per_cycle: number | null
+  collection_frequency_id: number | null
+}
+
+export interface AjoFrequencyInterface {
+  frequency_name: string
+  frequency_description: string
+  frequency_code: number
+  no_of_days: number
+  frequency_id: number
+  created_at: Date
+  updated_at: Date
+}

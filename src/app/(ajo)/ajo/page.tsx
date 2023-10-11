@@ -1,30 +1,38 @@
 "use client"
 
-import { ActivityItemWrap, HomeHeader, SubHeaders } from "@/components/ajo"
-import React from "react"
+import {
+  ActivityItemWrap,
+  AjoJoined,
+  ExploreAjo,
+  FeedComponent,
+  HomeHeader,
+  SubHeaders,
+} from "@/components/ajo"
+import SectionHeader from "@/components/ajo/SectionHeader"
+import { toast } from "@/components/ui/use-toast"
+import { userService } from "@/services"
+
+import { AjoDataInterface, BtnMain, Loading, WhiteWrap } from "@/shared"
+import Image from "next/image"
+import React, { useEffect, useState } from "react"
+import { all } from "axios"
+import moment from "moment"
 
 export default function Ajo() {
   return (
-    <div className='  '>
-      <HomeHeader />
+    <>
+      <Loading />
+      <div className='  p-10 '>
+        <HomeHeader />
 
-      <div className=' flex gap-10 min-h-full bug '>
-        <div className=' flex-1 '></div>
-        <aside className=' basis-[348px] bg-grey rounded-lg '>
-          <div className='flex flex-col gap-[58px] pt-12 px-6 '>
-            <h2 className=' font-semibold text-purple text-t-24 '>
-              {" "}
-              Activities{" "}
-            </h2>
-
-            <ActivityItemWrap>
-              <SubHeaders text='New' />
-
-              did
-            </ActivityItemWrap>
+        <div className=' flex gap-10 min-h-full '>
+          <div className=' flex-1  flex flex-col gap-10  '>
+            <ExploreAjo />
+            <AjoJoined />
           </div>
-        </aside>
+          <FeedComponent />
+        </div>
       </div>
-    </div>
+    </>
   )
 }

@@ -27,7 +27,7 @@ export function Menucard() {
     {
       name: "Ajo",
       icon: "bank",
-      link: "",
+      link: "/ajo",
     },
     {
       name: "Split Bills",
@@ -53,7 +53,7 @@ export function Menucard() {
             height={16}
             alt='reaveal pesa wallet balance'
           />
-          <span className=' font-title__medium    text-purple   '>
+          <span className=' font-title__medium    text-purple '>
             Your Total Balance
           </span>
         </div>

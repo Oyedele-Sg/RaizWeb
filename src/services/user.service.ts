@@ -28,6 +28,9 @@ import {
   NotificationDataInterface,
   PendingSplitRequestDataInterface,
   SplitRequestDataInterface,
+  AjoDataInterface,
+  AjoFormInterface,
+  AjoFrequencyInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -91,6 +94,10 @@ export const userService = {
   changeTransactionPin,
   getPendingSplitRequests,
   requestSplitFunds,
+  getAjoAll,
+  joinAjo,
+  createAjo,
+  getAjoFrequencies,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -387,4 +394,25 @@ function requestSplitFunds(data: SplitRequestDataInterface): Promise<void> {
   `,
     data
   )
+}
+
+//ajo
+function getAjoAll(): Promise<AjoDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/ajo/`)
+}
+
+function joinAjo(id: string): Promise<void> {
+  return fetchWrapper.patch(
+    `${baseUrl}/ajo/${id}/join/
+  `,
+    {}
+  )
+}
+
+function createAjo(data: AjoFormInterface): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/ajo/create/`, data)
+}
+
+function getAjoFrequencies(): Promise<AjoFrequencyInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/frequencies/`)
 }
