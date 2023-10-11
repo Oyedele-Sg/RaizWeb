@@ -216,10 +216,12 @@ export function ComponentTwo({
                             placeholder={"Type the Amount"}
                             autoComplete='off'
                             defaultValue={
-                              memberDetails.find(
-                                (member) =>
-                                  member.member_id === user.account_user_id
-                              )?.amount || ""
+                              Math.round(
+                                (memberDetails.find(
+                                  (member) =>
+                                    member.member_id === user.account_user_id
+                                )?.amount as number) * 100
+                              ) / 100 || ""
                             }
                             onChange={(event) =>
                               handleAmountChange(event, user.account_user_id)
