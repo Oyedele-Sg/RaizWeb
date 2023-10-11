@@ -455,7 +455,6 @@ input[type='number'] {
   display: none;
 }
 
-.read {
-  background-color: #bfabd3;
-  opacity: 0.5;
+.pie-chart {
+  height: 334px !important;
 }

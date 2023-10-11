@@ -27,6 +27,7 @@ import {
 } from "@/shared/redux/features"
 import { toast } from "@/components/ui/use-toast"
 import { ToastAction } from "@/components/ui/toast"
+import { passwordHash } from "@/utils/helpers"
 
 export const RegisterForm: FC = () => {
   const Router = useRouter()
@@ -75,7 +76,10 @@ export const RegisterForm: FC = () => {
 
       dispatch(setLoadingTrue())
 
-      await userService.signup(data)
+      await userService.signup({
+        ...data,
+        password: passwordHash(data.password),
+      })
 
       dispatch(getSignUpEmail(data.email))
       methods.reset()
