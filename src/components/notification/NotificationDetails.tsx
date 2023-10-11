@@ -3,6 +3,8 @@ import moment from 'moment';
 import React, { useEffect } from 'react';
 import { CreditNotificationDetails } from './CreditNotificationDetails';
 import { DebitNotificationDetails } from './DebitNotificationDetails';
+import { DebitSplitRequestNotificationDetails } from './DebitSplitRequestNotificationDetails';
+import { BillRequestNotificationDetails } from './BillRequestNotificationDetails';
 
 interface NotificationDetailsProps {
   notification_type?: string;
@@ -21,6 +23,10 @@ export function NotificationDetails({
         {notification_type === 'credit' && <CreditNotificationDetails />}
 
         {notification_type === 'debit' && <DebitNotificationDetails />}
+        {notification_type === 'split' && (
+          <DebitSplitRequestNotificationDetails />
+        )}
+        {notification_type === 'bill' && <BillRequestNotificationDetails />}
 
         {notification_type === 'other' && (
           <h3>Unable to handle this type of notification yet</h3>

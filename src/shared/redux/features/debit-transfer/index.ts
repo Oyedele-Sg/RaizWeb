@@ -1,2 +1,2 @@
-export * from './debitTransferSlice';
-export { default as selectedDebitTransferReducer } from './debitTransferSlice';
+export * from './debitTransfer';
+export { default as selectedDebitTransferReducer } from './debitTransfer';

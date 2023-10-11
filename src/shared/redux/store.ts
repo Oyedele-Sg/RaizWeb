@@ -7,6 +7,7 @@ import {
   selectedNotificationReducer,
   selectedCreditTransferReducer,
   selectedDebitTransferReducer,
+  selectedDebitSplitRequestReducer,
 } from './features';
 import { selectedRequestReducer } from './features/request';
 // import authReducer from "./features/lice
@@ -21,6 +22,7 @@ export const store = configureStore({
     selectedNotification: selectedNotificationReducer,
     selectedCreditTransfer: selectedCreditTransferReducer,
     selectedDebitTransfer: selectedDebitTransferReducer,
+    selectedDebitSplitRequest: selectedDebitSplitRequestReducer,
   },
 });
 

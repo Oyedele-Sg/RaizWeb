@@ -447,3 +447,45 @@ export interface DebitTransferDataInterface {
   debit_transfer_id: string;
   created_at: Date;
 }
+
+export interface DebitSplitRequestDataInterface {
+  split_group_id: string;
+  created_at: Date;
+  updated_at: Date;
+  split_members: [
+    {
+      split_members_id: string;
+      created_at: Date;
+      updated_at: Date;
+      split_group_id: string;
+      member_id: string;
+      amount: number;
+      status_id: number;
+      member: {
+        first_name: string;
+        last_name: string;
+        username: string;
+        account_user_id: string;
+      };
+      status: {
+        status: string;
+        description: string;
+        status_code: number;
+        request_fund_status_id: number;
+        created_at: Date;
+        updated_at: Date;
+      };
+    }
+  ];
+  split_group_reason: string;
+  total_amount: number;
+  current_amount: number;
+  currency: string;
+  created_by_id: string;
+  created_by: {
+    first_name: string;
+    last_name: string;
+    username: string;
+    account_user_id: string;
+  };
+}

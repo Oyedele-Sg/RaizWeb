@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { usePendingRequest } from '@/hooks/request/usePendingRequest';
 import { useNotification } from '@/hooks/notification/useNotification';
 import {
   getSelectedNotification,
   getSelectedCreditTransfer,
   getSelectedDebitTransfer,
+  getSelectedDebitSplitRequest,
+  getSelectedRequest,
 } from '@/shared/redux/features';
 import { useAppDispatch, useAppSelector } from '@/shared/redux/types';
 import { NotificationDetails } from '@/components/notification';
@@ -11,7 +14,10 @@ import moment from 'moment';
 import { userService } from '@/services';
 import React from 'react';
 import { number } from 'zod';
-import { BackArrow, BackBtnCircle, NotificationDataInterface } from '@/shared';
+import {
+  NotificationDataInterface,
+  PendingRequestDataInterface,
+} from '@/shared';
 
 interface NotificationItemProps {
   notification_id?: string;
@@ -24,6 +30,7 @@ export function AllNotificationList({
   const dispatch = useAppDispatch();
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [notificationType, setNotificationType] = useState('other');
+  const requests = usePendingRequest();
 
   const notificationDetails = useAppSelector(
     (state) => state.selectedNotification
@@ -39,8 +46,24 @@ export function AllNotificationList({
       await userService.readNotification(item.notification_id);
       item.read = true;
     }
-    if (item.notification_url.includes('split')) {
-      setNotificationType('other');
+    if (item.notification_url.includes('bill')) {
+      const selectedRequest = requests?.find(
+        (request) => request.request_transfer_id === item.object_id
+      );
+      dispatch(
+        getSelectedRequest(selectedRequest as PendingRequestDataInterface)
+      );
+      setNotificationType('bill');
+    } else if (item.notification_url.includes('split')) {
+      let res = await userService.getDebitSplitRequestDetail({
+        notification_url: item.notification_url,
+      });
+
+      res.split_members = res.split_members.find(
+        (member) => member.member_id === item.account_user_id
+      );
+      setNotificationType('split');
+      dispatch(getSelectedDebitSplitRequest(res));
     } else if (item.notification_url.includes('transfers/credit/')) {
       const res = await userService.getCreditTransferDetail({
         notification_url: item.notification_url,

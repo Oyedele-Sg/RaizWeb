@@ -30,6 +30,7 @@ import {
   SplitRequestDataInterface,
   CreditTransferDataInterface,
   DebitTransferDataInterface,
+  DebitSplitRequestDataInterface,
 } from '@/shared';
 import { BankInputProps } from '@/components/profile-setup/AddBankForm';
 import { createSearchParams } from '@/utils/helpers';
@@ -96,6 +97,7 @@ export const userService = {
   getCreditTransferDetail,
   getDebitTransferDetail,
   readNotification,
+  getDebitSplitRequestDetail,
 };
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -442,5 +444,20 @@ function getDebitTransferDetail(params: {
     );
   } else {
     return fetchWrapper.get(`${baseUrl + notification_url}`);
+  }
+}
+
+//split request
+function getDebitSplitRequestDetail(params: {
+  notification_url?: string;
+  split_request_id?: string;
+}): Promise<DebitSplitRequestDataInterface> {
+  const { notification_url, split_request_id } = params;
+  if (split_request_id) {
+    return fetchWrapper.get(
+      `${baseUrl}/transfers/debit/split-requests/${split_request_id}`
+    );
+  } else {
+    return fetchWrapper.get(`${baseUrl}/${notification_url}`);
   }
 }
