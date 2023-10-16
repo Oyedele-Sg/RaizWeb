@@ -41,45 +41,46 @@ export function AllNotificationList({
   };
 
   const handleNotificationClick = async (item, index) => {
-    toggleExpand(index);
-    if (!item.read) {
-      await userService.readNotification(item.notification_id);
-      item.read = true;
-    }
-    if (item.notification_url.includes('bill')) {
-      const selectedRequest = requests?.find(
-        (request) => request.request_transfer_id === item.object_id
-      );
-      dispatch(
-        getSelectedRequest(selectedRequest as PendingRequestDataInterface)
-      );
-      setNotificationType('bill');
-    } else if (item.notification_url.includes('split')) {
-      let res = await userService.getDebitSplitRequestDetail({
-        notification_url: item.notification_url,
-      });
+    console.log(item);
+    // toggleExpand(index);
+    // if (!item.read) {
+    //   await userService.readNotification(item.notification_id);
+    //   item.read = true;
+    // }
+    // if (item.notification_url.includes('bill')) {
+    //   const selectedRequest = requests?.find(
+    //     (request) => request.request_transfer_id === item.object_id
+    //   );
+    //   dispatch(
+    //     getSelectedRequest(selectedRequest as PendingRequestDataInterface)
+    //   );
+    //   setNotificationType('bill');
+    // } else if (item.notification_url.includes('split')) {
+    //   let res = await userService.getDebitSplitRequestDetail({
+    //     notification_url: item.notification_url,
+    //   });
 
-      res.split_members = res.split_members.find(
-        (member) => member.member_id === item.account_user_id
-      );
-      setNotificationType('split');
-      dispatch(getSelectedDebitSplitRequest(res));
-    } else if (item.notification_url.includes('transfers/credit/')) {
-      const res = await userService.getCreditTransferDetail({
-        notification_url: item.notification_url,
-      });
-      setNotificationType('credit');
-      dispatch(getSelectedCreditTransfer(res));
-    } else if (item.notification_url.includes('transfers/debit/')) {
-      const res = await userService.getDebitTransferDetail({
-        notification_url: item.notification_url,
-      });
-      setNotificationType('debit');
-      dispatch(getSelectedDebitTransfer(res));
-    } else {
-      // dispatch(getSelectedNotification(item));
-      console.log("Can't handle notification type yet");
-    }
+    //   res.split_members = res.split_members.find(
+    //     (member) => member.member_id === item.account_user_id
+    //   );
+    //   setNotificationType('split');
+    //   dispatch(getSelectedDebitSplitRequest(res));
+    // } else if (item.notification_url.includes('transfers/credit/')) {
+    //   const res = await userService.getCreditTransferDetail({
+    //     notification_url: item.notification_url,
+    //   });
+    //   setNotificationType('credit');
+    //   dispatch(getSelectedCreditTransfer(res));
+    // } else if (item.notification_url.includes('transfers/debit/')) {
+    //   const res = await userService.getDebitTransferDetail({
+    //     notification_url: item.notification_url,
+    //   });
+    //   setNotificationType('debit');
+    //   dispatch(getSelectedDebitTransfer(res));
+    // } else {
+    //   // dispatch(getSelectedNotification(item));
+    //   console.log("Can't handle notification type yet");
+    // }
   };
 
   useEffect(() => {
