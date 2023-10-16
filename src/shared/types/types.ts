@@ -327,6 +327,7 @@ export interface NotificationDataInterface {
   notification_category_id: number;
   account_user_id: string;
   object_id: string;
+  notification_sub_category: string;
   notification_url: string;
   notification_id: string;
   created_at: Date;

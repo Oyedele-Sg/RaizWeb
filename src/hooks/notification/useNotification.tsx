@@ -1,6 +1,7 @@
 "use client"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { userService } from "@/services"
+
 import { NotificationDataInterface, UserInterface, queryKeys } from "@/shared"
 import { useEffect } from "react"
 
