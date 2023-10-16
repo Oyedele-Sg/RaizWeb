@@ -100,6 +100,7 @@ export function ComponentOne() {
                     <BtnMain
                       btnText='Split Bill'
                       btnStyle=' py-2 px-4 border-purple border text-purple rounded-lg font-label__large flex-1 '
+                      onClick={() => Router.push("/split-bill")}
                     />
                     <AuthButton
                       btnText='Pay'

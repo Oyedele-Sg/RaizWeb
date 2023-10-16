@@ -472,6 +472,6 @@ input[type="number"] {
   display: none;
 }
 
-.force-height {
-  height: 100% !important;
+.pie-chart {
+  height: 334px !important;
 }

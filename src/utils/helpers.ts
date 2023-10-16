@@ -1,6 +1,14 @@
 import { BankInterface } from "@/shared"
 import { DateRange } from "react-day-picker"
+
 import moment from "moment"
+
+import { RefObject } from "react"
+import { iv } from "./constants"
+import CryptoJS from "crypto-js"
+import PBKDF2 from "crypto-js/pbkdf2"
+import WordArray from "crypto-js/lib-typedarrays"
+import Utf8 from "crypto-js/enc-utf8"
 
 export function removeDuplicateObjects(banks: BankInterface[]): any[] {
   // Helper function to check if two objects are equal
@@ -87,11 +95,21 @@ export const calculateNewDateRange = (selectedValue: string): DateRange => {
   }
 }
 
-function formatDateToCustomFormat(inputDate: Date): string {
-  const momentDate = moment(inputDate)
-  if (!momentDate.isValid()) {
-    return "Invalid Date"
-  }
+export const passwordHash = (password: string): string => {
+  const fixedSalt = "myFixedSalt"
+  const keySize = 256 / 32 // 256-bit key size
+  const iterations = 1000
 
-  return momentDate.format("YYYY-MM-DD")
+  // Derive an encryption key using PBKDF2
+  const key = PBKDF2(password, fixedSalt, {
+    keySize,
+    iterations,
+  })
+
+  // Use the derived key for encryption
+  return CryptoJS.AES.encrypt(password, key, {
+    mode: CryptoJS.mode.CFB, // Choose an appropriate mode
+    padding: CryptoJS.pad.Pkcs7, // Choose an appropriate padding
+    iv: iv, // Use a fixed IV
+  }).toString()
 }
