@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import { usePendingRequest } from '@/hooks/request/usePendingRequest';
 import { useNotification } from '@/hooks/notification/useNotification';
 import {
@@ -9,15 +10,21 @@ import {
   getSelectedRequest,
 } from '@/shared/redux/features';
 import { useAppDispatch, useAppSelector } from '@/shared/redux/types';
-import { NotificationDetails } from '@/components/notification';
-import moment from 'moment';
 import { userService } from '@/services';
-import React from 'react';
-import { number } from 'zod';
 import {
   NotificationDataInterface,
   PendingRequestDataInterface,
 } from '@/shared';
+import { NotificationDetails } from './NotificationDetails';
+
+// Define constants for notification types
+const NOTIFICATION_TYPES = {
+  BILL_REQUEST: 'bill',
+  CREDIT_TRANSFER: 'credit',
+  DEBIT_TRANSFER: 'debit',
+  SPLIT_REQUEST: 'split',
+  OTHER: 'other',
+};
 
 interface NotificationItemProps {
   notification_id?: string;
@@ -29,58 +36,59 @@ export function AllNotificationList({
   const notification = useNotification();
   const dispatch = useAppDispatch();
   const [expandedIndex, setExpandedIndex] = useState(null);
-  const [notificationType, setNotificationType] = useState('other');
+  const [notificationType, setNotificationType] = useState(
+    NOTIFICATION_TYPES.OTHER
+  );
   const requests = usePendingRequest();
 
-  const notificationDetails = useAppSelector(
-    (state) => state.selectedNotification
-  );
-
   const toggleExpand = (index) => {
-    expandedIndex === index ? setExpandedIndex(null) : setExpandedIndex(index);
+    setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   const handleNotificationClick = async (item, index) => {
-    console.log(item);
-    // toggleExpand(index);
-    // if (!item.read) {
-    //   await userService.readNotification(item.notification_id);
-    //   item.read = true;
-    // }
-    // if (item.notification_url.includes('bill')) {
-    //   const selectedRequest = requests?.find(
-    //     (request) => request.request_transfer_id === item.object_id
-    //   );
-    //   dispatch(
-    //     getSelectedRequest(selectedRequest as PendingRequestDataInterface)
-    //   );
-    //   setNotificationType('bill');
-    // } else if (item.notification_url.includes('split')) {
-    //   let res = await userService.getDebitSplitRequestDetail({
-    //     notification_url: item.notification_url,
-    //   });
-
-    //   res.split_members = res.split_members.find(
-    //     (member) => member.member_id === item.account_user_id
-    //   );
-    //   setNotificationType('split');
-    //   dispatch(getSelectedDebitSplitRequest(res));
-    // } else if (item.notification_url.includes('transfers/credit/')) {
-    //   const res = await userService.getCreditTransferDetail({
-    //     notification_url: item.notification_url,
-    //   });
-    //   setNotificationType('credit');
-    //   dispatch(getSelectedCreditTransfer(res));
-    // } else if (item.notification_url.includes('transfers/debit/')) {
-    //   const res = await userService.getDebitTransferDetail({
-    //     notification_url: item.notification_url,
-    //   });
-    //   setNotificationType('debit');
-    //   dispatch(getSelectedDebitTransfer(res));
-    // } else {
-    //   // dispatch(getSelectedNotification(item));
-    //   console.log("Can't handle notification type yet");
-    // }
+    toggleExpand(index);
+    if (!item.read) {
+      await userService.readNotification(item.notification_id);
+      item.read = true;
+    }
+    let res;
+    switch (item.notification_sub_category) {
+      case 'Bill Request':
+        const selectedRequest = requests?.find(
+          (request) => request.request_transfer_id === item.object_id
+        );
+        dispatch(
+          getSelectedRequest(selectedRequest as PendingRequestDataInterface)
+        );
+        setNotificationType(NOTIFICATION_TYPES.BILL_REQUEST);
+        break;
+      case 'Credit Transfer':
+        res = await userService.getCreditTransferDetail({
+          notification_url: item.notification_url,
+        });
+        setNotificationType(NOTIFICATION_TYPES.CREDIT_TRANSFER);
+        dispatch(getSelectedCreditTransfer(res));
+        break;
+      case 'Debit Transfer':
+        res = await userService.getDebitTransferDetail({
+          notification_url: item.notification_url,
+        });
+        setNotificationType(NOTIFICATION_TYPES.DEBIT_TRANSFER);
+        dispatch(getSelectedDebitTransfer(res));
+        break;
+      case 'Split Request':
+        res = await userService.getDebitSplitRequestDetail({
+          notification_url: item.notification_url,
+        });
+        res.split_members = res.split_members.find(
+          (member) => member.member_id === item.account_user_id
+        );
+        setNotificationType(NOTIFICATION_TYPES.SPLIT_REQUEST);
+        dispatch(getSelectedDebitSplitRequest(res));
+        break;
+      default:
+        console.log("Can't handle notification type yet");
+    }
   };
 
   useEffect(() => {
@@ -117,22 +125,20 @@ export function AllNotificationList({
                 ) : (
                   <div className="rounded-full w-[11px] h-[11px] bg-yellow"></div>
                 )}
-                <div className="   w-full flex flex-col gap-2 ">
-                  <div className=" flex  justify-between   ">
+                <div className="w-full flex flex-col gap-2">
+                  <div className="flex justify-between">
                     <div className="flex">
-                      <h2 className=" text-neutral-90 text-t-20 font-semi-mid   ">
+                      <h2 className="text-neutral-90 text-t-20 font-semi-mid">
                         {item.notification_title}
                       </h2>
                     </div>
-                    <div className=" text-t-20 text-neutral-50   ">
-                      {' '}
-                      {moment(item.created_at).format('MMM D')}{' '}
+                    <div className="text-t-20 text-neutral-50">
+                      {moment(item.created_at).format('MMM D')}
                     </div>
                   </div>
-                  <div className="">
-                    <p className=" text-neutral-70 text-t-18  leading-6  ">
-                      {' '}
-                      {item.notification_body}{' '}
+                  <div>
+                    <p className="text-neutral-70 text-t-18 leading-6">
+                      {item.notification_body}
                     </p>
                   </div>
                 </div>

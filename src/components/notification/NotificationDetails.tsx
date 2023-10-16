@@ -26,6 +26,7 @@ export function NotificationDetails({
         {notification_type === 'split' && (
           <DebitSplitRequestNotificationDetails />
         )}
+
         {notification_type === 'bill' && <BillRequestNotificationDetails />}
 
         {notification_type === 'other' && (

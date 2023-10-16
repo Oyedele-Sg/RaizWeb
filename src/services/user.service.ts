@@ -428,7 +428,7 @@ function getCreditTransferDetail(params: {
       `${baseUrl}/transfers/credit/get/${credit_transfer_id}`
     );
   } else {
-    return fetchWrapper.get(`${baseUrl + notification_url}`);
+    return fetchWrapper.get(`${baseUrl}/${notification_url}`);
   }
 }
 
@@ -443,7 +443,7 @@ function getDebitTransferDetail(params: {
       `${baseUrl}/transfers/debit/get/${debit_transfer_id}`
     );
   } else {
-    return fetchWrapper.get(`${baseUrl + notification_url}`);
+    return fetchWrapper.get(`${baseUrl}/${notification_url}`);
   }
 }
 

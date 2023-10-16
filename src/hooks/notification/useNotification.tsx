@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 
 async function getNotifications(): Promise<NotificationDataInterface[]> {
   const response = await userService.getNotifications();
-  console.log(response);
   return response;
 }
 
