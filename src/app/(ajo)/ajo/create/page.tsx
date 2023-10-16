@@ -39,39 +39,73 @@ import moment from "moment"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { userService } from "@/services"
+import { start } from "repl"
+import { toast } from "@/components/ui/use-toast"
+import { useRouter } from "next/navigation"
 
 export default function Ajo() {
-  // Import your Yup schema
-
-  type CustomResolverOptions = {
-    validationSchema: any // Use `any` to match Yup validation schema
-  }
+  const Router = useRouter()
 
   const [startDate, setStartDate] = React.useState<Date>()
+  console.log("startDate", startDate)
   const [endDate, setEndDate] = React.useState<Date>()
   const [publicAjo, setPublicAjo] = React.useState<boolean>(true)
   const [frequencies, setFrequencies] = React.useState<AjoFrequencyInterface[]>(
     []
   )
-  console.log("freq", frequencies)
 
   const methods = useForm<AjoFormInterface>({
     defaultValues: {
       ajo_name: "",
       public: publicAjo,
-      image_url: "",
+      image_url:
+        "https://pixabay.com/photos/chain-security-metal-iron-3481377/",
       target_amount: null,
-      start_date: startDate,
-      end_date: endDate,
       number_of_slots: null,
       amount_per_cycle: null,
       collection_frequency_id: null,
     },
-    resolver: yupResolver(createAjoSchema) as Resolver<AjoFormInterface>,
   })
 
-  const onSubmit = (data: AjoFormInterface) => {
-    console.log(data)
+  const onSubmit = async (data: AjoFormInterface) => {
+    if (startDate === undefined || endDate === undefined) {
+      toast({
+        title: "Fill date fields",
+
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+        duration: 5000,
+      })
+      return
+    }
+    console.log("data", data)
+    try {
+      await userService.createAjo({
+        ...data,
+        start_date: moment(startDate).format("YYYY-MM-DD"),
+        end_date: moment(endDate).format("YYYY-MM-DD"),
+      })
+      Router.push("/ajo/create/success")
+    } catch (error) {
+      toast({
+        title: "Something Went Wrong",
+        description: `${error}`,
+
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+        duration: 5000,
+      })
+    }
   }
 
   const getData = async () => {
@@ -85,7 +119,7 @@ export default function Ajo() {
 
   return (
     <SetupLayout bg='bg-ajo-pattern'>
-      <div className=' mx-5 lg:m-[72px] flex flex-col gap-[84px] '>
+      <div className=' mx-5 mt-[72px] lg:m-[72px] flex flex-col gap-[84px] '>
         <div>
           <IconPesaColored />
         </div>
@@ -131,12 +165,9 @@ export default function Ajo() {
 
                   <div className=' flex justify-between gap-[43px] '>
                     <div className=' flex flex-col gap-4 w-full'>
-                      <label
-                        htmlFor=' '
-                        className=' text-neutral-80   font-label__large '
-                      >
+                      <p className=' text-neutral-80   font-label__large '>
                         Start Date{" "}
-                      </label>
+                      </p>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
@@ -159,22 +190,16 @@ export default function Ajo() {
                             mode='single'
                             selected={startDate}
                             onSelect={setStartDate}
-                            disabled={(date) =>
-                              date > new Date() || date < new Date("1900-01-01")
-                            }
                             initialFocus
                           />
                         </PopoverContent>
                       </Popover>
                     </div>
                     <div className=' flex flex-col gap-4 w-full'>
-                      <label
-                        htmlFor=' '
-                        className=' text-neutral-80   font-label__large '
-                      >
+                      <p className=' text-neutral-80   font-label__large '>
                         {" "}
                         End Date{" "}
-                      </label>
+                      </p>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
@@ -197,19 +222,26 @@ export default function Ajo() {
                             mode='single'
                             selected={endDate}
                             onSelect={setEndDate}
-                            disabled={(date) =>
-                              date > new Date() || date < new Date("1900-01-01")
-                            }
                             initialFocus
                           />
                         </PopoverContent>
                       </Popover>
                     </div>
                   </div>
-                  <Select>
+                  <Select
+                    onValueChange={(value) => {
+                      const selectedFrequency = frequencies.find(
+                        (item) => item.frequency_name === value
+                      )
+                      methods.setValue(
+                        "collection_frequency_id",
+                        selectedFrequency?.frequency_id as number
+                      )
+                    }}
+                  >
                     <SelectTrigger className=' border-t-0 border-l-0 border-r-0 border-b border-b-purple  rounded-none text-neutral-100'>
                       <SelectValue
-                        placeholder='Select A bank'
+                        placeholder='Select Ajo Frquency'
                         className={
                           methods.formState.errors.collection_frequency_id
                             ? "input_field-input_error"
@@ -223,12 +255,6 @@ export default function Ajo() {
                           key={item.frequency_id}
                           value={item.frequency_name}
                           className='hover:bg-neutral-50'
-                          onClick={() =>
-                            methods.setValue(
-                              "collection_frequency_id",
-                              item.frequency_id
-                            )
-                          }
                         >
                           {item.frequency_name}
                         </SelectItem>
@@ -247,6 +273,12 @@ export default function Ajo() {
                       onCheckedChange={setPublicAjo}
                     />
                   </div>
+
+                  <BtnMain
+                    btnText=' Create Ajo  '
+                    btnStyle=' w-full text-center text-grey  bg-gradient-ajo-default  '
+                    type='submit'
+                  />
                 </div>
               </form>
             </FormProvider>

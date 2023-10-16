@@ -2165,6 +2165,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-table@^7.7.16":
+  version "7.7.16"
+  resolved "https://registry.yarnpkg.com/@types/react-table/-/react-table-7.7.16.tgz#e143e2c0fa2dcac739fcc8055e58f5a7a9c0e5fb"
+  integrity sha512-khfVwkNkvFnQV+Dx5Z/4jeMWIi+qytR8/Hl89fMPQ3aGiIgVlnghwdnyrq45UVSU+9wTqQFL0kUmIk4MGaM20Q==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-toastify@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@types/react-toastify/-/react-toastify-4.1.0.tgz#604e712855dd677916d5c66af595d3b590f5d95d"

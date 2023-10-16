@@ -104,7 +104,8 @@ module.exports = {
         "neutral-90": "#64497D",
         "neutral-100": "#493260",
         "ajo-card": "#ECEFEF",
-        
+        "bg-overlay": "rgba(47, 47, 47, 0.62)",
+
         positive: "#7ABA98",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

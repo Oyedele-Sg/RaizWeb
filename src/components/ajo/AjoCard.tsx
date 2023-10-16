@@ -14,11 +14,13 @@ import { userService } from "@/services"
 import { toast } from "../ui/use-toast"
 import { useAppDispatch } from "@/shared/redux/types"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
+import { useRouter } from "next/navigation"
 
 interface Props {
   ajo: AjoDataInterface
 }
 export function AjoCard({ ajo }: Props) {
+  const Router = useRouter()
   const dispatch = useAppDispatch()
   const handlleClick = async () => {
     try {

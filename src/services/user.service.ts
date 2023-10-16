@@ -98,6 +98,9 @@ export const userService = {
   joinAjo,
   createAjo,
   getAjoFrequencies,
+  getMyAjo,
+  getAjoByID,
+  getAjoMembers,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -415,4 +418,15 @@ function createAjo(data: AjoFormInterface): Promise<void> {
 
 function getAjoFrequencies(): Promise<AjoFrequencyInterface[]> {
   return fetchWrapper.get(`${baseUrl}/frequencies/`)
+}
+
+function getMyAjo(): Promise<AjoDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/ajo/my-ajos/all/`)
+}
+
+function getAjoByID(id: string): Promise<AjoDataInterface> {
+  return fetchWrapper.get(`${baseUrl}/ajo/${id}/`)
+}
+function getAjoMembers(id: string): Promise<any> {
+  return fetchWrapper.get(`${baseUrl}/ajo/${id}/ajo-membership/`)
 }
