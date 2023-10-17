@@ -44,11 +44,11 @@ export default function page() {
       image: "key",
       link: "login-and-security",
     },
-    {
-      title: "Manage connected accounts",
-      description: "Eternal accounts connected",
-      image: "manage",
-    },
+    // {
+    //   title: "Manage connected accounts",
+    //   description: "Eternal accounts connected",
+    //   image: "manage",
+    // },
     {
       title: "About",
       description: "Information about RAIZ",

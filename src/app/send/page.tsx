@@ -88,7 +88,6 @@ export default function page() {
                       const selectedRequest = requests?.find(
                         (request) => request.request_transfer_id === value
                       );
-
                       dispatch(
                         getSelectedRequest(
                           selectedRequest as PendingRequestDataInterface
@@ -107,7 +106,8 @@ export default function page() {
                         <span className=" text-purple  ">{`${request.requester_account.first_name} ${request.requester_account.last_name}`}</span>
                         {'         '}
                         <span className=" text-purple   font-semi-mid">
-                          (₦{request.transaction_amount})
+                          ({request.currency}
+                          {request.transaction_amount})
                         </span>
                       </SearchSelectItem>
                     ))}

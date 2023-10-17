@@ -24,8 +24,7 @@ export function UtilityIcons() {
       <div
         className=''
         onClick={() => {
-          userService.logout()
-          Router.push(`/login`)
+          Router.push(`/settings`)
         }}
       >
         <IconAvatar />
