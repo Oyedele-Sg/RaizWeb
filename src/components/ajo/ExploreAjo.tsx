@@ -58,7 +58,7 @@ export function ExploreAjo() {
       </div>
 
       <div className='  flex flex-wrap gap-6   '>
-        {allAjos.slice(0, 3).map((ajo, index) => (
+        {allAjos.slice(0, 4).map((ajo, index) => (
           <AjoCard ajo={ajo} key={index} />
         ))}
       </div>
