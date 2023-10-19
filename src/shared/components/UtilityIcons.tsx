@@ -29,8 +29,7 @@ export function UtilityIcons({ ajo }: Props) {
       <div
         className=''
         onClick={() => {
-          userService.logout()
-          Router.push(`/login`)
+          Router.push(`/settings`)
         }}
       >
         <IconAvatar />
