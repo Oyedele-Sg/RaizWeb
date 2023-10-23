@@ -439,6 +439,17 @@ export interface AjoDataInterface {
 export interface AjoFormInterface {
   ajo_name: string
   public: boolean
+
+  target_amount: number | null
+  start_date: string | null
+  end_date: string | null
+  number_of_slots: number | null
+  amount_per_cycle: number | null
+  collection_frequency_id: number | null
+}
+export interface AjoCreateFormInterface {
+  ajo_name: string
+  public: boolean
   image_url: string
   target_amount: number | null
   start_date: string | null

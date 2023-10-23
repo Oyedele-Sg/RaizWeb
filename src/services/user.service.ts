@@ -31,6 +31,7 @@ import {
   AjoDataInterface,
   AjoFormInterface,
   AjoFrequencyInterface,
+  AjoCreateFormInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -414,7 +415,7 @@ function joinAjo(id: string): Promise<void> {
   )
 }
 
-function createAjo(data: AjoFormInterface): Promise<void> {
+function createAjo(data: AjoCreateFormInterface): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/ajo/create/`, data)
 }
 
