@@ -41,6 +41,25 @@ function Page() {
 
   console.log("ajoDetails", ajoDetails)
 
+  const handleLeaveAjo = async () => {
+    try {
+      await userService.leaveAjo(Params.ajoID)
+      toast({
+        title: "Success",
+        description: `You have successfully left the Ajo`,
+        variant: "default",
+        style: {
+          backgroundColor: "#10B981",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+        duration: 5000,
+      })
+      Router.push(`/ajo`)
+    } catch (error) {}
+  }
+
   const getData = async () => {
     try {
       const response = await userService.getAjoByID(Params.ajoID)
@@ -162,8 +181,8 @@ function Page() {
       <div className=' w-full min-h-[360px] relative   '>
         <Image src={"/images/bg.png"} fill={true} alt='' />
 
-        <div className=' absolute top-0  bottom-0 left-0 right-0   p-10 '>
-          <div className='flex gap-8 items-center  '>
+        <div className=' absolute top-0  bottom-0 left-0 right-0  bug  p-10 flex items-center '>
+          <div className='flex gap-8 items-center   '>
             <div
               className=' border-[2px] border-neutral-80 rounded-full p-3 items-center justify-center flex  '
               onClick={() => Router.back()}
@@ -175,22 +194,22 @@ function Page() {
                 alt=''
               />
             </div>
-            <div className=' text-grey flex flex-col gap-4   '>
-              <div className=' flex flex-col gap-3  '>
+            <div className=' text-grey flex flex-col gap-4 bug   '>
+              <div className=' flex flex-col  gap-3  '>
                 <h1 className='  font-headline__large font-semibold  '>
                   {ajoDetails?.ajo_name}
                 </h1>
-                <p className=' font-title__small font-semi-mid '>
+                {/* <p className=' font-title__small font-semi-mid '>
                   By Khadijah Arowosegbe
-                </p>
+                </p> */}
               </div>
 
               <div className='flex flex-col gap-10 '>
-                <p className=' max-w-[700px] '>
+                {/* <p className=' max-w-[700px] '>
                   This Ajo group(Earlystarter) was created for a total
                   participant of 4 to contribute ₦50,000 for the span of 4
                   months to get a total of ₦200,000
-                </p>
+                </p> */}
 
                 <div className=' flex gap-8'>
                   <div className=' flex  items-center  gap-2   '>
@@ -215,23 +234,28 @@ function Page() {
                     </span>
                   </div>
 
-                  <div className=' flex  items-center  gap-2   '>
+                  <div
+                    className=' flex  items-center  gap-2 text-grey  '
+                    onClick={() => handleLeaveAjo()}
+                  >
                     <Image
-                      src={"/ajo/frequency.svg"}
+                      src={"/ajo/leave.svg"}
                       width={24}
                       height={24}
                       alt=''
                     />
-                    <span>
-                      {
-                        ajoDetails?.ajo_cycles[0].collection_frequency
-                          .frequency_name
-                      }{" "}
-                    </span>
+                    <span>Leave</span>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className=' flex  items-center  gap-2   '>
+            <Image src={"/ajo/frequency.svg"} width={24} height={24} alt='' />
+            <span>
+              {ajoDetails?.ajo_cycles[0].collection_frequency.frequency_name}{" "}
+            </span>
           </div>
         </div>
       </div>
