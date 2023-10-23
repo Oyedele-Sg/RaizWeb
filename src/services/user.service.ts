@@ -196,8 +196,10 @@ function getCurrentUser(): Promise<UserInterface> {
   return fetchWrapper.get(`${baseUrl}/account_users/me/`)
 }
 
-function updateUserProfileImage(): Promise<UserInterface> {
-  return fetchWrapper.get(`${baseUrl}/account_users/me/`)
+function updateUserProfileImage(data: {
+  profile_image_url: string
+}): Promise<UserInterface> {
+  return fetchWrapper.patch(`${baseUrl}/account_users/profile-image/`, data)
 }
 
 //profile user

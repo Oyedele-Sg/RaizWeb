@@ -113,3 +113,8 @@ export const passwordHash = (password: string): string => {
     iv: iv, // Use a fixed IV
   }).toString()
 }
+
+export function extractObjectUrlFromSignedUrl(signedUrl: string): string {
+  const url = new URL(signedUrl)
+  return url.origin + url.pathname
+}

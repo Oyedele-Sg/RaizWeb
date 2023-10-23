@@ -137,7 +137,10 @@ export const ExpenseTile = () => {
 
             <div className=' flex flex-col gap-2  '>
               {chartData?.chart_data.map((item, index) => (
-                <div className='  flex items-center justify-between '>
+                <div
+                  className='  flex items-center justify-between '
+                  key={index}
+                >
                   <div className=' flex items-center gap-2 '>
                     <div
                       className={` h-[12px] w-[12px] rounded-full ${
