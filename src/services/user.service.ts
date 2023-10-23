@@ -102,7 +102,7 @@ export const userService = {
   getMyAjo,
   getAjoByID,
   getAjoMembers,
-  leaveAjo
+  leaveAjo,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -436,5 +436,5 @@ function getAjoMembers(id: string): Promise<any> {
 }
 
 function leaveAjo(id: string): Promise<any> {
-  return fetchWrapper.get(`${baseUrl}/ajo/${id}/leave/`)
+  return fetchWrapper.patch(`${baseUrl}/ajo/${id}/leave/`, {})
 }
