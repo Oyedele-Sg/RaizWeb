@@ -7,3 +7,4 @@ export { FeedComponent } from './FeedComponent';
 export { ExploreAjo } from './ExploreAjo';
 export { AjoJoined } from './AjoJoined';
 export { AjoCard } from './AjoCard';
+export { DefaultJoinedAjo } from './DefaultJoinedAjo';

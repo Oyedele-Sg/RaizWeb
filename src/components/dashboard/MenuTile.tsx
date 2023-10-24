@@ -27,7 +27,7 @@ export function Menucard() {
     {
       name: 'Ajo',
       icon: 'bank',
-      link: '',
+      link: '/ajo',
     },
     {
       name: 'Savings',
