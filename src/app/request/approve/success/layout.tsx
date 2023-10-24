@@ -1,10 +1,4 @@
-<<<<<<<< HEAD:src/app/request/approve/success/layout.tsx
-export default function SuccessLayout({
-  children,
-}: {
-========
 interface Props {
->>>>>>>> 84a5c571e355fb0e35e5450bf458aa92e974101a:src/app/(ajo)/layout.tsx
   children: React.ReactNode
 }
 

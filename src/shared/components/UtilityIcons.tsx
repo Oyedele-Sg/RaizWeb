@@ -15,40 +15,34 @@ interface Props {
 
 export function UtilityIcons({ ajo }: Props) {
   const Router = useRouter()
-
+  const notification = useNotification()
   const { currentUser } = useContext(CurrentUserContext)
-  console.log("current user", currentUser)
 
-  export function UtilityIcons() {
-    const Router = useRouter()
-    const notification = useNotification()
+  return (
+    <div className='hidden lg:flex items-center gap-[60px]  '>
+      <div className=' flex gap-8'>
+        {ajo ? <IconLogout /> : <IconScan />}
 
-    return (
-      <div className='hidden lg:flex items-center gap-[60px]  '>
-        <div className=' flex gap-8'>
-          {ajo ? <IconLogout /> : <IconScan />}
+        <div className='relative'>
+          <IconNotification />
 
-          <div className='relative'>
-            <IconNotification />
-
-            <NotificationDrop />
-          </div>
-        </div>
-
-        <div
-          className=''
-          onClick={() => {
-            Router.push(`/settings`)
-          }}
-        >
-          <Avatar className=' cursor-pointer w-[64px] h-[64px]  '>
-            <AvatarImage src={currentUser?.profile_image_url} />
-            <AvatarFallback className=' text-purple font-bold  uppercase '>
-              <IconAvatar />
-            </AvatarFallback>
-          </Avatar>
+          <NotificationDrop />
         </div>
       </div>
-    )
-  }
+
+      <div
+        className=''
+        onClick={() => {
+          Router.push(`/settings`)
+        }}
+      >
+        <Avatar className=' cursor-pointer w-[64px] h-[64px]  '>
+          <AvatarImage src={currentUser?.profile_image_url} />
+          <AvatarFallback className=' text-purple font-bold  uppercase '>
+            <IconAvatar />
+          </AvatarFallback>
+        </Avatar>
+      </div>
+    </div>
+  )
 }
