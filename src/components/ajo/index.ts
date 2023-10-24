@@ -1,4 +1,9 @@
-export { OnboardTitleComponent } from "./OnboardTitleComponent"
-export { SubHeaders } from "./SubHeaders"
-export { HomeHeader } from "./HomeHeader"
-export { ActivityItemWrap } from "./ActivityItemWrap"
+export { OnboardTitleComponent } from './OnboardTitleComponent';
+export { SubHeaders } from './SubHeaders';
+export { HomeHeader } from './HomeHeader';
+export { ActivityItemWrap } from './ActivityItemWrap';
+export { FeedItems } from './FeedItems';
+export { FeedComponent } from './FeedComponent';
+export { ExploreAjo } from './ExploreAjo';
+export { AjoJoined } from './AjoJoined';
+export { AjoCard } from './AjoCard';

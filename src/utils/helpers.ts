@@ -1,6 +1,14 @@
 import { BankInterface } from "@/shared"
 import { DateRange } from "react-day-picker"
 
+import moment from "moment"
+
+import { RefObject } from "react"
+import { iv } from "./constants"
+import CryptoJS from "crypto-js"
+import PBKDF2 from "crypto-js/pbkdf2"
+import WordArray from "crypto-js/lib-typedarrays"
+import Utf8 from "crypto-js/enc-utf8"
 
 export function removeDuplicateObjects(banks: BankInterface[]): any[] {
   // Helper function to check if two objects are equal
@@ -51,41 +59,62 @@ export function formatDateToISOString(date: Date): string {
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`
 }
 
-
-
 export const calculateNewDateRange = (selectedValue: string): DateRange => {
-  const currentDate = new Date();
-  const fromDate = new Date();
+  const currentDate = new Date()
+  const fromDate = new Date()
 
   switch (selectedValue) {
-    case '0': // Today
+    case "0": // Today
       return {
         from: currentDate,
         to: currentDate,
-      };
-    case '1': // Tomorrow
-      fromDate.setDate(currentDate.getDate() + 1);
+      }
+    case "1": // Tomorrow
+      fromDate.setDate(currentDate.getDate() + 1)
       return {
         from: fromDate,
         to: fromDate,
-      };
-    case '3': // In 3 days
-      fromDate.setDate(currentDate.getDate() + 3);
+      }
+    case "3": // In 3 days
+      fromDate.setDate(currentDate.getDate() + 3)
       return {
         from: fromDate,
         to: fromDate,
-      };
-    case '7': // In a week
-      fromDate.setDate(currentDate.getDate() + 7);
+      }
+    case "7": // In a week
+      fromDate.setDate(currentDate.getDate() + 7)
       return {
         from: fromDate,
         to: fromDate,
-      };
+      }
     default:
       return {
         from: currentDate,
         to: currentDate,
-      };
+      }
   }
-};
+}
 
+export const passwordHash = (password: string): string => {
+  const fixedSalt = "myFixedSalt"
+  const keySize = 256 / 32 // 256-bit key size
+  const iterations = 1000
+
+  // Derive an encryption key using PBKDF2
+  const key = PBKDF2(password, fixedSalt, {
+    keySize,
+    iterations,
+  })
+
+  // Use the derived key for encryption
+  return CryptoJS.AES.encrypt(password, key, {
+    mode: CryptoJS.mode.CFB, // Choose an appropriate mode
+    padding: CryptoJS.pad.Pkcs7, // Choose an appropriate padding
+    iv: iv, // Use a fixed IV
+  }).toString()
+}
+
+export function extractObjectUrlFromSignedUrl(signedUrl: string): string {
+  const url = new URL(signedUrl)
+  return url.origin + url.pathname
+}
