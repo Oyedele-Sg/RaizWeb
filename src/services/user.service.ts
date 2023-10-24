@@ -32,6 +32,9 @@ import {
   AjoFormInterface,
   AjoFrequencyInterface,
   AjoCreateFormInterface,
+  CreditTransferDataInterface,
+  DebitTransferDataInterface,
+  DebitSplitRequestDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -103,6 +106,10 @@ export const userService = {
   getAjoByID,
   getAjoMembers,
   leaveAjo,
+  getCreditTransferDetail,
+  getDebitTransferDetail,
+  readNotification,
+  getDebitSplitRequestDetail,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -198,10 +205,8 @@ function getCurrentUser(): Promise<UserInterface> {
   return fetchWrapper.get(`${baseUrl}/account_users/me/`)
 }
 
-function updateUserProfileImage(data: {
-  profile_image_url: string
-}): Promise<UserInterface> {
-  return fetchWrapper.patch(`${baseUrl}/account_users/profile-image/`, data)
+function updateUserProfileImage(): Promise<UserInterface> {
+  return fetchWrapper.get(`${baseUrl}/account_users/me/`)
 }
 
 //profile user
@@ -289,6 +294,7 @@ function getIncomeSummary(
     })}`
   )
 }
+
 function getDailyAnalysisReport(
   number_of_days?: number
 ): Promise<DailyAnalysistChartInterface> {
@@ -343,6 +349,83 @@ function nipAccountLookup(
   )
 }
 
+// notifications
+function getNotifications(
+  page?: string,
+  notification_category_id?: string,
+  read?: string
+): Promise<NotificationDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/account_users/notifications/?limit=10&page=1`
+  )
+}
+
+function getNotificationsByID(
+  page?: string,
+  notification_category_id?: string,
+  read?: string
+): Promise<NotificationDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/account_users/notifications/${notification_category_id}/?limit=10&page=1`
+  )
+}
+
+function readNotification(
+  notification_id?: string,
+  read = true
+): Promise<void> {
+  const queryParams = read ? "?read=true" : ""
+  return fetchWrapper.patch(
+    `${baseUrl}/account_users/notifications/${notification_id}/${queryParams}`,
+    {}
+  )
+}
+
+// credit transfer
+function getCreditTransferDetail(params: {
+  notification_url?: string
+  credit_transfer_id?: string
+}): Promise<CreditTransferDataInterface> {
+  const { notification_url, credit_transfer_id } = params
+  if (credit_transfer_id) {
+    return fetchWrapper.get(
+      `${baseUrl}/transfers/credit/get/${credit_transfer_id}`
+    )
+  } else {
+    return fetchWrapper.get(`${baseUrl}/${notification_url}`)
+  }
+}
+
+// debit transfer
+function getDebitTransferDetail(params: {
+  notification_url?: string
+  debit_transfer_id?: string
+}): Promise<DebitTransferDataInterface> {
+  const { notification_url, debit_transfer_id } = params
+  if (debit_transfer_id) {
+    return fetchWrapper.get(
+      `${baseUrl}/transfers/debit/get/${debit_transfer_id}`
+    )
+  } else {
+    return fetchWrapper.get(`${baseUrl}/${notification_url}`)
+  }
+}
+
+//split request
+function getDebitSplitRequestDetail(params: {
+  notification_url?: string
+  split_request_id?: string
+}): Promise<DebitSplitRequestDataInterface> {
+  const { notification_url, split_request_id } = params
+  if (split_request_id) {
+    return fetchWrapper.get(
+      `${baseUrl}/transfers/debit/split-requests/${split_request_id}`
+    )
+  } else {
+    return fetchWrapper.get(`${baseUrl}/${notification_url}`)
+  }
+}
+
 // favourites
 function getFavoriteAccounts(): Promise<FavoriteAccountsDataInterface[]> {
   return fetchWrapper.get(`${baseUrl}/favourite_accounts/`)
@@ -385,15 +468,6 @@ function disapproveRequest(request_id: string): Promise<void> {
 }
 
 // notifications
-function getNotifications(
-  page?: string,
-  notification_category_id?: string,
-  read?: string
-): Promise<NotificationDataInterface[]> {
-  return fetchWrapper.get(
-    `${baseUrl}/account_users/notifications/?limit=10&page=1`
-  )
-}
 
 function requestSplitFunds(data: SplitRequestDataInterface): Promise<void> {
   return fetchWrapper.post(

@@ -1,5 +1,6 @@
 import React, { useContext } from "react"
 import { IconAvatar, IconLogout, IconNotification, IconScan } from "./icons"
+
 import { useRouter } from "next/navigation"
 import { userService } from "@/services"
 import { useNotification } from "@/hooks/notification/useNotification"
@@ -18,31 +19,36 @@ export function UtilityIcons({ ajo }: Props) {
   const { currentUser } = useContext(CurrentUserContext)
   console.log("current user", currentUser)
 
-  return (
-    <div className='hidden lg:flex items-center gap-[60px]  '>
-      <div className=' flex gap-8'>
-        {ajo ? <IconLogout /> : <IconScan />}
+  export function UtilityIcons() {
+    const Router = useRouter()
+    const notification = useNotification()
 
-        <div className='relative'>
-          <IconNotification />
+    return (
+      <div className='hidden lg:flex items-center gap-[60px]  '>
+        <div className=' flex gap-8'>
+          {ajo ? <IconLogout /> : <IconScan />}
 
-          <NotificationDrop />
+          <div className='relative'>
+            <IconNotification />
+
+            <NotificationDrop />
+          </div>
+        </div>
+
+        <div
+          className=''
+          onClick={() => {
+            Router.push(`/settings`)
+          }}
+        >
+          <Avatar className=' cursor-pointer w-[64px] h-[64px]  '>
+            <AvatarImage src={currentUser?.profile_image_url} />
+            <AvatarFallback className=' text-purple font-bold  uppercase '>
+              <IconAvatar />
+            </AvatarFallback>
+          </Avatar>
         </div>
       </div>
-
-      <div
-        className=''
-        onClick={() => {
-          Router.push(`/settings`)
-        }}
-      >
-        <Avatar className=' cursor-pointer w-[64px] h-[64px]  '>
-          <AvatarImage src={currentUser?.profile_image_url} />
-          <AvatarFallback className=' text-purple font-bold  uppercase '>
-            <IconAvatar />
-          </AvatarFallback>
-        </Avatar>
-      </div>
-    </div>
-  )
+    )
+  }
 }
