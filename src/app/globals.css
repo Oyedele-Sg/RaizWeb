@@ -70,6 +70,17 @@
       rgba(255, 255, 255, 0.994792) -37.17%,
       #9881ae 100%
     );
+    --background-greadient-green: linear-gradient(
+      90deg,
+      #00bfa3 0%,
+      #00a381 85.15%
+    );
+    --background-gradient-ajo-default: linear-gradient(
+      90deg,
+      #00bfa3 5%,
+      #00a381 88.55%,
+      #00a381 93.41%
+    );
   }
 
   .dark {
@@ -300,6 +311,12 @@ body {
 
 .bg-gradient-three {
   background: var(--background-gradient-three);
+}
+.bg-gradient-ajo {
+  background: var(--background-greadient-green);
+}
+.bg-gradient-ajo-default {
+  background: var(--background-gradient-ajo-default);
 }
 
 .bug {

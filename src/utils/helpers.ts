@@ -1,5 +1,8 @@
 import { BankInterface } from "@/shared"
 import { DateRange } from "react-day-picker"
+
+import moment from "moment"
+
 import { RefObject } from "react"
 import { iv } from "./constants"
 import CryptoJS from "crypto-js"
@@ -109,4 +112,9 @@ export const passwordHash = (password: string): string => {
     padding: CryptoJS.pad.Pkcs7, // Choose an appropriate padding
     iv: iv, // Use a fixed IV
   }).toString()
+}
+
+export function extractObjectUrlFromSignedUrl(signedUrl: string): string {
+  const url = new URL(signedUrl)
+  return url.origin + url.pathname
 }

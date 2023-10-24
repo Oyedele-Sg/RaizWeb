@@ -5,7 +5,7 @@ export default function AuthLayout({
 }) {
   return (
     <main className=' bg-grey min-h-screen   '>
-      <div className='max-w-[1440px] mx-auto'>{children}</div>
+      <div className=' '>{children}</div>
     </main>
   )
 }

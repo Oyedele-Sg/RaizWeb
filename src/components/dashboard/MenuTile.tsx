@@ -34,6 +34,11 @@ export function Menucard() {
       icon: 'arrow-split',
       link: '',
     },
+    // {
+    //   name: "Split Bills",
+    //   icon: "arrow-split",
+    //   link: "/split-bill",
+    // },
     {
       name: 'Loan',
       icon: 'arrow-split',
