@@ -26,6 +26,7 @@ export function AjoCard({ ajo }: Props) {
     try {
       dispatch(setLoadingTrue())
       await userService.joinAjo(ajo.ajo_id)
+      Router.push(`/ajo/join/success`)
       dispatch(setLoadingFalse())
     } catch (error) {
       toast({
