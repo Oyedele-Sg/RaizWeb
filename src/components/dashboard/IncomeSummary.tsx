@@ -14,12 +14,12 @@ export const IncomeSummary = () => {
     {
       type: "income",
       amount: summary?.total_income,
-      icon: "spending",
+      icon: "income",
     },
     {
       type: "spending",
       amount: summary?.total_expense,
-      icon: "income",
+      icon: "spending",
     },
   ]
 

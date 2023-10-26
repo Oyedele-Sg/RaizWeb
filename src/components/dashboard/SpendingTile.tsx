@@ -28,9 +28,9 @@ export const SpendingTile = ({ data, style }: Props) => {
             <h4 className=' capitalize text-neutral-70 text-[18px] '>
               {data.type}
             </h4>
-            <h3 className=' gradient-text__gold font-semibold  '>
+            <h3 className=' gradient-text__gold font-semibold text-[20px]   '>
               {" "}
-              ₦ {data.amount}
+              ₦ {data.amount?.toLocaleString()}
             </h3>
           </div>
         </div>

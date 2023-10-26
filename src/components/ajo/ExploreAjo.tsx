@@ -38,7 +38,7 @@ export function ExploreAjo() {
   }, [])
   return (
     <div className='  py-8 px-6  bg-grey  flex  flex-col gap-8'>
-      <div className=' flex justify-between items-center '>
+      <div className=' flex justify-between items-center  '>
         <SectionHeader text='Explore Ajo  ' />
         <button
           className=' text-purple flex items-center gap-3 font-font-body__large'
@@ -57,7 +57,7 @@ export function ExploreAjo() {
         </button>
       </div>
 
-      <div className='  flex flex-wrap gap-6   '>
+      <div className='  flex flex-wrap gap-6  justify-center  lg:justify-start  '>
         {allAjos.slice(0, 4).map((ajo, index) => (
           <AjoCard ajo={ajo} key={index} />
         ))}
