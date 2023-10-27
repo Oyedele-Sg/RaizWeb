@@ -6,8 +6,8 @@ import {
   BackArrow,
   BackBtnCircle,
   BtnMain,
-  IconPesa,
-  IconPesaColored,
+  IconRaiz,
+  IconRaizColored,
   Loading,
   NextArrow,
   RegisterInput,
@@ -90,7 +90,6 @@ export default function Ajo() {
       })
       return
     }
-    console.log("data", data)
     try {
       dispatch(setLoadingTrue())
       await userService.createAjo({
@@ -164,7 +163,6 @@ export default function Ajo() {
     handleImageChange()
   }, [file])
 
-  console.log("methods", imageURL)
 
   return (
     <>
@@ -172,7 +170,7 @@ export default function Ajo() {
       <SetupLayout bg='bg-ajo-pattern'>
         <div className=' mx-5 mt-[72px] lg:m-[72px] flex flex-col gap-[84px] '>
           <div>
-            <IconPesaColored />
+            <IconRaizColored />
           </div>
 
           <div className=' flex flex-col gap-3 '>

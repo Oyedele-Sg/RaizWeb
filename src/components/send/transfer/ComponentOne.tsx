@@ -7,7 +7,7 @@ import {
   DebitTransferInterface,
   ExternalDebitTransferInterface,
   FormTitledContainer,
-  IconPesaColored,
+  IconRaizColored,
   IconScan,
   IconSearch,
   NextArrow,
@@ -55,7 +55,6 @@ export function ComponentOne() {
 
   const onSubmit = async (data: ExternalDebitTransferInterface) => {
     try {
-      
       setDebitData(data)
     } catch (error) {
       toast({
@@ -117,13 +116,10 @@ export function ComponentOne() {
     <div>
       <SetupLayout bg='bg-profile-1'>
         <div className=' mx-5 lg:mx-[72px] my-[72px] flex flex-col gap-[84px] '>
-          <IconPesaColored />
+          <IconRaizColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div
-              className=''
-              
-            >
+            <div className=''>
               <BackBtnCircle />
               <button title='next' className=''>
                 <NextArrow />

@@ -7,8 +7,10 @@ import { toast } from "../ui/use-toast"
 import { IncomeSummarytDataInterface } from "@/shared"
 import { useUser } from "@/hooks/user/useUser"
 import { CurrentUserContext } from "@/providers/CurrentUserProvider"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 
 export const IncomeSummary = () => {
+ 
   const [summary, setSummary] = React.useState<IncomeSummarytDataInterface>()
   const spendingTrackingData = [
     {

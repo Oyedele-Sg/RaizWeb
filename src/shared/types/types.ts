@@ -86,28 +86,28 @@ export interface ResetPasswordDataInterface extends Partial<FieldValues> {
   otp: string;
 }
 export interface ForgotPasswordDataInterface extends Partial<FieldValues> {
-  email: string
+  email: string;
 }
 export interface ResetPasswordDataInterface extends Partial<FieldValues> {
-  password: string
-  otp: string
+  password: string;
+  otp: string;
 }
 
 export interface ChangePasswordDataInterface extends Partial<FieldValues> {
-  old_password: string
-  new_password: string
+  old_password: string;
+  new_password: string;
 }
 
 export interface TransactionPinFormInterface extends FieldValues {
-  transaction_pin: string
+  transaction_pin: string;
 }
 
 export interface TransactionPinFormInterface extends FieldValues {
-  transaction_pin: string
+  transaction_pin: string;
 }
 
 export interface VerifyEmailFormInterface extends FieldValues {
-  otp: string
+  otp: string;
   old_password: string;
   new_password: string;
 }
@@ -192,17 +192,6 @@ export interface DailyAnalysistChartInterface {
   period: number;
 }
 
-export interface DailyAnalysistDataInterface {
-  date: string
-  credit: number
-  debit: number
-}
-
-export interface DailyAnalysistChartInterface {
-  account_analysis: DailyAnalysistDataInterface[]
-  period: number
-}
-
 export interface ExpenseChartDataInterface {
   category_name: string;
   total_amount: number;
@@ -234,10 +223,10 @@ export interface UserSearchInterface {
 }
 
 export interface DebitTransferInterface {
-  receiver_account_user_id: string
-  transaction_amount: number | null
-  transaction_remarks: string
-  category_id: number | null
+  receiver_account_user_id: string;
+  transaction_amount: number | null;
+  transaction_remarks: string;
+  category_id: number | null;
 }
 
 export interface TransactionPinInterface {
@@ -250,10 +239,10 @@ export interface InternalDebitDataInterface {
 }
 
 export interface CategoryDataInterface {
-  category_id: number
-  category_name: string
-  created_at: string
-  updated_at: string
+  category_id: number;
+  category_name: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ExternalDebitTransferInterface {
@@ -524,220 +513,220 @@ export interface DebitSplitRequestDataInterface {
 }
 
 export interface FavoriteAccountsDataInterface {
-  account_user_id: string
-  favourite_account_user_id: string
-  favourite: boolean
-  ranking: number
-  favourite_wallet_id: string
-  created_at: Date
-  updated_at: Date
-  favourite_account_user: UserSearchInterface
+  account_user_id: string;
+  favourite_account_user_id: string;
+  favourite: boolean;
+  ranking: number;
+  favourite_wallet_id: string;
+  created_at: Date;
+  updated_at: Date;
+  favourite_account_user: UserSearchInterface;
 }
 
 export interface ExternalAccountDataInterface {
-  bank_short_code: string
-  bank_account_number: string
-  bank_account_name: string
-  bank_name: string
-  external_account_id: string
-  created_at: Date
-  updated_at: Date
+  bank_short_code: string;
+  bank_account_number: string;
+  bank_account_name: string;
+  bank_name: string;
+  external_account_id: string;
+  created_at: Date;
+  updated_at: Date;
 }
 export interface ExternalFavoriteAccountsDataInterface {
-  account_user_id: string
-  external_account_id: string
-  favourite: boolean
-  ranking: number
-  favourite_external_account_id: string
-  created_at: Date
-  updated_at: Date
-  external_account: ExternalAccountDataInterface
+  account_user_id: string;
+  external_account_id: string;
+  favourite: boolean;
+  ranking: number;
+  favourite_external_account_id: string;
+  created_at: Date;
+  updated_at: Date;
+  external_account: ExternalAccountDataInterface;
 }
 
 export interface AccountInterface {
-  first_name: string
-  last_name: string
-  username: string
-  account_user_id: string
+  first_name: string;
+  last_name: string;
+  username: string;
+  account_user_id: string;
 }
 export interface PendingRequestDataInterface {
-  requestee_account_id: string
-  transaction_amount: number
-  currency: "NGN"
-  narration: string
-  category_id: number
-  requester_account_id: string
-  status_id: number
-  request_transfer_id: string
-  requester_account: AccountInterface
-  requestee_account: AccountInterface
+  requestee_account_id: string;
+  transaction_amount: number;
+  currency: 'NGN';
+  narration: string;
+  category_id: number;
+  requester_account_id: string;
+  status_id: number;
+  request_transfer_id: string;
+  requester_account: AccountInterface;
+  requestee_account: AccountInterface;
   status: {
-    status: string
-    description: string
-    request_fund_status_id: number
-    created_at: Date
-    updated_at: Date
-  }
-  created_at: Date
-  updated_at: Date
-  category: CategoryDataInterface
+    status: string;
+    description: string;
+    request_fund_status_id: number;
+    created_at: Date;
+    updated_at: Date;
+  };
+  created_at: Date;
+  updated_at: Date;
+  category: CategoryDataInterface;
 }
 
 export interface NotificationCategoryInterface {
-  notification_category_name: string
-  notification_category_description: string
-  notification_category_code: number
-  notification_category_id: number
-  created_at: Date
-  updated_at: Date
+  notification_category_name: string;
+  notification_category_description: string;
+  notification_category_code: number;
+  notification_category_id: number;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface NotificationDataInterface {
-  notification_title: string
-  notification_body: string
-  read: boolean
-  notification_category_id: number
-  account_user_id: string
-  object_id: string
-  notification_url: string
-  notification_id: string
-  created_at: Date
-  updated_at: Date
-  notification_category: NotificationCategoryInterface
+  notification_title: string;
+  notification_body: string;
+  read: boolean;
+  notification_category_id: number;
+  account_user_id: string;
+  object_id: string;
+  notification_url: string;
+  notification_id: string;
+  created_at: Date;
+  updated_at: Date;
+  notification_category: NotificationCategoryInterface;
 }
 
 export interface SplitMemberDataInterface {
-  split_members_id: string
-  created_at: Date
-  updated_at: Date
-  split_group_id: string
-  member_id: string
-  amount: number
-  status_id: number
+  split_members_id: string;
+  created_at: Date;
+  updated_at: Date;
+  split_group_id: string;
+  member_id: string;
+  amount: number;
+  status_id: number;
   member: {
-    first_name: string
-    last_name: string
-    username: string
-    account_user_id: string
-  }
+    first_name: string;
+    last_name: string;
+    username: string;
+    account_user_id: string;
+  };
   status: {
-    status: string
-    description: string
-    status_code: number
-    request_fund_status_id: number
-    created_at: Date
-    updated_at: Date
-  }
+    status: string;
+    description: string;
+    status_code: number;
+    request_fund_status_id: number;
+    created_at: Date;
+    updated_at: Date;
+  };
 }
 
 export interface PendingSplitRequestDataInterface {
-  split_group_id: string
-  created_at: Date
-  updated_at: Date
-  split_members: SplitMemberDataInterface[]
-  split_group_reason: string
-  total_amount: number
-  current_amount: number
-  currency: string
-  created_by_id: string
+  split_group_id: string;
+  created_at: Date;
+  updated_at: Date;
+  split_members: SplitMemberDataInterface[];
+  split_group_reason: string;
+  total_amount: number;
+  current_amount: number;
+  currency: string;
+  created_by_id: string;
   created_by: {
-    first_name: string
-    last_name: string
-    username: string
-    account_user_id: string
-  }
-  category_id: number
-  category: CategoryDataInterface
+    first_name: string;
+    last_name: string;
+    username: string;
+    account_user_id: string;
+  };
+  category_id: number;
+  category: CategoryDataInterface;
 }
 
 export interface SplitRequestDataInterface {
   split_group: {
-    split_group_reason: string
+    split_group_reason: string;
     split_members: [
       {
-        member_id: string
-        amount: number
-        status_id: 2
+        member_id: string;
+        amount: number;
+        status_id: 2;
       }
-    ]
-    total_amount: number
-    currency: "NGN"
-    category_id: null
-  }
+    ];
+    total_amount: number;
+    currency: 'NGN';
+    category_id: null;
+  };
   transaction_pin: {
-    transaction_pin: string
-  }
+    transaction_pin: string;
+  };
 }
 
 export interface AjoCycleInterface {
-  ajo_id: string
-  target_amount: number
-  start_date: Date
-  end_date: Date
-  number_of_slots: number
-  number_of_cycles: number
-  amount_per_cycle: number
-  collection_frequency_id: number
-  available_slots: number
-  current_cycle: number
-  current_slot: number
-  ajo_cycle_id: string
-  has_started: boolean
-  has_ended: boolean
-  created_at: Date
-  updated_at: Date
+  ajo_id: string;
+  target_amount: number;
+  start_date: Date;
+  end_date: Date;
+  number_of_slots: number;
+  number_of_cycles: number;
+  amount_per_cycle: number;
+  collection_frequency_id: number;
+  available_slots: number;
+  current_cycle: number;
+  current_slot: number;
+  ajo_cycle_id: string;
+  has_started: boolean;
+  has_ended: boolean;
+  created_at: Date;
+  updated_at: Date;
   collection_frequency: {
-    frequency_name: string
-    frequency_description: string
-    frequency_code: number
-    no_of_days: number
-    frequency_id: number
-    created_at: Date
-    updated_at: Date
-  }
-  next_payment_date: Date
+    frequency_name: string;
+    frequency_description: string;
+    frequency_code: number;
+    no_of_days: number;
+    frequency_id: number;
+    created_at: Date;
+    updated_at: Date;
+  };
+  next_payment_date: Date;
 }
 
 export interface AjoDataInterface {
-  ajo_id: string
-  ajo_name: string
-  public: boolean
-  image_url: string
-  created_by_id: string
-  created_at: Date
-  updated_at: Date
-  ajo_cycles: AjoCycleInterface[]
+  ajo_id: string;
+  ajo_name: string;
+  public: boolean;
+  image_url: string;
+  created_by_id: string;
+  created_at: Date;
+  updated_at: Date;
+  ajo_cycles: AjoCycleInterface[];
 }
 
 export interface AjoFormInterface {
-  ajo_name: string
-  public: boolean
+  ajo_name: string;
+  public: boolean;
 
-  target_amount: number | null
-  start_date: string | null
-  end_date: string | null
-  number_of_slots: number | null
-  amount_per_cycle: number | null
-  collection_frequency_id: number | null
+  target_amount: number | null;
+  start_date: string | null;
+  end_date: string | null;
+  number_of_slots: number | null;
+  amount_per_cycle: number | null;
+  collection_frequency_id: number | null;
 }
 export interface AjoCreateFormInterface {
-  ajo_name: string
-  public: boolean
-  image_url: string
-  target_amount: number | null
-  start_date: string | null
-  end_date: string | null
-  number_of_slots: number | null
-  amount_per_cycle: number | null
-  collection_frequency_id: number | null
+  ajo_name: string;
+  public: boolean;
+  image_url: string;
+  target_amount: number | null;
+  start_date: string | null;
+  end_date: string | null;
+  number_of_slots: number | null;
+  amount_per_cycle: number | null;
+  collection_frequency_id: number | null;
 }
 
 export interface AjoFrequencyInterface {
-  frequency_name: string
-  frequency_description: string
-  frequency_code: number
-  no_of_days: number
-  frequency_id: number
-  created_at: Date
-  updated_at: Date
+  frequency_name: string;
+  frequency_description: string;
+  frequency_code: number;
+  no_of_days: number;
+  frequency_id: number;
+  created_at: Date;
+  updated_at: Date;
 }

@@ -483,3 +483,9 @@ input[type="number"] {
   color: #dfd2eb;
   background-color: #dfd2eb;
 }
+
+.custom-axis-tick {
+  font-size: 16px;
+  font-weight: 500;
+  color: #bfabd3;
+}

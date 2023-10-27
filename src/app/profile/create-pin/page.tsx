@@ -6,7 +6,7 @@ import { userService } from "@/services"
 import {
   AuthButton,
   BtnMain,
-  IconPesaColored,
+  IconRaizColored,
   Loading,
   RegisterInput,
   SetupLayout,
@@ -113,7 +113,7 @@ export default function TransactionPin() {
         <div className=' px-5 lg:px-[60px]  py-[50px] flex flex-col justify-center gap-[112px] '>
           <div className='flex justify-between items-center  '>
             <div className='hidden lg:block'>
-              <IconPesaColored />
+              <IconRaizColored />
             </div>
             <SkipLink link='/profile/bank' />
           </div>
