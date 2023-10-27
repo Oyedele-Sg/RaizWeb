@@ -15,7 +15,6 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-
 } from "@tanstack/react-table"
 import {
   Table,
@@ -58,7 +57,9 @@ export function AjoJoined() {
         const ajo = data.find((ajo) => ajo.ajo_id === row.getValue("ajo_id"))
 
         return (
-          <div className='capitalize'>{ajo?.ajo_cycles[0].target_amount}</div>
+          <div className='capitalize bg-gradient-ajo-default text-grey text-center font-body__large px-4 py-2 rounded-lg  '>
+            ₦{ajo?.ajo_cycles[0].target_amount.toLocaleString()}
+          </div>
         )
       },
     },
