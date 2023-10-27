@@ -15,6 +15,7 @@ import { toast } from "../ui/use-toast"
 import { useAppDispatch } from "@/shared/redux/types"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useRouter } from "next/navigation"
+import { passwordHash } from "@/utils/helpers"
 
 interface Props {
   ajo: AjoDataInterface
@@ -45,10 +46,11 @@ export function AjoCard({ ajo }: Props) {
     }
   }
 
+
   return (
-    <Card className='  p-4 bg-ajo-card rounded-2xl min-w-[292px] flex flex-col gap-6 '>
-      <div>
-        <Image src={"/frame-583.png"} width={260} height={128} alt='' />
+    <Card className='  p-4 bg-ajo-card rounded-2xl lg:min-w-[292px] flex flex-col gap-6 '>
+      <div className=' w-[260px] h-[128px] relative  '>
+        <Image src={ajo.image_url} fill={true} alt='' />
       </div>
 
       <div className='   flex flex-col gap-5  '>

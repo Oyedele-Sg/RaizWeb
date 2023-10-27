@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit"
 import {
   signupEmailReducer,
   loadingReducer,
@@ -8,8 +8,9 @@ import {
   selectedCreditTransferReducer,
   selectedDebitTransferReducer,
   selectedDebitSplitRequestReducer,
-} from './features';
-import { selectedRequestReducer } from './features/request';
+  balanceRevealReducer,
+} from "./features"
+import { selectedRequestReducer } from "./features/request"
 // import authReducer from "./features/lice
 
 export const store = configureStore({
@@ -23,8 +24,9 @@ export const store = configureStore({
     selectedCreditTransfer: selectedCreditTransferReducer,
     selectedDebitTransfer: selectedDebitTransferReducer,
     selectedDebitSplitRequest: selectedDebitSplitRequestReducer,
+    balanceReveal: balanceRevealReducer,
   },
-});
+})
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

@@ -4,7 +4,7 @@ import {
   BackBtnCircle,
   BtnMain,
   FormTitledContainer,
-  IconPesaColored,
+  IconRaizColored,
   IconScan,
   IconSearch,
   NextArrow,
@@ -72,7 +72,7 @@ export function ComponentOne({ setSearchResults, setCurrentStep }: Prop) {
     <div>
       <SetupLayout bg='bg-profile-1'>
         <div className=' m-[72px] flex flex-col gap-[84px] '>
-          <IconPesaColored />
+          <IconRaizColored />
 
           <div className=' flex flex-col gap-3 '>
             <div className='' onClick={() => Router.back}>

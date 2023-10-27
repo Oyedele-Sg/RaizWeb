@@ -73,8 +73,6 @@ function Page() {
       setAjoDetails(response);
       setMembers(members);
       setAjoPaymentTableDetails(ajoPaymentTableDetails);
-      console.log(ajo_cycle_id);
-      console.log(ajoPaymentTableDetails.ajo_cycle[0]);
     } catch (error) {
       toast({
         title: 'Something Went Wrong',

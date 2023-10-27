@@ -8,3 +8,4 @@ export { ExploreAjo } from './ExploreAjo';
 export { AjoJoined } from './AjoJoined';
 export { AjoCard } from './AjoCard';
 export { AjoPaymentTableDefault } from './AjoPaymentTableDefault';
+export { DefaultJoinedAjo } from './DefaultJoinedAjo';

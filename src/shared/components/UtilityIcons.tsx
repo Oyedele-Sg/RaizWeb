@@ -11,19 +11,24 @@ import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 
 interface Props {
   ajo?: boolean
+  iconExtraStyle?: string
 }
 
-export function UtilityIcons({ ajo }: Props) {
+export function UtilityIcons({ ajo, iconExtraStyle }: Props) {
   const Router = useRouter()
   const notification = useNotification()
   const { currentUser } = useContext(CurrentUserContext)
 
   return (
-    <div className='hidden lg:flex items-center gap-[60px]  '>
+    <div
+      className={`${
+        iconExtraStyle ? iconExtraStyle : "hidden lg:flex gap-[60px] "
+      }items-center  `}
+    >
       <div className=' flex gap-8'>
         {ajo ? <IconLogout /> : <IconScan />}
 
-        <div className='relative'>
+        <div className={` ${ajo ? " hidden lg:block " : ""} relative`}>
           <IconNotification />
 
           <NotificationDrop />
@@ -36,7 +41,7 @@ export function UtilityIcons({ ajo }: Props) {
           Router.push(`/settings`)
         }}
       >
-        <Avatar className=' cursor-pointer w-[64px] h-[64px]  '>
+        <Avatar className=' cursor-pointer w-[48px] h-[48px]  '>
           <AvatarImage src={currentUser?.profile_image_url} />
           <AvatarFallback className=' text-purple font-bold  uppercase '>
             <IconAvatar />

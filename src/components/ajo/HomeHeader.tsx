@@ -13,7 +13,7 @@ export function HomeHeader() {
           </h1>
         </div>
 
-        <UtilityIcons ajo />
+        <UtilityIcons iconExtraStyle=' flex  gap-8 ' ajo />
       </div>
     </header>
   )

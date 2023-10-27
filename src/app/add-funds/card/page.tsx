@@ -5,7 +5,7 @@ import {
   BackArrow,
   FormTitledContainer,
   IconCopy,
-  IconPesaColored,
+  IconRaizColored,
   NextArrow,
   RegisterInput,
   SetupLayout,
@@ -40,7 +40,6 @@ export default function page() {
   })
 
   const onSubmit = async (data: TransferInputProps) => {
-  
     Router.push("/profile-setup/bank/success")
   }
 
@@ -48,7 +47,7 @@ export default function page() {
     <div>
       <SetupLayout bg='bg-profile-1'>
         <div className=' m-[72px] flex flex-col gap-[84px] '>
-          <IconPesaColored />
+          <IconRaizColored />
 
           <div className=' flex flex-col gap-3 '>
             <div className=''>

@@ -15,7 +15,6 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-  TableOptions,
 } from "@tanstack/react-table"
 import {
   Table,
@@ -28,31 +27,13 @@ import {
 import moment from "moment"
 import { userService } from "@/services"
 import { useRouter } from "next/navigation"
+import DefaultJoinedAjo from "./DefaultJoinedAjo"
 
 export function AjoJoined() {
   const Router = useRouter()
   const [data, setData] = React.useState<AjoDataInterface[]>([])
 
   const columns: ColumnDef<AjoDataInterface>[] = [
-    // {
-    //   id: "ajo_name",
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={table.getIsAllPageRowsSelected()}
-    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
     {
       accessorKey: "ajo_id",
       header: "Name",
@@ -61,7 +42,7 @@ export function AjoJoined() {
 
         return (
           <div
-            className='capitalize'
+            className='capitalize font-body__large text-purple cursor-pointer'
             onClick={() => Router.push(`/ajo/${ajo?.ajo_id}`)}
           >
             {ajo?.ajo_name}
@@ -76,7 +57,9 @@ export function AjoJoined() {
         const ajo = data.find((ajo) => ajo.ajo_id === row.getValue("ajo_id"))
 
         return (
-          <div className='capitalize'>{ajo?.ajo_cycles[0].target_amount}</div>
+          <div className='capitalize bg-gradient-ajo-default text-grey text-center font-body__large px-4 py-2 rounded-lg  '>
+            ₦{ajo?.ajo_cycles[0].target_amount.toLocaleString()}
+          </div>
         )
       },
     },
@@ -85,7 +68,7 @@ export function AjoJoined() {
       accessorKey: "ajo_start_date",
       header: "Start Date",
       cell: ({ row }) => (
-        <div className='capitalize'>
+        <div className='capitalize font-body__large text-purple  '>
           {moment(row.getValue("created_at") as any).format("DD-MM-YY")}
         </div>
       ),
@@ -104,7 +87,7 @@ export function AjoJoined() {
         const durationInMonths = endDate.diff(startDate, "months")
 
         return (
-          <div className='capitalize'>
+          <div className='capitalize font-body__large text-purple  '>
             {durationInMonths >= 1
               ? `${durationInMonths} months`
               : `${durationInWeeks} weeks`}
@@ -119,75 +102,11 @@ export function AjoJoined() {
         const ajo = data.find((ajo) => ajo.ajo_id === row.getValue("ajo_id"))
           ?.ajo_cycles[0].collection_frequency.frequency_name
 
-        return <div className='capitalize'>{ajo}</div>
+        return (
+          <div className='capitalize font-body__large text-purple  '>{ajo}</div>
+        )
       },
     },
-    // {
-    //   accessorKey: "public",
-    //   header: "Status",
-    //   cell: ({ row }) => (
-    //     <div className='capitalize'>{row.getValue("public")}</div>
-    //   ),
-    // },
-    // {
-    //   accessorKey: "email",
-    //   header: ({ column }) => {
-    //     return (
-    //       <Button
-    //         variant="ghost"
-    //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    //       >
-    //         Email
-    //         <ArrowUpDown className="ml-2 h-4 w-4" />
-    //       </Button>
-    //     )
-    //   },
-    //   cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-    // },
-    // {
-    //   accessorKey: "amount",
-    //   header: () => <div className='text-right'>Amount</div>,
-    //   cell: ({ row }) => {
-    //     const amount = parseFloat(row.getValue("amount"))
-
-    //     // Format the amount as a dollar amount
-    //     const formatted = new Intl.NumberFormat("en-US", {
-    //       style: "currency",
-    //       currency: "USD",
-    //     }).format(amount)
-
-    //     return <div className='text-right font-medium'>{formatted}</div>
-    //   },
-    // },
-    // {
-    //   id: "actions",
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     const payment = row.original
-
-    //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal className="h-4 w-4" />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //           <DropdownMenuItem
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Copy payment ID
-    //           </DropdownMenuItem>
-    //           <DropdownMenuSeparator />
-    //           <DropdownMenuItem>View customer</DropdownMenuItem>
-    //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
-    //     )
-    //   },
-    // },
   ]
 
   const table = useReactTable({
@@ -222,56 +141,65 @@ export function AjoJoined() {
           <Image src={`/icons/add-circle.svg`} width={16} height={16} alt='' />
         </BtnMain>
       </div>
-
+      `
       <div className=''>
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  )
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+        <div className=' max-w-full min-w-[500px] overflow-x-auto '>
+          <Table
+            style={{
+              height: "400px",
+              maxWidth: "100%",
+              minWidth: "500px",
+              overflowX: "auto",
+            }}
+          >
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    )
+                  })}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className='h-24 text-center'
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className='h-24 text-center'
+                  >
+                    <DefaultJoinedAjo />
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   )
