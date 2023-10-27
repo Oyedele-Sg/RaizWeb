@@ -73,6 +73,8 @@ function Page() {
       setAjoDetails(response);
       setMembers(members);
       setAjoPaymentTableDetails(ajoPaymentTableDetails);
+      console.log(ajo_cycle_id);
+      console.log(ajoPaymentTableDetails.ajo_cycle[0]);
     } catch (error) {
       toast({
         title: 'Something Went Wrong',
@@ -182,9 +184,9 @@ function Page() {
           <div>
             <AjoPaymentTable
               data={
-                ajoPaymentTableDetails.ajo_cycle as AjoPaymentCycleInterface[]
+                ajoPaymentTableDetails?.ajo_cycle as AjoPaymentCycleInterface[]
               }
-              headers={ajoPaymentTableDetails.headers}
+              headers={ajoPaymentTableDetails?.headers}
             />
           </div>
         </div>
