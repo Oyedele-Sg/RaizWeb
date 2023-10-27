@@ -1,9 +1,10 @@
 "use client"
 import {
-  IconPesaColored,
+  IconRaizColored,
   Loading,
   NavigationButtons,
   SetupLayout,
+  UserInterface,
 } from "@/shared"
 import React, { useContext, useEffect, useState } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -22,6 +23,7 @@ export default function page() {
   const dispatch = useAppDispatch()
 
   const { currentUser } = useContext(CurrentUserContext)
+  const [user, setUser] = useState<UserInterface>()
 
   const [file, setFile] = useState<any>(null)
 
@@ -100,6 +102,7 @@ export default function page() {
       }
 
       dispatch(setLoadingFalse())
+      getData()
 
       setFile(null)
     } catch (err) {
@@ -108,11 +111,22 @@ export default function page() {
     }
   }
 
+  const getData = async () => {
+    try {
+      const response = await userService.getCurrentUser()
+      setUser(response)
+    } catch (error) {}
+  }
+
   useEffect(() => {
     if (file) {
       uploadFile()
     }
   }, [file])
+
+  useEffect(() => {
+    getData()
+  }, [])
 
   return (
     <>
@@ -124,7 +138,7 @@ export default function page() {
           <div className=' flex  gap-8 '>
             <div className=' relative '>
               <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[64px] h-[64px]  '>
-                <AvatarImage src={currentUser?.profile_image_url} />
+                <AvatarImage src={user?.profile_image_url} />
                 <AvatarFallback className=' text-purple font-bold  uppercase '>
                   {currentUser?.first_name.charAt(0)}
                   {currentUser?.last_name.charAt(1)}

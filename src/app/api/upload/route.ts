@@ -40,7 +40,7 @@ async function uploadImageToS3(
 export async function POST(request: NextRequest, response: NextResponse) {
   try {
     const formData = await request.formData()
-    console.log(formData, "Form data")
+
     const file = formData.get("file") as Blob | null
     if (!file) {
       return NextResponse.json(

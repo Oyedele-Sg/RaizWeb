@@ -1,4 +1,5 @@
 import { IconMore, WhiteTileWrap } from "@/shared"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import Image from "next/image"
 import React from "react"
 
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export const SpendingTile = ({ data, style }: Props) => {
+  const dispatch = useAppDispatch()
+  const revealBalance = useAppSelector((state) => state.balanceReveal.state)
   return (
     <WhiteTileWrap
       extraStyle={`p-3 flex-1 flex items-center max-h-[126px]  ${style} `}
@@ -28,9 +31,10 @@ export const SpendingTile = ({ data, style }: Props) => {
             <h4 className=' capitalize text-neutral-70 text-[18px] '>
               {data.type}
             </h4>
-            <h3 className=' gradient-text__gold font-semibold  '>
+            <h3 className=' gradient-text__gold font-semibold text-[20px]   '>
               {" "}
-              ₦ {data.amount}
+              ₦{" "}
+              {revealBalance ? data.amount?.toLocaleString() || `0` : "------"}
             </h3>
           </div>
         </div>

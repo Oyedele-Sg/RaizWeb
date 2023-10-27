@@ -1,7 +1,7 @@
 "use client"
 import { IllustrationComponent, LoginForm } from "@/components"
 import { OnboardTitleComponent } from "@/components/ajo"
-import { BtnMain, IconPesa, WhiteTileWrap } from "@/shared"
+import { BtnMain, IconRaiz, WhiteTileWrap } from "@/shared"
 import Image from "next/image"
 import React from "react"
 
@@ -34,7 +34,7 @@ export default function Ajo() {
   return (
     <div className='  fixed inset-0  lg:pl-[50px] lg:pr-[72px]  h-screen  '>
       <div className=' hidden lg:block pl-3 mt-[72px] mb-2  '>
-        <IconPesa />
+        <IconRaiz />
       </div>
 
       <div className='flex  justify-between   gap-[104px] min-h-full '>

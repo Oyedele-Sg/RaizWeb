@@ -4,7 +4,7 @@ import {
   BackBtnCircle,
   BtnMain,
   FormTitledContainer,
-  IconPesaColored,
+  IconRaizColored,
   IconScan,
   IconSearch,
   NextArrow,
@@ -34,7 +34,6 @@ export function ComponentThree() {
 
   const onSubmit = async (data: SearchInput) => {
     if (data.amount.length === 0) return
-  
 
     try {
       const res = await userService.searchWallets(data.amount)
@@ -57,13 +56,10 @@ export function ComponentThree() {
     <div>
       <SetupLayout bg='bg-profile-1'>
         <div className=' m-[72px] flex flex-col gap-[84px] '>
-          <IconPesaColored />
+          <IconRaizColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div
-              className=''
-              
-            >
+            <div className=''>
               <BackBtnCircle />
               <button title='next' className=''>
                 <NextArrow />
@@ -75,7 +71,6 @@ export function ComponentThree() {
               subtitle='Enter Amount'
               utils={<Utils />}
             >
-           
               <FormProvider {...methods}>
                 <form
                   action=''
@@ -94,7 +89,6 @@ export function ComponentThree() {
                       btnStyle=' border-purple border-[1px] min-w-[218px]  text-purple   '
                       onClick={() => {
                         // Router.push("/send/transfer")
-                   
                       }}
                     />
                     <AuthButton

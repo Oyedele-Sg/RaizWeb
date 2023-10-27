@@ -5,7 +5,7 @@ import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
 import {
   BtnMain,
-  IconPesaColored,
+  IconRaizColored,
   Loading,
   RegisterInput,
   SetupLayout,
@@ -44,7 +44,6 @@ import {
 interface UsernameInputProps extends Partial<FieldValues> {
   username: string
 }
-
 
 export default function Username() {
   const Router = useRouter()
@@ -118,7 +117,7 @@ export default function Username() {
         <div className=' px-5 lg:px-[60px]  py-[50px] flex flex-col justify-center gap-[112px] '>
           <div className='flex justify-between items-center  '>
             <div className='hidden lg:block'>
-              <IconPesaColored />
+              <IconRaizColored />
             </div>
             <SkipLink link='/profile/create-pin' />
           </div>

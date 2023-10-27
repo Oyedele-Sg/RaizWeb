@@ -4,7 +4,7 @@ import AddBankForm from "@/components/profile-setup/AddBankForm"
 import { useBank } from "@/hooks/banks/useBank"
 import {
   BtnMain,
-  IconPesaColored,
+  IconRaizColored,
   Loading,
   RegisterInput,
   SetupLayout,
@@ -28,7 +28,7 @@ export default function Bank() {
         <div className=' px-5 lg:px-[60px]  py-[50px] flex flex-col gap-[70px] '>
           <div className='flex justify-between items-center  '>
             <div className='hidden lg:block'>
-              <IconPesaColored />
+              <IconRaizColored />
             </div>
             <SkipLink link='/dashboard' />
           </div>
