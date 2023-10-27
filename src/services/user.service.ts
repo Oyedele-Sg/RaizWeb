@@ -30,16 +30,15 @@ import {
   SplitRequestDataInterface,
   AjoDataInterface,
   AjoFormInterface,
-  AjoFrequencyInterface,  CreditTransferDataInterface,
+  AjoFrequencyInterface,
+  CreditTransferDataInterface,
   DebitTransferDataInterface,
   DebitSplitRequestDataInterface,
   AjoCreateFormInterface,
-} from "@/shared"
-import { BankInputProps } from "@/components/profile-setup/AddBankForm"
-import { createSearchParams } from "@/utils/helpers"
-
-
-
+  AjoPaymentCycleInterface,
+} from '@/shared';
+import { BankInputProps } from '@/components/profile-setup/AddBankForm';
+import { createSearchParams } from '@/utils/helpers';
 
 const baseUrl = `${URL}`;
 const storedUser =
@@ -112,6 +111,7 @@ export const userService = {
   getDebitTransferDetail,
   readNotification,
   getDebitSplitRequestDetail,
+  getAjoPaymentTable,
 };
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -136,7 +136,7 @@ function signup(data: RegisterDataInterface): Promise<void> {
 }
 
 function changePassword(data: ChangePasswordDataInterface): Promise<void> {
-  return fetchWrapper.patch(`${baseUrl}/account_users/change-password/`, data)
+  return fetchWrapper.patch(`${baseUrl}/account_users/change-password/`, data);
 }
 
 function verifyEmail(data: { otp: string }): Promise<void> {
@@ -208,9 +208,9 @@ function getCurrentUser(): Promise<UserInterface> {
 }
 
 function updateUserProfileImage(data: {
-  profile_image_url: string
+  profile_image_url: string;
 }): Promise<UserInterface> {
-  return fetchWrapper.patch(`${baseUrl}/account_users/profile-image/`, data)
+  return fetchWrapper.patch(`${baseUrl}/account_users/profile-image/`, data);
 }
 
 //profile user
@@ -222,7 +222,6 @@ function suggestUsername(data: string): Promise<string[]> {
     `${baseUrl}/account_users/usernames/suggestions/?username=${data}`
   );
 }
-
 
 // lookup
 function getBanks(): Promise<BankDataInterface> {
@@ -240,13 +239,11 @@ function addTransactionPin(data: TransactionPinInterface): Promise<void> {
   return fetchWrapper.patch(`${baseUrl}/account_users/transaction-pin/`, data);
 }
 
-
-
 function changeTransactionPin(data: TransactionPinInterface): Promise<void> {
   return fetchWrapper.patch(
     `${baseUrl}/account_users/transaction-pin/update/`,
     data
-  )
+  );
 }
 
 // wallet
@@ -310,7 +307,7 @@ function getDailyAnalysisReport(
     `${baseUrl}/account_users/daily-account-analysis/?${createSearchParams({
       number_of_days,
     })}`
-  )
+  );
 }
 
 // wallet
@@ -320,10 +317,8 @@ function searchWallets(query?: string): Promise<UserSearchInterface[]> {
   );
 }
 
-
-
 function generateQRCode(): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/account_users/qr_code/`, {})
+  return fetchWrapper.post(`${baseUrl}/account_users/qr_code/`, {});
 }
 
 // transfer
@@ -359,8 +354,6 @@ function nipAccountLookup(
   );
 }
 
-
-
 function getNotificationsByID(
   page?: string,
   notification_category_id?: string,
@@ -381,8 +374,6 @@ function readNotification(
     {}
   );
 }
-
-
 
 // credit transfer
 function getCreditTransferDetail(params: {
@@ -431,7 +422,7 @@ function getDebitSplitRequestDetail(params: {
 
 // favourites
 function getFavoriteAccounts(): Promise<FavoriteAccountsDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/favourite_accounts/`)
+  return fetchWrapper.get(`${baseUrl}/favourite_accounts/`);
 }
 
 function getExternalFavoriteAccounts(): Promise<
@@ -439,19 +430,19 @@ function getExternalFavoriteAccounts(): Promise<
 > {
   return fetchWrapper.get(
     `${baseUrl}/favourite_external_accounts/account-user/get/`
-  )
+  );
 }
 
 // requsts
 
 function getPendingRequests(): Promise<PendingRequestDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/transfers/debit/get-pending-requests/`)
+  return fetchWrapper.get(`${baseUrl}/transfers/debit/get-pending-requests/`);
 }
 
 function getPendingSplitRequests(): Promise<
   PendingSplitRequestDataInterface[]
 > {
-  return fetchWrapper.get(`${baseUrl}transfers/debit/get-my-split-requests/`)
+  return fetchWrapper.get(`${baseUrl}transfers/debit/get-my-split-requests/`);
 }
 
 function approveRequest(
@@ -461,13 +452,13 @@ function approveRequest(
   return fetchWrapper.patch(
     `${baseUrl}/transfers/debit/request-funds/${request_id}/accept/`,
     data
-  )
+  );
 }
 function disapproveRequest(request_id: string): Promise<void> {
   return fetchWrapper.patch(
     `${baseUrl}/transfers/debit/request-funds/${request_id}/decline/`,
     {}
-  )
+  );
 }
 
 // notifications
@@ -478,7 +469,7 @@ function getNotifications(
 ): Promise<NotificationDataInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/notifications/?limit=10&page=1`
-  )
+  );
 }
 
 function requestSplitFunds(data: SplitRequestDataInterface): Promise<void> {
@@ -486,12 +477,12 @@ function requestSplitFunds(data: SplitRequestDataInterface): Promise<void> {
     `${baseUrl}/transfers/credit/request-split/
   `,
     data
-  )
+  );
 }
 
 //ajo
 function getAjoAll(): Promise<AjoDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/ajo/`)
+  return fetchWrapper.get(`${baseUrl}/ajo/`);
 }
 
 function joinAjo(id: string): Promise<void> {
@@ -499,28 +490,32 @@ function joinAjo(id: string): Promise<void> {
     `${baseUrl}/ajo/${id}/join/
   `,
     {}
-  )
+  );
 }
 
 function createAjo(data: AjoCreateFormInterface): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/ajo/create/`, data)
+  return fetchWrapper.post(`${baseUrl}/ajo/create/`, data);
 }
 
 function getAjoFrequencies(): Promise<AjoFrequencyInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/frequencies/`)
+  return fetchWrapper.get(`${baseUrl}/frequencies/`);
 }
 
 function getMyAjo(): Promise<AjoDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/ajo/my-ajos/all/`)
+  return fetchWrapper.get(`${baseUrl}/ajo/my-ajos/all/`);
 }
 
 function getAjoByID(id: string): Promise<AjoDataInterface> {
-  return fetchWrapper.get(`${baseUrl}/ajo/${id}/`)
+  return fetchWrapper.get(`${baseUrl}/ajo/${id}/`);
 }
 function getAjoMembers(id: string): Promise<any> {
-  return fetchWrapper.get(`${baseUrl}/ajo/${id}/ajo-membership/`)
+  return fetchWrapper.get(`${baseUrl}/ajo/${id}/ajo-membership/`);
 }
 
 function leaveAjo(id: string): Promise<any> {
-  return fetchWrapper.patch(`${baseUrl}/ajo/${id}/leave/`, {})
+  return fetchWrapper.patch(`${baseUrl}/ajo/${id}/leave/`, {});
+}
+
+function getAjoPaymentTable(id: string): Promise<AjoPaymentCycleInterface> {
+  return fetchWrapper.get(`${baseUrl}/ajo/ajo-cycle/${id}/ajo-payment-table/`);
 }
