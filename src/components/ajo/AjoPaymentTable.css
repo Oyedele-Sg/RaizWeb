@@ -5,6 +5,11 @@
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   padding: 40px 46px;
+  max-width: 100%;
+}
+
+.ajo-payment-table-wrapper {
+  position: relative;
 }
 
 .ajo-payment-table {
@@ -28,11 +33,11 @@
 }
 
 .ajo-payment-table th:not(:first-child) {
-  text-align: center; 
+  text-align: center;
 }
 
 .ajo-payment-table td:not(:first-child) {
-  text-align: center; 
+  text-align: center;
 }
 
 /*
@@ -43,4 +48,22 @@
 
 .ajo-payment-table tr.selected {
   background-color: #ffd700;
+}
+
+/* Sticky header for the "Name" column */
+.ajo-payment-table th:first-child {
+  /* position: sticky; */
+  left: 0;
+  /* z-index: 2;  */
+}
+
+/* Sticky first column */
+.ajo-payment-table tr td:first-child {
+  /* position: sticky; */
+  left: 0;
+  /* z-index: 1;  */
+}
+
+.ajo-payment-table td {
+  white-space: nowrap !important;
 }
