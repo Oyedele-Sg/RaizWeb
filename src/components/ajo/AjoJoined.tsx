@@ -144,14 +144,7 @@ export function AjoJoined() {
       `
       <div className=''>
         <div className=' max-w-full min-w-[500px] overflow-x-auto '>
-          <Table
-            style={{
-              height: "400px",
-              maxWidth: "100%",
-              minWidth: "500px",
-              overflowX: "auto",
-            }}
-          >
+          <Table className=' overflow-x bug min-w-full '>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>

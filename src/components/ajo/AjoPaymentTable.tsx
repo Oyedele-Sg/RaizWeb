@@ -1,33 +1,35 @@
-import React from 'react';
+import React from "react"
 import {
   AjoPaymentCycleInterface,
   AjoPaymentCycleMemberInterface,
-} from '@/shared';
-import { AjoPaymentTableDefault } from './AjoPaymentTableDefault';
+} from "@/shared"
+import { AjoPaymentTableDefault } from "./AjoPaymentTableDefault"
+import Image from "next/image"
+import "./AjoPaymentTable.css"
 
 interface Props {
-  data: AjoPaymentCycleInterface[];
-  headers: string[];
+  data: AjoPaymentCycleInterface[]
+  headers: string[]
 }
 
 const AjoPaymentTable: React.FC<Props> = ({ data, headers }) => {
   const renderHeaders = (tableHeaders: string[]) => {
     return (
       <tr>
-        <th className="capitalize font-body__large text-purple cursor-pointer">
+        <th className='capitalize font-body__large text-purple cursor-pointer'>
           Name
         </th>
         {tableHeaders.map((date, index) => (
-          <th key={index} className="capitalize font-body__large text-purple">
+          <th key={index} className='capitalize font-body__large text-purple'>
             {date}
           </th>
         ))}
-        <th className="capitalize font-body__large text-purple">
+        <th className='capitalize font-body__large text-purple'>
           Slot Position
         </th>
       </tr>
-    );
-  };
+    )
+  }
 
   const renderTableRow = (
     cycleMembers: AjoPaymentCycleMemberInterface[],
@@ -36,47 +38,55 @@ const AjoPaymentTable: React.FC<Props> = ({ data, headers }) => {
     return cycleMembers.map((member) => (
       <tr
         key={member.account_user_id}
-        className={member.number_of_payments_due ? '' : 'selected'}
+        className={member.number_of_payments_due ? "" : "selected"}
       >
-        <td className="capitalize font-body__large text-purple cursor-pointer">
+        <td className='capitalize font-body__large text-neutral-100 cursor-pointer center '>
           {`${member.account_user.first_name} ${member.account_user.last_name}`}
         </td>
         {tableHeaders.map((header, index) => (
-          <td key={index} className="capitalize font-body__large text-purple">
+          <td key={index} className='capitalize font-body__large text-purple '>
             {index < member.number_of_payments_due ? (
-              <input type="checkbox" checked={true} disabled={true} />
+              <div className='  flex items-center justify-center '>
+                <Image
+                  src={`/ajo/check.svg`}
+                  width={28}
+                  height={28}
+                  alt=''
+                  className='items-center justify-center flex  '
+                />
+              </div>
             ) : (
-              <input type="checkbox" checked={false} disabled={true} />
+              <div className='  flex items-center justify-center '>
+                <Image
+                  src={`/ajo/tick-square.svg`}
+                  width={28}
+                  height={28}
+                  alt=''
+                />
+              </div>
             )}
           </td>
         ))}
-        <td className="capitalize font-body__large text-purple">
+        <td className='capitalize font-body__large text-neutral-100'>
           {member.slot_position + 1}
         </td>
       </tr>
-    ));
-  };
+    ))
+  }
 
   // Check if data is available before rendering
   if (!data || data.length === 0) {
-    return <AjoPaymentTableDefault />;
+    return <AjoPaymentTableDefault />
   }
 
   return (
-    <div className="max-w-full min-w-[500px] overflow-x-auto">
-      <table
-        style={{
-          height: '400px',
-          maxWidth: '100%',
-          minWidth: '500px',
-          overflowX: 'auto',
-        }}
-      >
+    <div className='ajo-payment-table-container'>
+      <table className='ajo-payment-table'>
         <thead>{renderHeaders(headers)}</thead>
         <tbody>{renderTableRow(data[0].ajo_cycle_members, headers)}</tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default AjoPaymentTable;
+export default AjoPaymentTable

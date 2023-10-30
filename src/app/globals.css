@@ -182,7 +182,6 @@ body {
 
 .font-headline__medium {
   font-family: var(--f-body);
-  @apply font-normal;
   font-size: 28px;
   line-height: 36px;
 }
