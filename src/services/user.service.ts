@@ -39,7 +39,6 @@ import {
   AjoPaymentCycleInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm";
-import { BankInputProps } from '@/components/profile-setup/AddBankForm';
 import { createSearchParams } from '@/utils/helpers';
 
 const baseUrl = `${URL}`;
