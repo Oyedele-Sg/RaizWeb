@@ -35,6 +35,7 @@ import {
   DebitTransferDataInterface,
   DebitSplitRequestDataInterface,
   AjoCreateFormInterface,
+  UpdateTransactionPinFormInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -110,7 +111,7 @@ export const userService = {
   getDebitTransferDetail,
   readNotification,
   getDebitSplitRequestDetail,
-  getAjoCycleDetails
+  getAjoCycleDetails,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -238,7 +239,9 @@ function addTransactionPin(data: TransactionPinInterface): Promise<void> {
   return fetchWrapper.patch(`${baseUrl}/account_users/transaction-pin/`, data)
 }
 
-function changeTransactionPin(data: TransactionPinInterface): Promise<void> {
+function changeTransactionPin(
+  data: UpdateTransactionPinFormInterface
+): Promise<void> {
   return fetchWrapper.patch(
     `${baseUrl}/account_users/transaction-pin/update/`,
     data

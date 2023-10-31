@@ -15,6 +15,7 @@ import {
   RegisterInput,
   SetupLayout,
   transactionPinSchema,
+  createTransactionPinSchema,
 } from "@/shared"
 import React, { useEffect, useRef, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -35,6 +36,7 @@ import { banks } from "@/shared/data/Banks"
 import { RecentAccountExternalComponent } from "../RecentAccountExternal"
 import PinInput from "react-pin-input"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { passwordHash } from "@/utils/helpers"
 
 export function ComponentOne() {
   const Router = useRouter()
@@ -236,7 +238,7 @@ function Pin({ debitData }: PinProps) {
     defaultValues: {
       transaction_pin: "",
     },
-    resolver: yupResolver(transactionPinSchema),
+    resolver: yupResolver(createTransactionPinSchema),
   })
 
   const onSubmit = async (data: TransactionPinInterface) => {
@@ -256,7 +258,10 @@ function Pin({ debitData }: PinProps) {
 
     const transferData = {
       debit_transfer: debitData as ExternalDebitTransferInterface,
-      transaction_pin: data,
+      transaction_pin: {
+        ...data,
+        transaction_pin: passwordHash(data.transaction_pin),
+      },
     }
 
     try {
