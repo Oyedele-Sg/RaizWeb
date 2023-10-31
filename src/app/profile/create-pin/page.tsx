@@ -12,6 +12,7 @@ import {
   SetupLayout,
   SkipLink,
   TransactionPinFormInterface,
+  createTransactionPinSchema,
   transactionPinSchema,
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
@@ -46,6 +47,7 @@ import {
 import { useUser } from "@/hooks/user/useUser"
 import PinInput from "react-pin-input"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { passwordHash } from "@/utils/helpers"
 
 interface UsernameInputProps extends Partial<FieldValues> {
   username: string
@@ -61,7 +63,7 @@ export default function TransactionPin() {
     defaultValues: {
       transaction_pin: "",
     },
-    resolver: yupResolver(transactionPinSchema),
+    resolver: yupResolver(createTransactionPinSchema),
   })
 
   const onSubmit = async (data: TransactionPinFormInterface) => {
@@ -81,7 +83,10 @@ export default function TransactionPin() {
 
     try {
       dispatch(setLoadingTrue())
-      await userService.addTransactionPin(data)
+      await userService.addTransactionPin({
+        ...data,
+        transaction_pin: passwordHash(data.transaction_pin),
+      })
 
       Router.push("/profile/bank")
       dispatch(setLoadingFalse())

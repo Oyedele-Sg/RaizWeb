@@ -15,6 +15,7 @@ import {
   SetupLayout,
   TransactionPinInterface,
   UserSearchInterface,
+  createTransactionPinSchema,
   transactionPinSchema,
 } from "@/shared"
 import React, { useEffect, useRef, useState } from "react"
@@ -33,6 +34,7 @@ import {
 import { useCategory } from "@/hooks/category/useCategory"
 import PinInput from "react-pin-input"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { passwordHash } from "@/utils/helpers"
 
 interface SearchInput {
   transaction_amount: number | null
@@ -223,13 +225,16 @@ function Pin({ debitData }: PinProps) {
     defaultValues: {
       transaction_pin: "",
     },
-    resolver: yupResolver(transactionPinSchema),
+    resolver: yupResolver(createTransactionPinSchema),
   })
 
   const onSubmit = async (data: TransactionPinInterface) => {
     const transferData = {
       debit_transfer: debitData as DebitTransferInterface,
-      transaction_pin: data,
+      transaction_pin: {
+        ...data,
+        transaction_pin: passwordHash(data.transaction_pin),
+      },
     }
 
     try {

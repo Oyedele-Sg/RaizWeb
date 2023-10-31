@@ -15,6 +15,7 @@ import {
   TransactionPinInterface,
   UserInterface,
   UserSearchInterface,
+  createTransactionPinSchema,
   splitGroupSchema,
   transactionPinSchema,
 } from "@/shared"
@@ -31,6 +32,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Image from "next/image"
 import { yupResolver } from "@hookform/resolvers/yup"
 import PinInput from "react-pin-input"
+import { passwordHash } from "@/utils/helpers"
 
 interface Prop {
   //   searchQuery: string
@@ -278,7 +280,7 @@ function Pin({ debitData }: PinProps) {
     defaultValues: {
       transaction_pin: "",
     },
-    resolver: yupResolver(transactionPinSchema),
+    resolver: yupResolver(createTransactionPinSchema),
   })
 
   const onSubmit = async (data: TransactionPinInterface) => {
@@ -298,7 +300,10 @@ function Pin({ debitData }: PinProps) {
 
     const transferData = {
       split_group: debitData,
-      transaction_pin: data,
+      transaction_pin: {
+        ...data,
+        transaction_pin: passwordHash(data.transaction_pin),
+      },
     }
 
     try {

@@ -135,10 +135,17 @@ export function AjoJoined() {
         <SectionHeader text='All Ajo joined ' />
         <BtnMain
           btnText='Create Ajo'
-          btnStyle=' bg-purple py-3 px-[35.5px]  flex item-center gap-2 text-grey  '
+          btnStyle=' bg-purple py-3 px-[35.5px]  flex items-center gap-2 text-grey  '
           onClick={() => Router.push("/ajo/create")}
         >
-          <Image src={`/icons/add-circle.svg`} width={16} height={16} alt='' />
+          <div className='  '>
+            <Image
+              src={`/icons/add-circle.svg`}
+              width={16}
+              height={16}
+              alt=''
+            />
+          </div>
         </BtnMain>
       </div>
       `
