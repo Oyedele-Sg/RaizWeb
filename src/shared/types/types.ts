@@ -734,3 +734,20 @@ export interface AjoFrequencyInterface {
   created_at: Date
   updated_at: Date
 }
+
+export interface AjoPaymentCycleMemberInterface {
+  account_user_id: string;
+  slot_position: number;
+  payment_received: boolean;
+  number_of_payments_due: number;
+  account_user: {
+    first_name: string;
+    last_name: string;
+  };
+}
+
+export interface AjoPaymentCycleInterface {
+  ajo_id: string;
+  ajo_cycle_members: AjoPaymentCycleMemberInterface[];
+  number_of_cycles: number;
+}
