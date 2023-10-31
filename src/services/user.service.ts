@@ -112,7 +112,6 @@ export const userService = {
   getDebitTransferDetail,
   readNotification,
   getDebitSplitRequestDetail,
-  getAjoCycleDetails,
   getAjoPaymentTable,
 };
 // auth
