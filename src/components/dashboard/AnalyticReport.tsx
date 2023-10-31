@@ -43,14 +43,6 @@ export function AnalyticReport() {
     };
   });
 
-  const formatUSDate = (dateString: string) => {
-    const parts = dateString.split('-');
-    const day = parts[0];
-    const month = parts[1];
-    const year = parts[2];
-    return `${month}-${day}-${year}`;
-  };
-
   const [chartData, setChartData] =
     React.useState<DailyAnalysistChartInterface>();
 
@@ -70,16 +62,6 @@ export function AnalyticReport() {
         : 0;
 
       let res = await userService.getDailyAnalysisReport(numberOfDays);
-      if (res.account_analysis.length > 0) {
-        const usDate = res.account_analysis.map((obj) => {
-          return {
-            ...obj,
-            date: formatUSDate(obj.date),
-          };
-        });
-        res.account_analysis = usDate;
-      }
-
       setChartData(res);
     } catch (error) {
       toast({
