@@ -4,17 +4,19 @@ import { Toast } from "@/components/ui/toast"
 import { toast } from "@/components/ui/use-toast"
 import { useUser } from "@/hooks/user/useUser"
 import { userService } from "@/services"
+import moment from "moment"
 import {
   AuthButton,
   BackBtnCircle,
   BtnMain,
   DeletePopUp,
   FormTitledContainer,
-  IconPesaColored,
+  IconRaizColored,
   NextArrow,
   TransactionPinInterface,
   SetupLayout,
   transactionPinSchema,
+  createTransactionPinSchema,
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
@@ -26,6 +28,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Router } from "lucide-react"
 import PinInput from "react-pin-input"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { passwordHash } from "@/utils/helpers"
 
 export function ComponentOne() {
   const Router = useRouter()
@@ -37,7 +40,7 @@ export function ComponentOne() {
     <div className=''>
       <SetupLayout bg='bg-profile-1'>
         <div className='my-[72px] mx-5 lg:mx-[72px] flex flex-col gap-[84px] '>
-          <IconPesaColored />
+          <IconRaizColored />
 
           <div className='flex flex-col gap-3  '>
             <div
@@ -91,7 +94,26 @@ export function ComponentOne() {
                         Split Bill
                       </span>
                       <span className=' text-purple font-semibold  '>
-                        ₦ {request.transaction_amount?.toLocaleString()}{" "}
+                        {request.currency}{" "}
+                        {request.transaction_amount?.toLocaleString()}{" "}
+                      </span>
+                    </div>
+                    <div className=' flex justify-between items-center '>
+                      <span className=' font-title__medium text-neutral-80 '>
+                        Description
+                      </span>
+                      <span className=' text-purple font-semibold  '>
+                        {request.narration}
+                      </span>
+                    </div>
+                    <div className=' flex justify-between items-center '>
+                      <span className=' font-title__medium text-neutral-80 '>
+                        Date
+                      </span>
+                      <span className=' text-purple font-semibold  '>
+                        {moment(request?.created_at).format(
+                          "dddd, Do [of] MMMM YYYY"
+                        )}
                       </span>
                     </div>
                   </div>
@@ -182,7 +204,7 @@ function Pin({ request_id }: PinProps) {
     defaultValues: {
       transaction_pin: "",
     },
-    resolver: yupResolver(transactionPinSchema),
+    resolver: yupResolver(createTransactionPinSchema),
   })
 
   const onSubmit = async (data: TransactionPinInterface) => {
@@ -202,7 +224,10 @@ function Pin({ request_id }: PinProps) {
 
     try {
       dispatch(setLoadingTrue())
-      await userService.approveRequest(request_id, data)
+      await userService.approveRequest(request_id, {
+        ...data,
+        transaction_pin: passwordHash(data.transaction_pin),
+      })
 
       Router.push("/request/approve/success")
       dispatch(setLoadingFalse())

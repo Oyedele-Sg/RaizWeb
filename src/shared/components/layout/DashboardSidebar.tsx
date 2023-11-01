@@ -29,7 +29,7 @@ export const Sidebar = () => {
         <div className=' flex  w-full  lg:flex-col lg:items-center lg:gap-[64px]  '>
           <div className='hidden lg:block'>
             <Image
-              src={`/icons/pesa-logo-light.svg`}
+              src={`/icons/Raiz.svg`}
               width={48}
               height={48}
               alt='pesa icon logo'
@@ -56,7 +56,7 @@ export const Sidebar = () => {
                   height={32}
                   alt={`dashboard ${icon} icon`}
                 />
-                <h5 className=" text-neutral-70     " >{icon.title}</h5>
+                <h5 className=' text-neutral-70     '>{icon.title}</h5>
               </div>
             ))}
           </div>

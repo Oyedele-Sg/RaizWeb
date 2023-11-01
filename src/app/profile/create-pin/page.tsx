@@ -6,12 +6,13 @@ import { userService } from "@/services"
 import {
   AuthButton,
   BtnMain,
-  IconPesaColored,
+  IconRaizColored,
   Loading,
   RegisterInput,
   SetupLayout,
   SkipLink,
   TransactionPinFormInterface,
+  createTransactionPinSchema,
   transactionPinSchema,
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
@@ -46,6 +47,7 @@ import {
 import { useUser } from "@/hooks/user/useUser"
 import PinInput from "react-pin-input"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { passwordHash } from "@/utils/helpers"
 
 interface UsernameInputProps extends Partial<FieldValues> {
   username: string
@@ -61,7 +63,7 @@ export default function TransactionPin() {
     defaultValues: {
       transaction_pin: "",
     },
-    resolver: yupResolver(transactionPinSchema),
+    resolver: yupResolver(createTransactionPinSchema),
   })
 
   const onSubmit = async (data: TransactionPinFormInterface) => {
@@ -81,7 +83,10 @@ export default function TransactionPin() {
 
     try {
       dispatch(setLoadingTrue())
-      await userService.addTransactionPin(data)
+      await userService.addTransactionPin({
+        ...data,
+        transaction_pin: passwordHash(data.transaction_pin),
+      })
 
       Router.push("/profile/bank")
       dispatch(setLoadingFalse())
@@ -113,7 +118,7 @@ export default function TransactionPin() {
         <div className=' px-5 lg:px-[60px]  py-[50px] flex flex-col justify-center gap-[112px] '>
           <div className='flex justify-between items-center  '>
             <div className='hidden lg:block'>
-              <IconPesaColored />
+              <IconRaizColored />
             </div>
             <SkipLink link='/profile/bank' />
           </div>

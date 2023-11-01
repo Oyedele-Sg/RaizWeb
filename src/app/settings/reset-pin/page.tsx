@@ -5,48 +5,44 @@ import { userService } from "@/services"
 import {
   AuthButton,
   Loading,
-  TransactionPinFormInterface,
+  RegisterInput,
+  UpdateTransactionPinFormInterface,
   transactionPinSchema,
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
+import { passwordHash } from "@/utils/helpers"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Pin } from "lucide-react"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import React, { useRef, useState } from "react"
-import { useForm } from "react-hook-form"
+import { FormProvider, useForm } from "react-hook-form"
 import PinInput from "react-pin-input"
 
 function page() {
   const Router = useRouter()
   const dispatch = useAppDispatch()
 
-  const methods = useForm<TransactionPinFormInterface>({
+  const [showOldPin, setShowOldPin] = useState<boolean>(false)
+  const [showNewPin, setShowNewPin] = useState<boolean>(false)
+
+  const methods = useForm<UpdateTransactionPinFormInterface>({
     defaultValues: {
-      transaction_pin: "",
+      old_transaction_pin: "",
+      new_transaction_pin: "",
     },
     resolver: yupResolver(transactionPinSchema),
   })
 
-  const onSubmit = async (data: TransactionPinFormInterface) => {
-    if (!data.transaction_pin) {
-      toast({
-        title: "Transaction Pin is required",
-        variant: "destructive",
-        style: {
-          backgroundColor: "#f44336",
-          color: "#fff",
-          top: "20px",
-          right: "20px",
-        },
-      })
-
-      return
-    }
-
+  const onSubmit = async (data: UpdateTransactionPinFormInterface) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.changeTransactionPin(data)
+      await userService.changeTransactionPin({
+        ...data,
+        new_transaction_pin: passwordHash(data.new_transaction_pin),
+        old_transaction_pin: passwordHash(data.old_transaction_pin),
+      })
       toast({
         title: "Done",
         description: `Transaction Pin Reset Successfully`,
@@ -58,6 +54,7 @@ function page() {
           right: "20px",
         },
       })
+      methods.reset()
 
       dispatch(setLoadingFalse())
     } catch (error) {
@@ -85,46 +82,52 @@ function page() {
     <>
       <Loading />
       <ContentWrap title='Manage  PIN'>
-        <form
-          onSubmit={methods.handleSubmit(onSubmit)}
-          className=' flex flex-col gap-8 '
-        >
-          <PinInput
-            length={4}
-            initialValue=''
-            secret
-            onChange={(value, index) => handleInputChange(value, index)}
-            type='numeric'
-            inputMode='number'
-            style={{ display: "flex", justifyContent: "space-between" }}
-            inputStyle={{
-              padding: "10px",
-              borderTop: "none",
-              borderLeft: "none",
-              borderRight: "none",
-              borderBottom: "1px solid #4B0082",
-            }}
-            inputFocusStyle={{
-              borderBottom: "1px solid #4B0082",
-            }}
-            autoSelect={true}
-            regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-          />
+        <FormProvider {...methods}>
+          <form
+            onSubmit={methods.handleSubmit(onSubmit)}
+            className=' flex flex-col gap-8 '
+          >
+            <RegisterInput
+              name={`old_transaction_pin`}
+              inputPlaceholder={`Enter 4 digits long`}
+              label='Old Transaction Pin'
+              childrenHandleClick={() => setShowOldPin((state) => !state)}
+              type={showOldPin ? "text" : "password"}
+            >
+              <Image
+                src={`/icons/${showOldPin ? "eye" : "eye-slash"}.svg`}
+                alt='show password'
+                width={24}
+                height={24}
+                className='password_field-input  '
+              />
+            </RegisterInput>
 
-          {methods.formState.errors.transaction_pin && (
-            <span className=' text-center  text-error text-t-12  '>
-              OTP is required and must be 4 digits
-            </span>
-          )}
+            <RegisterInput
+              name={`new_transaction_pin`}
+              inputPlaceholder={`Enter 4 digits long`}
+              label='New Transaction Pin'
+              childrenHandleClick={() => setShowNewPin((state) => !state)}
+              type={showNewPin ? "text" : "password"}
+            >
+              <Image
+                src={`/icons/${showNewPin ? "eye" : "eye-slash"}.svg`}
+                alt='show password'
+                width={24}
+                height={24}
+                className='password_field-input  '
+              />
+            </RegisterInput>
 
-          <div className=' flex gap-8 '>
-            <AuthButton
-              btnStyle='flex-1 w-full px-[42px] '
-              btnText={"Change Transaction Pin"}
-              type='submit'
-            />
-          </div>
-        </form>
+            <div className=' flex gap-8 '>
+              <AuthButton
+                btnStyle='flex-1 w-full px-[42px] '
+                btnText={"Change Transaction Pin"}
+                type='submit'
+              />
+            </div>
+          </form>
+        </FormProvider>
       </ContentWrap>
     </>
   )

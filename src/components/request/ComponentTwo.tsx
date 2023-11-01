@@ -5,7 +5,7 @@ import {
   BtnMain,
   RequestDataInterface,
   FormTitledContainer,
-  IconPesaColored,
+  IconRaizColored,
   NextArrow,
   RegisterInput,
   SetupLayout,
@@ -81,7 +81,7 @@ export function ComponentTwo({
     <div>
       <SetupLayout bg='bg-profile-1'>
         <div className='my-[72px] mx-5 lg:mx-[72px] flex flex-col gap-[84px] '>
-          <IconPesaColored />
+          <IconRaizColored />
 
           <div className=' flex flex-col gap-3 '>
             <div className='flex'>

@@ -4,7 +4,7 @@ import {
   BackBtnCircle,
   BtnMain,
   FormTitledContainer,
-  IconPesaColored,
+  IconRaizColored,
   IconScan,
   IconSearch,
   NextArrow,
@@ -103,7 +103,7 @@ export function ComponentOne({
     <div>
       <SetupLayout bg='bg-profile-1'>
         <div className='  mx-5 mt-[72px]   lg:mx-[72px] flex flex-col gap-[84px] '>
-          <IconPesaColored />
+          <IconRaizColored />
 
           <div className=' flex flex-col gap-3 '>
             <div className='flex '>

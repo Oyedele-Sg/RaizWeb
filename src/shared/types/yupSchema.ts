@@ -61,10 +61,23 @@ export const resetPasswordSchema = yup.object().shape({
     .required(),
 })
 
-export const transactionPinSchema = yup.object().shape({
+export const createTransactionPinSchema = yup.object().shape({
   transaction_pin: yup
     .string()
     .min(4, "Password must be at least 8 characters")
+    .required("OTP is required"),
+})
+
+export const transactionPinSchema = yup.object().shape({
+  old_transaction_pin: yup
+    .string()
+    .min(4, "Pin must be at least 4 characters")
+    .max(4, "Pin must be at least 4 characters")
+    .required("OTP is required"),
+  new_transaction_pin: yup
+    .string()
+    .min(4, "Pin must be at least 4 characters")
+    .max(4, "Pin must be at least 4 characters")
     .required("OTP is required"),
 })
 
@@ -74,4 +87,16 @@ export const splitGroupSchema = yup.object().shape({
     .number()
     .required("Amount is required")
     .typeError("Amount must be a number"),
+})
+
+export const createAjoSchema = yup.object().shape({
+  ajo_name: yup.string().required(),
+  public: yup.boolean().required(),
+  image_url: yup.string().required(),
+  target_amount: yup.number().nullable().required(),
+  start_date: yup.date().nullable().required(),
+  end_date: yup.date().nullable().required(),
+  number_of_slots: yup.number().nullable().required(),
+  amount_per_cycle: yup.number().nullable().required(),
+  collection_frequency_id: yup.number().nullable().required(),
 })

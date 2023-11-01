@@ -5,7 +5,7 @@ import {
   BtnMain,
   IconAvatar,
   IconNotification,
-  IconPesaColored,
+  IconRaizColored,
   IconScan,
   Logo,
   QrCode,
@@ -37,7 +37,7 @@ export default function page() {
       <QrCode />
       <header className=' flex  items-center justify-between lg:pt-5  lg:mx-[72px]   '>
         <div className=' ml-[37px] pt-[72px] lg:pt-0 lg:ml-0  '>
-          <IconPesaColored />
+          <IconRaizColored />
         </div>
 
         <UtilityIcons />

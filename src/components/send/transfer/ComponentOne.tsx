@@ -7,7 +7,7 @@ import {
   DebitTransferInterface,
   ExternalDebitTransferInterface,
   FormTitledContainer,
-  IconPesaColored,
+  IconRaizColored,
   IconScan,
   IconSearch,
   NextArrow,
@@ -15,6 +15,7 @@ import {
   RegisterInput,
   SetupLayout,
   transactionPinSchema,
+  createTransactionPinSchema,
 } from "@/shared"
 import React, { useEffect, useRef, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -35,6 +36,7 @@ import { banks } from "@/shared/data/Banks"
 import { RecentAccountExternalComponent } from "../RecentAccountExternal"
 import PinInput from "react-pin-input"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { passwordHash } from "@/utils/helpers"
 
 export function ComponentOne() {
   const Router = useRouter()
@@ -55,7 +57,6 @@ export function ComponentOne() {
 
   const onSubmit = async (data: ExternalDebitTransferInterface) => {
     try {
-      
       setDebitData(data)
     } catch (error) {
       toast({
@@ -117,13 +118,10 @@ export function ComponentOne() {
     <div>
       <SetupLayout bg='bg-profile-1'>
         <div className=' mx-5 lg:mx-[72px] my-[72px] flex flex-col gap-[84px] '>
-          <IconPesaColored />
+          <IconRaizColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div
-              className=''
-              
-            >
+            <div className=''>
               <BackBtnCircle />
               <button title='next' className=''>
                 <NextArrow />
@@ -240,7 +238,7 @@ function Pin({ debitData }: PinProps) {
     defaultValues: {
       transaction_pin: "",
     },
-    resolver: yupResolver(transactionPinSchema),
+    resolver: yupResolver(createTransactionPinSchema),
   })
 
   const onSubmit = async (data: TransactionPinInterface) => {
@@ -260,7 +258,10 @@ function Pin({ debitData }: PinProps) {
 
     const transferData = {
       debit_transfer: debitData as ExternalDebitTransferInterface,
-      transaction_pin: data,
+      transaction_pin: {
+        ...data,
+        transaction_pin: passwordHash(data.transaction_pin),
+      },
     }
 
     try {

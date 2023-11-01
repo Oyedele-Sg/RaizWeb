@@ -7,7 +7,7 @@ import {
   CheckBox,
   DebitTransferInterface,
   FormTitledContainer,
-  IconPesaColored,
+  IconRaizColored,
   IconScan,
   IconSearch,
   NextArrow,
@@ -16,6 +16,7 @@ import {
   SetupLayout,
   TransactionPinInterface,
   UserSearchInterface,
+  createTransactionPinSchema,
   transactionPinSchema,
 } from "@/shared"
 import React, { useEffect, useRef, useState } from "react"
@@ -34,6 +35,7 @@ import {
 import { useCategory } from "@/hooks/category/useCategory"
 import PinInput from "react-pin-input"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { passwordHash } from "@/utils/helpers"
 
 interface SearchInput {
   transaction_amount: number | null
@@ -99,7 +101,7 @@ export function ComponentTwo({
       <div>
         <SetupLayout bg='bg-profile-1'>
           <div className='  my-[72px] mx-5 lg:mx-[72px] flex flex-col gap-[84px]  '>
-            <IconPesaColored />
+            <IconRaizColored />
 
             <div className=' flex flex-col gap-3 '>
               <div className=''>
@@ -237,13 +239,16 @@ function Pin({ debitData }: PinProps) {
     defaultValues: {
       transaction_pin: "",
     },
-    resolver: yupResolver(transactionPinSchema),
+    resolver: yupResolver(createTransactionPinSchema),
   })
 
   const onSubmit = async (data: TransactionPinInterface) => {
     const transferData = {
       debit_transfer: debitData as DebitTransferInterface,
-      transaction_pin: data,
+      transaction_pin: {
+        ...data,
+        transaction_pin: passwordHash(data.transaction_pin),
+      },
     }
 
     try {

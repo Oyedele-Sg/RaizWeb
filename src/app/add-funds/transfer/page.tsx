@@ -8,7 +8,7 @@ import {
   BackBtnCircle,
   FormTitledContainer,
   IconCopy,
-  IconPesaColored,
+  IconRaizColored,
   Loading,
   NextArrow,
   RegisterInput,
@@ -83,7 +83,7 @@ export default function page() {
         <SetupLayout bg='bg-profile-1'>
           <div className='mx-5 lg:m-[72px] flex flex-col gap-[84px] '>
             <div className='ml-5 pt-[72px] lg:pt-0 lg:ml-0 '>
-              <IconPesaColored />
+              <IconRaizColored />
             </div>
 
             <div className=' flex flex-col gap-3 '>
