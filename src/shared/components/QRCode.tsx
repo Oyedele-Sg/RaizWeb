@@ -55,7 +55,7 @@ export function QrCode() {
                         width={50}
                         height={50}
                         alt=''
-                        className=' rounded-r-8  '
+                        className=' rounded-full  '
                       />
                     </div>
 

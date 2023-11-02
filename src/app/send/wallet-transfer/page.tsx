@@ -6,7 +6,7 @@ import { toast } from "@/components/ui/use-toast"
 import { useUser } from "@/hooks/user/useUser"
 import { userService } from "@/services"
 import { Loading, UserInterface, UserSearchInterface } from "@/shared"
-import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
+
 import { useAppDispatch } from "@/shared/redux/types"
 import { useRouter } from "next/navigation"
 import React, { useState, useEffect, useMemo } from "react"

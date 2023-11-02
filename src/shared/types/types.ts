@@ -224,6 +224,8 @@ export interface UserSearchInterface {
   first_name: string
   last_name: string
   username: string
+  profile_image_url: string
+  account_id: string  
 }
 
 export interface DebitTransferInterface {
@@ -276,6 +278,23 @@ export interface NIPLookupDataInterface {
   account_number: string
 }
 
+// export interface FavoriteAccountsByIDDataInterface {
+//   account_user_id: string
+//   favourite_account_user_id: string
+//   favourite: boolean
+//   ranking: number
+//   favourite_wallet_id: string
+//   created_at: Date
+//   updated_at: Date
+//   favourite_account_user: {
+//     first_name: string
+//     last_name: string
+//     username: string
+//     account_user_id: string
+//     profile_image_url: string
+//   }
+// }
+
 export interface FavoriteAccountsDataInterface {
   account_user_id: string
   favourite_account_user_id: string
@@ -312,6 +331,7 @@ export interface AccountInterface {
   last_name: string
   username: string
   account_user_id: string
+  profile_image_url: string
 }
 export interface PendingRequestDataInterface {
   requestee_account_id: string
@@ -736,18 +756,18 @@ export interface AjoFrequencyInterface {
 }
 
 export interface AjoPaymentCycleMemberInterface {
-  account_user_id: string;
-  slot_position: number;
-  payment_received: boolean;
-  number_of_payments_due: number;
+  account_user_id: string
+  slot_position: number
+  payment_received: boolean
+  number_of_payments_due: number
   account_user: {
-    first_name: string;
-    last_name: string;
-  };
+    first_name: string
+    last_name: string
+  }
 }
 
 export interface AjoPaymentCycleInterface {
-  ajo_id: string;
-  ajo_cycle_members: AjoPaymentCycleMemberInterface[];
-  number_of_cycles: number;
+  ajo_id: string
+  ajo_cycle_members: AjoPaymentCycleMemberInterface[]
+  number_of_cycles: number
 }
