@@ -1,5 +1,6 @@
 import { userService } from "@/services"
 import {
+  AccountInterface,
   AuthButton,
   BackBtnCircle,
   BtnMain,
@@ -29,8 +30,10 @@ import { yupResolver } from "@hookform/resolvers/yup"
 
 interface Prop {
   //   searchQuery: string
-  setSelectedUsers: React.Dispatch<React.SetStateAction<UserSearchInterface[]>>
-  selectedUsers: UserSearchInterface[]
+  setSelectedUsers: React.Dispatch<
+    React.SetStateAction<(UserSearchInterface | AccountInterface)[]>
+  >
+  selectedUsers: (UserSearchInterface | AccountInterface)[]
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>
   setGroupName: React.Dispatch<React.SetStateAction<string>>
   total: number
