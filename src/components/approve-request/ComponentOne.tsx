@@ -68,7 +68,9 @@ export function ComponentOne() {
                     <div className='flex flex-col  gap-5 justify-center items-center '>
                       <div className=''>
                         <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[120px] h-[120px] bg-neutral-20 '>
-                          {/* <AvatarImage src='https://github.com/shadcn.png' /> */}
+                          <AvatarImage
+                            src={request?.requester_account?.profile_image_url}
+                          />
                           <AvatarFallback className=' text-purple font-bold   '>
                             {request?.requester_account?.first_name.charAt(0)}
                             {request?.requester_account?.last_name.charAt(0)}

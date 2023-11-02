@@ -19,7 +19,7 @@ import {
   createTransactionPinSchema,
   transactionPinSchema,
 } from "@/shared"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { toast } from "../ui/use-toast"
 import { useAppDispatch } from "@/shared/redux/types"
@@ -36,6 +36,9 @@ import { useCategory } from "@/hooks/category/useCategory"
 import PinInput from "react-pin-input"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { passwordHash } from "@/utils/helpers"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
+import { current } from "@reduxjs/toolkit"
+import { useFavouriteAccounts } from "@/hooks/fav-accounts/useFavouriteAccount"
 
 interface SearchInput {
   transaction_amount: number | null
@@ -62,6 +65,7 @@ export function ComponentTwo({
   const [debitData, setDebitData] = useState<DebitTransferInterface>()
   const [favorite, setFavorite] = useState<boolean>(false)
   const category = useCategory()
+  const currrentUser = useContext(CurrentUserContext)
 
   const methods = useForm<SearchInput>({
     defaultValues: {
@@ -71,6 +75,7 @@ export function ComponentTwo({
       category_id: null,
     },
   })
+  const accounts = useFavouriteAccounts()
 
   const onSubmit = async (data: SearchInput) => {
     try {
@@ -90,10 +95,29 @@ export function ComponentTwo({
     }
   }
 
-  const handleInputChange = () => {
-    
+  const handleInputChange = async () => {
+    const data = {
+      account_user_id: currrentUser.currentUser?.account_user_id as string,
+      favourite_account_user_id: searchResult?.account_user_id as string,
+      favourite: favorite,
+      ranking: 0,
+    }
+    const account = accounts?.find(
+      (acc) =>
+        acc.favourite_account_user.account_user_id ===
+        data.favourite_account_user_id
+    )
+    if (account) {
+      await userService.addFavoriteWalletAccount(
+        account.favourite_wallet_id as string,
+        data
+      )
+    }
   }
 
+  useEffect(() => {
+    handleInputChange()
+  }, [favorite])
 
   return (
     <>
@@ -194,7 +218,7 @@ export function ComponentTwo({
                       </Select>
 
                       <div className=' flex items-center gap-2  '>
-                        <CheckBox checked={favorite} setChecked={setFavorite} handleClick={() =>  handleInputChange() }  />{" "}
+                        <CheckBox checked={favorite} setChecked={setFavorite} />{" "}
                         <span className='text-neutral-90'>
                           Save as beneficiary
                         </span>

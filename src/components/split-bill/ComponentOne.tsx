@@ -125,7 +125,7 @@ export function ComponentOne({
                   <div className='flex items-center justify-between '>
                     <div className='flex items-center gap-5'>
                       <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[40px] h-[40px] bg-neutral-20 '>
-                        {/* <AvatarImage src='https://github.com/shadcn.png' /> */}
+                        <AvatarImage src={user.profile_image_url} />
                         <AvatarFallback className=' text-purple font-bold   '>
                           {user.first_name.charAt(0)}
                           {user.last_name.charAt(0)}

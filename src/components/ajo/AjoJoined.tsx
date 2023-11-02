@@ -148,7 +148,7 @@ export function AjoJoined() {
           </div>
         </BtnMain>
       </div>
-      `
+      
       <div className=''>
         <div className=' max-w-full min-w-[500px] overflow-x-auto '>
           <Table className=' overflow-x bug min-w-full '>
