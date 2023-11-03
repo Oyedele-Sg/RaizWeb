@@ -65,7 +65,7 @@ export default function ForgotPassword() {
       <WhiteWrap
         extraStyle=' rounded-[80px] w-[400px] md:w-[550px]  lg:w-[771px]   mx-5'
         closeBtn
-        closeLink='/login'
+        closeLink='/settings/login-and-security'
       >
         <div className='   lg:px-[35.5px]  mb-[50px]  '>
           <div className='    flex flex-col gap-[80px] '>
