@@ -49,6 +49,13 @@ export const changePasswordSchema = yup.object().shape({
 export const forgotPasswordSchema = yup.object().shape({
   email: yup.string().email("Wrong Email format").required("Email is required"),
 })
+export const forgotPinSchema = yup.object().shape({
+  otp: yup.string().required("OTP is required"),
+  transaction_pin: yup
+    .string()
+    .min(4, "Pin must be at least 4 characters")
+    .required("Pin is required"),
+})
 export const resetPasswordSchema = yup.object().shape({
   otp: yup.string().required("OTP is required"),
   password: yup
@@ -64,8 +71,8 @@ export const resetPasswordSchema = yup.object().shape({
 export const createTransactionPinSchema = yup.object().shape({
   transaction_pin: yup
     .string()
-    .min(4, "Password must be at least 8 characters")
-    .required("OTP is required"),
+    .min(4, "Pin must be at least 4 characters")
+    .required("Pin is required"),
 })
 
 export const transactionPinSchema = yup.object().shape({

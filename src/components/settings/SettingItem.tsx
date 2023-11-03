@@ -3,6 +3,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import React from "react"
 import { Switch } from "@/components/ui/switch"
+import { userService } from "@/services"
 
 interface Props {
   link: {
@@ -14,12 +15,21 @@ interface Props {
 
 export function SettingItem({ link }: Props) {
   const Router = useRouter()
+  const handleForgotPin = async () => {
+    await userService.getForgotPinOTP()
+    Router.push(`/forgot-pin`)
+  }
+
   return (
     <div
       className={` flex  items-center justify-between   pb-4 border-b-[1.5px] border-b-neutral-30 
            `}
       onClick={() => {
         if (!link.link) return
+        if (link.link === "forgot-pin") {
+          handleForgotPin()
+          return
+        }
         Router.push(`/settings/${link.link}`)
       }}
     >
