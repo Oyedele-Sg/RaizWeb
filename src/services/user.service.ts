@@ -37,6 +37,7 @@ import {
   AjoCreateFormInterface,
   UpdateTransactionPinFormInterface,
   AjoPaymentCycleInterface,
+  ForgotPinDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -115,6 +116,8 @@ export const userService = {
   getAjoPaymentTable,
   addFavoriteWalletAccount,
   getFavoriteAccountByID,
+  getForgotPinOTP,
+  resetTransactionPin,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -543,4 +546,18 @@ function leaveAjo(id: string): Promise<any> {
 
 function getAjoPaymentTable(id: string): Promise<AjoPaymentCycleInterface> {
   return fetchWrapper.get(`${baseUrl}/ajo/ajo-cycle/${id}/ajo-payment-table/`)
+}
+
+// forgot pin
+function getForgotPinOTP(): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/account_users/transaction-pin/forgot/`,
+    {}
+  )
+}
+function resetTransactionPin(data: ForgotPinDataInterface): Promise<void> {
+  return fetchWrapper.patch(
+    `${baseUrl}/account_users/transaction-pin/reset/`,
+    data
+  )
 }

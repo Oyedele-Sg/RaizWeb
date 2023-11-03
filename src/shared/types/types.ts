@@ -81,6 +81,10 @@ export interface LoginDataInterface extends Partial<FieldValues> {
 export interface ForgotPasswordDataInterface extends Partial<FieldValues> {
   email: string
 }
+export interface ForgotPinDataInterface extends Partial<FieldValues> {
+  transaction_pin: string
+  otp: string
+}
 export interface ResetPasswordDataInterface extends Partial<FieldValues> {
   password: string
   otp: string
@@ -225,7 +229,7 @@ export interface UserSearchInterface {
   last_name: string
   username: string
   profile_image_url: string
-  account_id: string  
+  account_id: string
 }
 
 export interface DebitTransferInterface {

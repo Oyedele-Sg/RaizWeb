@@ -13,9 +13,14 @@ function page() {
       link: "reset-password",
     },
     {
-      title: "Transaction PIN",
+      title: "Change Transaction PIN",
       image: "login/pin",
       link: "reset-pin",
+    },
+    {
+      title: "Reset Transaction PIN",
+      image: "login/pin",
+      link: "forgot-pin",
     },
 
     {
