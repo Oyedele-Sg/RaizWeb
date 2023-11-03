@@ -1,26 +1,31 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface BalanceRevealState {
-  state: boolean
+  state: boolean;
 }
 
 const initialState: BalanceRevealState = {
   state: false,
-}
+};
+
+const localStorageKey = 'revealBalanceState';
 
 export const balanceRevealSlice = createSlice({
-  name: "balanceReveal",
+  name: 'balanceReveal',
   initialState,
   reducers: {
-    setRevealTrue: (state) => {
-      state.state = true
+    setRevealBalance: (state) => {
+      state.state = !state.state;
+      localStorage.setItem(localStorageKey, state.state ? '1' : '0');
     },
-    setRevealFalse: (state) => {
-      state.state = false
+    initializeRevealBalance: (state) => {
+      const storedState = localStorage.getItem(localStorageKey);
+      state.state = storedState === '1';
     },
   },
-})
+});
 
-export const { setRevealTrue, setRevealFalse } = balanceRevealSlice.actions
+export const { setRevealBalance, initializeRevealBalance } =
+  balanceRevealSlice.actions;
 
-export default balanceRevealSlice.reducer
+export default balanceRevealSlice.reducer;

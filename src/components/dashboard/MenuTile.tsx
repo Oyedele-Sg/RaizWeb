@@ -7,7 +7,10 @@ import Image from 'next/image';
 import React, { useContext, useEffect } from 'react';
 import { CurrentUserContext } from '@/providers/CurrentUserProvider';
 import { useAppDispatch, useAppSelector } from '@/shared/redux/types';
-import { setRevealFalse, setRevealTrue } from '@/shared/redux/features';
+import {
+  setRevealBalance,
+  initializeRevealBalance,
+} from '@/shared/redux/features';
 
 export function Menucard() {
   const dispatch = useAppDispatch();
@@ -52,6 +55,10 @@ export function Menucard() {
 
   const { currentUser } = useContext(CurrentUserContext);
 
+  useEffect(() => {
+    dispatch(initializeRevealBalance());
+  }, []);
+
   return (
     <WhiteTileWrap extraStyle="  p-8 pb-[35px] flex flex-col gap-12 h-full ">
       <div className=" flex flex-col items-center gap-3  ">
@@ -61,11 +68,7 @@ export function Menucard() {
             width={16}
             height={16}
             alt="reaveal pesa wallet balance"
-            onClick={() =>
-              !revealBalance
-                ? dispatch(setRevealTrue())
-                : dispatch(setRevealFalse())
-            }
+            onClick={() => dispatch(setRevealBalance())}
           />
           <span className=" font-title__medium    text-purple   ">
             Your Total Balance

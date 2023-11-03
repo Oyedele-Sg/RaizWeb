@@ -8,41 +8,69 @@ export function DebitNotificationDetails() {
   );
 
   return (
-    <div className="bg-grey border-[2px] border-neutral-20 p-8 rounded-lg max-h-[600px] overflow-auto">
+    <div className="bg-grey p-8 rounded-lg max-h-[600px] overflow-auto">
       <div className="flex flex-col gap-12">
         <div>
           {' '}
           <h4 className="text-purple font-semi-mid text-t-20 lg:text-t-32">
-            Amount:{' '}
-            {`${debitTransferDetails?.currency} ${debitTransferDetails?.transaction_amount}`}
+            {`You paid ${debitTransferDetails?.beneficiary_account_name}`}
           </h4>
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-5">
-              <p className="text-t-18 text-neutral-70">
-                Recipient: {debitTransferDetails?.beneficiary_account_name}
-              </p>
-              <p className="text-t-18 text-neutral-70">
-                Recipient: {debitTransferDetails?.beneficiary_bank_name}
-              </p>
-              <p className="text-t-18 text-neutral-70">
-                Date:
-                {moment(debitTransferDetails?.transaction_date_time).format(
-                  'dddd, Do [of] MMMM YYYY'
-                )}
-              </p>
-              <p className="text-t-18 text-neutral-70">
-                Remarks:
-                {debitTransferDetails?.transaction_remarks}
-              </p>
-              <p className="text-t-18 text-neutral-70">
-                Balance:{' '}
-                {`${
-                  debitTransferDetails?.currency
-                } ${debitTransferDetails?.account_balance.toFixed(2)}`}
-              </p>
-              <p className="text-t-18 text-neutral-70">
-                Reference ID: {debitTransferDetails?.transaction_reference}
-              </p>
+              <div>
+                <p className="text-neutral-70">
+                  {moment(debitTransferDetails?.transaction_date_time).format(
+                    'dddd, Do [of] MMMM YYYY'
+                  )}
+                </p>
+                <h4 className="text-purple font-semi-mid text-t-20 lg:text-t-26">
+                  {`${debitTransferDetails?.currency} ${debitTransferDetails?.transaction_amount}`}
+                </h4>
+              </div>
+              <div>
+                <p className="text-t-15 text-neutral-70">Payment Status:</p>
+                <div className="flex items-center space-x-2">
+                  {' '}
+                  <div className="rounded-full w-[11px] h-[11px] bg-yellow"></div>
+                  <h4 className="text-purple font-semi-mid text-t-18 lg:text-t-26">
+                    {`Received`}
+                  </h4>
+                </div>
+              </div>
+              <div>
+                <p className="text-t-15 text-neutral-70">Payment Details:</p>
+                <h4 className="text-purple font-semi-mid text-t-18 lg:text-t-26">
+                  {`You sent ${debitTransferDetails?.currency} ${debitTransferDetails?.transaction_amount} to ${debitTransferDetails?.beneficiary_account_name}`}
+                </h4>
+              </div>
+
+              <div>
+                <p className="text-t-15 text-neutral-70">Bank:</p>
+                <h4 className="text-purple font-semi-mid text-t-18 lg:text-t-26">
+                  {debitTransferDetails?.beneficiary_bank_name}
+                </h4>
+              </div>
+
+              <div>
+                <p className="text-t-15 text-neutral-70">Memo:</p>
+                <h4 className="text-purple font-semi-mid text-t-18 lg:text-t-26">
+                  {`${debitTransferDetails?.transaction_remarks}`}
+                </h4>
+              </div>
+              <div>
+                <p className="text-t-15 text-neutral-70">Balance:</p>
+                <h4 className="text-purple font-semi-mid text-t-18 lg:text-t-26">
+                  {`${
+                    debitTransferDetails?.currency
+                  } ${debitTransferDetails?.account_balance.toFixed(2)}`}
+                </h4>
+              </div>
+              <div>
+                <p className="text-t-15 text-neutral-70">Confirmation Code:</p>
+                <h4 className="text-purple font-semi-mid text-t-18 lg:text-t-26">
+                  {`${debitTransferDetails?.transaction_reference}`}
+                </h4>
+              </div>
             </div>
           </div>
         </div>
