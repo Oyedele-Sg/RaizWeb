@@ -8,7 +8,7 @@ export function BillRequestNotificationDetails() {
   const request = useAppSelector((state) => state.selectedRequest);
   const Router = useRouter();
   return (
-    <div className="bg-grey border-[2px] border-neutral-20 p-8 rounded-lg max-h-[600px] overflow-auto">
+    <div className="bg-grey p-8 rounded-lg max-h-[600px] overflow-auto">
       <div className=" flex flex-col gap-9 ">
         <div className=" flex flex-col gap-10 ">
           <div className="flex flex-col  gap-5 justify-center items-center ">
