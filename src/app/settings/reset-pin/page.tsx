@@ -91,32 +91,34 @@ function page() {
               name={`old_transaction_pin`}
               inputPlaceholder={`Enter 4 digits long`}
               label='Old Transaction Pin'
-              childrenHandleClick={() => setShowOldPin((state) => !state)}
-              type={showOldPin ? "text" : "password"}
+              // childrenHandleClick={() => setShowOldPin((state) => !state)}
+              type={"password"}
+              length={4}
             >
-              <Image
+              {/* <Image
                 src={`/icons/${showOldPin ? "eye" : "eye-slash"}.svg`}
                 alt='show password'
                 width={24}
                 height={24}
                 className='password_field-input  '
-              />
+              /> */}
             </RegisterInput>
 
             <RegisterInput
               name={`new_transaction_pin`}
               inputPlaceholder={`Enter 4 digits long`}
               label='New Transaction Pin'
-              childrenHandleClick={() => setShowNewPin((state) => !state)}
-              type={showNewPin ? "text" : "password"}
+              // childrenHandleClick={() => setShowNewPin((state) => !state)}
+              type={"password"}
+              length={4}
             >
-              <Image
+              {/* <Image
                 src={`/icons/${showNewPin ? "eye" : "eye-slash"}.svg`}
                 alt='show password'
                 width={24}
                 height={24}
                 className='password_field-input  '
-              />
+              /> */}
             </RegisterInput>
 
             <div className=' flex gap-8 '>

@@ -91,6 +91,8 @@ export default function ForgotPassword() {
                   name='transaction_pin'
                   inputPlaceholder='Enter new transaction pin'
                   label='New Transaction Pin'
+                  type='password'
+                  length={4}
                 />
                 <div className=' flex items-center justify-center '>
                   <AuthButton btnText='Continue' btnStyle=' px-[108px] ' />
