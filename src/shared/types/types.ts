@@ -180,6 +180,8 @@ export interface TransactiontDataInterface {
   third_party_name: string
   account_user_id: string
   transaction_type_id: number
+  account_balance: number
+  third_party_profile_image_url: string
   transaction_report_id: string
   created_at: Date
   updated_at: Date
