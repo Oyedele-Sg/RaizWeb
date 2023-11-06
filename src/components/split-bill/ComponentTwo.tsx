@@ -225,6 +225,14 @@ export function ComponentTwo({
                                 )?.amount as number) * 100
                               ) / 100 || ""
                             }
+                            value={
+                              Math.round(
+                                (memberDetails.find(
+                                  (member) =>
+                                    member.member_id === user.account_user_id
+                                )?.amount as number) * 100
+                              ) / 100 || ""
+                            }
                             onChange={(event) =>
                               handleAmountChange(event, user.account_user_id)
                             }
@@ -235,7 +243,7 @@ export function ComponentTwo({
                     {!done ? (
                       <div className=' flex justify-between gap-12 '>
                         <BtnMain
-                          btnText=' Custom Split'
+                          btnText=' Next'
                           btnStyle=' border-neutral-100 border-[1px]  text-purple  flex-1 '
                           onClick={handleCustomSplit} // Add this onClick handler
                         />
@@ -247,7 +255,7 @@ export function ComponentTwo({
                       </div>
                     ) : (
                       <AuthButton
-                        btnText='Next'
+                        btnText='Confirm Split Bill Request'
                         btnStyle=' flex-1 '
                         onClick={handleDone} // Add this onClick handler
                       />
