@@ -579,6 +579,7 @@ export interface AccountInterface {
   last_name: string
   username: string
   account_user_id: string
+  profile_image_url: string
 }
 export interface PendingRequestDataInterface {
   requestee_account_id: string
