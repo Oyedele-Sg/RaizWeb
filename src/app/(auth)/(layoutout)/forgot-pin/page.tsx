@@ -27,6 +27,7 @@ export default function ForgotPassword() {
     defaultValues: {
       otp: "",
       transaction_pin: "",
+      confirm_transaction_pin: "",
     },
     resolver: yupResolver(forgotPinSchema),
   })
@@ -36,7 +37,7 @@ export default function ForgotPassword() {
       dispatch(setLoadingTrue())
 
       await userService.resetTransactionPin({
-        ...data,
+        otp: data.otp,
         transaction_pin: passwordHash(data.transaction_pin),
       })
       dispatch(setLoadingFalse())
@@ -89,8 +90,15 @@ export default function ForgotPassword() {
                 />
                 <RegisterInput
                   name='transaction_pin'
-                  inputPlaceholder='Enter new transaction pin'
-                  label='New Transaction Pin'
+                  inputPlaceholder='Enter transaction pin'
+                  label='Transaction Pin'
+                  type='password'
+                  length={4}
+                />
+                <RegisterInput
+                  name='confirm_transaction_pin'
+                  inputPlaceholder='Confirm transaction pin'
+                  label='Confirm Transaction Pin'
                   type='password'
                   length={4}
                 />

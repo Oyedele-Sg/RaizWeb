@@ -84,6 +84,7 @@ export interface ForgotPasswordDataInterface extends Partial<FieldValues> {
 export interface ForgotPinDataInterface extends Partial<FieldValues> {
   transaction_pin: string
   otp: string
+  confirm_transaction_pin: string
 }
 export interface ResetPasswordDataInterface extends Partial<FieldValues> {
   password: string
@@ -578,6 +579,7 @@ export interface AccountInterface {
   last_name: string
   username: string
   account_user_id: string
+  profile_image_url: string
 }
 export interface PendingRequestDataInterface {
   requestee_account_id: string

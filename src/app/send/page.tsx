@@ -25,6 +25,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import { SearchSelect, SearchSelectItem } from "@tremor/react"
 import { getSelectedRequest } from "@/shared/redux/features/request"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function page() {
   const Router = useRouter()
@@ -103,12 +104,25 @@ export default function page() {
                         key={index}
                         className=' select-item-reset  '
                       >
-                        <span className=' text-purple  '>{`${request.requester_account.first_name} ${request.requester_account.last_name}`}</span>
-                        {"         "}
-                        <span className=' text-purple   font-semi-mid'>
-                          ({request.currency}
-                          {request.transaction_amount})
-                        </span>
+                        <div className=' flex items-center gap-5  '>
+                          <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[25px] h-[25px]  '>
+                            <AvatarImage
+                              src={request.requester_account.profile_image_url}
+                            />
+                            <AvatarFallback className=' text-purple font-bold  uppercase '>
+                              {request.requester_account.first_name.charAt(0)}
+                              {request.requester_account.last_name.charAt(0)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className=''>
+                            <span className=' text-purple  '>{`${request.requester_account.first_name} ${request.requester_account.last_name}`}</span>
+                            {"         "}
+                            <span className=' text-purple   font-semi-mid'>
+                              ({request.currency}
+                              {request.transaction_amount})
+                            </span>
+                          </div>
+                        </div>
                       </SearchSelectItem>
                     ))}
                   </SearchSelect>
