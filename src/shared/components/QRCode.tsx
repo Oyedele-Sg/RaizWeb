@@ -52,8 +52,8 @@ export function QrCode() {
                     <div className=' absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center  '>
                       <Image
                         src='/icons/icon-mark.svg'
-                        width={50}
-                        height={50}
+                        width={100}
+                        height={100}
                         alt=''
                         className=' rounded-full  '
                       />
