@@ -12,10 +12,10 @@ export const RecentTransactionDefault = () => {
         alt=''
       />
       <div className=' flex flex-col gap-3 items-center '>
-        <h2 className=' gradient-text font-title__large  '>
+        <h2 className=' gradient-text font-title__large text-center  '>
           Opps! No Transaction Recorded
         </h2>
-        <p className=' text-neutral-90 font-body__large  flex flex-col lg:flex-row items-center gap-3  '>
+        <p className=' text-neutral-90 font-body__large  flex flex-col lg:flex-row items-center gap-3 text-center  '>
           No Transaction has occurred in your account.
           {/* <span className=' text-neutral-70 underline  '>
             <Link href='/'> Get started.

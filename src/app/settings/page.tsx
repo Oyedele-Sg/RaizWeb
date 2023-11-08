@@ -1,5 +1,6 @@
 "use client"
 import {
+  BtnMain,
   IconRaizColored,
   Loading,
   NavigationButtons,
@@ -24,17 +25,20 @@ export default function page() {
 
   const { currentUser } = useContext(CurrentUserContext)
   const [user, setUser] = useState<UserInterface>()
+  const [showAproveModal, setShowApproveModal] = useState(false)
 
   const [file, setFile] = useState<any>(null)
 
   const handleLogout = () => {
+    dispatch(setLoadingTrue())
     userService.logout()
     Router.push(`/login`)
+    dispatch(setLoadingFalse())
   }
 
   const handleLink = (link: string | undefined) => {
     if (link === "logout") {
-      handleLogout()
+      setShowApproveModal(true)
     } else {
       Router.push(`/settings/${link}`)
     }
@@ -131,6 +135,35 @@ export default function page() {
   return (
     <>
       <Loading />
+      {showAproveModal ? (
+        <div className=' z-[10000] h-screen fixed top-0 bottom-0 left-0 right-0  flex items-center justify-center bg-loading-bg  '>
+          <div className='    flex gap-4 items-center '>
+            <div className=' bg-grey py-[72px]  px-12 rounded-2xl  flex gap-12 flex-col min-w-[75%] mx-5 '>
+              <div className=' text-center '>
+                <h2 className=' text-purple text-[28px] font-semi-mid     '>
+                  Confirming Your Logout
+                </h2>
+                <p className='  text-t-18  text-neutral-70   '>
+                  {" "}
+                  Are you certain you wish to log out?{" "}
+                </p>
+              </div>
+              <div className='  flex gap-12 '>
+                <BtnMain
+                  btnText='Back'
+                  btnStyle='  border border-neutral-70 text-purple flex-1'
+                  onClick={() => setShowApproveModal(false)}
+                />
+                <BtnMain
+                  btnText='Log Out'
+                  btnStyle='  bg-error  text-grey  flex-1'
+                  onClick={() => handleLogout()}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
       <div className=''>
         <NavigationButtons />
 
@@ -174,10 +207,10 @@ export default function page() {
             </div>
           </div>
 
-          <div className='flex flex-col gap-[45px] '>
+          <div className='flex flex-col gap-[35px]  '>
             {settings.map((setting, index) => (
               <div
-                className='flex items-center justify-between hover:bg-neutral-20  cursor-pointer '
+                className='flex items-center justify-between hover:bg-neutral-20  cursor-pointer p-2 '
                 key={index}
                 onClick={() => handleLink(setting.link)}
               >

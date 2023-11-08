@@ -92,8 +92,9 @@ export const VerifyEmailOTP = () => {
         <VerifyFail
           title='Email OTP Incorrect'
           description='Email OTP is incorrect, please try again'
-          btnLink='/verification/email'
+          // btnLink='/verification/email'
           btnText='Re-send OTP'
+          btnFunc={() => setSuccess("")}
         />
       ) : (
         <WhiteWrap extraStyle=' h-screen lg:h-full w-full  flex items-center justify-center lg:rounded-[80px]  '>
