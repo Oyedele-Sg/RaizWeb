@@ -6,7 +6,7 @@ import { BtnMain } from "./buttons"
 interface Props {
   title: string
   description: string
-  btnLink: string
+  btnLink?: string
   btnFunc?: () => void
   btnText?: string
 }
@@ -50,7 +50,7 @@ export function VerifyFail({
                 type='reset'
                 onClick={() => {
                   btnFunc && btnFunc()
-                  Router.push(btnLink)
+                  Router.push(btnLink as string)
                 }}
               />
             </div>
