@@ -5,7 +5,7 @@ import Image from "next/image"
 import { AjoDataInterface, BtnMain } from "@/shared"
 import { userService } from "@/services"
 import { toast } from "../ui/use-toast"
-import moment from "moment"
+import moment, { duration } from "moment"
 import { AjoCard } from "./AjoCard"
 import { useRouter } from "next/navigation"
 
@@ -13,9 +13,19 @@ export function ExploreAjo() {
   const Router = useRouter()
 
   const [allAjos, setAllAjos] = useState<AjoDataInterface[]>([])
+  const filter = [
+    { title: "new", prompt: "new" },
+    { title: "duration", prompt: "duration_asc" },
+    { title: "amount", prompt: "amount_asc" },
+    { title: "frequency", prompt: "frequency_asc" },
+    { title: "members", prompt: "max_participants_asc" },
+  ]
+  const [filterClicked, setFilterClicked] = useState<string>("new")
+  const [filterPrompt, setFilterPrompt] = useState<string>("new")
+
   const getData = async () => {
     try {
-      const response = await userService.getAjoAll()
+      const response = await userService.getAjoAll(filterPrompt)
       setAllAjos(response)
     } catch (error) {
       toast({
@@ -35,7 +45,7 @@ export function ExploreAjo() {
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [filterPrompt])
   return (
     <div className='  py-8 px-6  bg-grey  flex  flex-col gap-8'>
       <div className=' flex justify-between items-center  '>
@@ -55,6 +65,25 @@ export function ExploreAjo() {
             />{" "}
           </span>
         </button>
+      </div>
+
+      <div className=' flex gap-[46px] '>
+        {filter.map((item, index) => (
+          <div
+            className={` border  py-2 px-4 capitalize rounded-lg   ${
+              filterClicked === item.title
+                ? " text-[#54098B] bg-neutral-40 border-[#54098B]"
+                : "text-neutral-80 border-neutral-50"
+            } `}
+            key={index}
+            onClick={() => {
+              setFilterClicked(item.title)
+              setFilterPrompt(item.prompt)
+            }}
+          >
+            {item.title}
+          </div>
+        ))}
       </div>
 
       <div className='  flex flex-wrap gap-6  justify-center  lg:justify-start  '>

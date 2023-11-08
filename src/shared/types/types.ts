@@ -733,7 +733,6 @@ export interface AjoDataInterface {
 export interface AjoFormInterface {
   ajo_name: string
   public: boolean
-
   target_amount: number | null
   start_date: string | null
   end_date: string | null

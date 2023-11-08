@@ -509,8 +509,10 @@ function requestSplitFunds(data: SplitRequestDataInterface): Promise<void> {
 }
 
 //ajo
-function getAjoAll(): Promise<AjoDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/ajo/`)
+function getAjoAll(filter?: string): Promise<AjoDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/ajo/feed/public/${filter ? `?filter=${filter}` : ""}`
+  )
 }
 
 function joinAjo(id: string): Promise<void> {
