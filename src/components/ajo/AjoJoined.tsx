@@ -16,14 +16,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+
 import moment from "moment"
 import { userService } from "@/services"
 import { useRouter } from "next/navigation"
@@ -112,11 +105,10 @@ export function AjoJoined() {
   const table = useReactTable({
     data,
     columns,
-
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    // getPaginationRowModel: getPaginationRowModel(),
+    // getSortedRowModel: getSortedRowModel(),
+    // getFilteredRowModel: getFilteredRowModel(),
   })
 
   React.useEffect(() => {
@@ -148,57 +140,41 @@ export function AjoJoined() {
           </div>
         </BtnMain>
       </div>
-      
+
       <div className=''>
-        <div className=' max-w-full min-w-[500px] overflow-x-auto '>
-          <Table className=' overflow-x bug min-w-full '>
-            <TableHeader>
+        <div className=' max-w-full min-w-[500px] overflow-x-auto  '>
+          <table className=''>
+            <thead>
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableHead key={header.id}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                      </TableHead>
-                    )
-                  })}
-                </TableRow>
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </th>
+                  ))}
+                </tr>
               ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className='h-24 text-center'
-                  >
-                    <DefaultJoinedAjo />
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

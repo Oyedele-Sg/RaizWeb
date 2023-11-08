@@ -64,6 +64,13 @@ export interface UserInterface {
   user_type: UserTypeinterface
   wallets: WalletType[]
   withdrawal_accounts: WithdrawalAccountType[]
+  onboarding_checklist: {
+    account_user_id: string
+    checking: boolean
+    savings: boolean
+    ajo: boolean
+    loan: boolean
+  }
 }
 
 export interface RegisterDataInterface extends Partial<FieldValues> {
@@ -727,13 +734,20 @@ export interface AjoDataInterface {
   created_by_id: string
   created_at: Date
   updated_at: Date
+  ajo_description: string
   ajo_cycles: AjoCycleInterface[]
+  created_by: {
+    first_name: string
+    last_name: string
+    username: string
+    account_user_id: string
+    profile_image_url: string
+  }
 }
 
 export interface AjoFormInterface {
   ajo_name: string
   public: boolean
-
   target_amount: number | null
   start_date: string | null
   end_date: string | null

@@ -21,9 +21,18 @@ import moment from "moment"
 
 export default function All() {
   const [allAjos, setAllAjos] = useState<AjoDataInterface[]>([])
+  const filter = [
+    { title: "new", prompt: "new" },
+    { title: "duration", prompt: "duration_desc" },
+    { title: "amount", prompt: "amount_desc" },
+    { title: "frequency", prompt: "frequency_desc" },
+    { title: "members", prompt: "max_participants_desc" },
+  ]
+  const [filterClicked, setFilterClicked] = useState<string>("new")
+  const [filterPrompt, setFilterPrompt] = useState<string>("new")
   const getData = async () => {
     try {
-      const response = await userService.getAjoAll()
+      const response = await userService.getAjoAll(filterPrompt)
       setAllAjos(response)
     } catch (error) {
       toast({
@@ -43,7 +52,7 @@ export default function All() {
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [filterPrompt])
   return (
     <>
       <Loading />
@@ -54,6 +63,25 @@ export default function All() {
           <div className=' w-full  py-8 px-6   bg-grey  flex  flex-col gap-8'>
             <div className=' flex justify-between items-center '>
               <SectionHeader text='Explore Ajo  ' />
+            </div>
+
+            <div className=' flex gap-[46px] '>
+              {filter.map((item, index) => (
+                <div
+                  className={` cursor-pointer border  py-2 px-4 capitalize rounded-lg   ${
+                    filterClicked === item.title
+                      ? " text-[#54098B] bg-neutral-40 border-[#54098B]"
+                      : "text-neutral-80 border-neutral-50"
+                  } `}
+                  key={index}
+                  onClick={() => {
+                    setFilterClicked(item.title)
+                    setFilterPrompt(item.prompt)
+                  }}
+                >
+                  {item.title}
+                </div>
+              ))}
             </div>
 
             <div className='  flex flex-wrap gap-6   '>

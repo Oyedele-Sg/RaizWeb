@@ -20,11 +20,25 @@ import {
   WhiteWrap,
 } from "@/shared"
 import Image from "next/image"
-import React, { useEffect, useState } from "react"
+import React, { use, useContext, useEffect, useState } from "react"
 import { all } from "axios"
 import moment from "moment"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
+import { useRouter } from "next/navigation"
 
 export default function Ajo() {
+  const { currentUser } = useContext(CurrentUserContext)
+  const Router = useRouter()
+
+  useEffect(() => {
+    if (
+      !currentUser?.onboarding_checklist.ajo &&
+      currentUser?.onboarding_checklist === null
+    ) {
+      Router.push("/ajo/onboard")
+    }
+  }, [])
+
   return (
     <>
       <Loading />
