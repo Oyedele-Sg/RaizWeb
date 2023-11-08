@@ -118,6 +118,7 @@ export const userService = {
   getFavoriteAccountByID,
   getForgotPinOTP,
   resetTransactionPin,
+  updateUserOnboardingList,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -218,7 +219,17 @@ function updateUserProfileImage(data: {
 }): Promise<UserInterface> {
   return fetchWrapper.patch(`${baseUrl}/account_users/profile-image/`, data)
 }
-
+function updateUserOnboardingList(data: {
+  checking?: boolean
+  savings?: boolean
+  ajo?: boolean
+  loan?: boolean
+}): Promise<UserInterface> {
+  return fetchWrapper.patch(
+    `${baseUrl}/account_users/update-onboarding-checklist/`,
+    data
+  )
+}
 //profile user
 function updateUsername(data: { username: string }): Promise<UserInterface> {
   return fetchWrapper.patch(`${baseUrl}/account_users/username/`, data)

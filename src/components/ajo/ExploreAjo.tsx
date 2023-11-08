@@ -67,7 +67,7 @@ export function ExploreAjo() {
         </button>
       </div>
 
-      <div className=' flex gap-[46px] '>
+      <div className=' flex gap-[46px] flex-wrap '>
         {filter.map((item, index) => (
           <div
             className={` border  py-2 px-4 capitalize rounded-lg   ${

@@ -64,6 +64,13 @@ export interface UserInterface {
   user_type: UserTypeinterface
   wallets: WalletType[]
   withdrawal_accounts: WithdrawalAccountType[]
+  onboarding_checklist: {
+    account_user_id: string
+    checking: boolean
+    savings: boolean
+    ajo: boolean
+    loan: boolean
+  }
 }
 
 export interface RegisterDataInterface extends Partial<FieldValues> {
