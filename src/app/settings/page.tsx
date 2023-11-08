@@ -141,7 +141,7 @@ export default function page() {
                 <AvatarImage src={user?.profile_image_url} />
                 <AvatarFallback className=' text-purple font-bold  uppercase '>
                   {currentUser?.first_name.charAt(0)}
-                  {currentUser?.last_name.charAt(1)}
+                  {currentUser?.last_name.charAt(0)}
                 </AvatarFallback>
               </Avatar>
               <div className=' p-1 rounded-full  bg-neutral-20 absolute right-0 bottom-0 '>

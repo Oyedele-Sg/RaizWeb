@@ -55,6 +55,10 @@ export const forgotPinSchema = yup.object().shape({
     .string()
     .min(4, "Pin must be at least 4 characters")
     .required("Pin is required"),
+  confirm_transaction_pin: yup
+    .string()
+    .oneOf([yup.ref("transaction_pin")], "Pin confirmation must match the pin")
+    .required("Pin confirmation is required"),
 })
 export const resetPasswordSchema = yup.object().shape({
   otp: yup.string().required("OTP is required"),

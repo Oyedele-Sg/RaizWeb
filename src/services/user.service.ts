@@ -555,7 +555,10 @@ function getForgotPinOTP(): Promise<void> {
     {}
   )
 }
-function resetTransactionPin(data: ForgotPinDataInterface): Promise<void> {
+function resetTransactionPin(data: {
+  otp: string
+  transaction_pin: string
+}): Promise<void> {
   return fetchWrapper.patch(
     `${baseUrl}/account_users/transaction-pin/reset/`,
     data

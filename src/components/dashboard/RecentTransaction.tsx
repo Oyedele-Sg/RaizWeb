@@ -1,5 +1,4 @@
 "use client"
-
 import { userService } from "@/services"
 import { Loading, TransactiontDataInterface, WhiteTileWrap } from "@/shared"
 import Image from "next/image"
@@ -16,6 +15,7 @@ import { useUser } from "@/hooks/user/useUser"
 
 import { DateRangePicker, DateRangePickerValue } from "@tremor/react"
 import { CurrentUserContext } from "@/providers/CurrentUserProvider"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export const RecentTransaction = () => {
   const [transactions, setTransactions] =
@@ -131,18 +131,28 @@ export const RecentTransaction = () => {
               {transactions?.map((transaction, index) => (
                 <div
                   key={index}
-                  className=' flex justify-between items-center bug '
+                  className=' flex justify-between items-center  '
                 >
-                  <div className=' flex flex-col gap-1  '>
-                    <h3 className=' text-purple text-[18px] font-semi-mid    '>
-                      {transaction.third_party_name}
-                    </h3>
-                    <p className=' text-neutral-70 font-title__medium '>
-                      {" "}
-                      {moment(transaction.transaction_date_time).format(
-                        "DD MMMM YYYY, h:mmA"
-                      )}{" "}
-                    </p>
+                  <div className='flex  items-center gap-2 '>
+                    <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[52px] h-[52px]  '>
+                      <AvatarImage
+                        src={transaction.third_party_profile_image_url}
+                      />
+                      <AvatarFallback className=' text-purple font-bold  uppercase '>
+                        NA
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className=' flex flex-col gap-1  '>
+                      <h3 className=' text-purple text-[18px] font-semi-mid    '>
+                        {transaction.third_party_name}
+                      </h3>
+                      <p className=' text-neutral-70 font-title__medium '>
+                        {" "}
+                        {moment(transaction.transaction_date_time).format(
+                          "DD MMMM YYYY, h:mmA"
+                        )}{" "}
+                      </p>
+                    </div>
                   </div>
                   <h2
                     className={` ${
@@ -165,19 +175,28 @@ export const RecentTransaction = () => {
                 {transactions?.map((transaction, index) => (
                   <div
                     key={index}
-                    className=' flex justify-between items-center'
+                    className=' flex justify-between items-center gap-2  '
                   >
-                    <div className=' flex flex-col gap-1  '>
-                      <h3 className=' text-purple text-[18px] font-semi-mid    '>
-                        {transaction.third_party_name}
-                      </h3>
-
-                      <p className=' text-neutral-70 font-title__medium   '>
-                        {" "}
-                        {moment(transaction.transaction_date_time).format(
-                          "DD MMMM YYYY, h:mmA"
-                        )}{" "}
-                      </p>
+                    <div className=' flex items-center gap-2   '>
+                      <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[40px] h-[40px]  '>
+                        <AvatarImage
+                          src={transaction.third_party_profile_image_url}
+                        />
+                        <AvatarFallback className=' text-purple font-bold  uppercase '>
+                          NA
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className=' flex flex-col gap-1  '>
+                        <h3 className=' text-purple text-[16px] font-semi-mid    '>
+                          {transaction.third_party_name}
+                        </h3>
+                        <p className=' text-neutral-70 font-title__medium   '>
+                          {" "}
+                          {moment(transaction.transaction_date_time).format(
+                            "DD MMMM YYYY, h:mmA"
+                          )}{" "}
+                        </p>
+                      </div>
                     </div>
 
                     <h2
