@@ -727,7 +727,15 @@ export interface AjoDataInterface {
   created_by_id: string
   created_at: Date
   updated_at: Date
+  ajo_description: string
   ajo_cycles: AjoCycleInterface[]
+  created_by: {
+    first_name: string
+    last_name: string
+    username: string
+    account_user_id: string
+    profile_image_url: string
+  }
 }
 
 export interface AjoFormInterface {

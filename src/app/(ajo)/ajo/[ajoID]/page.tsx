@@ -90,10 +90,14 @@ function Page() {
             </div>
             <div className=' flex w-full  justify-between  '>
               <div className=' text-grey flex flex-col gap-4  '>
-                <div className=' flex flex-col  gap-3  '>
+                <div className=' flex flex-col  gap-2  '>
                   <h1 className='  font-headline__large font-semibold  '>
                     {ajoDetails?.ajo_name}
                   </h1>
+                  <p className='  font-font-body__large  '>
+                    By:{" "}
+                    {`${ajoDetails?.created_by.first_name} ${ajoDetails?.created_by.last_name} `}{" "}
+                  </p>
                 </div>
                 <div className='flex flex-col gap-10 '>
                   <div className=' flex gap-8 flex-wrap '>
