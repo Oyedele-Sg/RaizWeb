@@ -30,8 +30,10 @@ export default function page() {
   const [file, setFile] = useState<any>(null)
 
   const handleLogout = () => {
+    dispatch(setLoadingTrue())
     userService.logout()
     Router.push(`/login`)
+    dispatch(setLoadingFalse())
   }
 
   const handleLink = (link: string | undefined) => {
@@ -205,10 +207,10 @@ export default function page() {
             </div>
           </div>
 
-          <div className='flex flex-col gap-[45px] '>
+          <div className='flex flex-col gap-[35px]  '>
             {settings.map((setting, index) => (
               <div
-                className='flex items-center justify-between hover:bg-neutral-20  cursor-pointer '
+                className='flex items-center justify-between hover:bg-neutral-20  cursor-pointer p-2 '
                 key={index}
                 onClick={() => handleLink(setting.link)}
               >
