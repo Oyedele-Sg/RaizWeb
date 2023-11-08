@@ -142,7 +142,7 @@ export function AjoJoined() {
       </div>
 
       <div className=''>
-        <div className=' max-w-full min-w-[500px] overflow-x-auto bug '>
+        <div className=' max-w-full min-w-[500px] overflow-x-auto  '>
           <table className=''>
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
