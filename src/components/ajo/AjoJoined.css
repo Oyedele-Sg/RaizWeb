@@ -1,47 +1,50 @@
 .ajo-joined-table-container {
-    width: 100%;
-    overflow-x: auto;
-    background-color: #f2f2f2;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    padding: 40px 46px;
-  }
-  
-  .ajo-joined-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .ajo-joined-table th,
-  .ajo-joined-table td {
-    padding: 12px;
-    text-align: left;
-  }
-  
-  .ajo-joined-table th {
-    background-color: #f2f2f2;
-    font-weight: 500;
-    font-size: 24px;
-    border-bottom: 2px solid #e7dfee;
-    padding-bottom: 16px;
-    margin-bottom: 56px;
-  }
-  
-  .ajo-joined-table th:not(:first-child) {
-    text-align: center; 
-  }
-  
-  .ajo-joined-table td:not(:first-child) {
-    text-align: center; 
-  }
-  
-  /*
+  width: 100%;
+  overflow-x: auto;
+  background-color: #f2f2f2;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 40px 46px;
+}
+
+.ajo-joined-table {
+  width: auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.ajo-joined-table th,
+.ajo-joined-table td {
+  padding: 12px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ajo-joined-table th {
+  background-color: #f2f2f2;
+  font-weight: 500;
+  font-size: 24px;
+  border-bottom: 2px solid #e7dfee;
+  padding-bottom: 16px;
+  margin-bottom: 56px;
+}
+
+.ajo-joined-table th:not(:first-child) {
+  text-align: center;
+}
+
+.ajo-joined-table td:not(:first-child) {
+  text-align: center;
+}
+
+/*
   .ajo-joined-table tr:nth-child(even) {
       background-color: #f2f2f2;
     }
   */
-  
-  .ajo-joined-table tr.selected {
-    background-color: #ffd700;
-  }
-  
+
+.ajo-joined-table tr.selected {
+  background-color: #ffd700;
+}

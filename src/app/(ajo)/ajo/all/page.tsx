@@ -65,10 +65,10 @@ export default function All() {
               <SectionHeader text='Explore Ajo  ' />
             </div>
 
-            <div className=' flex gap-[46px] '>
+            <div className=' flex gap-[46px] flex-wrap '>
               {filter.map((item, index) => (
                 <div
-                  className={` cursor-pointer border  py-2 px-4 capitalize rounded-lg   ${
+                  className={` cursor-default border  py-2 px-4 capitalize rounded-lg   ${
                     filterClicked === item.title
                       ? " text-[#54098B] bg-neutral-40 border-[#54098B]"
                       : "text-neutral-80 border-neutral-50"
@@ -84,7 +84,7 @@ export default function All() {
               ))}
             </div>
 
-            <div className='  flex flex-wrap gap-6   '>
+            <div className='  flex flex-wrap gap-6 items-center justify-center lg:justify-start  '>
               {allAjos.map((ajo, index) => (
                 <AjoCard ajo={ajo} key={index} />
               ))}

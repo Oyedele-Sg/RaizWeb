@@ -121,7 +121,7 @@ export const RecentTransaction = () => {
               alt='arrow'
               width={20}
               height={20}
-              className=' cursor-pointer '
+              className=' cursor-default '
             />
           </div>
         </div>
@@ -134,7 +134,7 @@ export const RecentTransaction = () => {
                   className=' flex justify-between items-center  '
                 >
                   <div className='flex  items-center gap-2 '>
-                    <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[52px] h-[52px]  '>
+                    <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[52px] h-[52px]  '>
                       <AvatarImage
                         src={transaction.third_party_profile_image_url}
                       />
@@ -178,7 +178,7 @@ export const RecentTransaction = () => {
                     className=' flex justify-between items-center gap-2  '
                   >
                     <div className=' flex items-center gap-2   '>
-                      <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[40px] h-[40px]  '>
+                      <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[40px] h-[40px]  '>
                         <AvatarImage
                           src={transaction.third_party_profile_image_url}
                         />

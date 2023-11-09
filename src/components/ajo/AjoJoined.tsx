@@ -35,7 +35,7 @@ export function AjoJoined() {
 
         return (
           <div
-            className='capitalize font-body__large text-purple cursor-pointer'
+            className='capitalize font-body__large text-purple cursor-default'
             onClick={() => Router.push(`/ajo/${ajo?.ajo_id}`)}
           >
             {ajo?.ajo_name}
@@ -106,9 +106,6 @@ export function AjoJoined() {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    // getPaginationRowModel: getPaginationRowModel(),
-    // getSortedRowModel: getSortedRowModel(),
-    // getFilteredRowModel: getFilteredRowModel(),
   })
 
   React.useEffect(() => {
@@ -122,33 +119,33 @@ export function AjoJoined() {
   }, [])
 
   return (
-    <div className='  py-8 px-6  bg-grey  flex  flex-col gap-8'>
-      <div className=' flex justify-between items-center '>
-        <SectionHeader text='All Ajo joined ' />
-        <BtnMain
-          btnText='Create Ajo'
-          btnStyle=' bg-purple py-3 px-[35.5px]  flex items-center gap-2 text-grey  '
-          onClick={() => Router.push("/ajo/create")}
-        >
-          <div className='  '>
-            <Image
-              src={`/icons/add-circle.svg`}
-              width={16}
-              height={16}
-              alt=''
-            />
-          </div>
-        </BtnMain>
-      </div>
+    <div>
+      <div className='  py-8 px-6  bg-grey  flex  flex-col gap-8'>
+        <div className=' flex justify-between items-center '>
+          <SectionHeader text='All Ajo joined ' />
+          <BtnMain
+            btnText='Create Ajo'
+            btnStyle=' bg-purple py-3 px-[35.5px]  flex items-center gap-2 text-grey  '
+            onClick={() => Router.push("/ajo/create")}
+          >
+            <div className='  '>
+              <Image
+                src={`/icons/add-circle.svg`}
+                width={16}
+                height={16}
+                alt=''
+              />
+            </div>
+          </BtnMain>
+        </div>
 
-      <div className=''>
-        <div className=' max-w-full min-w-[500px] overflow-x-auto  '>
-          <table className=''>
-            <thead>
+        <div className='container mx-auto overflow-x-auto '>
+          <table className='min-w-full  overflow-x-auto'>
+            <thead className=' border-b-neutral-30 border-b text-neutral-80 ajo-joined-table-header text-left '>
               {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
+                <tr key={headerGroup.id} className=''>
                   {headerGroup.headers.map((header) => (
-                    <th key={header.id}>
+                    <th key={header.id} className='py-2 px-4'>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -162,9 +159,9 @@ export function AjoJoined() {
             </thead>
             <tbody>
               {table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
+                <tr key={row.id} className='hover:bg-gray-100'>
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id}>
+                    <td key={cell.id} className='py-2 px-4'>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
