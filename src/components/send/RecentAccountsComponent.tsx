@@ -54,7 +54,7 @@ export function RecentAccountsComponent({
                   methods.reset()
                 }}
               >
-                <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[44px] h-[44px] bg-neutral-20 '>
+                <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[44px] h-[44px] bg-neutral-20 '>
                   <AvatarImage
                     src={account.favourite_account_user.profile_image_url}
                   />

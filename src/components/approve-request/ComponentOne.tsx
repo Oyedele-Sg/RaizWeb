@@ -67,7 +67,7 @@ export function ComponentOne() {
                   <div className=' flex flex-col gap-10 '>
                     <div className='flex flex-col  gap-5 justify-center items-center '>
                       <div className=''>
-                        <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[120px] h-[120px] bg-neutral-20 '>
+                        <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[120px] h-[120px] bg-neutral-20 '>
                           <AvatarImage
                             src={request?.requester_account?.profile_image_url}
                           />

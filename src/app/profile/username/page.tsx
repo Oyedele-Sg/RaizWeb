@@ -188,7 +188,7 @@ export default function Username() {
                 {suggestions.map((word, index) => (
                   <div
                     key={index}
-                    className=' flex items-center gap-4  cursor-pointer rounded-lg bg-purple px-8 py-2 '
+                    className=' flex items-center gap-4  cursor-default rounded-lg bg-purple px-8 py-2 '
                     onClick={() => handleClick(index, word)}
                   >
                     <p className=' font-body__large text-grey '>{word}</p>

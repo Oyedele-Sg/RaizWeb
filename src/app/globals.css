@@ -488,3 +488,7 @@ input[type="number"] {
   font-weight: 500;
   color: #bfabd3;
 }
+
+.ajo-joined-table-header {
+  font-weight: 400 !important;
+}

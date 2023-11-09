@@ -28,10 +28,10 @@ export function RecentAccountExternalComponent({
           <h3 className=' font-label__large text-neutral-80 '>Recent</h3>
           <div className=' flex gap-2  '>
             {accounts?.map((account) => (
-              <div className="">
+              <div className=''>
                 <Avatar
                   key={account.account_user_id}
-                  className=' cursor-pointer border-neutral-30 border-[2px] w-[44px] h-[44px] bg-neutral-20 '
+                  className=' cursor-default border-neutral-30 border-[2px] w-[44px] h-[44px] bg-neutral-20 '
                   onClick={() => {
                     methods.setValue(
                       "beneficiary_account_name",
@@ -53,7 +53,6 @@ export function RecentAccountExternalComponent({
                     {account.external_account.bank_account_name.charAt(1)}
                   </AvatarFallback>
                 </Avatar>
-                
               </div>
             ))}
           </div>

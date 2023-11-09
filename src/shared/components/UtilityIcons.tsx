@@ -41,7 +41,7 @@ export function UtilityIcons({ ajo, iconExtraStyle }: Props) {
           Router.push(`/settings`)
         }}
       >
-        <Avatar className=' cursor-pointer w-[48px] h-[48px]  '>
+        <Avatar className=' cursor-default w-[48px] h-[48px]  '>
           <AvatarImage src={currentUser?.profile_image_url} />
           <AvatarFallback className=' text-purple font-bold  uppercase '>
             <IconAvatar />

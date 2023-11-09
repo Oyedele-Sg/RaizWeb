@@ -163,7 +163,6 @@ export default function Ajo() {
     handleImageChange()
   }, [file])
 
-
   return (
     <>
       <Loading />
@@ -225,7 +224,7 @@ export default function Ajo() {
                             type='file'
                             name='image_url'
                             id='image_url'
-                            className=' absolute w-full h-full opacity-0 cursor-pointer '
+                            className=' absolute w-full h-full opacity-0 cursor-default '
                             onChange={(e: any) => setFile(e.target.files[0])}
                           />
                           {!(imageURL === "") ? (

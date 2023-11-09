@@ -116,7 +116,7 @@ export function AllNotificationList({
           {notification?.map((item, index) => (
             <div key={index}>
               <div
-                className={`flex gap-4 items-center cursor-pointer ${
+                className={`flex gap-4 items-center cursor-default ${
                   expandedIndex === index ? "bg-blue-100" : ""
                 }`}
                 onClick={() => handleNotificationClick(item, index)}

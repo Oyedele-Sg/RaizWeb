@@ -170,7 +170,7 @@ export default function page() {
         <div className='  p-12 rounded-r-8  border-neutral-20 border-[2px]  flex flex-col gap-9  '>
           <div className=' flex  gap-8 '>
             <div className=' relative '>
-              <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[64px] h-[64px]  '>
+              <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[64px] h-[64px]  '>
                 <AvatarImage src={user?.profile_image_url} />
                 <AvatarFallback className=' text-purple font-bold  uppercase '>
                   {currentUser?.first_name.charAt(0)}
@@ -210,7 +210,7 @@ export default function page() {
           <div className='flex flex-col gap-[35px]  '>
             {settings.map((setting, index) => (
               <div
-                className='flex items-center justify-between hover:bg-neutral-20  cursor-pointer p-2 '
+                className='flex items-center justify-between hover:bg-neutral-20  cursor-default p-2 '
                 key={index}
                 onClick={() => handleLink(setting.link)}
               >

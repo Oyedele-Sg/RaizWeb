@@ -105,7 +105,7 @@ export default function page() {
                         className=' select-item-reset  '
                       >
                         <div className=' flex items-center gap-5  '>
-                          <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[25px] h-[25px]  '>
+                          <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[25px] h-[25px]  '>
                             <AvatarImage
                               src={request.requester_account.profile_image_url}
                             />

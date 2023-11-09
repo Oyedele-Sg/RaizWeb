@@ -196,7 +196,7 @@ export function ComponentTwo({
                     {selectedUsers.map((user, index) => (
                       <div className='flex flex-col gap-5 '>
                         <div className='flex items-center gap-5'>
-                          <Avatar className=' cursor-pointer border-neutral-30 border-[2px] w-[48px] h-[48px] bg-neutral-20 '>
+                          <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[48px] h-[48px] bg-neutral-20 '>
                             <AvatarImage src={user.profile_image_url} />
                             <AvatarFallback className=' text-purple font-bold   '>
                               {user.first_name.charAt(0)}
