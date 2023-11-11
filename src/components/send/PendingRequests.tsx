@@ -13,9 +13,7 @@ export function PendingRequests() {
     <>
       {requests && requests?.length > 0 && (
         <div className=' flex flex-col  gap-2 '>
-          <h3 className=' font-label__large text-neutral-80 '>
-            Pending Request
-          </h3>
+          <h3 className=' font-label__large text-error '>Pending Request</h3>
           <div className=' flex gap-2  '>
             {requests?.map((account, index) => (
               <div
