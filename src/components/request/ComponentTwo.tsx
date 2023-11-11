@@ -49,7 +49,7 @@ export function ComponentTwo({
       transaction_amount: 0,
       requestee_account_id: searchResult?.account_user_id || "",
       narration: "",
-      category_id: 0,
+      category_id: null,
       currency: "NGN",
     },
   })
