@@ -72,7 +72,6 @@ export const RecentTransaction = () => {
   const [showTransaction, setShowTransaction] = useState(false)
 
   useEffect(() => {
-    // Update the isMobile state when the window is resized
     const handleResize = () => {
       if (typeof window !== "undefined") {
         setIsMobile(window.innerWidth <= 768)
@@ -84,7 +83,6 @@ export const RecentTransaction = () => {
     }
 
     return () => {
-      // Clean up the event listener when the component unmounts
       if (typeof window !== "undefined") {
         window.removeEventListener("resize", handleResize)
       }
@@ -92,7 +90,27 @@ export const RecentTransaction = () => {
   }, [])
 
   useEffect(() => {
-    data()
+    const fetchData = async () => {
+      try {
+        await data()
+      } catch (error) {
+        toast({
+          title: "Something Went Wrong",
+          description: `${error}`,
+          variant: "destructive",
+          style: {
+            backgroundColor: "#f44336",
+            color: "#fff",
+            top: "20px",
+            right: "20px",
+          },
+        })
+      }
+    }
+    fetchData()
+    const intervalId = setInterval(fetchData, 30000)
+
+    return () => clearInterval(intervalId)
   }, [date])
   return (
     <>
