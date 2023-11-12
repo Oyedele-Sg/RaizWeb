@@ -56,7 +56,7 @@ export default function page() {
           <IconRaizColored />
 
           <div className=' flex flex-col gap-3  '>
-            <div className='' onClick={() => Router.back}>
+            <div className='flex  gap-3' onClick={() => Router.back}>
               <BackBtnCircle />
               <button title='next' className=''>
                 <NextArrow />

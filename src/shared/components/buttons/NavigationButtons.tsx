@@ -8,7 +8,7 @@ export function NavigationButtons() {
   const Router = useRouter()
 
   return (
-    <div className=''>
+    <div className='flex items-center gap-3'>
       <BackBtnCircle />
       <button title='next' className=''>
         <NextArrow />

@@ -1,6 +1,7 @@
 "use client"
 import { InputContainer } from "@/components"
 import { ComponentOne, ComponentThree, ComponentTwo } from "@/components/send"
+import ComponentSend from "@/components/send/ComponentSend"
 import { Toast } from "@/components/ui/toast"
 import { toast } from "@/components/ui/use-toast"
 import { useUser } from "@/hooks/user/useUser"
@@ -51,7 +52,15 @@ export default function page() {
           setSearchResults={setSearchResults}
         />
       )}
-      {/* {currentStep === 3 && <ComponentThree />} */}
+      {currentStep === 3 && (
+        <ComponentSend
+          setSearchResults={setSearchResults}
+          setCurrentStep={setCurrentStep}
+          searchResults={searchResults}
+          title='Send Money'
+          subtitle='Find User(s)'
+        />
+      )}
     </>
   )
 }
