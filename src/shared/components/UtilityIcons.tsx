@@ -1,5 +1,11 @@
 import React, { useContext } from "react"
-import { IconAvatar, IconLogout, IconNotification, IconScan } from "./icons"
+import {
+  IconAvatar,
+  IconLogout,
+  IconNotification,
+  IconNotificationPending,
+  IconScan,
+} from "./icons"
 
 import { useRouter } from "next/navigation"
 import { userService } from "@/services"
@@ -29,7 +35,11 @@ export function UtilityIcons({ ajo, iconExtraStyle }: Props) {
         {ajo ? <IconLogout /> : <IconScan />}
 
         <div className={` ${ajo ? " hidden lg:block " : ""} relative`}>
-          <IconNotification />
+          {notification?.length ? (
+            <IconNotificationPending />
+          ) : (
+            <IconNotification />
+          )}
 
           <NotificationDrop />
         </div>
