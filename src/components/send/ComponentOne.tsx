@@ -1,5 +1,6 @@
 import { userService } from "@/services"
 import {
+  FavoriteAccountsDataInterface,
   FormTitledContainer,
   IconRaizColored,
   IconScan,
@@ -22,6 +23,15 @@ import { useFavouriteAccounts } from "@/hooks/fav-accounts/useFavouriteAccount"
 import { RecentAccountsComponent } from "./RecentAccountsComponent"
 import { SearchSelect, SearchSelectItem } from "@tremor/react"
 import { PendingRequests } from "./PendingRequests"
+import { Icon } from "@mui/material"
+import Image from "next/image"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 interface Prop {
   //   searchQuery: string
@@ -46,6 +56,9 @@ export function ComponentOne({
   subtitle,
 }: Prop) {
   const Router = useRouter()
+  const accounts = useFavouriteAccounts()?.filter(
+    (account) => account.favourite === true
+  )
   const methods = useForm<UserSearchInterface>({
     defaultValues: {
       account_user_id: "",
@@ -82,7 +95,7 @@ export function ComponentOne({
               <FormTitledContainer
                 title={title}
                 subtitle={subtitle}
-                utils={<Utils />}
+                utils={<Utils setCurrentStep={setCurrentStep} />}
               >
                 {/* <BtnMain btnText='Next' btnStyle=' authBtn ' /> */}
 
@@ -94,63 +107,66 @@ export function ComponentOne({
                 />
 
                 <div className=''>
-                  <h3 className=' font-label__large text-neutral-80 '>
-                    Search
-                  </h3>
-                  <FormProvider {...methods}>
-                    <form
-                      action=''
-                      onSubmit={methods.handleSubmit(onSubmit)}
-                      className=' flex flex-col gap-6 '
-                    >
-                      <div className=''>
-                        <input
-                          type='search'
-                          name=''
-                          id=''
-                          className=' form-input outline-none bg-transparent  w-full max-h-[3rem] placeholder:text-neutral-70 placeholder:font-body__large border-x-0 border-t-0 border-b-[1px] border-b-purple   '
-                          placeholder='Search with Username, Phone Number, or Email Address'
-                          // value={searchQuery}
-                          onChange={async (e) => {
-                            if (!e.target.value) {
-                              setSearchQuery([])
-                              return
-                            }
-                            const response = await userService.searchWallets(
-                              e.target.value
-                            )
-                            setSearchQuery(response)
-                            // setSearchQuery(e.target.value)
-                          }}
-                        />
-
-                        <div className=' bg-neutral-20 w-full '>
-                          {searchQuery.map((user) => (
-                            <div
-                              className='flex w-full hover:bg-neutral-30    '
-                              onClick={() => {
-                                methods.setValue("first_name", user.first_name)
-                                methods.setValue("last_name", user.last_name)
-                                methods.setValue("username", user.username)
-                                methods.setValue(
-                                  "account_user_id",
-                                  user.account_user_id
-                                )
-                                setSearchResults(user)
-                                setSearchQuery([])
-                                setCurrentStep(2)
-                                methods.reset()
-                              }}
-                            >
-                              <p className='text-neutral-90  p-[0.5rem]'>
-                                {user.first_name} {user.last_name}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </form>
-                  </FormProvider>
+                  {/* <h3 className=' font-label__large text-neutral-80 '>
+                    Favorites
+                  </h3> */}
+                  <Select
+                    onValueChange={(value) => {
+                      const selectedBank = accounts?.find(
+                        (account) => account.favourite_account_user_id === value
+                      ) as FavoriteAccountsDataInterface
+                      methods.setValue(
+                        "first_name",
+                        selectedBank.favourite_account_user.first_name
+                      )
+                      methods.setValue(
+                        "last_name",
+                        selectedBank?.favourite_account_user.last_name
+                      )
+                      methods.setValue(
+                        "username",
+                        selectedBank?.favourite_account_user.username
+                      )
+                      methods.setValue(
+                        "account_user_id",
+                        selectedBank?.favourite_account_user.account_user_id
+                      )
+                      setSearchResults(selectedBank?.favourite_account_user)
+                      setSearchQuery && setSearchQuery([])
+                      setCurrentStep && setCurrentStep(2)
+                      // // @ts-ignore
+                      // // methods.setValue("bank_name", selectedBank.bankName)
+                      // // @ts-ignore
+                      // methods.setValue(
+                      //   "beneficiary_bank_code",
+                      //   selectedBank?.bankCode as string
+                      // )
+                      // methods.setValue(
+                      //   "beneficiary_bank_name",
+                      //   selectedBank?.bankName as string
+                      // )
+                    }}
+                  >
+                    <SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50 '>
+                      <SelectValue
+                        placeholder='Select Favourite Account'
+                        className='   '
+                      />
+                    </SelectTrigger>
+                    <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto z-50 '>
+                      {accounts?.map((account, index) => (
+                        <SelectItem
+                          key={parseInt(account.favourite_account_user_id)}
+                          // @ts-ignore
+                          value={account.favourite_account_user_id}
+                          className=' hover:bg-neutral-50 z-50 '
+                        >
+                          {account.favourite_account_user.first_name}{" "}
+                          {account.favourite_account_user.last_name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <PendingRequests />
               </FormTitledContainer>
@@ -162,10 +178,21 @@ export function ComponentOne({
   )
 }
 
-function Utils() {
+interface UtilsProp {
+  setCurrentStep: React.Dispatch<React.SetStateAction<number>>
+}
+
+function Utils({ setCurrentStep }: UtilsProp) {
   return (
     <>
       <div className='flex gap-6  items-center  '>
+        <Image
+          src='/icons/search.svg'
+          width={20}
+          height={20}
+          alt=''
+          onClick={() => setCurrentStep(3)}
+        />
         <IconScan />
       </div>
     </>
