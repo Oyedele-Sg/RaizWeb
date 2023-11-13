@@ -64,8 +64,9 @@ export default function page() {
     },
     {
       title: "Manage connected accounts",
-      description: "Eternal accounts connected",
+      description: "External accounts connected",
       image: "manage",
+      link: "manage-connected-accounts",
     },
     {
       title: "About",
