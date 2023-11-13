@@ -2,11 +2,11 @@
 <g id="vuesax/linear/star">
 <g id="star">
 <g id="Group">
-<path id="Vector" d="M15.889 5.21L17.299 8.02999C17.489 8.41999 17.999 8.78999 18.429 8.86999L20.979 9.28999C22.609 9.55999 22.989 10.74 21.819 11.92L19.829 13.91C19.499 14.24 19.309 14.89 19.419 15.36L19.989 17.82C20.439 19.76 19.399 20.52 17.689 19.5L15.299 18.08C14.869 17.82 14.149 17.82 13.719 18.08L11.329 19.5C9.61896 20.51 8.57897 19.76 9.02897 17.82L9.59898 15.36C9.70898 14.9 9.51898 14.25 9.18898 13.91L7.19899 11.92C6.02899 10.75 6.40898 9.56999 8.03898 9.28999L10.589 8.86999C11.019 8.79999 11.529 8.41999 11.719 8.02999L13.129 5.21C13.879 3.68 15.119 3.68 15.889 5.21Z" stroke="#7E6298" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector" d="M15.889 5.21L17.299 8.02999C17.489 8.41999 17.999 8.78999 18.429 8.86999L20.979 9.28999C22.609 9.55999 22.989 10.74 21.819 11.92L19.829 13.91C19.499 14.24 19.309 14.89 19.419 15.36L19.989 17.82C20.439 19.76 19.399 20.52 17.689 19.5L15.299 18.08C14.869 17.82 14.149 17.82 13.719 18.08L11.329 19.5C9.61896 20.51 8.57897 19.76 9.02897 17.82L9.59898 15.36C9.70898 14.9 9.51898 14.25 9.18898 13.91L7.19899 11.92C6.02899 10.75 6.40898 9.56999 8.03898 9.28999L10.589 8.86999C11.019 8.79999 11.529 8.41999 11.719 8.02999L13.129 5.21C13.879 3.68 15.119 3.68 15.889 5.21Z" stroke="#4B0082" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<path id="Vector_2" d="M8.5 5H2.5" stroke="#7E6298" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_3" d="M5.5 19H2.5" stroke="#7E6298" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_4" d="M3.5 12H2.5" stroke="#7E6298" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M8.5 5H2.5" stroke="#4B0082" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M5.5 19H2.5" stroke="#4B0082" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M3.5 12H2.5" stroke="#4B0082" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 </svg>

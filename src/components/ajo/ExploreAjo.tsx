@@ -70,18 +70,46 @@ export function ExploreAjo() {
       <div className=' flex gap-[46px] flex-wrap '>
         {filter.map((item, index) => (
           <div
-            className={` border  py-2 px-4 capitalize rounded-lg   ${
+            className={` border  py-2 px-4 capitalize rounded-lg flex gap-5 items-center  ${
               filterClicked === item.title
                 ? " text-[#54098B] bg-neutral-40 border-[#54098B]"
                 : "text-neutral-80 border-neutral-50"
             } `}
             key={index}
-            onClick={() => {
-              setFilterClicked(item.title)
-              setFilterPrompt(item.prompt)
-            }}
           >
-            {item.title}
+            {item.title}{" "}
+            <div>
+              <Image
+                src={`/ajo/arrow-up.svg`}
+                width={15}
+                height={15}
+                alt=''
+                onClick={() => {
+                  setFilterClicked(item.title)
+
+                  item.title === "new"
+                    ? setFilterPrompt(`new`)
+                    : item.title === "members"
+                    ? setFilterPrompt(`max_participants_asc`)
+                    : setFilterPrompt(`${item.title}_asc`)
+                }}
+              />
+              <Image
+                src={`/ajo/arrow-down.svg`}
+                width={15}
+                height={15}
+                alt=''
+                onClick={() => {
+                  setFilterClicked(item.title)
+
+                  item.title === "new"
+                    ? setFilterPrompt(`new`)
+                    : item.title === "members"
+                    ? setFilterPrompt(`max_participants_desc`)
+                    : setFilterPrompt(`${item.title}_desc`)
+                }}
+              />{" "}
+            </div>
           </div>
         ))}
       </div>

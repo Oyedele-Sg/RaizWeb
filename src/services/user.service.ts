@@ -119,6 +119,8 @@ export const userService = {
   getForgotPinOTP,
   resetTransactionPin,
   updateUserOnboardingList,
+  deleteConnectedAccount,
+  addPryAccount,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -575,5 +577,20 @@ function resetTransactionPin(data: {
   return fetchWrapper.patch(
     `${baseUrl}/account_users/transaction-pin/reset/`,
     data
+  )
+}
+
+//manage account
+function deleteConnectedAccount(id: string): Promise<any> {
+  return fetchWrapper.deleteBody(
+    `${baseUrl}/account_users/withdrawal_accounts/${id}/`,
+    {}
+  )
+}
+
+function addPryAccount(id: string): Promise<any> {
+  return fetchWrapper.patch(
+    `${baseUrl}/account_users/withdrawal_accounts/${id}/primary/`,
+    {}
   )
 }

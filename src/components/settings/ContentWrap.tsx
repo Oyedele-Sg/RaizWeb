@@ -6,9 +6,10 @@ import React from "react"
 interface Props {
   children: React.ReactNode
   title: string
+  handleNavaigation?: () => void
 }
 
-export function ContentWrap({ children, title }: Props) {
+export function ContentWrap({ children, title, handleNavaigation }: Props) {
   const Router = useRouter()
   return (
     <div className=' flex flex-col gap-3 '>
@@ -16,7 +17,9 @@ export function ContentWrap({ children, title }: Props) {
         <button
           title='back'
           className=''
-          onClick={() => Router.push(`/settings`)}
+          onClick={() =>
+            handleNavaigation ? handleNavaigation() : Router.push(`/settings`)
+          }
         >
           <BackArrow />
         </button>

@@ -21,6 +21,7 @@ import moment from "moment"
 import { userService } from "@/services"
 import { useRouter } from "next/navigation"
 import DefaultJoinedAjo from "./DefaultJoinedAjo"
+import { AjoPaymentTableDefault } from "./AjoPaymentTableDefault"
 
 export function AjoJoined() {
   const Router = useRouter()
@@ -35,7 +36,7 @@ export function AjoJoined() {
 
         return (
           <div
-            className='capitalize font-body__large text-purple cursor-default'
+            className='capitalize font-body__large text-purple cursor-pointer'
             onClick={() => Router.push(`/ajo/${ajo?.ajo_id}`)}
           >
             {ajo?.ajo_name}
@@ -139,40 +140,44 @@ export function AjoJoined() {
           </BtnMain>
         </div>
 
-        <div className='container mx-auto overflow-x-auto '>
-          <table className='min-w-full  overflow-x-auto'>
-            <thead className=' border-b-neutral-30 border-b text-neutral-80 ajo-joined-table-header text-left '>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id} className=''>
-                  {headerGroup.headers.map((header) => (
-                    <th key={header.id} className='py-2 px-4'>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className='hover:bg-gray-100'>
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className='py-2 px-4'>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {!data || data.length === 0 ? (
+          <AjoPaymentTableDefault />
+        ) : (
+          <div className='container mx-auto overflow-x-auto '>
+            <table className='min-w-full  overflow-x-auto'>
+              <thead className=' border-b-neutral-30 border-b text-neutral-80 ajo-joined-table-header text-left '>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr key={headerGroup.id} className=''>
+                    {headerGroup.headers.map((header) => (
+                      <th key={header.id} className='py-2 px-4'>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              <tbody>
+                {table.getRowModel().rows.map((row) => (
+                  <tr key={row.id} className='hover:bg-gray-100'>
+                    {row.getVisibleCells().map((cell) => (
+                      <td key={cell.id} className='py-2 px-4'>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   )
