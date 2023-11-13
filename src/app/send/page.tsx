@@ -79,8 +79,8 @@ export default function page() {
               </div>
 
               {requests && requests?.length > 0 && (
-                <div>
-                  <h3 className=' text-neutral-80  '>Pending Requests</h3>
+                <div className=' flex flex-col gap-3 '>
+                  <h3 className=' text-error  '>Pending Requests</h3>
 
                   <SearchSelect
                     placeholder='Select...'
