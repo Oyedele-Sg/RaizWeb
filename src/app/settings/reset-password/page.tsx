@@ -11,6 +11,7 @@ import {
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch } from "@/shared/redux/types"
+import { passwordHash } from "@/utils/helpers"
 import { yupResolver } from "@hookform/resolvers/yup"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
@@ -34,7 +35,11 @@ function page() {
   const onSubmit = async (data: ChangePasswordDataInterface) => {
     try {
       dispacth(setLoadingTrue())
-      await userService.changePassword(data)
+      await userService.changePassword({
+        ...data,
+        old_password: passwordHash(data.old_password),
+        new_password: passwordHash(data.new_password),
+      })
       toast({
         title: "Password Changed Successfully",
         variant: "default",
