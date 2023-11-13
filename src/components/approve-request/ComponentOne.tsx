@@ -17,6 +17,7 @@ import {
   SetupLayout,
   transactionPinSchema,
   createTransactionPinSchema,
+  BackArrow,
 } from "@/shared"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
@@ -44,12 +45,12 @@ export function ComponentOne() {
 
           <div className='flex flex-col gap-3  '>
             <div
-              className=''
+              className='flex items-center gap-3 '
               onClick={() => {
-                !showPin ? setShowPin(false) : Router.back
+                showPin ? setShowPin(false) : Router.back()
               }}
             >
-              <BackBtnCircle />
+              <BackArrow />
               <button title='next' className=''>
                 <NextArrow />
               </button>

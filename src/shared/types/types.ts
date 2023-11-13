@@ -284,7 +284,7 @@ export interface RequestDataInterface {
   transaction_amount: number
   currency: "NGN"
   narration: string
-  category_id: number
+  category_id: number | null
 }
 
 export interface NIPLookupDataInterface {
