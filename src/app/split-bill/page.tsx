@@ -20,7 +20,7 @@ export default function page() {
   const user = useUser() as UserInterface
   const dispatch = useAppDispatch()
   const request = useAppSelector((state) => state.selectedRequest)
- 
+
   const [selectedUsers, setSelectedUsers] = useState<
     (UserSearchInterface | AccountInterface)[]
   >([])
@@ -34,6 +34,7 @@ export default function page() {
   })
 
   const [currentStep, setCurrentStep] = useState(1)
+ 
 
   return (
     <>
@@ -56,7 +57,7 @@ export default function page() {
           setCurrentStep={setCurrentStep}
           title='Bill Request'
           subtitle='Custom Spilt'
-          selectedUsers={[user,...selectedUsers ]}
+          selectedUsers={[user, ...selectedUsers]}
           setGroupName={setGroupName}
           groupName={groupName}
           total_amount={total}

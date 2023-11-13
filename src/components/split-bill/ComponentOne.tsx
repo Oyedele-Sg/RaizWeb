@@ -108,11 +108,14 @@ export function ComponentOne({
         <div className='  mx-5 mt-[72px]   lg:mx-[72px] flex flex-col gap-[84px] '>
           <IconRaizColored />
 
-          <div className=' flex flex-col gap-3 '>
-            <div className='flex '>
-              <div className='' onClick={() => Router.back}>
-                <BackBtnCircle />
-              </div>
+          <div className=' flex flex-col gap-3  '>
+            <div
+              className=''
+              onClick={() => {
+                Router.back
+              }}
+            >
+              <BackBtnCircle />
               <button title='next' className=''>
                 <NextArrow />
               </button>

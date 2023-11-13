@@ -2,6 +2,7 @@ import { userService } from "@/services"
 import {
   AccountInterface,
   AuthButton,
+  BackArrow,
   BackBtnCircle,
   BtnMain,
   FormTitledContainer,
@@ -98,6 +99,7 @@ export function ComponentTwo({
       status_id: 2,
     }))
   )
+ 
 
   const handleAmountChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -141,7 +143,27 @@ export function ComponentTwo({
   const [pin, setPin] = useState(false)
 
   const handleDone = () => {
-    setPin(true)
+    const totalAmountInMemberDetails = memberDetails.reduce(
+      (acc, member) => acc + member.amount,
+      0
+    )
+
+    if (totalAmountInMemberDetails !== total_amount) {
+      toast({
+        title: "Something Went Wrong",
+        description: "Total amount dont match spilt amount",
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+      })
+      setDone(false)
+    } else {
+      setPin(true)
+    }
   }
 
   const handleEvenSplit = () => {
@@ -176,8 +198,11 @@ export function ComponentTwo({
           <IconRaizColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div className='' onClick={() => Router.back}>
-              <BackBtnCircle />
+            <div
+              className='flex items-center'
+              onClick={() => (pin ? setPin(false) : setCurrentStep(1))}
+            >
+              <BackArrow />
               <button title='next' className=''>
                 <NextArrow />
               </button>
