@@ -26,7 +26,7 @@ const CurrentUserProvider: React.FC<{ children: React.ReactNode }> = (
     try {
       const response = await userService.getCurrentUser()
       if (response) {
-        response.username === null && Router.push("/profile/username")
+        // response.username === null && Router.push("/profile/username")
         setIsLoading(false)
         setCurrentUser(response)
       }

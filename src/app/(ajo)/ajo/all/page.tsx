@@ -19,7 +19,7 @@ export default function All() {
   ]
   const [filterClicked, setFilterClicked] = useState<string>("new")
   const [filterPrompt, setFilterPrompt] = useState<string>("new")
-  console.log(filterPrompt)
+ 
   const getData = async () => {
     try {
       const response = await userService.getAjoAll(filterPrompt)
@@ -70,7 +70,7 @@ export default function All() {
                     <div
                       className=''
                       onClick={() => {
-                        console.log("up")
+                      
                         if (item.title === "new") {
                           setFilterPrompt(`new`)
                         } else if (item.title === "members") {
@@ -92,7 +92,7 @@ export default function All() {
                     <div
                       className=''
                       onClick={() => {
-                        console.log("down")
+                      
 
                         if (item.title === "new") {
                           setFilterPrompt(`new`)

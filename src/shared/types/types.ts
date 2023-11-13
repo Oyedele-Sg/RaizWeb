@@ -55,6 +55,7 @@ export interface UserInterface {
   username: string
   profile_image_url: string
   qr_code: string
+  has_transaction_pin: boolean
   is_phone_verified: boolean
   is_email_verified: boolean
   is_bvn_verified: boolean
