@@ -2,6 +2,7 @@
 import { InputContainer } from "@/components"
 import { ComponentTwo } from "@/components/request"
 import { ComponentOne } from "@/components/send"
+import ComponentSend from "@/components/send/ComponentSend"
 
 import { Toast } from "@/components/ui/toast"
 import { toast } from "@/components/ui/use-toast"
@@ -51,7 +52,15 @@ export default function page() {
           setSearchResults={setSearchResults}
         />
       )}
-      {/* {currentStep === 3 && <ComponentThree />} */}
+      {currentStep === 3 && (
+        <ComponentSend
+          setSearchResults={setSearchResults}
+          setCurrentStep={setCurrentStep}
+          searchResults={searchResults}
+          title='Reqest Money'
+          subtitle='Find User(s)'
+        />
+      )}
     </>
   )
 }

@@ -590,7 +590,7 @@ function deleteConnectedAccount(id: string): Promise<any> {
 
 function addPryAccount(id: string): Promise<any> {
   return fetchWrapper.patch(
-    `${baseUrl}/account_users/withdrawal_accounts/${id}/primary/`,
+    `${baseUrl}/account_users/withdrawal-accounts/${id}/primary/`,
     {}
   )
 }

@@ -186,7 +186,11 @@ function page() {
     <>
       <Loading />
       <ContentWrap
-        title={currentStep === "view" ? "Manage  PIN" : "Add New Account"}
+        title={
+          currentStep === "view"
+            ? "Manage  External Connected Account"
+            : "Add New Account"
+        }
         handleNavaigation={handleNavigation}
       >
         {currentStep === "view" && (
