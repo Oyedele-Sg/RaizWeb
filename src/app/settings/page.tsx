@@ -1,9 +1,11 @@
 "use client"
 import {
+  BackArrow,
   BtnMain,
   IconRaizColored,
   Loading,
   NavigationButtons,
+  NextArrow,
   SetupLayout,
   UserInterface,
 } from "@/shared"
@@ -165,8 +167,15 @@ export default function page() {
           </div>
         </div>
       ) : null}
-      <div className=''>
-        <NavigationButtons />
+      <div className='flex flex-col gap-2 '>
+        <div className='flex items-center gap-3'>
+          <button onClick={() => Router.push("/dashboard")}>
+            <BackArrow />
+          </button>
+          <button title='next' className=''>
+            <NextArrow />
+          </button>
+        </div>
 
         <div className='  p-12 rounded-r-8  border-neutral-20 border-[2px]  flex flex-col gap-9  '>
           <div className=' flex  gap-8 '>

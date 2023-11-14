@@ -19,7 +19,7 @@ export default function All() {
   ]
   const [filterClicked, setFilterClicked] = useState<string>("new")
   const [filterPrompt, setFilterPrompt] = useState<string>("new")
- 
+
   const getData = async () => {
     try {
       const response = await userService.getAjoAll(filterPrompt)
@@ -58,61 +58,54 @@ export default function All() {
             <div className=' flex gap-[46px] flex-wrap '>
               {filter.map((item, index) => (
                 <div
-                  className={` cursor-default border  py-2 px-4 capitalize rounded-lg flex gap-5 items-center   ${
+                  className={` cursor-default border  py-2 px-4 capitalize rounded-lg flex gap-5 items-center justify-center min-w-[107px] text-center  ${
                     filterClicked === item.title
                       ? " text-[#54098B] bg-neutral-40 border-[#54098B]"
                       : "text-neutral-80 border-neutral-50"
                   } `}
                   key={index}
+                  onClick={() => {
+                    if (item.title === "new") {
+                      setFilterPrompt(`new`)
+                      setFilterClicked("new")
+                    }
+                  }}
                 >
                   {item.title}{" "}
-                  <div>
-                    <div
-                      className=''
-                      onClick={() => {
-                      
-                        if (item.title === "new") {
-                          setFilterPrompt(`new`)
-                        } else if (item.title === "members") {
-                          setFilterPrompt(`max_participants_asc`)
-                        } else {
-                          setFilterPrompt(`${item.title}_asc`)
-                        }
-
-                        setFilterClicked(item.title)
-                      }}
-                    >
+                  {!(item.title === "new") && (
+                    <div>
                       <Image
                         src={`/ajo/arrow-up.svg`}
                         width={15}
                         height={15}
                         alt=''
+                        onClick={() => {
+                          setFilterClicked(item.title)
+
+                          item.title === "new"
+                            ? setFilterPrompt(`new`)
+                            : item.title === "members"
+                            ? setFilterPrompt(`max_participants_asc`)
+                            : setFilterPrompt(`${item.title}_asc`)
+                        }}
                       />
-                    </div>
-                    <div
-                      className=''
-                      onClick={() => {
-                      
-
-                        if (item.title === "new") {
-                          setFilterPrompt(`new`)
-                        } else if (item.title === "members") {
-                          setFilterPrompt(`max_participants_desc`)
-                        } else {
-                          setFilterPrompt(`${item.title}_desc`)
-                        }
-
-                        setFilterClicked(item.title)
-                      }}
-                    >
                       <Image
                         src={`/ajo/arrow-down.svg`}
                         width={15}
                         height={15}
                         alt=''
-                      />
+                        onClick={() => {
+                          setFilterClicked(item.title)
+
+                          item.title === "new"
+                            ? setFilterPrompt(`new`)
+                            : item.title === "members"
+                            ? setFilterPrompt(`max_participants_desc`)
+                            : setFilterPrompt(`${item.title}_desc`)
+                        }}
+                      />{" "}
                     </div>
-                  </div>
+                  )}
                 </div>
               ))}
             </div>
