@@ -35,6 +35,7 @@ function Page() {
       dispatch(setLoadingFalse())
     }
   }
+  console.log("cycle", ajoPaymentTableDetails?.ajo_cycle)
 
   const getData = async () => {
     try {

@@ -75,7 +75,10 @@ export function ComponentOne({ setSearchResults, setCurrentStep }: Prop) {
           <IconRaizColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div className='' onClick={() => Router.back}>
+            <div
+              className='  flex gap-3 items-center'
+              onClick={() => Router.back}
+            >
               <BackBtnCircle />
               <button title='next' className=''>
                 <NextArrow />
