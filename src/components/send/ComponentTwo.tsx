@@ -128,7 +128,7 @@ export function ComponentTwo({
             <IconRaizColored />
 
             <div className=' flex flex-col gap-3 '>
-              <div className=''>
+              <div className=' flex gap-3 items-center '>
                 <button
                   title='back'
                   className=''

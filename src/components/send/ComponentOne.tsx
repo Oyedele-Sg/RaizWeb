@@ -32,6 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 interface Prop {
   //   searchQuery: string
@@ -147,7 +148,7 @@ export function ComponentOne({
                       // )
                     }}
                   >
-                    <SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50 '>
+                    <SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50  '>
                       <SelectValue
                         placeholder='Select Favourite Account'
                         className='   '
@@ -161,8 +162,28 @@ export function ComponentOne({
                           value={account.favourite_account_user_id}
                           className=' hover:bg-neutral-50 z-50 '
                         >
-                          {account.favourite_account_user.first_name}{" "}
-                          {account.favourite_account_user.last_name}
+                          <div className=' flex  items-center gap-2 '>
+                            <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[24px] h-[24px] bg-neutral-20 '>
+                              <AvatarImage
+                                src={
+                                  account.favourite_account_user
+                                    .profile_image_url
+                                }
+                              />
+                              <AvatarFallback className=' text-purple font-bold   '>
+                                {account.favourite_account_user.first_name.charAt(
+                                  0
+                                )}
+                                {account.favourite_account_user.last_name.charAt(
+                                  0
+                                )}
+                              </AvatarFallback>
+                            </Avatar>
+                            <span className=''>
+                              {account.favourite_account_user.first_name}{" "}
+                              {account.favourite_account_user.last_name}
+                            </span>
+                          </div>
                         </SelectItem>
                       ))}
                     </SelectContent>
