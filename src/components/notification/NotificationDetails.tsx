@@ -5,6 +5,7 @@ import { CreditNotificationDetails } from './CreditNotificationDetails';
 import { DebitNotificationDetails } from './DebitNotificationDetails';
 import { DebitSplitRequestNotificationDetails } from './DebitSplitRequestNotificationDetails';
 import { BillRequestNotificationDetails } from './BillRequestNotificationDetails';
+import './Notification.css';
 
 interface NotificationDetailsProps {
   notification_type?: string;
@@ -18,7 +19,7 @@ export function NotificationDetails({
   );
 
   return (
-    <div className="bg-grey border-[2px] border-neutral-20 p-8 rounded-lg max-h-[600px] overflow-auto">
+    <div className="bg-grey  p-8 rounded-lg max-h-[600px] overflow-auto notification_detail">
       <div className="flex flex-col gap-12">
         {notification_type === 'credit' && <CreditNotificationDetails />}
 
