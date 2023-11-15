@@ -13,10 +13,10 @@ export const AjoPaymentTableDefault = () => {
       />
       <div className=" flex flex-col gap-3 items-center ">
         <h2 className=" gradient-text font-title__large  ">
-          Opps! We hit a snag
+          Opps! Your Ajo has not started
         </h2>
         <p className=" text-neutral-90 font-body__large  flex flex-col lg:flex-row items-center gap-3  ">
-          Don't worry, we are working on it ....
+          Check back once your Ajo has started....
           {/* <span className=' text-neutral-70 underline  '>
             <Link href='/'> Get started.
           </span> */}

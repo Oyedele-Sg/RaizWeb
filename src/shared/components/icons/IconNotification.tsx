@@ -16,8 +16,6 @@ export const IconNotification: FC = (): ReactElement => {
   return (
     <div
       className=""
-      onMouseEnter={() => dispatch(setNotificationTrue())}
-      onMouseLeave={() => dispatch(setNotificationFalse())}
       onClick={() => {
         Router.push(`/notifications`);
       }}
