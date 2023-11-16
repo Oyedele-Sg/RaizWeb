@@ -72,8 +72,12 @@ function Page() {
         <HomeHeader />
       </div>
 
-      <div className=" w-full min-h-[360px] relative   ">
-        <Image src={'/images/bg.png'} fill={true} alt="" />
+      <div className=' w-full min-h-[360px] relative   '>
+        <Image
+          src={ajoDetails?.image_url ? ajoDetails.image_url : "/images/bg.png"}
+          fill={true}
+          alt=''
+        />
 
         <div className=" absolute top-0  bottom-0 left-0 right-0    p-10 flex  justify-between ">
           <div className="flex gap-8 items-center w-full    ">

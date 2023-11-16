@@ -105,6 +105,9 @@ module.exports = {
         "neutral-100": "#493260",
         "ajo-card": "#ECEFEF",
         "bg-overlay": "rgba(47, 47, 47, 0.62)",
+        "ajo-live": "rgba(155, 216, 183, 0.22)",
+        "ajo-pending": "rgba(216, 177, 155, 0.22)",
+        "ajo-end": "rgba(179, 38, 30, 0.19)",
 
         positive: "#7ABA98",
         border: "hsl(var(--border))",
