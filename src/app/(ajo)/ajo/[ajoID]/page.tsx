@@ -19,6 +19,7 @@ function Page() {
   const dispatch = useAppDispatch()
   const Params = useParams()
   const [ajoDetails, setAjoDetails] = React.useState<AjoDataInterface>()
+  console.log("ajoDetails", ajoDetails)
   const [members, setMembers] = React.useState([])
   const [ajoPaymentTableDetails, setAjoPaymentTableDetails] =
     React.useState<any>()
@@ -74,7 +75,11 @@ function Page() {
       </div>
 
       <div className=' w-full min-h-[360px] relative   '>
-        <Image src={"/images/bg.png"} fill={true} alt='' />
+        <Image
+          src={ajoDetails?.image_url ? ajoDetails.image_url : "/images/bg.png"}
+          fill={true}
+          alt=''
+        />
 
         <div className=' absolute top-0  bottom-0 left-0 right-0    p-10 flex  justify-between '>
           <div className='flex gap-8 items-center w-full    '>
