@@ -14,6 +14,7 @@ export default function Ajo() {
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const { currentUser } = useContext(CurrentUserContext)
+  
 
   const data = [
     {
@@ -34,12 +35,15 @@ export default function Ajo() {
   ]
   const [clicked, setClicked] = React.useState(0)
   const [active, setActive] = React.useState(0)
-  // React.useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setActive((prev) => (prev === 2 ? 0 : prev + 1))
-  //   }, 2000)
-  //   return () => clearInterval(interval)
-  // }, [])
+  React.useEffect(() => {
+    // if (currentUser?.onboarding_checklist?.ajo) {
+    //   Router.push("/ajo")
+    // }
+    const interval = setInterval(() => {
+      setActive((prev) => (prev === 2 ? 0 : prev + 1))
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [])
   return (
     <>
       <Loading />

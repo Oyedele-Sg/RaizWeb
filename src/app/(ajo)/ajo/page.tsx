@@ -29,12 +29,8 @@ import { useRouter } from "next/navigation"
 export default function Ajo() {
   const { currentUser } = useContext(CurrentUserContext)
   const Router = useRouter()
-
   useEffect(() => {
-    if (
-      !currentUser?.onboarding_checklist.ajo &&
-      currentUser?.onboarding_checklist === null
-    ) {
+    if (!currentUser?.onboarding_checklist?.ajo) {
       Router.push("/ajo/onboard")
     }
   }, [])

@@ -46,13 +46,25 @@ export function AjoJoined() {
     },
     {
       accessorKey: "ajo_id",
-      header: "Amount",
+      header: "Status",
       cell: ({ row }) => {
         const ajo = data.find((ajo) => ajo.ajo_id === row.getValue("ajo_id"))
 
         return (
-          <div className='capitalize bg-gradient-ajo-default text-grey text-center font-body__large px-4 py-2 rounded-lg  '>
-            ₦{ajo?.ajo_cycles[0].target_amount.toLocaleString()}
+          <div
+            className={`capitalize   text-center  font-body__large px-2 py-1 rounded-lg ${
+              ajo?.ajo_cycles[0].has_started
+                ? " text-[#00BFA3] bg-ajo-live"
+                : ajo?.ajo_cycles[0].has_ended
+                ? " text-error bg-ajo-end "
+                : " text-[#BF6700] bg-ajo-pending  "
+            }   `}
+          >
+            {ajo?.ajo_cycles[0].has_started
+              ? "Live"
+              : ajo?.ajo_cycles[0].has_ended
+              ? "Ended"
+              : "Pending"}
           </div>
         )
       },
@@ -98,6 +110,20 @@ export function AjoJoined() {
 
         return (
           <div className='capitalize font-body__large text-purple  '>{ajo}</div>
+        )
+      },
+    },
+
+    {
+      accessorKey: "ajo_id",
+      header: "Amount",
+      cell: ({ row }) => {
+        const ajo = data.find((ajo) => ajo.ajo_id === row.getValue("ajo_id"))
+
+        return (
+          <div className='capitalize bg-gradient-ajo-default text-grey text-center font-body__large px-4 py-2 rounded-lg  '>
+            ₦{ajo?.ajo_cycles[0].target_amount.toLocaleString()}
+          </div>
         )
       },
     },

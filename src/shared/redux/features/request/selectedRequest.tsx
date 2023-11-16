@@ -1,26 +1,26 @@
 import {
   PendingRequestDataInterface,
   RegisterDataInterface,
-} from "@/shared/types"
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+} from '@/shared/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {}
+const initialState = {};
 
 // manage show state
 
 export const selectedRequestSlice = createSlice({
-  name: "selectedRequest",
+  name: 'selectedRequest',
   initialState: initialState as PendingRequestDataInterface,
   reducers: {
     getSelectedRequest: (
       state,
       action: PayloadAction<PendingRequestDataInterface>
     ) => {
-      return action.payload
+      return action.payload;
     },
   },
-})
+});
 
-export const { getSelectedRequest } = selectedRequestSlice.actions
+export const { getSelectedRequest } = selectedRequestSlice.actions;
 
-export default selectedRequestSlice.reducer
+export default selectedRequestSlice.reducer;

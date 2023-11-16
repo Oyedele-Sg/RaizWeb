@@ -1,6 +1,7 @@
 import { useAppSelector } from '@/shared/redux/types';
 import moment from 'moment';
 import React from 'react';
+import './Notification.css';
 
 export function DebitNotificationDetails() {
   const debitTransferDetails = useAppSelector(
@@ -8,7 +9,7 @@ export function DebitNotificationDetails() {
   );
 
   return (
-    <div className="bg-grey p-8 rounded-lg max-h-[600px] overflow-auto">
+    <div className="bg-grey p-2 rounded-lg max-h-[600px] overflow-auto ">
       <div className="flex flex-col gap-12">
         <div>
           {' '}

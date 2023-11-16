@@ -1,6 +1,7 @@
 import { useAppSelector } from '@/shared/redux/types';
 import moment from 'moment';
 import React from 'react';
+import './Notification.css';
 
 export function CreditNotificationDetails() {
   const creditTransferDetails = useAppSelector(
