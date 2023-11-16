@@ -42,11 +42,10 @@ export default function Sucess() {
                   btnText='Cycle hub'
                   btnStyle=' px-[101.5px] '
                   onClick={async () => {
-                    Router.push("/ajo")
+                    Router.push("/ajo/hub")
                   }}
                 />
               </div>
-             
             </div>
           </div>
         </div>
