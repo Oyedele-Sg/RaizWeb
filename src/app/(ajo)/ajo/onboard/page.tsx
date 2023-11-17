@@ -40,7 +40,7 @@ export default function Ajo() {
     // }
     const interval = setInterval(() => {
       setActive((prev) => (prev === 2 ? 0 : prev + 1))
-    }, 5000)
+    }, 8000)
     return () => clearInterval(interval)
   }, [])
   return (
@@ -59,7 +59,7 @@ export default function Ajo() {
 
           <div className=' flex-1 min-h-full lg:pb-[100px] lg:mb-[100px]   '>
             <WhiteTileWrap extraStyle='  flex flex-col items-center justify-center px-4   h-full rounded-none lg:rounded-lg  lg:mb-[102px]  '>
-              <div className=' flex flex-col gap-[186px]  items-center justify-between  '>
+              <div className=' flex flex-col gap-[186px]  items-center justify-between pt-[207px] '>
                 <h1 className='  text-[32px] text-center  text-purple font-semi-mid lg:hidden  '>
                   {data[active].text + " "}
                   <span className=' text-yellow '>
