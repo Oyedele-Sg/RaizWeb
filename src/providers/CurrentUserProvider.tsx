@@ -47,15 +47,11 @@ const CurrentUserProvider: React.FC<{ children: React.ReactNode }> = (
   }
 
   useEffect(() => {
-    // Call getCurrentUser immediately when the component mounts
     getCurrentUser()
 
-    // Set up an interval to call getCurrentUser every 30 seconds
     const intervalId = setInterval(() => {
       getCurrentUser()
-    }, 30000) // 30,000 milliseconds = 30 seconds
-
-    // Clear the interval when the component unmounts to prevent memory leaks
+    }, 30000) 
     return () => {
       clearInterval(intervalId)
     }

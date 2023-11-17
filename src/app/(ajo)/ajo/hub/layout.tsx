@@ -7,12 +7,12 @@ interface Props {
 
 export default function AuthLayout({ children }: Props) {
   return (
-    <CurrentUserProvider>
+    <>
       <Sidebar />
 
       <main className=' bg-neutral-20  min-h-screen'>
         <div className=' lg:ml-[144px] lg:px-12  '>{children}</div>
       </main>
-    </CurrentUserProvider>
+    </>
   )
 }

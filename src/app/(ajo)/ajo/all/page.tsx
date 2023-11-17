@@ -47,7 +47,7 @@ export default function All() {
     <>
       <Loading />
       <div className='   p-10'>
-        <HomeHeader />
+        <HomeHeader title='Cycle Hub ' />
 
         <div className=' flex gap-10 min-h-full  '>
           <div className=' w-full  py-8 px-6   bg-grey  flex  flex-col gap-8'>

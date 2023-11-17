@@ -14,7 +14,7 @@ export default function Ajo() {
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const { currentUser } = useContext(CurrentUserContext)
-  
+  console.log("cureent", currentUser)
 
   const data = [
     {
@@ -33,15 +33,14 @@ export default function Ajo() {
       icon: "ajoThree",
     },
   ]
-  const [clicked, setClicked] = React.useState(0)
   const [active, setActive] = React.useState(0)
   React.useEffect(() => {
-    // if (currentUser?.onboarding_checklist?.ajo) {
-    //   Router.push("/ajo")
+    // if (currentUser.onboarding_checklist.ajo) {
+    //   Router.push("/ajo/hub")
     // }
     const interval = setInterval(() => {
       setActive((prev) => (prev === 2 ? 0 : prev + 1))
-    }, 2000)
+    }, 5000)
     return () => clearInterval(interval)
   }, [])
   return (
@@ -52,14 +51,14 @@ export default function Ajo() {
           <IconRaiz />
         </div>
 
-        <div className='flex  justify-between   gap-[104px] min-h-full '>
+        <div className='flex  justify-between   gap-[104px] min-h-full  '>
           <OnboardTitleComponent
             titleText={data[active].text}
             titleSpan={data[active].span}
           />
 
-          <div className=' flex-1 min-h-full lg:pb-[100px] '>
-            <WhiteTileWrap extraStyle='  flex flex-col items-center justify-center px-4   min-h-full rounded-none lg:rounded-lg  '>
+          <div className=' flex-1 min-h-full lg:pb-[100px] lg:mb-[100px]   '>
+            <WhiteTileWrap extraStyle='  flex flex-col items-center justify-center px-4   h-full rounded-none lg:rounded-lg  lg:mb-[102px]  '>
               <div className=' flex flex-col gap-[186px]  items-center justify-between  '>
                 <h1 className='  text-[32px] text-center  text-purple font-semi-mid lg:hidden  '>
                   {data[active].text + " "}
@@ -101,13 +100,14 @@ export default function Ajo() {
                           savings: false,
                           loan: false,
                         })
-                        Router.push("/ajo")
-                        return
+                        Router.push("/ajo/hub")
+                      } else {
+                        await userService.updateUserOnboardingList({
+                          ajo: true,
+                        })
+                        dispatch(setLoadingFalse())
+                        Router.push("/ajo/hub")
                       }
-
-                      userService.updateUserOnboardingList({ ajo: true })
-                      dispatch(setLoadingFalse())
-                      Router.push("/ajo")
                     }}
                   />
                 </div>
