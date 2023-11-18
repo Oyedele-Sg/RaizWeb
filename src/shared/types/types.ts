@@ -794,3 +794,15 @@ export interface AjoPaymentCycleInterface {
   ajo_cycle_members: AjoPaymentCycleMemberInterface[]
   number_of_cycles: number
 }
+
+export interface CreateBudgetInterface {
+  budget_name: string
+  total_budget: number
+  budget_month: number
+  // budget_categories: [
+  //   {
+  //     category_id: number
+  //     budget_amount: number
+  //   }
+  // ]
+}
