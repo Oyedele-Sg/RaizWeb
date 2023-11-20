@@ -796,13 +796,59 @@ export interface AjoPaymentCycleInterface {
 }
 
 export interface CreateBudgetInterface {
-  budget_name: string
+  budget_name?: string
   total_budget: number
   budget_month: number
-  // budget_categories: [
-  //   {
-  //     category_id: number
-  //     budget_amount: number
-  //   }
-  // ]
+  budget_categories:
+    | {
+        category_id: number
+        budget_amount: number
+      }[]
+    | undefined
+}
+
+export interface BudgetCategoryInterface {
+  category_id: number
+  budget_amount: number
+  amount_spent: number
+  budget_id: string
+  budget_category_id: string
+  category: CategoryDataInterface
+}
+
+export interface BudgetDataInterface {
+  budget_name: string
+  total_budget: number
+  total_spent: number
+  budget_month: number
+  year: number
+  account_user_id: string
+  budget_id: string
+  budget_categories: BudgetCategoryInterface[]
+}
+
+export interface BudgetCategoryTransactionInterface {
+  transaction_amount: number
+  currency: string
+  transaction_remarks: string
+  transaction_reference: string
+  transaction_date_time: string
+  fee_amount: number
+  vat_amount: number
+  beneficiary_account_name: string
+  source_account_name: string
+  beneficiary_account_number: string
+  beneficiary_bank_name: string
+  beneficiary_bank: string
+  wallet_id: string
+  category_id: number
+  transaction_status_id: number
+  payment_method_id: number
+  account_balance: number
+  debit_transfer_id: string
+  created_at: Date
+  updated_at: Date
+  category: CategoryDataInterface
+  transaction_status: TransactiontStatusInterface
+  payment_method: PaymentMethodInterface
 }

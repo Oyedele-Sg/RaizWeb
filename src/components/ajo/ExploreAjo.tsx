@@ -1,5 +1,5 @@
+"use client"
 import React, { useEffect, useState } from "react"
-
 import SectionHeader from "./SectionHeader"
 import Image from "next/image"
 import { AjoDataInterface, BtnMain } from "@/shared"

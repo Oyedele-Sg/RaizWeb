@@ -38,6 +38,9 @@ import {
   UpdateTransactionPinFormInterface,
   AjoPaymentCycleInterface,
   ForgotPinDataInterface,
+  BudgetDataInterface,
+  BudgetCategoryTransactionInterface,
+  CreateBudgetInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -121,6 +124,10 @@ export const userService = {
   updateUserOnboardingList,
   deleteConnectedAccount,
   addPryAccount,
+  getBudget,
+  getBudgetByID,
+  getBudgetCategoryTransaction,
+  createBudget,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -593,4 +600,22 @@ function addPryAccount(id: string): Promise<any> {
     `${baseUrl}/account_users/withdrawal-accounts/${id}/primary/`,
     {}
   )
+}
+
+// budget
+function getBudget(): Promise<BudgetDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/budgets/`)
+}
+
+function getBudgetByID(id: string): Promise<BudgetDataInterface> {
+  return fetchWrapper.get(`${baseUrl}/budgets/${id}/`)
+}
+function getBudgetCategoryTransaction(
+  id: string
+): Promise<BudgetCategoryTransactionInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/budget_categories/${id}/transactions/`)
+}
+
+function createBudget(data: CreateBudgetInterface): Promise<any> {
+  return fetchWrapper.post(`${baseUrl}/budgets/`, data)
 }
