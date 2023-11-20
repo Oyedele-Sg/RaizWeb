@@ -118,3 +118,65 @@ export function extractObjectUrlFromSignedUrl(signedUrl: string): string {
   const url = new URL(signedUrl)
   return url.origin + url.pathname
 }
+
+export function getMonthName(monthNumber: number): string | null {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ]
+
+  if (monthNumber >= 1 && monthNumber <= 12) {
+    return months[monthNumber - 1]
+  } else {
+    return null
+  }
+}
+
+export function getCurrentAndNextMonth(): {
+  month_number: number
+  month_name: string
+}[] {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ]
+
+  const currentDate = new Date()
+  const currentMonthNumber = currentDate.getMonth() + 1 // Adding 1 because months are zero-indexed
+  const currentMonthName = months[currentDate.getMonth()]
+
+  let nextMonthNumber = currentMonthNumber + 1
+  let nextYear = currentDate.getFullYear()
+
+  if (nextMonthNumber === 13) {
+    nextMonthNumber = 1
+    nextYear += 1
+  }
+
+  const nextMonthName = months[nextMonthNumber - 1]
+
+  return [
+    { month_number: currentMonthNumber, month_name: currentMonthName },
+    { month_number: nextMonthNumber, month_name: nextMonthName },
+  ]
+}

@@ -14,7 +14,7 @@ export default function Ajo() {
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const { currentUser } = useContext(CurrentUserContext)
-  console.log("cureent", currentUser)
+  
 
   const data = [
     {
