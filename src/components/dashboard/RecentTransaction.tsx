@@ -16,7 +16,7 @@ import { useUser } from "@/hooks/user/useUser"
 import { DateRangePicker, DateRangePickerValue } from "@tremor/react"
 import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
 export const RecentTransaction = () => {
   const Router = useRouter()

@@ -161,9 +161,7 @@ function page() {
           value={currentUser.currentUser?.email}
           autoComplete='off'
           // onChange={onchange}
-
           disabled={true}
-          maxLength={length}
         />
 
         <AuthButton btnText='Send Statement' btnStyle='w-full' />
