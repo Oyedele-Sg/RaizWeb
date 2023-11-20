@@ -128,6 +128,7 @@ export const userService = {
   getBudgetByID,
   getBudgetCategoryTransaction,
   createBudget,
+  downloadStatement,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -618,4 +619,10 @@ function getBudgetCategoryTransaction(
 
 function createBudget(data: CreateBudgetInterface): Promise<any> {
   return fetchWrapper.post(`${baseUrl}/budgets/`, data)
+}
+
+function downloadStatement(start: string, end: string): Promise<void> {
+  return fetchWrapper.get(
+    `${baseUrl}/account_users/get-account-statement/?start_date=${start}&end_date=${end}`
+  )
 }
