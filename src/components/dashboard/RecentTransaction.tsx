@@ -16,8 +16,10 @@ import { useUser } from "@/hooks/user/useUser"
 import { DateRangePicker, DateRangePickerValue } from "@tremor/react"
 import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useRouter } from "next/navigation"
 
 export const RecentTransaction = () => {
+  const Router = useRouter()
   const [transactions, setTransactions] =
     React.useState<TransactiontDataInterface[]>()
   const [date, setDate] = React.useState<DateRangePickerValue>(() => {
@@ -130,7 +132,7 @@ export const RecentTransaction = () => {
               color='rose'
             />
           </div>
-          <div
+          {/* <div
             className=' lg:hidden '
             onClick={() => setShowTransaction(!showTransaction)}
           >
@@ -140,6 +142,14 @@ export const RecentTransaction = () => {
               width={20}
               height={20}
               className=' cursor-default '
+            />
+          </div> */}
+          <div className='' onClick={() => Router.push(`/transactions`)}>
+            <Image
+              src={`/icons/dashboard/arrow-right-square.svg`}
+              width={32}
+              height={32}
+              alt=''
             />
           </div>
         </div>

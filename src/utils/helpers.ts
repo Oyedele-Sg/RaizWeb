@@ -180,3 +180,9 @@ export function getCurrentAndNextMonth(): {
     { month_number: nextMonthNumber, month_name: nextMonthName },
   ]
 }
+
+export function formatDateToISOStringWithMilliseconds(date: Date): string {
+  const isoStringWithMilliseconds = date.toISOString().slice(0, -1); // Remove trailing 'Z'
+  const milliseconds = date.getMilliseconds().toString().padStart(3, '0');
+  return `${isoStringWithMilliseconds}.${milliseconds}`;
+}
