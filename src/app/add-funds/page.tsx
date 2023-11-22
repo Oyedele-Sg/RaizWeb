@@ -1,28 +1,16 @@
 "use client"
-import { CurrentUserContext } from "@/providers/CurrentUserProvider"
-import {
-  AddFundsCard,
-  BtnMain,
-  IconAvatar,
-  IconNotification,
-  IconRaizColored,
-  IconScan,
-  Logo,
-  QrCode,
-  UtilityIcons,
-  WhiteTileWrap,
-} from "@/shared"
+import { AddFundsCard, IconRaizColored, QrCode, UtilityIcons } from "@/shared"
 import Image from "next/image"
-import React, { useContext } from "react"
-import QRCode from "react-qr-code"
+import React from "react"
 
 export default function page() {
   const cardLink = [
     {
-      type: "Debit Card",
+      type: "Direct Transfer",
       illustration: "fund-one",
-      subText: "Add funds to your wallet through your debit card",
-      link: "/add-funds",
+      subText:
+        "Add funds to your wallet through your direct transfer. Add funds to your wallet through",
+      link: "/add-funds/direct-transfer",
     },
     {
       type: "Bank Transfer",
@@ -49,7 +37,7 @@ export default function page() {
             Add Funds to Wallet
           </h1>
           <p className=' font-title__large text-neutral-70 lg:text-center '>
-            Debit Card or Bank Transfer
+            Direct Transfer or Bank Transfer
           </p>
         </div>
 
