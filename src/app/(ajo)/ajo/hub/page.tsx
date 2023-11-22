@@ -23,11 +23,11 @@ export default function Ajo() {
     <>
       <Loading />
       <div className='  '>
-        <div className=' py-12 px-5 lg:p-10 '>
-          <HomeHeader title=' Cycle Hub ' />
+        <div className='  '>
+          <HomeHeader title=' Cycle Hub ' link='/ajo/hub' />
         </div>
 
-        <div className='  lg:p-10 flex gap-10 min-h-full '>
+        <div className='  flex gap-10 min-h-full '>
           <div className=' w-full ml-auto mr-0 flex  flex-1 flex-col gap-10   '>
             <ExploreAjo />
             <AjoJoined />
