@@ -182,7 +182,13 @@ export function getCurrentAndNextMonth(): {
 }
 
 export function formatDateToISOStringWithMilliseconds(date: Date): string {
-  const isoStringWithMilliseconds = date.toISOString().slice(0, -1); // Remove trailing 'Z'
-  const milliseconds = date.getMilliseconds().toString().padStart(3, '0');
-  return `${isoStringWithMilliseconds}.${milliseconds}`;
+  const isoStringWithMilliseconds = date.toISOString().slice(0, -1) // Remove trailing 'Z'
+  const milliseconds = date.getMilliseconds().toString().padStart(3, "0")
+  return `${isoStringWithMilliseconds}.${milliseconds}`
+}
+
+export function getCurrentMonthNumber(): number {
+  const currentDate = new Date()
+  const monthNumber = currentDate.getMonth() + 1
+  return monthNumber
 }

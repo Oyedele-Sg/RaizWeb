@@ -38,6 +38,8 @@ function page() {
     getData()
   }, [])
 
+ 
+
   return (
     <>
       <Loading />

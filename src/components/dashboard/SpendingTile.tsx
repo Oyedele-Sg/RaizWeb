@@ -25,11 +25,11 @@ export const SpendingTile = ({ data, style }: Props) => {
       icon: "create",
       link: "/budget/create",
     },
-    // {
-    //   title: "Edit Budget",
-    //   icon: "edit",
-    //   link: "/budget/create",
-    // },
+  // {
+  //   title: "Edit Budget",
+  //   icon: "edit",
+  //   link: "/budget/create",
+  // },
     {
       title: "Past Budget",
       icon: "past",
