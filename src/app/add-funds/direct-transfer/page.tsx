@@ -1,5 +1,4 @@
 "use client"
-import { InputContainer } from "@/components"
 import {
   AuthButton,
   BackArrow,
@@ -13,15 +12,6 @@ import {
 import { useRouter } from "next/navigation"
 import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
 
 interface TransferInputProps {
   bank_name: string
@@ -40,7 +30,7 @@ export default function page() {
   })
 
   const onSubmit = async (data: TransferInputProps) => {
-    Router.push("/profile-setup/bank/success")
+    Router.push("/add-funds/direct-transfer/otp-1")
   }
 
   return (
@@ -50,7 +40,7 @@ export default function page() {
           <IconRaizColored />
 
           <div className=' flex flex-col gap-3 '>
-            <div className=''>
+            <div className='flex items-center gap-3 '>
               <button className=''>
                 <BackArrow />
               </button>
@@ -60,7 +50,7 @@ export default function page() {
             </div>
 
             <FormTitledContainer
-              title='Debit Card'
+              title='Direct transfer'
               subtitle='Add funds to wallets'
             >
               <FormProvider {...methods}>
@@ -72,31 +62,31 @@ export default function page() {
                   <RegisterInput
                     name={`amount`}
                     inputPlaceholder={`Type the amount`}
-                    rules={{
-                      required: "Enter an amount",
-                    }}
+                    // rules={{
+                    //   required: "Enter an amount",
+                    // }}
                     label='Amount'
-                    children={<IconCopy />}
+                    // children={<IconCopy />}
                   />
 
                   <RegisterInput
                     name={`bank_name`}
                     inputPlaceholder={`Type a bank`}
-                    rules={{
-                      required: "Input a bank name",
-                    }}
+                    // rules={{
+                    //   required: "Input a bank name",
+                    // }}
                     label='Bank name'
-                    children={<IconCopy />}
+                    // children={<IconCopy />}
                   />
                   <RegisterInput
                     name={` beneficiary_name `}
-                    inputPlaceholder={`Beneficiary name`}
-                    rules={{
-                      required: "Input a bank name",
-                    }}
-                    label='Beneficiary'
+                    inputPlaceholder={`DD/MM/YYYY`}
+                    // rules={{
+                    //   required: "Input a bank name",
+                    // }}
+                    label='Date of Birth'
                   />
-                  <AuthButton btnText=' I have made this transfer ' />
+                  <AuthButton btnText=' Proceed ' />
                 </form>
               </FormProvider>
             </FormTitledContainer>

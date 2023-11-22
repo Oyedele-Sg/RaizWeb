@@ -25,7 +25,6 @@ export function BudgetCard({ data }: Props) {
     ["#DFEEE2", "#D6EBD2"],
     ["#EEDFDF", "#EBD2DA"],
   ]
-  console.log("coloer", cardColors[data.budget_month - 1]?.[0])
 
   return (
     <div
