@@ -46,8 +46,8 @@ export default function All() {
   return (
     <>
       <Loading />
-      <div className='   p-10'>
-        <HomeHeader title='Cycle Hub ' />
+      <div className=' '>
+        <HomeHeader title='Cycle Hub ' link='/ajo/hub' />
 
         <div className=' flex gap-10 min-h-full  '>
           <div className=' w-full  py-8 px-6   bg-grey  flex  flex-col gap-8'>

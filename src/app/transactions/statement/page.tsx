@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
+import { Calendar as CalendarIcon, Router } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -18,8 +18,10 @@ import { userService } from "@/services"
 import { toast } from "@/components/ui/use-toast"
 import { formatDateToISOStringWithMilliseconds } from "@/utils/helpers"
 import moment from "moment"
+import { useRouter } from "next/navigation"
 
 function page() {
+  const Router = useRouter()
   const currentUser = useContext(CurrentUserContext)
   const [startDate, setStartDate] = React.useState<Date>()
   const [endDate, setEndDate] = React.useState<Date>()
@@ -61,18 +63,7 @@ function page() {
         moment(startDate).format("YYYY-MM-DDTHH:mm:ss.SSSSSS"),
         moment(endDate).format("YYYY-MM-DDTHH:mm:ss.SSSSSS")
       )
-      toast({
-        title: "Statment Successfully Downloaded",
-        description: "Check your email for the statement",
-        variant: "default",
-        style: {
-          backgroundColor: "#4B0082",
-          color: "#fff",
-          top: "20px",
-          right: "20px",
-        },
-        duration: 5000,
-      })
+      Router.push("/transactions/statement/success")
     } catch (error) {
       toast({
         title: "Something Went Wrong",

@@ -42,9 +42,9 @@ function page() {
     <>
       <Loading />
       <div className=' px-10 min-h-screen '>
-        <HomeHeader title='Budget' />
+        <HomeHeader title='Budget' link='/budget/all' />
 
-        <div className=' bg-grey rounded-lg  px-6 py-8  flex flex-wrap  gap-y-12 gap-x-[47.5px] min-h-full   '>
+        <div className=' bg-grey rounded-lg  px-6 py-8  flex flex-wrap  gap-y-12 gap-x-[47.5px] min-h-full  '>
           {budget?.map((item, index) => (
             <BudgetCard data={item} key={index} />
           ))}

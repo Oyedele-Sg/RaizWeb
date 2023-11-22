@@ -69,12 +69,16 @@ function Page() {
   return (
     <div className=' '>
       <div className=' p-10'>
-        <HomeHeader title='Cycle Hub' />
+        <HomeHeader title='Cycle Hub' link='/ajo/hub' />
       </div>
 
       <div className=' w-full min-h-[360px] relative   '>
         <Image
-          src={ajoDetails?.image_url ? ajoDetails.image_url : "/images/bg.png"}
+          src={
+            ajoDetails?.image_url
+              ? ajoDetails.image_url
+              : (process.env.DEFAULT_AJO_IMG as string)
+          }
           fill={true}
           alt=''
         />
