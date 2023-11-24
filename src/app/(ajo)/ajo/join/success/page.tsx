@@ -37,7 +37,7 @@ export default function Sucess() {
                 <AuthButton
                   btnText='Cycle hub'
                   btnStyle=' px-[101.5px] '
-                  onClick={() => Router.push("/ajo")}
+                  onClick={() => Router.push("/ajo/hub")}
                 />
               </div>
             </div>
