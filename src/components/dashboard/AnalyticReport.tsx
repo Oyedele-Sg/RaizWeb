@@ -42,6 +42,7 @@ export function AnalyticReport() {
       to: currentDate,
     };
   });
+  const [yearRange, setYearRange] = useState(false);
 
   const [chartData, setChartData] =
     React.useState<DailyAnalysistChartInterface>();
@@ -50,6 +51,7 @@ export function AnalyticReport() {
 
   const data = async () => {
     try {
+      const currentDate = new Date();
       if (
         currentUser &&
         !currentUser?.is_bvn_verified &&
@@ -60,6 +62,17 @@ export function AnalyticReport() {
       const numberOfDays = selectedRange
         ? differenceInDays(selectedRange.to, selectedRange.from)
         : 0;
+
+      if (
+        selectedRange?.from.getFullYear() === currentDate.getFullYear() - 1 &&
+        selectedRange?.from.getMonth() === currentDate.getMonth() &&
+        selectedRange?.to.getFullYear() === currentDate.getFullYear() &&
+        selectedRange?.to.getMonth() == currentDate.getMonth()
+      ) {
+        setYearRange(true);
+      } else {
+        setYearRange(false);
+      }
 
       let res = await userService.getDailyAnalysisReport(numberOfDays);
       setChartData(res);
@@ -113,7 +126,7 @@ export function AnalyticReport() {
                 stroke="#BFABD3"
                 dataKey="date"
                 // tickFormatter={formatXAxisTick}
-                tick={<CustomXAxisTick />}
+                tick={<CustomXAxisTick yearRange={yearRange} />}
               />
               <YAxis
                 stroke="#BFABD3"
