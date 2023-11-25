@@ -16,9 +16,17 @@ import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { SearchSelect, SearchSelectItem } from '@tremor/react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { useAppDispatch } from '@/shared/redux/types';
 import { setLoadingFalse, setLoadingTrue } from '@/shared/redux/features';
 import { useRouter } from 'next/navigation';
+import { removeDuplicates, toastMessage } from '@/utils/helpers';
 
 function page() {
   const dispatch = useAppDispatch();
@@ -37,37 +45,16 @@ function page() {
       await userService.deleteConnectedAccount(id);
       getData();
     } catch (error) {
-      toast({
-        title: 'Something Went Wrong',
-        description: `${error}`,
-        variant: 'destructive',
-        style: {
-          backgroundColor: '#f44336',
-          color: '#fff',
-          top: '20px',
-          right: '20px',
-        },
-        duration: 5000,
-      });
+      toastMessage('Something Went Wrong', `${error}`);
     }
   };
 
   const getNIPBanks = async () => {
     try {
       const res = await userService.getNipBanks();
-      setBanks(res.banks);
+      setBanks(removeDuplicates(res.banks));
     } catch (error) {
-      toast({
-        title: 'Error loading banks...',
-        description: `${error}`,
-        variant: 'destructive',
-        style: {
-          backgroundColor: '#f44336',
-          color: '#fff',
-          top: '20px',
-          right: '20px',
-        },
-      });
+      toastMessage('Error loading banks...', `${error}`);
       dispatch(setLoadingFalse());
     }
   };
@@ -77,18 +64,7 @@ function page() {
       await userService.addPryAccount(id);
       getData();
     } catch (error) {
-      toast({
-        title: 'Something Went Wrong',
-        description: `${error}`,
-        variant: 'destructive',
-        style: {
-          backgroundColor: '#f44336',
-          color: '#fff',
-          top: '20px',
-          right: '20px',
-        },
-        duration: 5000,
-      });
+      toastMessage('Something Went Wrong', `${error}`);
     }
   };
 
@@ -120,17 +96,7 @@ function page() {
 
   const onSubmit = async (data: BankInputProps) => {
     if (data.bank_name === '' || data.bank_code === '') {
-      toast({
-        title: 'Something Went Wrong',
-        description: `Pick a bank`,
-        variant: 'destructive',
-        style: {
-          backgroundColor: '#f44336',
-          color: '#fff',
-          top: '20px',
-          right: '20px',
-        },
-      });
+      toastMessage('Something Went Wrong', `Pick a bank`);
       return;
     }
 
@@ -156,18 +122,7 @@ function page() {
       setCurrentStep('view');
     } catch (error) {
       dispatch(setLoadingFalse());
-
-      toast({
-        title: 'Something Went Wrong',
-        description: `${error}`,
-        variant: 'destructive',
-        style: {
-          backgroundColor: '#f44336',
-          color: '#fff',
-          top: '20px',
-          right: '20px',
-        },
-      });
+      toastMessage('Something Went Wrong', `${error}`);
     }
   };
 
@@ -182,17 +137,7 @@ function page() {
 
       dispatch(setLoadingFalse());
     } catch (error) {
-      toast({
-        title: 'Something Went Wrong',
-        description: `${error}`,
-        variant: 'destructive',
-        style: {
-          backgroundColor: '#f44336',
-          color: '#fff',
-          top: '20px',
-          right: '20px',
-        },
-      });
+      toastMessage('Something Went Wrong', `${error}`);
       dispatch(setLoadingFalse());
     }
   };
@@ -273,7 +218,7 @@ function page() {
                 onSubmit={methods.handleSubmit(onSubmit)}
                 className=" flex flex-col gap-8 items-center  "
               >
-                <SearchSelect
+                {/* <SearchSelect
                   placeholder="Select Bank"
                   className=""
                   onValueChange={(value) => {
@@ -297,8 +242,37 @@ function page() {
                       {'         '}
                     </SearchSelectItem>
                   ))}
-                </SearchSelect>
-
+                </SearchSelect> */}
+                <Select
+                  onValueChange={(value) => {
+                    const selectedBank = banks?.find(
+                      (bank) => bank.bankCode === value
+                    );
+                    methods.setValue(
+                      'bank_name',
+                      selectedBank?.bankName as string
+                    );
+                    methods.setValue(
+                      'bank_code',
+                      selectedBank?.bankCode as string
+                    );
+                  }}
+                >
+                  <SelectTrigger className="w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50 ">
+                    <SelectValue placeholder="Select A bank " className="   " />
+                  </SelectTrigger>
+                  <SelectContent className=" bg-neutral-20 text-neutral-90 h-[200px] overflow-auto z-50 ">
+                    {banks?.map((bank, index) => (
+                      <SelectItem
+                        key={index}
+                        value={bank.bankCode}
+                        className=" hover:bg-neutral-50 z-50 "
+                      >
+                        {bank.bankName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <RegisterInput
                   name={`account_number`}
                   inputPlaceholder={` Enter account number  `}
