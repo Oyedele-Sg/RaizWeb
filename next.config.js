@@ -10,6 +10,7 @@ const nextConfig = {
   },
   env: {
     DEFAULT_AJO_IMG: process.env.DEFAULT_AJO_IMG,
+    GA_TRACKING_ID: process.env.GA_TRACKING_ID,
   },
 };
 
