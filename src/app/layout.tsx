@@ -1,3 +1,5 @@
+import ReactGA from 'react-ga4';
+ReactGA.initialize(process.env.GA_TRACKING_ID as string);
 import { ReactQueryProvider } from '@/shared';
 import './globals.css';
 import React from 'react';
