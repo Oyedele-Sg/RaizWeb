@@ -2,8 +2,8 @@ import Image from 'next/image';
 import ReactGA from 'react-ga';
 
 export default function Home() {
-  const TRACKING_ID = `${process.env.GA_TRAKCING_ID}`;
-  ReactGA.initialize(TRACKING_ID);
+  // const TRACKING_ID = `${process.env.GA_TRAKCING_ID}`;
+  // ReactGA.initialize(TRACKING_ID);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
