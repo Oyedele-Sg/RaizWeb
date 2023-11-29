@@ -19,6 +19,13 @@ import { SearchSelect, SearchSelectItem } from '@tremor/react';
 import { useAppDispatch } from '@/shared/redux/types';
 import { setLoadingFalse, setLoadingTrue } from '@/shared/redux/features';
 import { useRouter } from 'next/navigation';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 function page() {
   const dispatch = useAppDispatch();
@@ -273,7 +280,41 @@ function page() {
                 onSubmit={methods.handleSubmit(onSubmit)}
                 className=" flex flex-col gap-8 items-center  "
               >
-                <SearchSelect
+                <Select
+                  onValueChange={(value) => {
+                    const selectedBank = banks?.find(
+                      (bank) => bank.bankName === value
+                    );
+                    // @ts-ignore
+                    // methods.setValue("bank_name", selectedBank.bankName)
+                    // @ts-ignore
+                    methods.setValue(
+                      'beneficiary_bank_code',
+                      selectedBank?.bankCode as string
+                    );
+                    methods.setValue(
+                      'beneficiary_bank_name',
+                      selectedBank?.bankName as string
+                    );
+                  }}
+                >
+                  <SelectTrigger className="w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50 ">
+                    <SelectValue placeholder="Select A bank " className="   " />
+                  </SelectTrigger>
+                  <SelectContent className=" bg-neutral-20 text-neutral-90 h-[200px] overflow-auto z-50 ">
+                    {banks?.map((bank, index) => (
+                      <SelectItem
+                        key={parseInt(bank.bankCode)}
+                        // @ts-ignore
+                        value={bank.bankName}
+                        className=" hover:bg-neutral-50 z-50 "
+                      >
+                        {bank.bankName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {/* <SearchSelect
                   placeholder="Select Bank"
                   className=""
                   onValueChange={(value) => {
@@ -297,7 +338,7 @@ function page() {
                       {'         '}
                     </SearchSelectItem>
                   ))}
-                </SearchSelect>
+                </SearchSelect> */}
 
                 <RegisterInput
                   name={`account_number`}
