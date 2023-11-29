@@ -2,10 +2,6 @@ import { ReactQueryProvider } from '@/shared';
 import './globals.css';
 import React from 'react';
 import { Toaster } from '@/components/ui/toaster';
-import ReactGA from 'react-ga';
-
-const TRACKING_ID = `${process.env.GA_TRAKCING_ID}`;
-ReactGA.initialize(TRACKING_ID);
 
 export const metadata = {
   title: 'RAIZ',
