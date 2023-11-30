@@ -11,6 +11,10 @@ export default function Home() {
     ReactGA.initialize(TRAKCING_ID);
     ReactGA.set({ page: path });
     ReactGA.send({ hitType: 'pageview', page: path });
+    ReactGA.event('screen_view', {
+      app_name: 'Raise',
+      screen_name: 'Landing Page',
+    });
   }, []);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
