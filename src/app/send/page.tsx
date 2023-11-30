@@ -26,7 +26,6 @@ import { useAppDispatch, useAppSelector } from '@/shared/redux/types';
 import { SearchSelect, SearchSelectItem } from '@tremor/react';
 import { getSelectedRequest } from '@/shared/redux/features/request';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import ReactGA from 'react-ga';
 
 export default function page() {
   const Router = useRouter();
@@ -49,10 +48,6 @@ export default function page() {
   ];
 
   const requests = usePendingRequest();
-
-  useEffect(() => {
-    ReactGA.pageview(window.location.pathname);
-  }, []);
 
   return (
     <div>
