@@ -13,7 +13,7 @@ export default function Home() {
     ReactGA.send({ hitType: 'pageview', page: path });
     ReactGA.event('screen_view', {
       app_name: 'Raise',
-      screen_name: 'Landing',
+      screen_name: 'Landing Page',
     });
   }, []);
   return (
