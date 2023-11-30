@@ -15,6 +15,11 @@ export default function Home() {
       app_name: 'Raise',
       screen_name: 'Landing Page',
     });
+    ReactGA.event('button_click', {
+      category: 'Home',
+      action: 'Completed',
+      label: 'Works Now',
+    });
   }, []);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
