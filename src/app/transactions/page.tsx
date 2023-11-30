@@ -1,6 +1,11 @@
 "use client"
 import { userService } from "@/services"
-import { Loading, TransactiontDataInterface, WhiteTileWrap } from "@/shared"
+import {
+  Loading,
+  TransactiontDataInterface,
+  TransactiontTypeInterface,
+  WhiteTileWrap,
+} from "@/shared"
 import Image from "next/image"
 import Link from "next/link"
 import React, { useContext, useEffect, useState } from "react"
@@ -23,6 +28,10 @@ function page() {
 
   const [transactions, setTransactions] =
     React.useState<TransactiontDataInterface[]>()
+  const [transactionType, setTransactionsType] =
+    React.useState<TransactiontTypeInterface[]>()
+  const [transactionTypeID, setTransactionsTypeID] = React.useState<number>()
+  const [transactionDrop, setTransactionsDrop] = React.useState<boolean>(false)
   const [date, setDate] = React.useState<DateRangePickerValue>(() => {
     const currentDate = new Date()
     const fromDate = new Date()
@@ -46,7 +55,8 @@ function page() {
     try {
       const res = await userService.getRecentTransactions(
         formatDateToISOString(date?.from as Date),
-        formatDateToISOString(date?.to as Date)
+        formatDateToISOString(date?.to as Date),
+        transactionTypeID
       )
       setTransactions(res)
     } catch (error) {
@@ -86,9 +96,74 @@ function page() {
     const intervalId = setInterval(fetchData, 30000)
 
     return () => clearInterval(intervalId)
-  }, [date])
+  }, [date, transactionTypeID])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await userService.getTransactionTypes()
+        setTransactionsType(response)
+      } catch (error) {
+        toast({
+          title: "Something Went Wrong",
+          description: `${error}`,
+          variant: "destructive",
+          style: {
+            backgroundColor: "#f44336",
+            color: "#fff",
+            top: "20px",
+            right: "20px",
+          },
+        })
+      }
+    }
+    fetchData()
+  }, [])
+
   return (
     <ContentWrap title='Transactions' transactions>
+      <div className=' relative  '>
+        <div className=' flex items-center  gap-4 '>
+          <span className=' text-purple font-semi-mid   '>Filter</span>{" "}
+          <span
+            onClick={() => {
+              setTransactionsDrop(!transactionDrop)
+            }}
+          >
+            {" "}
+            <Image
+              alt=''
+              width={16}
+              height={16}
+              src={`/icons/arrow-down-desk.svg`}
+            />{" "}
+          </span>
+        </div>
+        {transactionDrop && (
+          <div className=' bg-grey w-[160px] absolute  z-[100000000000000] top-[35px] '>
+            <div
+              className=' py-2 px-4 capitalize hover:bg-neutral-30  text-purple '
+              onClick={() => {
+                setTransactionsTypeID(undefined)
+                setTransactionsDrop(false)
+              }}
+            >
+              all
+            </div>
+            {transactionType?.map((transaction, index) => (
+              <div
+                className=' py-2 px-4 capitalize hover:bg-neutral-30  text-purple '
+                onClick={() => {
+                  setTransactionsTypeID(transaction.transaction_type_id)
+                  setTransactionsDrop(false)
+                }}
+              >
+                {transaction.description}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
       <div className=' flex flex-col gap-8  overflow-auto '>
         {transactions?.map((transaction, index) => (
           <div
@@ -114,7 +189,6 @@ function page() {
                 </p>
               </div>
             </div>
-
             <h2
               className={` ${
                 transaction.transaction_type.transaction_type === `debit`
