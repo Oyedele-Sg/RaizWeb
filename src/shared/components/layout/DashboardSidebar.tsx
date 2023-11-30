@@ -1,24 +1,33 @@
 "use client"
+import { getCurrentLink } from "@/shared/redux/features"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import React from "react"
 
 export const Sidebar = () => {
   const Router = useRouter()
+  const pathName = usePathname()
+  console.log("path", pathName)
+  const dispatch = useAppDispatch()
+  const link = useAppSelector((state) => state.sidebarLinks)
+  console.log("state", link.state)
+
+  console.log("bolean", pathName === link.state)
+
   const dashboardIcon = [
-    "dashboard",
-    "piggy-bank",
-    "wallet",
-    "icon-card",
-    "icon-receipt",
-    "chart",
+    { icon: "dashboard", link: "/dashboard", title: "Home" },
+    { icon: "piggy-bank", link: "/savings/hub", title: "Savings" },
+    { icon: "wallet", link: "/loan", title: "Savings" },
+    { icon: "icon-card", link: "/dashboard", title: "Savings" },
+    { icon: "icon-receipt", link: "/dashboard", title: "Savings" },
   ]
   const mobileSashboardIcon = [
     { icon: "dashboard", link: "/dashboard", title: "Home" },
     { icon: "piggy-bank", link: "/dashboard", title: "Savings" },
-    { icon: "chart", link: "/dashboard", title: "Analytics" },
-    { icon: "money-tick", link: "/dashboard", title: "Loans" },
-    { icon: "profile", link: "/dashboard", title: "Profile" },
+    // { icon: "chart", link: "/dashboard", title: "Analytics" },
+    { icon: "money-tick", link: "/loan", title: "Loans" },
+    { icon: "profile", link: "/settings", title: "Profile" },
   ]
 
   const utilsIcon = ["toggle-off-circle", "setting"]
@@ -40,12 +49,23 @@ export const Sidebar = () => {
           </div>
           <div className=' hidden lg:flex   justify-between w-full lg:items-center lg:flex-col  gap-[52px] '>
             {dashboardIcon.map((icon, index) => (
-              <div key={index} className=''>
+              <div
+                key={index}
+                className=''
+                onClick={() => {
+                  dispatch(getCurrentLink(icon.link))
+                  Router.push(icon.link)
+                }}
+              >
                 <Image
-                  src={`/icons/${icon}.svg`}
+                  src={`/icons/${
+                    pathName === link.state && icon.link === pathName
+                      ? `${icon.icon}-active`
+                      : icon.icon
+                  }.svg`}
                   width={32}
                   height={32}
-                  alt={`dashboard ${icon} icon`}
+                  alt={`dashboard ${icon.title} icon`}
                 />
               </div>
             ))}
@@ -59,7 +79,7 @@ export const Sidebar = () => {
                   height={32}
                   alt={`dashboard ${icon} icon`}
                 />
-                <h5 className=' text-neutral-70     '>{icon.title}</h5>
+                <h5 className=' text-neutral-70  '>{icon.title}</h5>
               </div>
             ))}
           </div>
