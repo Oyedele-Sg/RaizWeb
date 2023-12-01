@@ -41,6 +41,8 @@ import {
   BudgetDataInterface,
   BudgetCategoryTransactionInterface,
   CreateBudgetInterface,
+  TargetSavingsDataInterface,
+  TransactiontTypeInterface,
   NipBankInterface,
   PayStackBankInterface,
   InitiateChargeInterface,
@@ -51,11 +53,11 @@ import {
   ChargeOTPInterface,
   ChargeOTPResponseInterface,
   ValidateChargeResponseInterface,
-} from '@/shared';
-import { BankInputProps } from '@/components/profile-setup/AddBankForm';
-import { createSearchParams } from '@/utils/helpers';
+} from "@/shared"
+import { BankInputProps } from "@/components/profile-setup/AddBankForm"
+import { createSearchParams } from "@/utils/helpers"
 
-const baseUrl = `${URL}`;
+const baseUrl = `${URL}`
 const storedUser =
   typeof window !== 'undefined' ? sessionStorage.getItem('pesaToken') : null;
 
@@ -139,6 +141,8 @@ export const userService = {
   getBudgetCategoryTransaction,
   createBudget,
   downloadStatement,
+  getPublicTargetSavings,
+  getTransactionTypes,
   getNipBanks,
   getPaystackBanks,
   initiateCreditWithdrawalCharge,
@@ -309,6 +313,7 @@ export interface getRecentTransParams {
 function getRecentTransactions(
   start_date?: string,
   end_date?: string,
+  transaction_type_id?: number,
   limit?: number,
   offset?: number
 ): Promise<TransactiontDataInterface[]> {
@@ -318,6 +323,7 @@ function getRecentTransactions(
       end_date,
       limit,
       offset,
+      transaction_type_id,
     })}`
   );
 }
@@ -700,4 +706,27 @@ function validateChargeOTP(
     `${baseUrl}/credit/withdrawal-account/charge-with-otp/validate/`,
     data
   );
+}
+
+// savings
+function getPublicTargetSavings(
+  start_date?: string,
+  end_date?: string,
+  min_target_amount?: number,
+  max_target_amount?: number
+): Promise<TargetSavingsDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/savings/target-save/group/public/?${createSearchParams({
+      start_date,
+      end_date,
+      min_target_amount,
+      max_target_amount,
+    })}`
+  )
+}
+
+// transaction types
+
+function getTransactionTypes(): Promise<TransactiontTypeInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/transaction-types/`)
 }
