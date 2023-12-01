@@ -852,3 +852,102 @@ export interface BudgetCategoryTransactionInterface {
   transaction_status: TransactiontStatusInterface
   payment_method: PaymentMethodInterface
 }
+
+export interface TargetSavingsDataInterface {
+  target_save_id: string
+  created_by_id: string
+  public: boolean
+  target_save_group_id: string
+  created_at: string
+  updated_at: string
+  target_save: {
+    image_url: string | null
+    target_amount: number
+    target_save_name: string
+    target_save_description: string
+    start_date: Date
+    end_date: Date
+    target_save_category_id: number
+    interest_rate_id: number
+    penalty_fee_id: number
+    target_save_id: string
+    created_at: Date
+    updated_at: Date
+    target_save_category: TargetSavingsCategoryInterface
+    interest_rate: InterestRateInterface
+    penalty_fee: {
+      penalty_fee_rate: number
+      penalty_fee_description: string
+      penalty_fee_code: number
+      penalty_fee_id: number
+      created_at: Date
+      updated_at: Date
+    }
+  }
+  created_by: {
+    first_name: string
+    last_name: string
+    username: string
+    account_user_id: string
+    profile_image_url: string | null
+  }
+  target_save_group_members: TargetSavingsGroupMembersDataInterface[]
+}
+
+export interface TargetSavingsGroupMembersDataInterface {
+  target_save_group_id: string
+  account_user_id: string
+  frequency_id: number
+  savings_wallet_id: string
+  current_amount: number
+  has_withdrawn: boolean
+  next_payment_date: string
+  preferred_credit_time: string
+  preferred_deduction_amount: number
+  primary_source_of_funds: string
+  target_save_group_member_id: string
+  created_at: Date
+  updated_at: Date
+  account_user: AccountInterface
+  frequency: {
+    frequency_name: string
+    frequency_description: string
+    frequency_code: number
+    no_of_days: number
+    frequency_id: number
+    created_at: Date
+    updated_at: Date
+  }
+}
+
+export interface TargetSavingsCategoryInterface {
+  target_save_category_name: string
+  target_save_category_description: string
+  target_save_category_code: number
+  target_save_category_id: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface InterestRateInterface {
+  interest_rate: number
+  interest_rate_description: string
+  interest_rate_code: number
+  interest_rate_id: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface PersonalTargetSavingsFormInterface {
+  image_url: string
+  target_amount: number
+  target_save_name: string
+  target_save_description: string
+  start_date: Date
+  end_date: Date
+  frequency_id: number
+  preferred_credit_time: string
+  preferred_deduction_amount: number
+  primary_source_of_funds: string
+  public: boolean
+}
