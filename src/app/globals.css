@@ -495,3 +495,16 @@ input[type="number"] {
 .ajo-joined-table-header {
   font-weight: 400 !important;
 }
+
+progress::-webkit-progress-bar {
+  background-color: yellow;
+  border-radius: 7px;
+}
+progress::-webkit-progress-value {
+  background-color: blue;
+  border-radius: 7px;
+  box-shadow: 1px 1px 5px 3px rgba(255, 0, 0, 0.8);
+}
+progress::-moz-progress-bar {
+  background-color: blue;
+}

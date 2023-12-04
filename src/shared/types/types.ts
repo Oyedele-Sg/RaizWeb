@@ -943,8 +943,8 @@ export interface PersonalTargetSavingsFormInterface {
   target_amount: number
   target_save_name: string
   target_save_description: string
-  start_date: Date
-  end_date: Date
+  start_date?: Date
+  end_date?: Date
   frequency_id: number
   preferred_credit_time: string
   preferred_deduction_amount: number

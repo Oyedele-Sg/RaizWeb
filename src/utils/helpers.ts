@@ -192,3 +192,22 @@ export function getCurrentMonthNumber(): number {
   const monthNumber = currentDate.getMonth() + 1
   return monthNumber
 }
+
+export function dateDifferenceInDays(date1: Date, date2: Date): number {
+  const momentDate1 = moment(date1)
+  const momentDate2 = moment(date2)
+
+  // Calculate the difference in days
+  const daysDifference = Math.abs(momentDate2.diff(momentDate1, "days"))
+
+  return daysDifference
+}
+
+export function formatNumberToK(number: number): string {
+  if (number >= 1000) {
+    const kValue = number / 1000
+    return kValue.toFixed(1) + "k"
+  } else {
+    return number.toString()
+  }
+}

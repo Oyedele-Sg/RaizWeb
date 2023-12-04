@@ -43,6 +43,7 @@ import {
   CreateBudgetInterface,
   TargetSavingsDataInterface,
   TransactiontTypeInterface,
+  PersonalTargetSavingsFormInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -133,6 +134,8 @@ export const userService = {
   downloadStatement,
   getPublicTargetSavings,
   getTransactionTypes,
+  createPersonalTargetSavings,
+  createGroupTargetSavings,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -648,6 +651,18 @@ function getPublicTargetSavings(
       max_target_amount,
     })}`
   )
+}
+
+function createPersonalTargetSavings(
+  data: PersonalTargetSavingsFormInterface
+): Promise<any> {
+  return fetchWrapper.post(`${baseUrl}/savings/target-save/personal/`, data)
+}
+
+function createGroupTargetSavings(
+  data: PersonalTargetSavingsFormInterface
+): Promise<any> {
+  return fetchWrapper.post(`${baseUrl}/savings/target-save/group/`, data)
 }
 
 // transaction types
