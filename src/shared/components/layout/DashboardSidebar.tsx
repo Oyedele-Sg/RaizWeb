@@ -3,7 +3,7 @@ import { getCurrentLink } from "@/shared/redux/features"
 import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
-import React from "react"
+import React, { useEffect } from "react"
 
 export const Sidebar = () => {
   const Router = useRouter()
@@ -31,6 +31,10 @@ export const Sidebar = () => {
   ]
 
   const utilsIcon = ["toggle-off-circle", "setting"]
+
+  useEffect(() => {
+    dispatch(getCurrentLink(pathName))
+  }, [])
 
   return (
     <aside className=' w-full px-5 py-4 lg:w-[144px]   lg:py-8 lg:h-screen   z-10 fixed  bottom-0 lg:bottom-auto  bg-grey overflow-auto hide-scrollbar '>

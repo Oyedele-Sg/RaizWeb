@@ -43,15 +43,15 @@ export function TargetSavingsComponent() {
     },
     {
       title: "My Target",
-      link: "/savings/my-targets",
+      link: "/savings/my-targets/all",
     },
     {
       title: "Explore",
-      link: "/savings/target-savings/create",
+      link: "/savings/target-savings/all",
     },
     {
       title: "Completed",
-      link: "/savings/target-savings/create",
+      link: "/savings/hub",
     },
   ]
 

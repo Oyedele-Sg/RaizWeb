@@ -3,14 +3,21 @@ import React from "react"
 import { Progress } from "@/components/ui/progress"
 import { PersonalTargetSavingsDataInterface } from "@/shared"
 import { dateDifferenceInDays, formatNumberToK } from "@/utils/helpers"
+import { useRouter } from "next/navigation"
 
 interface Props {
   data: PersonalTargetSavingsDataInterface
 }
 
 export function PersonalSavingCard({ data }: Props) {
+  const Router = useRouter()
   return (
-    <div className=' rounded-2xl  border-[2px] border-neutral-30 max-w-[294px] py-5 px-4 flex flex-col gap-5 bg-savings-bg '>
+    <div
+      className=' rounded-2xl  border-[2px] border-neutral-30 max-w-[294px] py-5 px-4 flex flex-col gap-5 bg-savings-bg '
+      onClick={() =>
+        Router.push(`/savings/my-targets/${data.personal_target_save_id}`)
+      }
+    >
       <Image src='/images/frame-583.png' width={262} height={128} alt='' />
 
       <div className=' flex flex-col gap-4 '>

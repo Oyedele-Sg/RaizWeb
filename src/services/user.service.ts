@@ -141,6 +141,7 @@ export const userService = {
   getPersonalTargetSavings,
   getTargetSavingsByID,
   getGroupTargetActivity,
+  getPersonalTargetSavingsByID,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -664,14 +665,7 @@ function getPersonalTargetSavings(
   min_target_amount?: number,
   max_target_amount?: number
 ): Promise<PersonalTargetSavingsDataInterface[]> {
-  return fetchWrapper.get(
-    `${baseUrl}/savings/target-save/group/public/?${createSearchParams({
-      start_date,
-      end_date,
-      min_target_amount,
-      max_target_amount,
-    })}`
-  )
+  return fetchWrapper.get(`${baseUrl}/savings/target-save/personal/`)
 }
 
 function createPersonalTargetSavings(
@@ -689,6 +683,11 @@ function getTargetSavingsByID(
   id: string
 ): Promise<GroupTargetSavingsDataInterface> {
   return fetchWrapper.get(`${baseUrl}/savings/target-save/group/${id}/`)
+}
+function getPersonalTargetSavingsByID(
+  id: string
+): Promise<PersonalTargetSavingsDataInterface> {
+  return fetchWrapper.get(`${baseUrl}/savings/target-save/personal/${id}/`)
 }
 
 // transaction types
