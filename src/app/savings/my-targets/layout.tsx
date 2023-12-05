@@ -11,7 +11,7 @@ export default function AuthLayout({ children }: Props) {
       <Sidebar />
 
       <main className=' bg-neutral-20  min-h-screen'>
-        <div className=' lg:ml-[144px]  '>{children}</div>
+        <div className=' lg:ml-[144px] lg:px-12  '>{children}</div>
       </main>
     </>
   )

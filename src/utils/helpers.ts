@@ -211,3 +211,19 @@ export function formatNumberToK(number: number): string {
     return number.toString()
   }
 }
+
+export function timeAgo(date: Date) {
+  const momentDate = moment(date)
+  const now = moment()
+  const diffInMinutes = now.diff(momentDate, "minutes")
+  const diffInHours = now.diff(momentDate, "hours")
+  const diffInDays = now.diff(momentDate, "days")
+
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes} ${diffInMinutes === 1 ? "minute" : "minutes"} ago`
+  } else if (diffInHours < 24) {
+    return `${diffInHours} ${diffInHours === 1 ? "hour" : "hours"} ago`
+  } else {
+    return `${diffInDays} ${diffInDays === 1 ? "day" : "days"} ago`
+  }
+}

@@ -82,6 +82,7 @@ function Page() {
           fill={true}
           alt=''
         />
+        <div className=' absolute bg-overlay-10 top-0 bottom-0 left-0 right-0  '></div>
 
         <div className=' absolute top-0  bottom-0 left-0 right-0    p-10 flex  justify-between '>
           <div className='flex gap-8 items-center w-full    '>

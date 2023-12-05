@@ -10,7 +10,7 @@ import {
   IconRaizColored,
   Loading,
   NextArrow,
-  PersonalTargetSavingsFormInterface,
+  CreateTargetSavingsFormInterface,
   RegisterInput,
   RegisterTextArea,
   SetupLayout,
@@ -56,7 +56,7 @@ interface Props {
   current: string
 }
 export function ComponentPersonal({ setStep, step, current }: Props) {
-  const methods = useForm<PersonalTargetSavingsFormInterface>({
+  const methods = useForm<CreateTargetSavingsFormInterface>({
     defaultValues: {
       target_amount: 0,
       target_save_name: "",
@@ -68,7 +68,7 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
     mode: "onBlur",
   })
 
-  const onSubmit = async (data: PersonalTargetSavingsFormInterface) => {
+  const onSubmit = async (data: CreateTargetSavingsFormInterface) => {
     if (startDate === undefined || endDate === undefined) {
       toast({
         title: "Fill date fields",

@@ -41,9 +41,11 @@ import {
   BudgetDataInterface,
   BudgetCategoryTransactionInterface,
   CreateBudgetInterface,
-  TargetSavingsDataInterface,
+  GroupTargetSavingsDataInterface,
   TransactiontTypeInterface,
-  PersonalTargetSavingsFormInterface,
+  CreateTargetSavingsFormInterface,
+  PersonalTargetSavingsDataInterface,
+  GroupTargetSavingsActivitiesDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -136,6 +138,9 @@ export const userService = {
   getTransactionTypes,
   createPersonalTargetSavings,
   createGroupTargetSavings,
+  getPersonalTargetSavings,
+  getTargetSavingsByID,
+  getGroupTargetActivity,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -642,7 +647,23 @@ function getPublicTargetSavings(
   end_date?: string,
   min_target_amount?: number,
   max_target_amount?: number
-): Promise<TargetSavingsDataInterface[]> {
+): Promise<GroupTargetSavingsDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/savings/target-save/group/public/?${createSearchParams({
+      start_date,
+      end_date,
+      min_target_amount,
+      max_target_amount,
+    })}`
+  )
+}
+
+function getPersonalTargetSavings(
+  start_date?: string,
+  end_date?: string,
+  min_target_amount?: number,
+  max_target_amount?: number
+): Promise<PersonalTargetSavingsDataInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/savings/target-save/group/public/?${createSearchParams({
       start_date,
@@ -654,19 +675,32 @@ function getPublicTargetSavings(
 }
 
 function createPersonalTargetSavings(
-  data: PersonalTargetSavingsFormInterface
+  data: CreateTargetSavingsFormInterface
 ): Promise<any> {
   return fetchWrapper.post(`${baseUrl}/savings/target-save/personal/`, data)
 }
 
 function createGroupTargetSavings(
-  data: PersonalTargetSavingsFormInterface
+  data: CreateTargetSavingsFormInterface
 ): Promise<any> {
   return fetchWrapper.post(`${baseUrl}/savings/target-save/group/`, data)
+}
+function getTargetSavingsByID(
+  id: string
+): Promise<GroupTargetSavingsDataInterface> {
+  return fetchWrapper.get(`${baseUrl}/savings/target-save/group/${id}/`)
 }
 
 // transaction types
 
 function getTransactionTypes(): Promise<TransactiontTypeInterface[]> {
   return fetchWrapper.get(`${baseUrl}/transaction-types/`)
+}
+
+function getGroupTargetActivity(
+  id: string
+): Promise<GroupTargetSavingsActivitiesDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/savings/target-save/group/${id}/activities/`
+  )
 }

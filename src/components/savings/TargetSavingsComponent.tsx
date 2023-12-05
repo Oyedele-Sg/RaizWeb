@@ -3,7 +3,7 @@ import SectionHeader from "../ajo/SectionHeader"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { userService } from "@/services"
-import { TargetSavingsDataInterface } from "@/shared"
+import { GroupTargetSavingsDataInterface } from "@/shared"
 import { toast } from "../ui/use-toast"
 import { SavingsCard } from "./SavingsCard"
 import { SavingDummy } from "./SavingDummy"
@@ -12,7 +12,7 @@ export function TargetSavingsComponent() {
   const Router = useRouter()
 
   const [allSavingsData, setAllSavingsData] = useState<
-    TargetSavingsDataInterface[]
+    GroupTargetSavingsDataInterface[]
   >([])
   console.log("savings data", allSavingsData)
 
@@ -43,7 +43,7 @@ export function TargetSavingsComponent() {
     },
     {
       title: "My Target",
-      link: "/savings/target-savings/create",
+      link: "/savings/my-targets",
     },
     {
       title: "Explore",
