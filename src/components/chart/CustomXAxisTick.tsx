@@ -3,8 +3,36 @@ import React from 'react';
 import { Text } from 'recharts';
 
 export const CustomXAxisTick = (props: any) => {
-  const { x, y, payload } = props;
-  const formatXAxisTick = (date: string) => moment(date).format('DD-MMM');
+  const { x, y, yearRange, payload } = props;
+  const formatMonthYear = (dateString: string) => {
+    const [month, year] = dateString.split('-');
+
+    // Map the numeric month to its abbreviated name
+    const monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    const monthName = monthNames[parseInt(month, 10) - 1];
+
+    // Get the last two digits of the year
+    const lastTwoDigitsOfYear = year.slice(-2);
+
+    // Format the result
+    return `${monthName} '${lastTwoDigitsOfYear}`;
+  };
+  const formatXAxisTick = yearRange
+    ? (date: string) => formatMonthYear(date)
+    : (date: string) => moment(date).format('DD-MMM');
 
   return (
     <g transform={`translate(${x},${y})`}>
