@@ -39,7 +39,7 @@ export function Menucard() {
     {
       name: "Savings",
       icon: "savings",
-      link: "",
+      link: "/savings/hub",
     },
     // {
     //   name: "Split Bills",

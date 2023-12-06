@@ -1,50 +1,62 @@
-'use client'
+"use client"
 
-import React from 'react'
-import {
-	useFormContext,
-	UseFormGetValues,
-	FieldValues,
-	FieldErrors,
-	RegisterOptions,
-} from 'react-hook-form'
+import React from "react"
+import { useFormContext, FieldValues, FieldError } from "react-hook-form"
 
 interface RegisterTextAreaProps {
-	name: keyof FieldErrors<UseFormGetValues<FieldValues>>
-	label: string
-	rules: RegisterOptions<UseFormGetValues<FieldValues>>
+  name: string
+  label: string
+  rules: Object
+  width?: string
+  extraClass?: string
+  inputPlaceholder?: string
 }
 
 export const RegisterTextArea: React.FC<RegisterTextAreaProps> = ({
-	name,
-	label,
-	rules,
+  name,
+  label,
+  rules,
+  width,
+  extraClass,
+  inputPlaceholder,
 }) => {
-	const {
-		register,
-		formState: { errors, isSubmitting },
-	} = useFormContext<UseFormGetValues<FieldValues>>()
+  const {
+    register,
+    formState: { errors, isSubmitting },
+  } = useFormContext<FieldValues>()
 
-	const registerProps = {
-		name: name as string,
-		...(rules && { rules }),
-	}
-
-	return (
-		<div>
-			{label && <label htmlFor={name}>{label}</label>}
-			<textarea
-				id={name}
-				{...register(
-					registerProps.name as string as never,
-					registerProps.rules
-				)}
-				disabled={isSubmitting}
-				className={errors && errors[name] ? 'error' : ''}
-			/>
-			{errors[name] && (
-				<span className='error-message'>{errors[name]?.message}</span>
-			)}
-		</div>
-	)
+  return (
+    <div
+      className={`relative w-full rounded-lg input_field  ${extraClass} ${width}`}
+    >
+      {label && (
+        <label
+          className={`font-label__large text-neutral-90 capitalize ${
+            errors[name] ? "text-error" : ""
+          }  `}
+          htmlFor={name}
+        >
+          {label}
+        </label>
+      )}
+      <div className=' relative  '>
+        <div className=' flex flex-col gap-2 '>
+          <textarea
+            id={name}
+            placeholder={inputPlaceholder}
+            {...register(name as any, rules)}
+            disabled={isSubmitting}
+            className={` form-input pl-0 bg-transparent  input_field-input  ${
+              errors[name] ? "input_field-input_error" : ""
+            }`}
+          />
+          {errors[name] && (
+            <span className='error-message'>
+              {(errors[name] as FieldError).message}
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  )
 }

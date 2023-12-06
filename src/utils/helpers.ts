@@ -223,3 +223,38 @@ export function getCurrentMonthNumber(): number {
   const monthNumber = currentDate.getMonth() + 1;
   return monthNumber;
 }
+
+export function dateDifferenceInDays(date1: Date, date2: Date): number {
+  const momentDate1 = moment(date1)
+  const momentDate2 = moment(date2)
+
+  // Calculate the difference in days
+  const daysDifference = Math.abs(momentDate2.diff(momentDate1, "days"))
+
+  return daysDifference
+}
+
+export function formatNumberToK(number: number): string {
+  if (number >= 1000) {
+    const kValue = number / 1000
+    return kValue.toFixed(1) + "k"
+  } else {
+    return number.toString()
+  }
+}
+
+export function timeAgo(date: Date) {
+  const momentDate = moment(date)
+  const now = moment()
+  const diffInMinutes = now.diff(momentDate, "minutes")
+  const diffInHours = now.diff(momentDate, "hours")
+  const diffInDays = now.diff(momentDate, "days")
+
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes} ${diffInMinutes === 1 ? "minute" : "minutes"} ago`
+  } else if (diffInHours < 24) {
+    return `${diffInHours} ${diffInHours === 1 ? "hour" : "hours"} ago`
+  } else {
+    return `${diffInDays} ${diffInDays === 1 ? "day" : "days"} ago`
+  }
+}

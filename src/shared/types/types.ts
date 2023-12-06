@@ -964,7 +964,7 @@ export interface ValidateChargeResponseInterface {
   message: string;
 }
 
-export interface TargetSavingsDataInterface {
+export interface GroupTargetSavingsDataInterface {
   target_save_id: string
   created_by_id: string
   public: boolean
@@ -995,14 +995,17 @@ export interface TargetSavingsDataInterface {
       updated_at: Date
     }
   }
-  created_by: {
-    first_name: string
-    last_name: string
-    username: string
-    account_user_id: string
-    profile_image_url: string | null
-  }
+  created_by: CreatedByInterface
   target_save_group_members: TargetSavingsGroupMembersDataInterface[]
+  completion_percentage: number
+}
+
+export interface CreatedByInterface {
+  first_name: string
+  last_name: string
+  username: string
+  account_user_id: string
+  profile_image_url: string | null
 }
 
 export interface TargetSavingsGroupMembersDataInterface {
@@ -1049,16 +1052,95 @@ export interface InterestRateInterface {
   updated_at: Date
 }
 
-export interface PersonalTargetSavingsFormInterface {
+export interface CreateTargetSavingsFormInterface {
   image_url: string
   target_amount: number
   target_save_name: string
   target_save_description: string
-  start_date: Date
-  end_date: Date
+  start_date?: Date
+  end_date?: Date
   frequency_id: number
   preferred_credit_time: string
   preferred_deduction_amount: number
   primary_source_of_funds: string
   public: boolean
+}
+
+export interface SavingsWalletInterface {
+  account_user_id: string
+  savings_category_id: number
+  account_balance: number
+  savings_wallet_name: string
+  savings_wallet_description: string
+  savings_wallet_id: string
+  created_at: Date
+  updated_at: Date
+  savings_category: {
+    savings_category_name: string
+    savings_category_description: string
+    savings_category_code: number
+    savings_category_id: number
+    created_at: Date
+    updated_at: Date
+  }
+}
+
+export interface PersonalTargetSavingsDataInterface {
+  target_save_id: string
+  frequency_id: number
+  account_user_id: string
+  savings_wallet_id: string
+  current_amount: number
+  has_withdrawn: boolean
+  preferred_credit_time: string
+  next_payment_date: Date
+  preferred_deduction_amount: number
+  primary_source_of_funds: string
+  personal_target_save_id: string
+  created_at: Date
+  updated_at: Date
+  account_user: AccountInterface
+  savings_wallet: SavingsWalletInterface
+  target_save: {
+    image_url: string
+    target_amount: number
+    target_save_name: string
+    target_save_description: string
+    start_date: Date
+    end_date: Date
+    target_save_category_id: number
+    interest_rate_id: number
+    penalty_fee_id: number
+    target_save_id: string
+    created_at: Date
+    updated_at: Date
+    target_save_category: {
+      target_save_category_name: string
+      target_save_category_description: string
+      target_save_category_code: number
+      target_save_category_id: number
+      created_at: Date
+      updated_at: Date
+    }
+    interest_rate: InterestRateInterface
+    penalty_fee: {
+      penalty_fee_rate: number
+      penalty_fee_description: string
+      penalty_fee_code: number
+      penalty_fee_id: number
+      created_at: Date
+      updated_at: Date
+    }
+    frequency: AjoFrequencyInterface
+  }
+}
+
+export interface GroupTargetSavingsActivitiesDataInterface {
+  target_save_group_id: string
+  account_user_id: string
+  target_save_group_activity_description: string
+  target_save_group_activity_id: string
+  created_at: Date
+  updated_at: Date
+  account_user: AccountInterface
 }

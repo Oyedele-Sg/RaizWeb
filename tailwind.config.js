@@ -109,6 +109,8 @@ module.exports = {
         "ajo-pending": "rgba(216, 177, 155, 0.22)",
         "ajo-end": "rgba(179, 38, 30, 0.19)",
         "savings-bg": "#EEF1F4",
+        "pesaraise-10": "#F1E0CB",
+        "overlay-10": " rgba(31, 29, 43, 0.63)",
 
         positive: "#7ABA98",
         border: "hsl(var(--border))",
@@ -285,6 +287,7 @@ module.exports = {
         "profile-1": "url('/patterns/profile-1.svg')",
         "ajo-pattern": "url('/patterns/ajo-bg-pattern.svg')",
         "savings-pattern": "url('/patterns/savings-bg-pattern.svg')",
+        "loans-pattern": "url('/patterns/loan-bg-pattern.svg')",
       },
     },
   },

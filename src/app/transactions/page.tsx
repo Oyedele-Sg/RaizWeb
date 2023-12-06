@@ -7,24 +7,20 @@ import {
   WhiteTileWrap,
 } from "@/shared"
 import Image from "next/image"
-import Link from "next/link"
 import React, { useContext, useEffect, useState } from "react"
-
 import { addDays, format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-
 import { formatDateToISOString } from "@/utils/helpers"
-import { useUser } from "@/hooks/user/useUser"
-
 import { DateRangePicker, DateRangePickerValue } from "@tremor/react"
 import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { toast } from "@/components/ui/use-toast"
 import { ContentWrap } from "@/components/settings"
 import moment from "moment"
+import { useRouter } from "next/navigation"
 
 function page() {
   const { currentUser } = useContext(CurrentUserContext)
+  const Router = useRouter()
 
   const [transactions, setTransactions] =
     React.useState<TransactiontDataInterface[]>()
@@ -120,8 +116,16 @@ function page() {
     fetchData()
   }, [])
 
+  const handleNavigation = () => {
+    Router.push(`/dashboard`)
+  }
+
   return (
-    <ContentWrap title='Transactions' transactions>
+    <ContentWrap
+      title='Transactions'
+      transactions
+      handleNavaigation={handleNavigation}
+    >
       <div className=' relative  '>
         <div className=' flex items-center  gap-4 '>
           <span className=' text-purple font-semi-mid   '>Filter</span>{" "}
