@@ -130,7 +130,6 @@ export const VerifyEmailOTP = () => {
                   <PinInput
                     length={4}
                     initialValue=''
-                    secret
                     onChange={(value, index) => handleInputChange(value, index)}
                     type='numeric'
                     inputMode='number'
