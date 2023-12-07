@@ -1,6 +1,6 @@
 "use client"
 
-import { Logo } from "@/shared"
+import { IconRaiz, Logo } from "@/shared"
 import Image from "next/image"
 import React from "react"
 
@@ -56,7 +56,7 @@ const AuthIllustration: React.FC<Props> = ({
   return (
     <div className=' flex flex-col items-center   gap-[144px] mx-[70px] h-full  '>
       <div className=' self-start '>
-        <Logo />
+        <IconRaiz />
       </div>
       <div className=' flex flex-col  gap-12 items-center '>
         <Image
