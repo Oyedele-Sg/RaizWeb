@@ -28,13 +28,13 @@ export function UtilityIcons({ ajo, iconExtraStyle }: Props) {
   return (
     <div
       className={`${
-        iconExtraStyle ? iconExtraStyle : "hidden lg:flex gap-[60px] "
+        iconExtraStyle ? iconExtraStyle : "flex gap-[60px] "
       }items-center  `}
     >
       <div className=' flex gap-8'>
         {ajo ? <IconLogout /> : <IconScan />}
 
-        <div className={` ${ajo ? " hidden lg:block " : ""} relative`}>
+        <div className={` ${ajo ? "block " : ""} relative`}>
           {notification?.length ? (
             <IconNotificationPending />
           ) : (
@@ -46,7 +46,7 @@ export function UtilityIcons({ ajo, iconExtraStyle }: Props) {
       </div>
 
       <div
-        className=''
+        className=' hidden lg:block cursor-pointer '
         onClick={() => {
           Router.push(`/settings`)
         }}

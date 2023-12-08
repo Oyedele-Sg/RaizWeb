@@ -19,8 +19,8 @@ export const Sidebar = () => {
     { icon: "dashboard", link: "/dashboard", title: "Home" },
     { icon: "piggy-bank", link: "/savings/hub", title: "Savings" },
     { icon: "wallet", link: "/loan", title: "Savings" },
-    { icon: "icon-card", link: "/dashboard", title: "Savings" },
-    { icon: "icon-receipt", link: "/dashboard", title: "Savings" },
+    { icon: "icon-card", link: "/none", title: "Savings" },
+    { icon: "icon-receipt", link: "/none", title: "Savings" },
   ]
   const mobileSashboardIcon = [
     { icon: "dashboard", link: "/dashboard", title: "Home" },
