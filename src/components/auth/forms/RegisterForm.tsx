@@ -32,6 +32,7 @@ import { passwordHash } from '@/utils/helpers';
 import { TrackGoogleAnalyticsEvent } from '@/utils/google-analytics';
 import UserSignUpFormCategory, {
   UserSignUpStartedAction,
+  UserSignUpStartedLabel,
 } from '@/utils/google-analytics/events/signUpForm';
 
 export const RegisterForm: FC = () => {
@@ -40,7 +41,7 @@ export const RegisterForm: FC = () => {
   TrackGoogleAnalyticsEvent(
     UserSignUpFormCategory,
     UserSignUpStartedAction,
-    window.location.pathname
+    UserSignUpStartedLabel
   );
 
   const methods = useForm<RegisterFormDataInterface>({

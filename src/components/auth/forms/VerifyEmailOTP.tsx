@@ -20,6 +20,7 @@ import PinInput from 'react-pin-input';
 import { TrackGoogleAnalyticsEvent } from '@/utils/google-analytics';
 import UserSignUpFormCategory, {
   UserSignUpCompletedAction,
+  UserSignUpCompletedLabel,
 } from '@/utils/google-analytics/events/signUpForm';
 
 export const VerifyEmailOTP = () => {
@@ -58,7 +59,7 @@ export const VerifyEmailOTP = () => {
       TrackGoogleAnalyticsEvent(
         UserSignUpFormCategory,
         UserSignUpCompletedAction,
-        window.location.pathname
+        UserSignUpCompletedLabel
       );
       dispatch(setLoadingFalse());
       setSuccess('success');
