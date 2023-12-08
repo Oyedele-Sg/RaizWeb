@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import {
   AuthButton,
   BtnMain,
@@ -7,117 +7,127 @@ import {
   VerifyFail,
   VerifySuccess,
   WhiteWrap,
-} from "@/shared"
-import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
-import { useRouter } from "next/navigation"
-import React, { useRef, useState } from "react"
-import { userService } from "@/services"
-import { toast } from "@/components/ui/use-toast"
-import { useForm } from "react-hook-form"
-import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
-import Image from "next/image"
-import PinInput from "react-pin-input"
+} from '@/shared';
+import { useAppDispatch, useAppSelector } from '@/shared/redux/types';
+import { useRouter } from 'next/navigation';
+import React, { useRef, useState } from 'react';
+import { userService } from '@/services';
+import { toast } from '@/components/ui/use-toast';
+import { useForm } from 'react-hook-form';
+import { setLoadingFalse, setLoadingTrue } from '@/shared/redux/features';
+import Image from 'next/image';
+import PinInput from 'react-pin-input';
+import { TrackGoogleAnalyticsEvent } from '@/utils/google-analytics';
+import UserSignUpFormCategory, {
+  UserSignUpCompletedAction,
+  UserSignUpCompletedLabel,
+} from '@/utils/google-analytics/events/signUpForm';
 
 export const VerifyEmailOTP = () => {
-  const Router = useRouter()
-  const signupEmail = useAppSelector((state) => state.signupEmail)
-  const dispatch = useAppDispatch()
+  const Router = useRouter();
+  const signupEmail = useAppSelector((state) => state.signupEmail);
+  const dispatch = useAppDispatch();
 
-  const [success, setSuccess] = useState<string>("")
+  const [success, setSuccess] = useState<string>('');
 
   const methods = useForm<VerifyEmailFormInterface>({
     defaultValues: {
-      otp: "",
+      otp: '',
     },
-  })
+  });
 
   const onSubmit = async (data: VerifyEmailFormInterface) => {
     if (!data.otp) {
       toast({
-        title: "OTP is required",
-        variant: "destructive",
+        title: 'OTP is required',
+        variant: 'destructive',
         style: {
-          backgroundColor: "#f44336",
-          color: "#fff",
-          top: "20px",
-          right: "20px",
+          backgroundColor: '#f44336',
+          color: '#fff',
+          top: '20px',
+          right: '20px',
         },
-      })
-      return
+      });
+      return;
     }
 
     try {
-      dispatch(setLoadingTrue())
-      await userService.verifyEmail(data)
+      dispatch(setLoadingTrue());
+      await userService.verifyEmail(data);
 
-      methods.reset()
-      dispatch(setLoadingFalse())
-      setSuccess("success")
+      methods.reset();
+      TrackGoogleAnalyticsEvent(
+        UserSignUpFormCategory,
+        UserSignUpCompletedAction,
+        UserSignUpCompletedLabel
+      );
+      dispatch(setLoadingFalse());
+      setSuccess('success');
     } catch (error) {
-      dispatch(setLoadingFalse())
-      if (error === "Invalid OTP") {
-        setSuccess("failed")
-        return
+      dispatch(setLoadingFalse());
+      if (error === 'Invalid OTP') {
+        setSuccess('failed');
+        return;
       }
 
       toast({
-        title: "Error",
+        title: 'Error',
         description: `${error}`,
-        variant: "destructive",
+        variant: 'destructive',
         style: {
-          backgroundColor: "#f44336",
-          color: "#fff",
-          top: "20px",
-          right: "20px",
+          backgroundColor: '#f44336',
+          color: '#fff',
+          top: '20px',
+          right: '20px',
         },
-      })
+      });
     }
-  }
+  };
 
   const handleInputChange = (value: string, index: number) => {
-    methods.setValue("otp", value)
-  }
+    methods.setValue('otp', value);
+  };
   return (
     <>
       <Loading />
-      {success === "success" ? (
+      {success === 'success' ? (
         <VerifySuccess
           activeStep={1}
-          title='Email Verified Successfully'
-          description='Your email has been sucessfully verified and your account is created.'
-          btnLink='/login'
+          title="Email Verified Successfully"
+          description="Your email has been sucessfully verified and your account is created."
+          btnLink="/login"
           email
         />
-      ) : success === "failed" ? (
+      ) : success === 'failed' ? (
         <VerifyFail
-          title='Email OTP Incorrect'
-          description='Email OTP is incorrect, please try again'
+          title="Email OTP Incorrect"
+          description="Email OTP is incorrect, please try again"
           // btnLink='/verification/email'
-          btnText='Re-send OTP'
-          btnFunc={() => setSuccess("")}
+          btnText="Re-send OTP"
+          btnFunc={() => setSuccess('')}
         />
       ) : (
-        <WhiteWrap extraStyle=' h-screen lg:h-full w-full  flex items-center justify-center lg:rounded-[80px]  '>
-          <div className=' text-center flex flex-col gap-2  '>
-            <div className=' max-w-[502px] mx-auto flex flex-col gap-12   '>
-              <div className=' px-[35px] flex flex-col gap-[80px] '>
-                <div className=' flex flex-col justify-center items-center gap-[3rem] '>
-                  <div className='lg:hidden'>
+        <WhiteWrap extraStyle=" h-screen lg:h-full w-full  flex items-center justify-center lg:rounded-[80px]  ">
+          <div className=" text-center flex flex-col gap-2  ">
+            <div className=" max-w-[502px] mx-auto flex flex-col gap-12   ">
+              <div className=" px-[35px] flex flex-col gap-[80px] ">
+                <div className=" flex flex-col justify-center items-center gap-[3rem] ">
+                  <div className="lg:hidden">
                     <Image
-                      src='/illustrations/email-mobile.svg'
-                      alt='otp'
+                      src="/illustrations/email-mobile.svg"
+                      alt="otp"
                       width={153}
                       height={167}
                     />
                   </div>
-                  <h1 className=' font-headline__large  font-semi-mid text-purple   '>
+                  <h1 className=" font-headline__large  font-semi-mid text-purple   ">
                     Email Verification OTP
                   </h1>
-                  <p className=' font-body__large text-neutral-90 '>
-                    {" "}
-                    Please check your email{" "}
-                    <span className=' underline '>{signupEmail}</span> for the
-                    OTP code sent.{" "}
+                  <p className=" font-body__large text-neutral-90 ">
+                    {' '}
+                    Please check your email{' '}
+                    <span className=" underline ">{signupEmail}</span> for the
+                    OTP code sent.{' '}
                   </p>
                 </div>
               </div>
@@ -125,47 +135,47 @@ export const VerifyEmailOTP = () => {
               <div>
                 <form
                   onSubmit={methods.handleSubmit(onSubmit)}
-                  className=' flex flex-col gap-8 '
+                  className=" flex flex-col gap-8 "
                 >
                   <PinInput
                     length={4}
-                    initialValue=''
+                    initialValue=""
                     onChange={(value, index) => handleInputChange(value, index)}
-                    type='numeric'
-                    inputMode='number'
+                    type="numeric"
+                    inputMode="number"
                     style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: "33px",
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: '33px',
                     }}
                     inputStyle={{
-                      padding: "10px",
-                      borderTop: "none",
-                      borderLeft: "none",
-                      borderRight: "none",
-                      borderBottom: "1px solid #4B0082",
+                      padding: '10px',
+                      borderTop: 'none',
+                      borderLeft: 'none',
+                      borderRight: 'none',
+                      borderBottom: '1px solid #4B0082',
                     }}
                     inputFocusStyle={{
-                      borderBottom: "1px solid #4B0082",
+                      borderBottom: '1px solid #4B0082',
                     }}
                     autoSelect={true}
                     regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
                   />
 
-                  <div className=' flex flex-col justify-center items-center  gap-8 '>
-                    <div className=' flex gap-12 '>
+                  <div className=" flex flex-col justify-center items-center  gap-8 ">
+                    <div className=" flex gap-12 ">
                       <BtnMain
-                        btnStyle='  border-purple border-[1px] rounded-[8px] text-purple  px-[42px]  '
-                        btnText={"Resend OTP"}
-                        type='reset'
+                        btnStyle="  border-purple border-[1px] rounded-[8px] text-purple  px-[42px]  "
+                        btnText={'Resend OTP'}
+                        type="reset"
                         onClick={async () => {
-                          Router.push("/verification/email/resend-otp")
+                          Router.push('/verification/email/resend-otp');
                         }}
                       />
                       <AuthButton
-                        btnStyle='flex-1 w-full px-[42px] '
-                        btnText={"Verify OTP"}
-                        type='submit'
+                        btnStyle="flex-1 w-full px-[42px] "
+                        btnText={'Verify OTP'}
+                        type="submit"
                       />
                     </div>
                   </div>
@@ -176,7 +186,5 @@ export const VerifyEmailOTP = () => {
         </WhiteWrap>
       )}
     </>
-  )
-}
-
-// jakifo4838@armablog.com
+  );
+};

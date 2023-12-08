@@ -2,24 +2,11 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
-import ReactGA from 'react-ga4';
+import InitializeGoogleAnalytics from '@/utils/google-analytics';
 
 export default function Home() {
   useEffect(() => {
-    const TRAKCING_ID = process.env.GA_TRACKING_ID as string;
-    const path = window.location.pathname;
-    ReactGA.initialize(TRAKCING_ID);
-    ReactGA.set({ page: path });
-    ReactGA.send({ hitType: 'pageview', page: path });
-    ReactGA.event('screen_view', {
-      app_name: 'Raise',
-      screen_name: 'Landing Page',
-    });
-    ReactGA.event('button_click', {
-      category: 'Home',
-      action: 'Completed',
-      label: 'Works Now',
-    });
+    InitializeGoogleAnalytics();
   }, []);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
