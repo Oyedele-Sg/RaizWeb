@@ -82,7 +82,7 @@ export default function page() {
                 <div className=' flex flex-col gap-3 '>
                   <h3 className=' text-error  '>Pending Requests</h3>
 
-                  <div className=' flex gap-6  overflow-x-scroll w-[500px] '>
+                  <div className=' flex gap-6  overflow-auto  w-[500px] '>
                     {requests?.map((request, index) => (
                       <div className=' rounded-xl border-[2px] border-neutral-30 px-4  py-5 min-w-[320px] '>
                         <div className=' flex items-center gap-4 '>
@@ -105,8 +105,6 @@ export default function page() {
                       </div>
                     ))}
                   </div>
-
-         
                 </div>
               )}
             </FormTitledContainer>
