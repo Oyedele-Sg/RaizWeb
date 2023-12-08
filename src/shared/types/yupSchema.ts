@@ -24,6 +24,13 @@ export const registerSchema = yup.object().shape({
       "Password must have at least 1 uppercase letter, 1 lowercase letter, and 1 number "
     )
     .required(),
+  confirm_password: yup
+    .string()
+    .oneOf(
+      [yup.ref("password")],
+      "Password confirmation must match the password"
+    )
+    .required("Password confirmation is required"),
   user_type_id: yup.number().required(),
 })
 

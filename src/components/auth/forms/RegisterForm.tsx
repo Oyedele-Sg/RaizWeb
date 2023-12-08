@@ -9,6 +9,7 @@ import {
   CheckBox,
   Loading,
   RegisterDataInterface,
+  RegisterFormDataInterface,
   RegisterInput,
   registerSchema,
 } from "@/shared"
@@ -33,18 +34,21 @@ export const RegisterForm: FC = () => {
   const Router = useRouter()
   const dispatch = useAppDispatch()
 
-  const methods = useForm<RegisterDataInterface>({
+  const methods = useForm<RegisterFormDataInterface>({
     defaultValues: {
       first_name: "",
       last_name: "",
       email: "",
       password: "",
       user_type_id: 1,
+      confirm_password: "",
     },
     resolver: yupResolver(registerSchema),
   })
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
+
   const [checked, setChecked] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -77,8 +81,11 @@ export const RegisterForm: FC = () => {
       dispatch(setLoadingTrue())
 
       await userService.signup({
-        ...data,
+        email: data.email,
+        first_name: data.first_name,
+        last_name: data.last_name,
         password: passwordHash(data.password),
+        user_type_id: data.user_type_id,
       })
 
       dispatch(getSignUpEmail(data.email))
@@ -147,6 +154,21 @@ export const RegisterForm: FC = () => {
                   name={`password`}
                   inputPlaceholder={`Enter Password`}
                   label='Password'
+                  childrenHandleClick={() => setShowPassword((state) => !state)}
+                  type={showPassword ? "text" : "password"}
+                >
+                  <Image
+                    src={`/icons/${showPassword ? "eye" : "eye-slash"}.svg`}
+                    alt='show password'
+                    width={24}
+                    height={24}
+                    className='password_field-input  '
+                  />
+                </RegisterInput>
+                <RegisterInput
+                  name={`confirm_password`}
+                  inputPlaceholder={`Confirm Password`}
+                  label='Confirm Password'
                   childrenHandleClick={() => setShowPassword((state) => !state)}
                   type={showPassword ? "text" : "password"}
                 >
