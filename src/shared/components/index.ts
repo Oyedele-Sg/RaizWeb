@@ -2,6 +2,7 @@ import { from } from "rxjs"
 
 export { default as Logo } from "./Logo"
 export { default as Stepper } from "./Stepper"
+export { default as ProfileStepper } from "./ProfileStepper"
 export { VerifySuccess } from "./VerifySuccess"
 export { Loading } from "./Loading"
 export { CloseIcon } from "./CloseIcon"

@@ -1,4 +1,4 @@
-import { Stepper } from "@/shared"
+import { ProfileStepper, Stepper } from "@/shared"
 import React from "react"
 
 interface Props {
@@ -10,7 +10,7 @@ export const StepperComponent: React.FC<Props> = ({ activeStep }) => {
 
   return (
     <div>
-      <Stepper activeStep={activeStep} steps={steps} />
+      <ProfileStepper activeStep={activeStep} steps={steps} />
     </div>
   )
 }
