@@ -25,7 +25,7 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#7E6298",
+      borderColor: "#FFC857",
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
@@ -116,10 +116,7 @@ const QontoStepLabel = styled(StepLabel)<{
     },
   }),
 }))
-export default function HorizontalLabelPositionBelowStepper({
-  activeStep,
-  steps,
-}: Props) {
+export default function ProfileStepper({ activeStep, steps }: Props) {
   return (
     <div className='  w-full  '>
       <Box sx={{ width: "100%" }}>
