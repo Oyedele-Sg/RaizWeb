@@ -37,7 +37,7 @@ export function AjoJoined() {
         return (
           <div
             className='capitalize font-body__large text-purple cursor-pointer'
-            onClick={() => Router.push(`/ajo/${ajo?.ajo_id}`)}
+            onClick={() => Router.push(`/ajo/${ajo?.ajo_id}/details`)}
           >
             {ajo?.ajo_name}
           </div>

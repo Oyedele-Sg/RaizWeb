@@ -84,7 +84,14 @@ export default function page() {
 
                   <div className=' flex gap-6  overflow-auto  w-[500px] '>
                     {requests?.map((request, index) => (
-                      <div className=' rounded-xl border-[2px] border-neutral-30 px-4  py-5 min-w-[320px] hover:bg-neutral-40 '>
+                      <div
+                        className=' rounded-xl border-[2px] border-neutral-30 px-4  py-5 min-w-[320px] hover:bg-neutral-40 '
+                        onClick={() => {
+                          dispatch(getSelectedRequest(request))
+
+                          Router.push("/request/approve")
+                        }}
+                      >
                         <div className=' flex items-center gap-4 '>
                           <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[40px] h-[40px]  '>
                             <AvatarImage

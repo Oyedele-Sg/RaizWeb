@@ -73,6 +73,8 @@ export const RecentTransaction = () => {
   )
   const [showTransaction, setShowTransaction] = useState(false)
 
+  const timeZone = "Africa/Lagos"
+
   useEffect(() => {
     const handleResize = () => {
       if (typeof window !== "undefined") {
