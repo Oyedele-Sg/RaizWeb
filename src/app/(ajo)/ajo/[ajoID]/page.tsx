@@ -72,43 +72,52 @@ function Page() {
         <HomeHeader title='Cycle Hub' link='/ajo/hub' />
       </div>
 
-      <div className=' w-full min-h-[360px] relative   '>
-        <Image
-          src={
-            ajoDetails?.image_url
-              ? ajoDetails.image_url
-              : (process.env.DEFAULT_AJO_IMG as string)
-          }
-          fill={true}
-          alt=''
-        />
-        <div className=' absolute bg-overlay-10 top-0 bottom-0 left-0 right-0  '></div>
-
-        <div className=' absolute top-0  bottom-0 left-0 right-0    p-10 flex  justify-between '>
-          <div className='flex gap-8 items-center w-full    '>
-            <div
-              className=' hidden border-[2px] border-neutral-80 rounded-full p-3 items-center justify-center lg:flex  '
-              onClick={() => Router.back()}
-            >
-              <Image
-                src={"/icons/ajo-arrow-left.svg"}
-                width={48}
-                height={48}
-                alt=''
-              />
+      <div className='flex gap-4 flex-col lg:flex-row '>
+        <div className=' w-full min-h-[360px] relative   flex-1  '>
+          <Image
+            src={
+              ajoDetails?.image_url
+                ? ajoDetails.image_url
+                : (process.env.DEFAULT_AJO_IMG as string)
+            }
+            fill={true}
+            alt=''
+          />
+          <div className=' absolute bg-overlay-10 top-0 bottom-0 left-0 right-0  '></div>
+          <div className=' absolute top-0  bottom-0 left-0 right-0    p-10 flex  justify-between '>
+            <div className='flex gap-8 items-center w-full    '>
+              <div
+                className=' hidden border-[2px] border-neutral-80 rounded-full p-3 items-center justify-center lg:flex  '
+                onClick={() => Router.back()}
+              >
+                <Image
+                  src={"/icons/ajo-arrow-left.svg"}
+                  width={48}
+                  height={48}
+                  alt=''
+                />
+              </div>
             </div>
-            <div className=' flex w-full  justify-between  '>
-              <div className=' text-grey flex flex-col gap-4  '>
-                <div className=' flex flex-col  gap-2  '>
-                  <h1 className='  font-headline__large font-semibold  '>
+          </div>
+        </div>
+        <div className='flex-1 bg-neutral-30 py-6 px-2 '>
+          <div className=' flex w-full  justify-between  '>
+            <div className=' flex flex-col gap-8 '>
+              <div className='  flex flex-col gap-8  '>
+                <div className=' flex flex-col  gap-3  '>
+                  <h1 className='  font-headline__large font-semibold text-purple '>
                     {ajoDetails?.ajo_name}
                   </h1>
-                  <p className='  font-font-body__large  '>
-                    By:{" "}
+                  <p className='  font-body__large  capitalize text-neutral-80 font-semi-mid '>
+                    By{" "}
                     {`${ajoDetails?.created_by.first_name} ${ajoDetails?.created_by.last_name} `}{" "}
                   </p>
                 </div>
-                <div className='flex flex-col gap-10 '>
+                <p className=' font-body__large text-neutral-80   '>
+                  {" "}
+                  {ajoDetails?.ajo_description}{" "}
+                </p>
+                <div className='flex flex-col gap-10 text-neutral-90 '>
                   <div className=' flex gap-8 flex-wrap '>
                     <div className=' flex  items-center  gap-2   '>
                       <Image
@@ -144,27 +153,31 @@ function Page() {
                         }{" "}
                       </span>
                     </div>
-                    <div
-                      className=' lg:hidden flex  items-center  gap-2 text-grey __green self-end  '
-                      onClick={() => handleLeaveAjo()}
-                    >
-                      <Image
-                        src={"/ajo/leave.svg"}
-                        width={24}
-                        height={24}
-                        alt=''
-                      />
-                      <span>Leave</span>
-                    </div>
                   </div>
                 </div>
               </div>
-              <div
-                className=' hidden lg:flex  items-center  gap-2 text-grey __green self-end  '
-                onClick={() => handleLeaveAjo()}
-              >
-                <Image src={"/ajo/leave.svg"} width={24} height={24} alt='' />
-                <span>Leave</span>
+              <div className=' text-neutral-90 flex gap-8 '>
+                <div
+                  className=' flex  items-center  gap-2   '
+                  onClick={() => handleLeaveAjo()}
+                >
+                  <Image src={"/ajo/edit.svg"} width={24} height={24} alt='' />
+                  <span>Edit</span>
+                </div>
+                <div
+                  className=' flex  items-center  gap-2   '
+                  onClick={() => handleLeaveAjo()}
+                >
+                  <Image src={"/ajo/leave.svg"} width={24} height={24} alt='' />
+                  <span>Leave</span>
+                </div>
+                <div
+                  className=' flex  items-center  gap-2   '
+                  onClick={() => handleLeaveAjo()}
+                >
+                  <Image src={"/ajo/share.svg"} width={24} height={24} alt='' />
+                  <span>Share</span>
+                </div>
               </div>
             </div>
           </div>
@@ -173,7 +186,7 @@ function Page() {
 
       <div className='p-10 mt-[94px] flex flex-col gap-8'>
         <h2 className=' text-purple  font-headline__medium font-semi-mid '>
-          Cycles
+          Contributors
         </h2>
 
         <div>
