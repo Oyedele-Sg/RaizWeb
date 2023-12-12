@@ -12,9 +12,10 @@ interface Props {
   children: React.ReactNode
   //   title: string
   handleNavigation?: () => void
+  bg?: string
 }
 
-export function ContentWrap({ children, handleNavigation }: Props) {
+export function ContentWrap({ children, handleNavigation, bg }: Props) {
   const Router = useRouter()
   return (
     <div className=' flex flex-col gap-3 '>
@@ -33,7 +34,11 @@ export function ContentWrap({ children, handleNavigation }: Props) {
         </button>
       </div>
 
-      <div className=' p-12 rounded-r-8  bg-neutral-20   flex flex-col gap-9 '>
+      <div
+        className={` p-12 rounded-r-8  ${
+          bg || "bg-neutral-20 "
+        }  flex flex-col gap-9 `}
+      >
         {children}
       </div>
     </div>
