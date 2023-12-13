@@ -52,13 +52,15 @@ function Page() {
   const getData = async () => {
     try {
       const response = await userService.getAjoByID(Params.ajoID)
+      setAjoDetails(response)
+
       const members = await userService.getAjoMembers(Params.ajoID)
+      setMembers(members)
+
       const ajo_cycle_id = response?.ajo_cycles[0]?.ajo_cycle_id
       const ajoPaymentTableDetails = await userService.getAjoPaymentTable(
         ajo_cycle_id
       )
-      setAjoDetails(response)
-      setMembers(members)
       setAjoPaymentTableDetails(ajoPaymentTableDetails)
     } catch (error) {
       toast({
@@ -177,7 +179,7 @@ function Page() {
                 <div className=' text-neutral-90 flex gap-8 '>
                   <div
                     className=' flex  items-center  gap-2  cursor-pointer  '
-                    onClick={() => handleLeaveAjo()}
+                    onClick={() => {}}
                   >
                     <Image
                       src={"/ajo/edit.svg"}

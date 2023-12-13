@@ -47,7 +47,12 @@ export function AjoCard({ ajo }: Props) {
   }
 
   return (
-    <Card className='  p-4 bg-ajo-card rounded-2xl lg:min-w-[292px] flex flex-col gap-6 '>
+    <Card
+      className='  p-4 bg-ajo-card rounded-2xl lg:min-w-[292px] flex flex-col gap-6 '
+      onClick={() => {
+        Router.push(`/ajo/${ajo.ajo_id}/details`)
+      }}
+    >
       <div className=' w-[260px] h-[128px] relative  '>
         <Image src={ajo.image_url} fill={true} alt='' />
       </div>
