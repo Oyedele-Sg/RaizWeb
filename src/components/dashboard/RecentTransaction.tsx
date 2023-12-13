@@ -17,6 +17,7 @@ import { DateRangePicker, DateRangePickerValue } from "@tremor/react"
 import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useRouter } from "next/navigation"
+import "moment-timezone"
 
 export const RecentTransaction = () => {
   const Router = useRouter()
@@ -176,9 +177,9 @@ export const RecentTransaction = () => {
                       </h3>
                       <p className=' text-neutral-70 font-title__medium '>
                         {" "}
-                        {moment(transaction.transaction_date_time).format(
-                          "DD MMMM YYYY, h:mmA"
-                        )}{" "}
+                        {moment
+                          .tz(transaction.transaction_date_time, timeZone)
+                          .format("DD MMMM YYYY, h:mmA")}{" "}
                       </p>
                     </div>
                   </div>
@@ -220,9 +221,9 @@ export const RecentTransaction = () => {
                       </h3>
                       <p className=' text-neutral-70 font-title__medium   '>
                         {" "}
-                        {moment(transaction.transaction_date_time).format(
-                          "DD MMMM YYYY, h:mmA"
-                        )}{" "}
+                        {moment
+                          .tz(transaction.transaction_date_time, timeZone)
+                          .format("DD MMMM YYYY, h:mmA")}{" "}
                       </p>
                     </div>
                   </div>

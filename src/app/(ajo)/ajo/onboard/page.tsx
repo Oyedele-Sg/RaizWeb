@@ -52,7 +52,7 @@ export default function Ajo() {
         <div className=' bg-ajo-card  rounded-lg  px-[96px] py-12 '>
           <div className=' flex flex-col gap-8 '>
             <div className=' flex flex-col items-center gap-12  '>
-              <div className=' w-[413px]  h-[216px]'>
+              <div className=' h-[216px]'>
                 <Image
                   src={`/illustrations/${data[active].icon}.svg`}
                   width={412.53}

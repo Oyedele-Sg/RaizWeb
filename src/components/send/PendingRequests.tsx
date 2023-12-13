@@ -14,28 +14,33 @@ export function PendingRequests() {
       {requests && requests?.length > 0 && (
         <div className=' flex flex-col  gap-2 '>
           <h3 className=' font-label__large text-error '>Pending Request</h3>
-          <div className=' flex gap-2  '>
-            {requests?.map((account, index) => (
+          <div className=' flex gap-6  overflow-auto hide-scrollbar  w-[500px]  '>
+            {requests?.map((request, index) => (
               <div
-                className='flex flex-col gap-2 items-center'
-                key={index}
+                className=' rounded-xl border-[2px] border-neutral-30 px-4  py-5 min-w-[320px] hover:bg-neutral-40 '
                 onClick={() => {
-                  dispatch(getSelectedRequest(account))
+                  dispatch(getSelectedRequest(request))
+
                   Router.push("/request/approve")
                 }}
               >
-                <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[44px] h-[44px] bg-neutral-20 '>
-                  <AvatarImage
-                    src={account.requester_account.profile_image_url}
-                  />
-                  <AvatarFallback className=' text-purple font-bold   '>
-                    {account.requester_account.first_name.charAt(0)}
-                    {account.requester_account.last_name.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-                <p className=' capitalize text-purple text-t-14   '>
-                  {account.requester_account.username}
-                </p>
+                <div className=' flex items-center gap-4 '>
+                  <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[40px] h-[40px]  '>
+                    <AvatarImage
+                      src={request.requester_account.profile_image_url}
+                    />
+                    <AvatarFallback className=' text-purple font-bold  uppercase '>
+                      {request.requester_account.first_name.charAt(0)}
+                      {request.requester_account.last_name.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className=' flex flex-col gap-1 '>
+                    <span className=' text-neutral-90 font-semi-mid text-t-16    '>{`${request.requester_account.first_name} ${request.requester_account.last_name}`}</span>
+                    <span className=' text-purple     '>
+                      ₦{request.transaction_amount}
+                    </span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
