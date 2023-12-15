@@ -56,6 +56,7 @@ interface Props {
   current: string
 }
 export function ComponentPersonal({ setStep, step, current }: Props) {
+  console.log("currennt", current)
   const methods = useForm<CreateTargetSavingsFormInterface>({
     defaultValues: {
       target_amount: 0,
@@ -114,7 +115,9 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
             public: publicSaving,
           })
 
-      Router.push("/savings/target-savings/success")
+      current === "group"
+        ? Router.push("/savings/target-savings/success")
+        : Router.push("/savings/my-targets/success")
     } catch (error) {
       toast({
         title: "Something Went Wrong",

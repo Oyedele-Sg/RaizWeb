@@ -2,7 +2,7 @@
 
 import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
-import { AuthButton, BtnMain, CloseIcon, VerifySuccess } from "@/shared"
+import { AuthButton, CloseIcon, VerifySuccess } from "@/shared"
 import { useAppDispatch } from "@/shared/redux/types"
 import React from "react"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
@@ -31,29 +31,20 @@ export default function Sucess() {
               <div className=' flex justiKWfy-center  flex-col  items-center gap-[38px] '>
                 <div className=' text-center flex flex-col gap-2   '>
                   <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                    Group Target Save Successfully Set-Up
+                    Personal Save Successfully Set-Up
                   </h1>
                   {/* <p className=' font-body__large text-neutral-90 '>
                     Cycle successfully added to hub!
                   </p> */}
                 </div>
 
-                <div className=' flex  gap-12  '>
-                  <BtnMain
-                    btnText='Add Member(s)?'
-                    btnStyle=' text-purple border-neutral-100 border   px-6 '
-                    onClick={ () => {
-                      
-                    } }
-                  />
-                  <AuthButton
-                    btnText='Save hub'
-                    btnStyle='   px-[46.5px] '
-                    onClick={async () => {
-                      Router.push("/savings/hub")
-                    }}
-                  />
-                </div>
+                <AuthButton
+                  btnText='Save hub'
+                  btnStyle=' px-[101.5px] '
+                  onClick={async () => {
+                    Router.push("/savings/hub")
+                  }}
+                />
               </div>
             </div>
           </div>
