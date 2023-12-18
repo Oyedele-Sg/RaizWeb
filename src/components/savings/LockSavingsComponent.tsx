@@ -8,7 +8,7 @@ import { toast } from "../ui/use-toast"
 import { SavingsCard } from "./SavingsCard"
 import { SavingDummy } from "./SavingDummy"
 
-export function TargetSavingsComponent() {
+export function LockSavingsComponent() {
   const Router = useRouter()
 
   const [allSavingsData, setAllSavingsData] = useState<
@@ -39,20 +39,17 @@ export function TargetSavingsComponent() {
   const TabLinks = [
     {
       title: "Create",
-      link: "/savings/target-savings/create",
+      link: "/savings/lock-savings/create",
     },
-    {
-      title: "My Target",
-      link: "/savings/my-targets/all",
-    },
+
     {
       title: "Explore",
-      link: "/savings/target-savings/all",
+      link: "/savings/lock-savings/all",
     },
-    {
-      title: "Completed",
-      link: "/savings/hub",
-    },
+    // {
+    //   title: "Completed",
+    //   link: "/savings/hub",
+    // },
   ]
 
   useEffect(() => {
@@ -61,7 +58,7 @@ export function TargetSavingsComponent() {
   return (
     <div className='  py-8 px-6  bg-grey  flex  flex-col gap-8'>
       <div className=' flex justify-between items-center  '>
-        <SectionHeader text='Target Saving ' />
+        <SectionHeader text='Lock Saving ' />
         <button
           className=' text-purple flex items-center gap-3 font-font-body__large'
           onClick={() => Router.push("/savings/target-savings/all")}

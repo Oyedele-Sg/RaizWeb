@@ -85,9 +85,27 @@ export default function Ajo() {
 
           <div className=''>
             <BtnMain
-              btnText=' Get Started '
-              btnStyle=' w-full bg-gradient-ajo  text-grey mt-[56px] '
-              onClick={() => Router.push("/ajo/hub")}
+              btnText=' Get Started'
+              btnStyle=' text-grey px-[3.75rem]  bg-gradient-ajo  font-body__large '
+              onClick={async () => {
+                dispatch(setLoadingTrue())
+
+                if (currentUser?.onboarding_checklist === null) {
+                  await userService.updateUserOnboardingList({
+                    ajo: true,
+                    checking: false,
+                    savings: false,
+                    loan: false,
+                  })
+                  Router.push("/ajo/hub")
+                } else {
+                  await userService.updateUserOnboardingList({
+                    ajo: true,
+                  })
+                  dispatch(setLoadingFalse())
+                  Router.push("/ajo/hub")
+                }
+              }}
             />
           </div>
         </div>
