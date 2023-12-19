@@ -3,22 +3,26 @@ import SectionHeader from "../ajo/SectionHeader"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { userService } from "@/services"
-import { GroupTargetSavingsDataInterface } from "@/shared"
+import {
+  GroupTargetSavingsDataInterface,
+  LockSavingsDataInterface,
+} from "@/shared"
 import { toast } from "../ui/use-toast"
 import { SavingsCard } from "./SavingsCard"
 import { SavingDummy } from "./SavingDummy"
+import { LockSavingsCard } from "./lock-savings"
 
 export function LockSavingsComponent() {
   const Router = useRouter()
 
   const [allSavingsData, setAllSavingsData] = useState<
-    GroupTargetSavingsDataInterface[]
+    LockSavingsDataInterface[]
   >([])
   console.log("savings data", allSavingsData)
 
   const getData = async () => {
     try {
-      const response = await userService.getPublicTargetSavings()
+      const response = await userService.getLockSavings()
       setAllSavingsData(response)
     } catch (error) {
       toast({
@@ -61,7 +65,7 @@ export function LockSavingsComponent() {
         <SectionHeader text='Lock Saving ' />
         <button
           className=' text-purple flex items-center gap-3 font-font-body__large'
-          onClick={() => Router.push("/savings/target-savings/all")}
+          onClick={() => Router.push("/savings/lock-savings/all")}
         >
           View All{" "}
           <span>
@@ -94,12 +98,12 @@ export function LockSavingsComponent() {
         {allSavingsData.length > 0 ? (
           <div className='flex   flex-wrap gap-6'>
             {allSavingsData.map((data, index) => (
-              <SavingsCard key={index} data={data} />
+              <LockSavingsCard key={index} data={data} />
             ))}
           </div>
         ) : (
           <div className=''>
-            <SavingDummy />
+            <SavingDummy lock />
           </div>
         )}
       </div>

@@ -166,6 +166,7 @@ export const userService = {
   getLockSavings,
   getLockSavingsInterest,
   createLockSavings,
+  getLockSavingsByID,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -799,7 +800,10 @@ function getGroupTargetActivity(
 // lock savings
 
 function getLockSavings(): Promise<LockSavingsDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/savings/lock-savings/`)
+  return fetchWrapper.get(`${baseUrl}/savings/lock-save/`)
+}
+function getLockSavingsByID(id: string): Promise<LockSavingsDataInterface> {
+  return fetchWrapper.get(`${baseUrl}/savings/lock-save/${id}`)
 }
 
 function getLockSavingsInterest(data: {

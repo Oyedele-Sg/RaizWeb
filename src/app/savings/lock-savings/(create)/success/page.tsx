@@ -37,8 +37,7 @@ export default function Sucess() {
                     successfully
                   </h1>
                   <p className=' font-body__large text-neutral-90 '>
-                    Interest of NGN {state.interest_rate?.interest_rate} added
-                    to your wallet
+                    Interest of NGN {state.interest_amount} added to your wallet
                   </p>
                 </div>
 

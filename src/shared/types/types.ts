@@ -1172,6 +1172,7 @@ export interface LockSavingsDataInterface {
   lock_save_id: string
   created_at: Date
   updated_at: Date
+  interest_amount: number
   savings_wallet: SavingsWalletInterface
   interest_rate: InterestRateInterface
   penalty_fee: {
