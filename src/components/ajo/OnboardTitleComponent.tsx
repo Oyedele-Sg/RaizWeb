@@ -24,29 +24,7 @@ export function OnboardTitleComponent({ titleText, titleSpan }: Props) {
             {titleText + " "} <span className=' text-yellow '>{titleSpan}</span>{" "}
           </h1>
         </div>
-        <BtnMain
-          btnText=' Get Started'
-          btnStyle=' text-grey px-[3.75rem]  bg-gradient-ajo  font-body__large '
-          onClick={async () => {
-            dispatch(setLoadingTrue())
-
-            if (currentUser?.onboarding_checklist === null) {
-              await userService.updateUserOnboardingList({
-                ajo: true,
-                checking: false,
-                savings: false,
-                loan: false,
-              })
-              Router.push("/ajo/hub")
-            } else {
-              await userService.updateUserOnboardingList({
-                ajo: true,
-              })
-              dispatch(setLoadingFalse())
-              Router.push("/ajo/hub")
-            }
-          }}
-        />
+        
       </div>
     </div>
   )

@@ -26,7 +26,7 @@ export default function page() {
 
   return (
     <div className=''>
-      <ContentWrap handleNavigation={handleNavigation}>
+      <ContentWrap  handleNavigation={handleNavigation}>
         {current ? (
           <ComponentPersonal step={step} setStep={setStep} current={current} />
         ) : (

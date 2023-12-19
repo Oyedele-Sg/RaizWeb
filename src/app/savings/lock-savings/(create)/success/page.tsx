@@ -3,7 +3,7 @@
 import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
 import { AuthButton, BtnMain, CloseIcon, VerifySuccess } from "@/shared"
-import { useAppDispatch } from "@/shared/redux/types"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import React from "react"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import Image from "next/image"
@@ -13,6 +13,8 @@ export default function Sucess() {
   const Router = useRouter()
 
   const dispatch = useAppDispatch()
+
+  const state = useAppSelector((state) => state.lockSavingSuccessData)
 
   return (
     <>
@@ -31,20 +33,19 @@ export default function Sucess() {
               <div className=' flex justiKWfy-center  flex-col  items-center gap-[38px] '>
                 <div className=' text-center flex flex-col gap-2   '>
                   <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                    Group Target Save Successfully Set-Up
+                    ₦{state.lock_save_amount?.toLocaleString()} Locked
+                    successfully
                   </h1>
-                  {/* <p className=' font-body__large text-neutral-90 '>
-                    Cycle successfully added to hub!
-                  </p> */}
+                  <p className=' font-body__large text-neutral-90 '>
+                    Interest of NGN {state.interest_amount} added to your wallet
+                  </p>
                 </div>
 
                 <div className=' flex  gap-12  '>
                   <BtnMain
-                    btnText='Add Member(s)?'
+                    btnText='Another Lock?'
                     btnStyle=' text-purple border-neutral-100 border   px-6 '
-                    onClick={ () => {
-                      
-                    } }
+                    onClick={() => Router.push("/savings/lock-savings/create")}
                   />
                   <AuthButton
                     btnText='Save hub'

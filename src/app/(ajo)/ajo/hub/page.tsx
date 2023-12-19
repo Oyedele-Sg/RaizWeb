@@ -11,7 +11,10 @@ export default function Ajo() {
   useEffect(() => {
     const getUser = async () => {
       const response = await userService.getCurrentUser()
-      if (!response.onboarding_checklist.ajo) {
+      if (
+        !response.onboarding_checklist.ajo ||
+        response.onboarding_checklist.ajo === null
+      ) {
         Router.push("/ajo/onboard")
       }
     }

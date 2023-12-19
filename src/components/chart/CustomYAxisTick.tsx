@@ -1,3 +1,4 @@
+import { formatNumberToK } from '@/utils/helpers';
 import React from 'react';
 import { Text } from 'recharts';
 
@@ -15,7 +16,7 @@ export const CustomYAxisTick = (props: any) => {
         fill="#BFABD3"
         className="custom-axis-tick"
       >
-        {`#${payload.value}`}
+        {`#${formatNumberToK(payload.value)}`}
       </Text>
     </g>
   );

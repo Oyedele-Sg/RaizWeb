@@ -56,6 +56,9 @@ import {
   ChargeOTPInterface,
   ChargeOTPResponseInterface,
   ValidateChargeResponseInterface,
+  LockSavingsDataInterface,
+  LockSaveInterestInterface,
+  LockSaveCreateDateInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -160,6 +163,10 @@ export const userService = {
   initiateBirthdayCharge,
   submitChargeOTP,
   validateChargeOTP,
+  getLockSavings,
+  getLockSavingsInterest,
+  createLockSavings,
+  getLockSavingsByID,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -788,4 +795,26 @@ function getGroupTargetActivity(
   return fetchWrapper.get(
     `${baseUrl}/savings/target-save/group/${id}/activities/`
   )
+}
+
+// lock savings
+
+function getLockSavings(): Promise<LockSavingsDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/savings/lock-save/`)
+}
+function getLockSavingsByID(id: string): Promise<LockSavingsDataInterface> {
+  return fetchWrapper.get(`${baseUrl}/savings/lock-save/${id}`)
+}
+
+function getLockSavingsInterest(data: {
+  amount: number
+  end_date: Date
+}): Promise<LockSaveInterestInterface> {
+  return fetchWrapper.post(`${baseUrl}/savings/lock-save/interest/`, data)
+}
+
+function createLockSavings(
+  data: LockSaveCreateDateInterface
+): Promise<LockSavingsDataInterface> {
+  return fetchWrapper.post(`${baseUrl}/savings/lock-save/`, data)
 }

@@ -10,6 +10,7 @@ import {
   selectedDebitSplitRequestReducer,
   balanceRevealReducer,
   SidebarReducer,
+  lockSavingSuccessReducer,
 } from "./features"
 import { selectedRequestReducer } from "./features/request"
 // import authReducer from "./features/lice
@@ -27,6 +28,7 @@ export const store = configureStore({
     selectedDebitSplitRequest: selectedDebitSplitRequestReducer,
     balanceReveal: balanceRevealReducer,
     sidebarLinks: SidebarReducer,
+    lockSavingSuccessData: lockSavingSuccessReducer,
   },
 })
 

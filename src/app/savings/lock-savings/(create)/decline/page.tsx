@@ -1,9 +1,8 @@
 "use client"
-
 import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
-import { AuthButton, BtnMain, CloseIcon, VerifySuccess } from "@/shared"
-import { useAppDispatch } from "@/shared/redux/types"
+import { AuthButton, CloseIcon, VerifySuccess } from "@/shared"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import React from "react"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import Image from "next/image"
@@ -11,13 +10,12 @@ import { useRouter } from "next/navigation"
 
 export default function Sucess() {
   const Router = useRouter()
-
-  const dispatch = useAppDispatch()
+  const request = useAppSelector((state) => state.selectedRequest)
 
   return (
     <>
-      <div className=' flex items-center justify-center h-screen w-full  '>
-        <div className=' w-[771px]  bg-grey rounded-[80px] pt-[166px] pb-[113px] mx-5'>
+      <div className=' flex items-center justify-center h-screen w-full   '>
+        <div className=' w-[771px]  bg-grey rounded-[80px] py-[70px] mx-5  '>
           <div className=' flex justify-center  flex-col gap-11  '>
             <div className='flex items-center justify-center '>
               <Image
@@ -28,33 +26,30 @@ export default function Sucess() {
               />
             </div>
             <div className='   '>
-              <div className=' flex justiKWfy-center  flex-col  items-center gap-[38px] '>
+              <div className=' flex justify-center  flex-col  items-center gap-[38px] '>
                 <div className=' text-center flex flex-col gap-2   '>
                   <h1 className=' font-headline__large  font-semi-mid text-purple   '>
-                    Group Target Save Successfully Set-Up
+                    Insufficient Funds
                   </h1>
                   {/* <p className=' font-body__large text-neutral-90 '>
-                    Cycle successfully added to hub!
+                    Request of{" "}
+                    <span className=' font-semiBold '>
+                      NGN {request?.transaction_amount?.toLocaleString()}
+                    </span>{" "}
+                    from {request?.requester_account?.first_name}{" "}
+                    {request?.requester_account?.last_name} has been deleted.
                   </p> */}
                 </div>
 
-                <div className=' flex  gap-12  '>
-                  <BtnMain
-                    btnText='Add Member(s)?'
-                    btnStyle=' text-purple border-neutral-100 border   px-6 '
-                    onClick={ () => {
-                      
-                    } }
-                  />
-                  <AuthButton
-                    btnText='Save hub'
-                    btnStyle='   px-[46.5px] '
-                    onClick={async () => {
-                      Router.push("/savings/hub")
-                    }}
-                  />
-                </div>
+                <AuthButton
+                  btnText='Try Again'
+                  btnStyle=' px-[101.5px] '
+                  onClick={async () => {
+                    Router.push("/savings/lock-savings/create")
+                  }}
+                />
               </div>
+              ``
             </div>
           </div>
         </div>

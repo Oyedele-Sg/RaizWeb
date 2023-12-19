@@ -3,22 +3,26 @@ import SectionHeader from "../ajo/SectionHeader"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { userService } from "@/services"
-import { GroupTargetSavingsDataInterface } from "@/shared"
+import {
+  GroupTargetSavingsDataInterface,
+  LockSavingsDataInterface,
+} from "@/shared"
 import { toast } from "../ui/use-toast"
 import { SavingsCard } from "./SavingsCard"
 import { SavingDummy } from "./SavingDummy"
+import { LockSavingsCard } from "./lock-savings"
 
-export function TargetSavingsComponent() {
+export function LockSavingsComponent() {
   const Router = useRouter()
 
   const [allSavingsData, setAllSavingsData] = useState<
-    GroupTargetSavingsDataInterface[]
+    LockSavingsDataInterface[]
   >([])
   console.log("savings data", allSavingsData)
 
   const getData = async () => {
     try {
-      const response = await userService.getPublicTargetSavings()
+      const response = await userService.getLockSavings()
       setAllSavingsData(response)
     } catch (error) {
       toast({
@@ -39,20 +43,17 @@ export function TargetSavingsComponent() {
   const TabLinks = [
     {
       title: "Create",
-      link: "/savings/target-savings/create",
+      link: "/savings/lock-savings/create",
     },
-    {
-      title: "My Target",
-      link: "/savings/my-targets/all",
-    },
+
     {
       title: "Explore",
-      link: "/savings/target-savings/all",
+      link: "/savings/lock-savings/all",
     },
-    {
-      title: "Completed",
-      link: "/savings/hub",
-    },
+    // {
+    //   title: "Completed",
+    //   link: "/savings/hub",
+    // },
   ]
 
   useEffect(() => {
@@ -61,10 +62,10 @@ export function TargetSavingsComponent() {
   return (
     <div className='  py-8 px-6  bg-grey  flex  flex-col gap-8'>
       <div className=' flex justify-between items-center  '>
-        <SectionHeader text='Target Saving ' />
+        <SectionHeader text='Lock Saving ' />
         <button
           className=' text-purple flex items-center gap-3 font-font-body__large'
-          onClick={() => Router.push("/savings/target-savings/all")}
+          onClick={() => Router.push("/savings/lock-savings/all")}
         >
           View All{" "}
           <span>
@@ -97,12 +98,12 @@ export function TargetSavingsComponent() {
         {allSavingsData.length > 0 ? (
           <div className='flex   flex-wrap gap-6'>
             {allSavingsData.map((data, index) => (
-              <SavingsCard key={index} data={data} />
+              <LockSavingsCard key={index} data={data} />
             ))}
           </div>
         ) : (
           <div className=''>
-            <SavingDummy />
+            <SavingDummy lock />
           </div>
         )}
       </div>

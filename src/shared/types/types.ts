@@ -67,10 +67,10 @@ export interface UserInterface {
   withdrawal_accounts: WithdrawalAccountType[]
   onboarding_checklist: {
     account_user_id: string
-    checking: boolean
-    savings: boolean
-    ajo: boolean
-    loan: boolean
+    checking: boolean | null
+    savings: boolean | null
+    ajo: boolean | null
+    loan: boolean | null
   }
 }
 
@@ -1074,6 +1074,11 @@ export interface CreateTargetSavingsFormInterface {
   public: boolean
 }
 
+export interface CreateLockSavingsFormInterface {
+  lock_save_description: string
+  lock_save_amount: number
+}
+
 export interface SavingsWalletInterface {
   account_user_id: string
   savings_category_id: number
@@ -1151,4 +1156,46 @@ export interface GroupTargetSavingsActivitiesDataInterface {
   created_at: Date
   updated_at: Date
   account_user: AccountInterface
+}
+
+export interface LockSavingsDataInterface {
+  lock_save_description: string
+  lock_save_amount: number
+  end_date: Date
+  savings_wallet_id: string
+  account_user_id: string
+  lock_save_duration: number
+  lock_save_interest_rate_id: number
+  lock_save_penalty_fee_id: number
+  start_date: Date
+  has_withdrawn: boolean
+  lock_save_id: string
+  created_at: Date
+  updated_at: Date
+  interest_amount: number
+  savings_wallet: SavingsWalletInterface
+  interest_rate: InterestRateInterface
+  penalty_fee: {
+    penalty_fee_rate: number
+    penalty_fee_description: string
+    penalty_fee_code: number
+    penalty_fee_id: number
+    created_at: Date
+    updated_at: Date
+  }
+}
+
+export interface LockSaveInterestInterface {
+  amount: number
+  end_date: Date
+  start_date: Date
+  interest: number
+  interest_rate: number
+  duration: number
+}
+
+export interface LockSaveCreateDateInterface {
+  lock_save_description: string
+  lock_save_amount: number
+  end_date: Date
 }

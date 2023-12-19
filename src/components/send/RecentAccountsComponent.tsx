@@ -26,7 +26,7 @@ export function RecentAccountsComponent({
       {accounts && accounts?.length > 0 && (
         <div className=' flex flex-col  gap-2 '>
           <h3 className=' font-label__large text-neutral-80 '>Recent</h3>
-          <div className=' flex gap-2  '>
+          <div className=' flex gap-2 flex-wrap '>
             {accounts?.map((account) => (
               <div
                 className='flex flex-col gap-2 items-center'
