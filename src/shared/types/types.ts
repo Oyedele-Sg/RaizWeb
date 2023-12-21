@@ -1199,3 +1199,10 @@ export interface LockSaveCreateDateInterface {
   lock_save_amount: number
   end_date: Date
 }
+
+export interface JoinTargetSaveFromInterface {
+  frequency_id: number | null
+  preferred_credit_time: string | null
+  preferred_deduction_amount: number | null
+  primary_source_of_funds: string | null
+}

@@ -1,21 +1,11 @@
 "use client"
 import { IllustrationComponent, LoginForm } from "@/components"
 import {
-  AjoFormInterface,
   AjoFrequencyInterface,
-  BackArrow,
-  BackBtnCircle,
   BtnMain,
-  IconRaiz,
-  IconRaizColored,
-  Loading,
-  NextArrow,
   CreateTargetSavingsFormInterface,
   RegisterInput,
   RegisterTextArea,
-  SetupLayout,
-  WhiteTileWrap,
-  createAjoSchema,
 } from "@/shared"
 import { yupResolver } from "@hookform/resolvers/yup"
 import {
@@ -29,7 +19,6 @@ import {
 import Image from "next/image"
 import React, { useEffect, useState } from "react"
 import { Form, FormProvider, useForm } from "react-hook-form"
-import { Resolver } from "react-hook-form"
 import {
   Popover,
   PopoverContent,
@@ -48,8 +37,7 @@ import { toast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
 import { useAppDispatch } from "@/shared/redux/types"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
-import TimePicker from "react-time-picker"
-import "react-clock/dist/Clock.css"
+
 import { LocalizationProvider, TimeField } from "@mui/x-date-pickers"
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment"
 import { convertDateToTime } from "@/utils/helpers"
@@ -343,14 +331,7 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
                           value={prefferedTime}
                           onChange={setPrefferedTime}
                         />
-                        {/* <TimePicker
-                          onChange={setPrefferedTime}
-                          value={prefferedTime}
-                        /> */}
-                        {/* <RegisterInput
-                        name='preferred_credit_time'
-                        label='preferred credit time '
-                      /> */}
+
                         <RegisterInput
                           type='number'
                           name='preferred_deduction_amount'

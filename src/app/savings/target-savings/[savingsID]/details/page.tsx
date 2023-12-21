@@ -150,7 +150,7 @@ function Page() {
         </div>
       </div>
 
-      <div className='p-10 mt-[94px] flex gap-16'>
+      <div className='p-10 mt-[94px] flex flex-col lg:flex-row gap-16  '>
         <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8  '>
           <div className=' flex flex-col gap-8  '>
             <div className='flex flex-col gap-6 '>
@@ -166,6 +166,9 @@ function Page() {
             <BtnMain
               btnText='Join Challenge'
               btnStyle=' w-full text-grey btn-gradient-savings '
+              onClick={() =>
+                Router.push(`/savings/target-savings/${Params.savingsID}/join`)
+              }
             />
           </div>
 
