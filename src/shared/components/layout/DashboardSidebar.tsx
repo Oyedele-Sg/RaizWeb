@@ -8,12 +8,8 @@ import React, { useEffect } from "react"
 export const Sidebar = () => {
   const Router = useRouter()
   const pathName = usePathname()
-  console.log("path", pathName)
   const dispatch = useAppDispatch()
   const link = useAppSelector((state) => state.sidebarLinks)
-  console.log("state", link.state)
-
-  console.log("bolean", pathName === link.state)
 
   const dashboardIcon = [
     {

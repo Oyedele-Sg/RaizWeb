@@ -14,7 +14,6 @@ export function TargetSavingsComponent() {
   const [allSavingsData, setAllSavingsData] = useState<
     GroupTargetSavingsDataInterface[]
   >([])
-  console.log("savings data", allSavingsData)
 
   const getData = async () => {
     try {

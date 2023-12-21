@@ -79,8 +79,7 @@ export function ComponentForm() {
     })
     setInterest(response)
   }
-  // const [prefferedTime, setPrefferedTime] = useState("10:00")
-  console.log(methods.getValues("lock_save_amount"))
+  
 
   const onSubmit = async () => {
     try {

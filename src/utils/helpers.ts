@@ -238,7 +238,6 @@ export function dateDifferenceInDays(date1: Date, date2: Date): number {
 export function formatNumberToK(number: number): string {
   if (number >= 1000000) {
     const kValue = number / 1000000
-    console.log(kValue)
     return kValue.toFixed(1) + "m"
   }
   if (number >= 1000) {

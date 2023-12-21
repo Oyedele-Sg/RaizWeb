@@ -18,7 +18,6 @@ export function LockSavingsComponent() {
   const [allSavingsData, setAllSavingsData] = useState<
     LockSavingsDataInterface[]
   >([])
-  console.log("savings data", allSavingsData)
 
   const getData = async () => {
     try {

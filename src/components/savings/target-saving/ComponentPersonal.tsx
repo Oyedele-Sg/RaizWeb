@@ -50,7 +50,6 @@ interface Props {
   current: string
 }
 export function ComponentPersonal({ setStep, step, current }: Props) {
-  console.log("currennt", current)
   const methods = useForm<CreateTargetSavingsFormInterface>({
     defaultValues: {
       target_amount: 0,
@@ -149,7 +148,6 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
     setFrequencies(response)
   }
   const [prefferedTime, setPrefferedTime] = React.useState<Dayjs | null>(null)
-  console.log("prefferedTime", prefferedTime)
 
   useEffect(() => {
     getData()
