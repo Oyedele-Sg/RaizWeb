@@ -157,6 +157,7 @@ function Page() {
             <BtnMain
               btnText='Withdraw'
               btnStyle=' w-full text-purple border-neutral-30 border '
+              onClick={() => Router.push(`/savings/lock-savings/${Params.savingsID}/withdrawal`)}
             />
           </div>
 

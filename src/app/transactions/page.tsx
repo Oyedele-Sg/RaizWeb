@@ -31,11 +31,11 @@ function page() {
   const [date, setDate] = React.useState<DateRangePickerValue>(() => {
     const currentDate = new Date()
     const fromDate = new Date()
-    fromDate.setDate(currentDate.getDate() - 20)
+    fromDate.setDate(currentDate.getDate() - 365)
 
     return {
       from: fromDate,
-      to: addDays(currentDate, 20),
+      to: currentDate,
     }
   })
   const data = async () => {

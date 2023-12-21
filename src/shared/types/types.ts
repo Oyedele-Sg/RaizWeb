@@ -1067,10 +1067,10 @@ export interface CreateTargetSavingsFormInterface {
   target_save_description: string
   start_date?: Date
   end_date?: Date
-  frequency_id: number
-  preferred_credit_time: string
-  preferred_deduction_amount: number
-  primary_source_of_funds: string
+  frequency_id: number | null
+  preferred_credit_time: string | null
+  preferred_deduction_amount: number | null
+  primary_source_of_funds: string | null
   public: boolean
 }
 
@@ -1198,4 +1198,11 @@ export interface LockSaveCreateDateInterface {
   lock_save_description: string
   lock_save_amount: number
   end_date: Date
+}
+
+export interface JoinTargetSaveFromInterface {
+  frequency_id: number | null
+  preferred_credit_time: string | null
+  preferred_deduction_amount: number | null
+  primary_source_of_funds: string | null
 }

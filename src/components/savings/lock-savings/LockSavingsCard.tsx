@@ -18,7 +18,9 @@ export function LockSavingsCard({ data }: Props) {
   return (
     <div
       className=' rounded-2xl  border-[2px] border-neutral-30 max-w-[294px] py-5 px-4 flex flex-col gap-5 bg-savings-bg '
-      onClick={() => Router.push(`/savings/lock-savings/${data.lock_save_id}`)}
+      onClick={() =>
+        Router.push(`/savings/lock-savings/${data.lock_save_id}/details`)
+      }
     >
       {/* <Image src='/images/frame-583.png' width={262} height={128} alt='' /> */}
 

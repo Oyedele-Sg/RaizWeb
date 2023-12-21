@@ -59,6 +59,8 @@ import {
   LockSavingsDataInterface,
   LockSaveInterestInterface,
   LockSaveCreateDateInterface,
+  TransactionPinFormInterface,
+  JoinTargetSaveFromInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -167,6 +169,8 @@ export const userService = {
   getLockSavingsInterest,
   createLockSavings,
   getLockSavingsByID,
+  earlyWithdrawalLockSavings,
+  joinTargetSavings,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -817,4 +821,24 @@ function createLockSavings(
   data: LockSaveCreateDateInterface
 ): Promise<LockSavingsDataInterface> {
   return fetchWrapper.post(`${baseUrl}/savings/lock-save/`, data)
+}
+
+function earlyWithdrawalLockSavings(
+  data: TransactionPinFormInterface,
+  id: string
+): Promise<void> {
+  return fetchWrapper.patch(
+    `${baseUrl}/savings/lock-save/${id}/early-withdrawal/`,
+    data
+  )
+}
+
+function joinTargetSavings(
+  id: string,
+  data: JoinTargetSaveFromInterface
+): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/savings/target-save/group/${id}/join/`,
+    data
+  )
 }
