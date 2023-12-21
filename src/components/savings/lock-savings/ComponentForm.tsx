@@ -124,14 +124,7 @@ export function ComponentForm() {
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className='  '>
             <div className='flex flex-col gap-9  '>
-              <div className=''>
-                <h1 className='  font-display__medium text-purple capitalize '>
-                  Lock Save
-                </h1>
-                <p className=' text-neutral-70 font-title__large '>
-                  Safeguard your Funds
-                </p>
-              </div>
+              
 
               <div className=' flex flex-col gap-6  '>
                 <input

@@ -30,12 +30,15 @@ function page() {
   const [transactionDrop, setTransactionsDrop] = React.useState<boolean>(false)
   const [date, setDate] = React.useState<DateRangePickerValue>(() => {
     const currentDate = new Date()
-    const fromDate = new Date()
-    fromDate.setDate(currentDate.getDate() - 20)
+    const toDate = new Date()
+    toDate.setDate(currentDate.getDate() + 365) // To date is initially set to one year from the current date
+
+    const fromDate = new Date(toDate)
+    fromDate.setFullYear(toDate.getFullYear() - 1) // From date is set to one year before the to date
 
     return {
       from: fromDate,
-      to: addDays(currentDate, 20),
+      to: toDate,
     }
   })
   const data = async () => {

@@ -63,20 +63,15 @@ export function LockSavingsComponent() {
     <div className='  py-8 px-6  bg-grey  flex  flex-col gap-8'>
       <div className=' flex justify-between items-center  '>
         <SectionHeader text='Lock Saving ' />
+
         <button
-          className=' text-purple flex items-center gap-3 font-font-body__large'
+          className=' text-purple flex items-center gap-3 font-font-body__large   '
           onClick={() => Router.push("/savings/lock-savings/all")}
         >
-          View All{" "}
-          <span>
-            {" "}
-            <Image
-              src='/icons/arrow-right.svg'
-              width={18}
-              height={18}
-              alt=''
-            />{" "}
-          </span>
+          <span className='  '>View All</span>
+          <div className=' '>
+            <Image src='/icons/arrow-right.svg' width={18} height={18} alt='' />{" "}
+          </div>
         </button>
       </div>
 
