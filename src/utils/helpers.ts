@@ -244,7 +244,7 @@ export function formatNumberToK(number: number): string {
     const kValue = number / 1000
     return kValue.toFixed(1) + "k"
   } else {
-    return number.toString()
+    return number?.toString()
   }
 }
 
@@ -272,4 +272,18 @@ export function convertDateToTime(
   }
 
   return dateObject.format("HH:mm:ss")
+}
+
+export function convertDateString(input: string): string | null {
+  const match = input.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+
+  if (match) {
+    const year = match[1]
+    const month = match[2]
+    const day = match[3]
+
+    return `${month}/${day}`
+  } else {
+    return null
+  }
 }
