@@ -114,6 +114,9 @@ function Page() {
     getData()
     getPenaltyData()
   }, [Params.savingsID])
+  useEffect(() => {
+    getPenaltyData()
+  }, [savingsDetails])
   return (
     <div className=' '>
       <div className=' p-10'>

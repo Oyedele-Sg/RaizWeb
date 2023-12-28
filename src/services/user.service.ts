@@ -862,7 +862,7 @@ function earlyWithdrawalLockSavings(
 function earlyWithdrawalPenalty(
   data: EarlyPenaltyFormInterface
 ): Promise<EarlyPenaltyDataInterface> {
-  return fetchWrapper.patch(`${baseUrl}/savings/lock-save/penalty-fee/`, data)
+  return fetchWrapper.post(`${baseUrl}/savings/lock-save/penalty-fee/`, data)
 }
 
 function joinTargetSavings(
