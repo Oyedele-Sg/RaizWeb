@@ -15,19 +15,10 @@ import React, { useEffect, useState } from "react"
 
 export default function All() {
   const [Savings, setSavings] = useState<GroupTargetSavingsDataInterface[]>([])
-  // const filter = [
-  //   { title: "new", prompt: "new" },
-  //   { title: "duration", prompt: "duration_desc" },
-  //   { title: "amount", prompt: "amount_desc" },
-  //   { title: "frequency", prompt: "frequency_desc" },
-  //   { title: "members", prompt: "max_participants_desc" },
-  // ]
-  // const [filterClicked, setFilterClicked] = useState<string>("new")
-  // const [filterPrompt, setFilterPrompt] = useState<string>("new")
 
   const getData = async () => {
     try {
-      const response = await userService.getAllTargetSavings()
+      const response = await userService.getPublicTargetSavings()
       setSavings(response)
     } catch (error) {
       toast({
@@ -57,7 +48,7 @@ export default function All() {
         <div className=' flex gap-10 min-h-full  '>
           <div className=' w-full  py-8 px-6   bg-grey  flex  flex-col gap-8'>
             <div className=' flex justify-between items-center '>
-              <SectionHeader text='Target savings' />
+              <SectionHeader text='Public Target savings' />
             </div>
 
             <div className='  flex flex-wrap gap-6 items-center justify-center lg:justify-start  '>
