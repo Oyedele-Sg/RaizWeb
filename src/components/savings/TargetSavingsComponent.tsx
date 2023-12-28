@@ -17,7 +17,7 @@ export function TargetSavingsComponent() {
 
   const getData = async () => {
     try {
-      const response = await userService.getPublicTargetSavings()
+      const response = await userService.getAllTargetSavings()
       setAllSavingsData(response)
     } catch (error) {
       toast({
@@ -37,8 +37,8 @@ export function TargetSavingsComponent() {
 
   const TabLinks = [
     {
-      title: "Create",
-      link: "/savings/target-savings/create",
+      title: "In-Progress",
+      link: "/savings/hub",
     },
     {
       title: "My Target",
@@ -46,12 +46,12 @@ export function TargetSavingsComponent() {
     },
     {
       title: "Explore",
-      link: "/savings/target-savings/all",
+      link: "/savings/target-savings/explore",
     },
-    {
-      title: "Completed",
-      link: "/savings/hub",
-    },
+    // {
+    //   title: "Completed",
+    //   link: "/savings/hub",
+    // },
   ]
 
   useEffect(() => {

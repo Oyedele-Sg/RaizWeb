@@ -7,6 +7,7 @@ import {
   AjoDataInterface,
   AjoPaymentCycleInterface,
   BtnMain,
+  EarlyPenaltyDataInterface,
   GroupTargetSavingsActivitiesDataInterface,
   GroupTargetSavingsDataInterface,
   LockSavingsDataInterface,
@@ -29,12 +30,40 @@ function Page() {
   const Params = useParams()
   const [savingsDetails, setSavingsDetails] =
     React.useState<LockSavingsDataInterface>()
+  const [savingsPenalty, setSavingsPenalty] =
+    React.useState<EarlyPenaltyDataInterface>()
 
   const getData = async () => {
     try {
       const response = await userService.getLockSavingsByID(Params.savingsID)
 
       setSavingsDetails(response)
+    } catch (error) {
+      toast({
+        title: "Something Went Wrong",
+        description: `${error}`,
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+        duration: 5000,
+      })
+    }
+  }
+
+  const getPenaltyData = async () => {
+    const data = {
+      amount: savingsDetails?.lock_save_amount as number,
+      end_date: savingsDetails?.end_date as Date,
+      withdraw_date: new Date(),
+    }
+    try {
+      const response = await userService.earlyWithdrawalPenalty(data)
+
+      setSavingsPenalty(response)
     } catch (error) {
       toast({
         title: "Something Went Wrong",
@@ -61,8 +90,16 @@ function Page() {
       data: moment(savingsDetails?.end_date).format("DD MMMM, YYYY"),
     },
     {
+      title: "Interest (₦)",
+      data: `₦${savingsDetails?.interest_amount}`,
+    },
+    {
       title: "Locked Amount",
-      data: savingsDetails?.interest_amount,
+      data: `₦${savingsDetails?.lock_save_amount}`,
+    },
+    {
+      title: "Interest (%)",
+      data: `${savingsDetails?.interest_rate}%`,
     },
     {
       title: "Days Left",
@@ -75,7 +112,11 @@ function Page() {
 
   useEffect(() => {
     getData()
+    getPenaltyData()
   }, [Params.savingsID])
+  useEffect(() => {
+    getPenaltyData()
+  }, [savingsDetails])
   return (
     <div className=' '>
       <div className=' p-10'>
@@ -116,7 +157,7 @@ function Page() {
                     </div> */}
                     <div className=' flex flex-col items-center  gap-2   '>
                       <span className=' text-grey font-semibold  '>
-                        {savingsDetails?.interest_amount}
+                        ₦{savingsDetails?.lock_save_amount}
                       </span>
                       <span className=' text-grey font-semi-mid '>
                         Locked amount
@@ -124,14 +165,15 @@ function Page() {
                     </div>
                     <div className=' flex flex-col items-center  gap-2   '>
                       <span className=' text-grey font-semibold  '>
-                        {dateDifferenceInDays(
-                          savingsDetails?.start_date as Date,
-                          savingsDetails?.end_date as Date
-                        )}
+                        ₦{savingsDetails?.interest_amount}
                       </span>
                       <span className=' text-grey font-semi-mid '>
-                        Days left
+                        Interest Earned
                       </span>
+                    </div>
+                    <div className=' flex flex-col items-center  gap-2   '>
+                      <span className=' text-grey font-semibold  '>Paid</span>
+                      <span className=' text-grey font-semi-mid '>Status</span>
                     </div>
                   </div>
                 </div>
@@ -150,14 +192,18 @@ function Page() {
                 Payout Rules
               </h2>
               <p className=' text-purple text-center text-t-16  '>
-                Money to be collected on the first of December and no one has
-                access to your deposit
+                {` Keeps Funds for a Fixed Term, Breaking the Lock Incurs a ${savingsPenalty?.penalty_fee_rate}%
+                  Penalty!`}
               </p>
             </div>
             <BtnMain
               btnText='Withdraw'
               btnStyle=' w-full text-purple border-neutral-30 border '
-              onClick={() => Router.push(`/savings/lock-savings/${Params.savingsID}/withdrawal`)}
+              onClick={() =>
+                Router.push(
+                  `/savings/lock-savings/${Params.savingsID}/withdrawal`
+                )
+              }
             />
           </div>
 
@@ -177,3 +223,18 @@ function Page() {
 }
 
 export default Page
+
+// could be needed later
+{
+  /* <div className=' flex flex-col items-center  gap-2   '>
+                      <span className=' text-grey font-semibold  '>
+                        {dateDifferenceInDays(
+                          savingsDetails?.start_date as Date,
+                          savingsDetails?.end_date as Date
+                        )}
+                      </span>
+                      <span className=' text-grey font-semi-mid '>
+                        Days left
+                      </span>
+                    </div> */
+}

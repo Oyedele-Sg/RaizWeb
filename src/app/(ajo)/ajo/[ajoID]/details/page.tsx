@@ -78,6 +78,7 @@ function Page() {
     }
   }
 
+
   useEffect(() => {
     getData()
   }, [Params.ajoID])

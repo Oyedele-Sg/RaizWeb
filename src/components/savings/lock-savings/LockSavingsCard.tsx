@@ -17,7 +17,7 @@ export function LockSavingsCard({ data }: Props) {
 
   return (
     <div
-      className=' rounded-2xl  border-[2px] border-neutral-30 max-w-[294px] py-5 px-4 flex flex-col gap-5 bg-savings-bg '
+      className=' rounded-2xl  border-[2px] border-neutral-30 min-w-[260px] py-5 px-4 flex flex-col gap-5 bg-savings-bg '
       onClick={() =>
         Router.push(`/savings/lock-savings/${data.lock_save_id}/details`)
       }
@@ -29,15 +29,18 @@ export function LockSavingsCard({ data }: Props) {
           {data.lock_save_description}
         </h2>
 
-        <div className=' flex justify-between '>
-          <div className=' flex flex-col items-center justify-center '>
-            <h3 className=' font-semibold text-t-16 text-purple  '>
-              {data.interest_amount}
-            </h3>
-            <p className=' font-semi-mid text-t-16 text-neutral-70 text-center  '>
-              Interest Earned
-            </p>
-          </div>
+        <div className=' flex  gap-4 items-start '>
+          {data.interest_amount && (
+            <div className=' flex flex-col items-center justify-center '>
+              <h3 className=' font-semibold text-t-16 text-purple  '>
+                ₦{formatNumberToK(data.interest_amount)}
+              </h3>
+              <p className=' font-semi-mid text-t-16 text-neutral-70 text-center flex flex-col items-center  '>
+                <span className=''>Interest</span>{" "}
+                <span className=''>Earned</span>
+              </p>
+            </div>
+          )}
           <div className=' flex flex-col items-center justify-center   '>
             <h3 className=' font-semibold text-t-16 text-purple  '>
               ₦{formatNumberToK(data.lock_save_amount)}
@@ -48,7 +51,7 @@ export function LockSavingsCard({ data }: Props) {
             <h3 className=' font-semibold text-t-16 text-purple  '>
               {data.lock_save_duration}
             </h3>
-            <p className=' font-semi-mid text-t-16 text-neutral-70  '>
+            <p className='font-semi-mid text-t-16 text-neutral-70 text-center flex flex-col items-center'>
               Days left
             </p>
           </div>

@@ -61,6 +61,8 @@ import {
   LockSaveCreateDateInterface,
   TransactionPinFormInterface,
   JoinTargetSaveFromInterface,
+  EarlyPenaltyDataInterface,
+  EarlyPenaltyFormInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -151,6 +153,7 @@ export const userService = {
   createBudget,
   downloadStatement,
   getPublicTargetSavings,
+  getAllTargetSavings,
   getTransactionTypes,
   createPersonalTargetSavings,
   createGroupTargetSavings,
@@ -171,6 +174,7 @@ export const userService = {
   getLockSavingsByID,
   earlyWithdrawalLockSavings,
   joinTargetSavings,
+  earlyWithdrawalPenalty,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -747,7 +751,23 @@ function getPublicTargetSavings(
   max_target_amount?: number
 ): Promise<GroupTargetSavingsDataInterface[]> {
   return fetchWrapper.get(
-    `${baseUrl}/savings/target-save/group/public/?${createSearchParams({
+    `${baseUrl}/savings/target-save/group/public?${createSearchParams({
+      start_date,
+      end_date,
+      min_target_amount,
+      max_target_amount,
+    })}`
+  )
+}
+
+function getAllTargetSavings(
+  start_date?: string,
+  end_date?: string,
+  min_target_amount?: number,
+  max_target_amount?: number
+): Promise<GroupTargetSavingsDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/savings/target-save/groups/get?${createSearchParams({
       start_date,
       end_date,
       min_target_amount,
@@ -803,8 +823,14 @@ function getGroupTargetActivity(
 
 // lock savings
 
-function getLockSavings(): Promise<LockSavingsDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/savings/lock-save/`)
+function getLockSavings(
+  has_withdrawn?: boolean
+): Promise<LockSavingsDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/savings/lock-save/?${
+      has_withdrawn && `has_withdrawn=${has_withdrawn}`
+    }`
+  )
 }
 function getLockSavingsByID(id: string): Promise<LockSavingsDataInterface> {
   return fetchWrapper.get(`${baseUrl}/savings/lock-save/${id}`)
@@ -831,6 +857,12 @@ function earlyWithdrawalLockSavings(
     `${baseUrl}/savings/lock-save/${id}/early-withdrawal/`,
     data
   )
+}
+
+function earlyWithdrawalPenalty(
+  data: EarlyPenaltyFormInterface
+): Promise<EarlyPenaltyDataInterface> {
+  return fetchWrapper.post(`${baseUrl}/savings/lock-save/penalty-fee/`, data)
 }
 
 function joinTargetSavings(

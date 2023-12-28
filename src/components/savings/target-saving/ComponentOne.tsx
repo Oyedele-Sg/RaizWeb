@@ -1,4 +1,5 @@
 import React from "react"
+import { LinkItem } from "../LinkItem"
 
 interface Props {
   setCurrent: React.Dispatch<React.SetStateAction<string | undefined>>
@@ -33,19 +34,7 @@ export function ComponentOne({ setCurrent }: Props) {
       <div className=''>
         <div className=' flex flex-col gap-5  '>
           {options.map((item, index) => (
-            <div
-              className=' px-6 py-4  border border-neutral-50 rounded-lg flex flex-col gap-2 w-full hover:bg-neutral-30 cursor-pointer '
-              key={index}
-              onClick={() => setCurrent(item.link)}
-            >
-              <h3 className=' font-title__large text-purple  cursor-pointer '>
-                {" "}
-                {item.title}{" "}
-              </h3>
-              <p className=' text-neutral-80 font-body__large cursor-pointer '>
-                {item.description}
-              </p>
-            </div>
+            <LinkItem data={item} handleLink={() => setCurrent(item.link)} />
           ))}
         </div>
       </div>

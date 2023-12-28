@@ -18,10 +18,11 @@ export function LockSavingsComponent() {
   const [allSavingsData, setAllSavingsData] = useState<
     LockSavingsDataInterface[]
   >([])
+  const [hasWidthdrawn, setHasWidthdrawn] = useState(false)
 
-  const getData = async () => {
+  const getData = async (hasWidthdrawn: boolean) => {
     try {
-      const response = await userService.getLockSavings()
+      const response = await userService.getLockSavings(hasWidthdrawn)
       setAllSavingsData(response)
     } catch (error) {
       toast({
@@ -41,23 +42,19 @@ export function LockSavingsComponent() {
 
   const TabLinks = [
     {
-      title: "Create",
-      link: "/savings/lock-savings/create",
+      title: "In-Progress",
+      hasWidthdrawn: false,
     },
 
     {
-      title: "Explore",
-      link: "/savings/lock-savings/all",
+      title: "Completed",
+      hasWidthdrawn: true,
     },
-    // {
-    //   title: "Completed",
-    //   link: "/savings/hub",
-    // },
   ]
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData(hasWidthdrawn)
+  }, [hasWidthdrawn])
   return (
     <div className='  py-8 px-6  bg-grey  flex  flex-col gap-8'>
       <div className=' flex justify-between items-center  '>
@@ -80,7 +77,7 @@ export function LockSavingsComponent() {
             <button
               key={link.title}
               className='flex-1 border-neutral-80 hover:border-neutral-90 border hover:bg-savings-bg  text-t-18 hover:text-neutral-90  text-neutral-80  py-4 '
-              onClick={() => Router.push(link.link)}
+              onClick={() => setHasWidthdrawn(link.hasWidthdrawn)}
             >
               {link.title}
             </button>
