@@ -1206,3 +1206,19 @@ export interface JoinTargetSaveFromInterface {
   preferred_deduction_amount: number | null
   primary_source_of_funds: string | null
 }
+
+export interface EarlyPenaltyFormInterface {
+  amount: number
+  end_date: Date
+  withdraw_date: Date
+}
+
+export interface EarlyPenaltyDataInterface {
+  amount: number
+  end_date: Date
+  withdraw_date: Date
+  start_date: Date
+  penalty_fee: number
+  penalty_fee_rate: number
+  duration: number
+}

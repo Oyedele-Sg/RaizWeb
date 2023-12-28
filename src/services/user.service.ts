@@ -61,6 +61,8 @@ import {
   LockSaveCreateDateInterface,
   TransactionPinFormInterface,
   JoinTargetSaveFromInterface,
+  EarlyPenaltyDataInterface,
+  EarlyPenaltyFormInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -172,6 +174,7 @@ export const userService = {
   getLockSavingsByID,
   earlyWithdrawalLockSavings,
   joinTargetSavings,
+  earlyWithdrawalPenalty,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -854,6 +857,12 @@ function earlyWithdrawalLockSavings(
     `${baseUrl}/savings/lock-save/${id}/early-withdrawal/`,
     data
   )
+}
+
+function earlyWithdrawalPenalty(
+  data: EarlyPenaltyFormInterface
+): Promise<EarlyPenaltyDataInterface> {
+  return fetchWrapper.patch(`${baseUrl}/savings/lock-save/penalty-fee/`, data)
 }
 
 function joinTargetSavings(
