@@ -61,8 +61,16 @@ function Page() {
       data: moment(savingsDetails?.end_date).format("DD MMMM, YYYY"),
     },
     {
+      title: "Interest (₦)",
+      data: `₦${savingsDetails?.interest_amount}`,
+    },
+    {
       title: "Locked Amount",
-      data: savingsDetails?.interest_amount,
+      data: `₦${savingsDetails?.lock_save_amount}`,
+    },
+    {
+      title: "Interest (%)",
+      data: `${savingsDetails?.interest_rate}%`,
     },
     {
       title: "Days Left",
@@ -116,11 +124,23 @@ function Page() {
                     </div> */}
                     <div className=' flex flex-col items-center  gap-2   '>
                       <span className=' text-grey font-semibold  '>
-                        {savingsDetails?.interest_amount}
+                        ₦{savingsDetails?.lock_save_amount}
                       </span>
                       <span className=' text-grey font-semi-mid '>
                         Locked amount
                       </span>
+                    </div>
+                    <div className=' flex flex-col items-center  gap-2   '>
+                      <span className=' text-grey font-semibold  '>
+                        ₦{savingsDetails?.interest_amount}
+                      </span>
+                      <span className=' text-grey font-semi-mid '>
+                        Interest Earned
+                      </span>
+                    </div>
+                    <div className=' flex flex-col items-center  gap-2   '>
+                      <span className=' text-grey font-semibold  '>Paid</span>
+                      <span className=' text-grey font-semi-mid '>Status</span>
                     </div>
                     <div className=' flex flex-col items-center  gap-2   '>
                       <span className=' text-grey font-semibold  '>
@@ -157,7 +177,11 @@ function Page() {
             <BtnMain
               btnText='Withdraw'
               btnStyle=' w-full text-purple border-neutral-30 border '
-              onClick={() => Router.push(`/savings/lock-savings/${Params.savingsID}/withdrawal`)}
+              onClick={() =>
+                Router.push(
+                  `/savings/lock-savings/${Params.savingsID}/withdrawal`
+                )
+              }
             />
           </div>
 

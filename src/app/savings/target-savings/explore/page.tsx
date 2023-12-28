@@ -48,7 +48,7 @@ export default function All() {
         <div className=' flex gap-10 min-h-full  '>
           <div className=' w-full  py-8 px-6   bg-grey  flex  flex-col gap-8'>
             <div className=' flex justify-between items-center '>
-              <SectionHeader text='Public Target savings' />
+              <SectionHeader text='Explore Public Target savings' />
             </div>
 
             <div className='  flex flex-wrap gap-6 items-center justify-center lg:justify-start  '>
