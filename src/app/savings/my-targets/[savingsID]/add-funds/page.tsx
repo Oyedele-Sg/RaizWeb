@@ -9,7 +9,7 @@ import {
   BtnMain,
   Loading,
   RegisterInput,
-  transfertoPersonalTargetSavings,
+  PersonalTargetTransferDataInterface,
   createTransactionPinSchema,
 } from "@/shared"
 import { FormProvider, useForm } from "react-hook-form"
@@ -27,7 +27,7 @@ function page() {
     Router.push(`/savings/my-targets/${Params.savingsID}/details`)
   }
 
-  const methods = useForm<transfertoPersonalTargetSavings>({
+  const methods = useForm<PersonalTargetTransferDataInterface>({
     defaultValues: {
       amount: 0,
       transaction_pin: "",
@@ -35,7 +35,7 @@ function page() {
     // resolver: yupResolver(createTransactionPinSchema),
   })
 
-  const onSubmit = async (data: transfertoPersonalTargetSavings) => {
+  const onSubmit = async (data: PersonalTargetTransferDataInterface) => {
     try {
       dispatch(setLoadingTrue())
       await userService.transfertoPersonalTargetSavings({
