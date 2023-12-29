@@ -14,6 +14,7 @@ export function TargetSavingsComponent() {
   const [allSavingsData, setAllSavingsData] = useState<
     GroupTargetSavingsDataInterface[]
   >([])
+  const [clicked, setClicked] = useState("In-Progress")
 
   const getData = async () => {
     try {
@@ -77,8 +78,14 @@ export function TargetSavingsComponent() {
           {TabLinks.map((link) => (
             <button
               key={link.title}
-              className='flex-1 border-neutral-80 hover:border-neutral-90 border hover:bg-savings-bg  text-t-18 hover:text-neutral-90  text-neutral-80  py-4 '
-              onClick={() => Router.push(link.link)}
+              className={` flex-1 border-neutral-80 hover:border-neutral-90 border hover:bg-savings-bg  text-t-18 hover:text-neutral-90  text-neutral-80  py-4 ${
+                clicked === link.title && "bg-savings-neutral border-neutral-90"
+              }  `}
+              onClick={() => {
+                Router.push(link.link)
+
+                setClicked(link.title)
+              }}
             >
               {link.title}
             </button>

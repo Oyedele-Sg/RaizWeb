@@ -21,6 +21,7 @@ import { dateDifferenceInDays, timeAgo } from "@/utils/helpers"
 import moment from "moment"
 import { SavingDetailsTile } from "@/components/savings"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Progress } from "@/components/ui/progress"
 
 function Page() {
   const Router = useRouter()
@@ -109,7 +110,7 @@ function Page() {
               />
             </div>
             <div className=' flex w-full  justify-between  '>
-              <div className=' text-grey flex flex-col gap-4  '>
+              <div className=' text-grey flex flex-col gap-4 bug  '>
                 <div className=' flex flex-col  gap-2  '>
                   <h1 className='  font-headline__large font-semibold  '>
                     {savingsDetails?.target_save.target_save_name}
@@ -143,6 +144,18 @@ function Page() {
                       </span>
                     </div>
                   </div>
+                </div>
+                <div className=' flex items-center gap-8 '>
+                  <Progress
+                    value={Math.ceil(
+                      savingsDetails?.completion_percentage as number
+                    )}
+                    className=' bg-pesaraise-10 progress '
+                  />{" "}
+                  <p className=' text-neutral-40  text-t-14 font-medium   '>
+                    {Math.ceil(savingsDetails?.completion_percentage as number)}
+                    %
+                  </p>
                 </div>
               </div>
             </div>
