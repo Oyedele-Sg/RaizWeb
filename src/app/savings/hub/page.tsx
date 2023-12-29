@@ -37,8 +37,9 @@ export default function Savings() {
 
         <div className='  flex gap-10 min-h-full '>
           <div className=' w-full ml-auto mr-0 flex  flex-1 flex-col gap-10   '>
-            <TargetSavingsComponent />
             <LockSavingsComponent />
+
+            <TargetSavingsComponent />
           </div>
 
           {/* <FeedComponent /> */}

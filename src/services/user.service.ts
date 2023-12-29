@@ -63,6 +63,8 @@ import {
   JoinTargetSaveFromInterface,
   EarlyPenaltyDataInterface,
   EarlyPenaltyFormInterface,
+  PersonalTargetSavingsWithdrawalDataInterface,
+  PersonalTargetTransferDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -175,6 +177,9 @@ export const userService = {
   earlyWithdrawalLockSavings,
   joinTargetSavings,
   earlyWithdrawalPenalty,
+  getAllLockSavings,
+  personalTargetSavingsWithdrawal,
+  transfertoPersonalTargetSavings,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -824,14 +829,17 @@ function getGroupTargetActivity(
 // lock savings
 
 function getLockSavings(
-  has_withdrawn?: boolean
+  has_withdrawn: boolean
 ): Promise<LockSavingsDataInterface[]> {
   return fetchWrapper.get(
-    `${baseUrl}/savings/lock-save/?${
-      has_withdrawn && `has_withdrawn=${has_withdrawn}`
-    }`
+    `${baseUrl}/savings/lock-save/?has_withdrawn=${has_withdrawn}`
   )
 }
+
+function getAllLockSavings(): Promise<LockSavingsDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/savings/lock-save/`)
+}
+
 function getLockSavingsByID(id: string): Promise<LockSavingsDataInterface> {
   return fetchWrapper.get(`${baseUrl}/savings/lock-save/${id}`)
 }
@@ -871,6 +879,25 @@ function joinTargetSavings(
 ): Promise<void> {
   return fetchWrapper.post(
     `${baseUrl}/savings/target-save/group/${id}/join/`,
+    data
+  )
+}
+
+function personalTargetSavingsWithdrawal(
+  id: string,
+  data: PersonalTargetSavingsWithdrawalDataInterface
+): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/savings/target-save/transfer-from-target-save/personal/${id}/`,
+    data
+  )
+}
+
+function transfertoPersonalTargetSavings(
+  data: PersonalTargetTransferDataInterface
+): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/savings/target-save/transfer-to-target-save/personal/`,
     data
   )
 }

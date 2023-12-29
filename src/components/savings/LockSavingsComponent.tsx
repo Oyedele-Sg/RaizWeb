@@ -19,6 +19,7 @@ export function LockSavingsComponent() {
     LockSavingsDataInterface[]
   >([])
   const [hasWidthdrawn, setHasWidthdrawn] = useState(false)
+  const [clicked, setClicked] = useState("In-Progress")
 
   const getData = async (hasWidthdrawn: boolean) => {
     try {
@@ -61,12 +62,12 @@ export function LockSavingsComponent() {
         <SectionHeader text='Lock Saving ' />
 
         <button
-          className=' text-purple flex items-center gap-3 font-font-body__large   '
+          className={` text-purple flex items-center gap-3 font-font-body__large `}
           onClick={() => Router.push("/savings/lock-savings/all")}
         >
           <span className='  '>View All</span>
           <div className=' '>
-            <Image src='/icons/arrow-right.svg' width={18} height={18} alt='' />{" "}
+            <Image src='/icons/arrow-right.svg' width={18} height={18} alt='' />
           </div>
         </button>
       </div>
@@ -76,8 +77,13 @@ export function LockSavingsComponent() {
           {TabLinks.map((link) => (
             <button
               key={link.title}
-              className='flex-1 border-neutral-80 hover:border-neutral-90 border hover:bg-savings-bg  text-t-18 hover:text-neutral-90  text-neutral-80  py-4 '
-              onClick={() => setHasWidthdrawn(link.hasWidthdrawn)}
+              className={` flex-1 border-neutral-80 hover:border-neutral-90 border hover:bg-savings-bg  text-t-18 hover:text-neutral-90  text-neutral-80  py-4  ${
+                clicked === link.title && "bg-savings-neutral border-neutral-90"
+              } `}
+              onClick={() => {
+                setHasWidthdrawn(link.hasWidthdrawn)
+                setClicked(link.title)
+              }}
             >
               {link.title}
             </button>

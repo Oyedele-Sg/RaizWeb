@@ -78,7 +78,6 @@ function Page() {
     }
   }
 
-
   useEffect(() => {
     getData()
   }, [Params.ajoID])
@@ -178,7 +177,7 @@ function Page() {
                   </div>
                 </div>
                 <div className=' text-neutral-90 flex gap-8 '>
-                  <div
+                  {/* <div
                     className=' flex  items-center  gap-2  cursor-pointer  '
                     onClick={() => {}}
                   >
@@ -189,7 +188,7 @@ function Page() {
                       alt=''
                     />
                     <span>Edit</span>
-                  </div>
+                  </div> */}
                   <div
                     className=' flex  items-center  gap-2 cursor-pointer    '
                     onClick={() => handleLeaveAjo()}

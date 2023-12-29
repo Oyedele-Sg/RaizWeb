@@ -22,6 +22,7 @@ import { dateDifferenceInDays, timeAgo } from "@/utils/helpers"
 import moment from "moment"
 import { SavingDetailsTile } from "@/components/savings"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Progress } from "@/components/ui/progress"
 
 function Page() {
   const Router = useRouter()
@@ -104,10 +105,10 @@ function Page() {
         <div className=' absolute bg-overlay-10 top-0 bottom-0 left-0 right-0  '></div>
 
         <div className=' absolute top-0  bottom-0 left-0 right-0    p-10 flex  justify-between '>
-          <div className='flex gap-8 items-center w-full    '>
+          <div className='flex gap-8 items-center w-full bug    '>
             <div
               className=' hidden border-[2px] border-neutral-80 rounded-full p-3 items-center justify-center lg:flex  '
-              onClick={() => Router.back()}
+              onClick={() => Router.push("/savings/hub")}
             >
               <Image
                 src={"/icons/ajo-arrow-left.svg"}
@@ -124,7 +125,7 @@ function Page() {
                   </h1>
                 </div>
                 <div className='flex flex-col gap-10 '>
-                  <div className=' flex gap-8 flex-wrap '>
+                  <div className=' flex gap-8 flex-wrap  '>
                     <div className=' flex flex-col items-center  gap-2   '>
                       <span className=' text-grey font-semibold  '>
                         {savingsDetails?.target_save.target_amount}
@@ -153,6 +154,20 @@ function Page() {
                       </span>
                     </div>
                   </div>
+                  <div className=' flex items-center gap-8 '>
+                    <Progress
+                      value={Math.ceil(
+                        savingsDetails?.completion_percentage as number
+                      )}
+                      className=' bg-pesaraise-10 progress '
+                    />{" "}
+                    <p className=' text-neutral-40 text-t-14 font-medium   '>
+                      {Math.ceil(
+                        savingsDetails?.completion_percentage as number
+                      )}
+                      %
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -173,6 +188,25 @@ function Page() {
                 access to your deposit
               </p>
             </div>
+          </div>
+
+          <div className=' flex  gap-9  '>
+            <BtnMain
+              btnText='Withdraw'
+              btnStyle=' w-full text-purple border-neutral-30 border '
+              onClick={() =>
+                Router.push(
+                  `/savings/my-targets/${Params.savingsID}/withdrawal`
+                )
+              }
+            />
+            <BtnMain
+              btnText='Add Funds'
+              btnStyle=' btn-gradient-savings w-full btn text-grey'
+              onClick={() =>
+                Router.push(`/savings/my-targets/${Params.savingsID}/add-funds`)
+              }
+            />
           </div>
 
           <div className=' grid  grid-cols-2  gap-8 flex-wrap  '>

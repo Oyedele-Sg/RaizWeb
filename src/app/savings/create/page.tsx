@@ -15,16 +15,16 @@ export default function page() {
 
   const options = [
     {
-      title: "Target Save",
-      description:
-        "Strategic Approaches and Proven Methods for Achieving Targeted Savings",
-      link: "/savings/target-savings/create",
-    },
-    {
       title: "Lock Save",
       description:
         "Secure Solutions and Strategic Approaches for Locking in Savings: Ensuring Financial Safety",
       link: "/savings/lock-savings/create",
+    },
+    {
+      title: "Target Save",
+      description:
+        "Strategic Approaches and Proven Methods for Achieving Targeted Savings",
+      link: "/savings/target-savings/create",
     },
   ]
 

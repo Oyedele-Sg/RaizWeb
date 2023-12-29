@@ -22,7 +22,7 @@ export function LockSavingsCard({ data }: Props) {
         Router.push(`/savings/lock-savings/${data.lock_save_id}/details`)
       }
     >
-      {/* <Image src='/images/frame-583.png' width={262} height={128} alt='' /> */}
+      {/* <Image src='/images/frame-583.png' width={262} height={128} alt='' />   */}
 
       <div className=' flex flex-col gap-4 '>
         <h2 className=' font-semibold text-t-20 text-purple  '>
@@ -36,8 +36,7 @@ export function LockSavingsCard({ data }: Props) {
                 ₦{formatNumberToK(data.interest_amount)}
               </h3>
               <p className=' font-semi-mid text-t-16 text-neutral-70 text-center flex flex-col items-center  '>
-                <span className=''>Interest</span>{" "}
-                <span className=''>Earned</span>
+                Interest Earned
               </p>
             </div>
           )}
@@ -57,15 +56,15 @@ export function LockSavingsCard({ data }: Props) {
           </div>
         </div>
 
-        {/* <div className=' flex items-center gap-8 '>
-      <Progress
-        value={data.completion_percentage}
-        className=' bg-pesaraise-10 progress '
-      />{" "}
-      <p className=' text-neutral-80 text-t-14 font-medium   '>
-        {data.completion_percentage}%
-      </p>
-    </div> */}
+        <div className=' flex items-center gap-8 '>
+          <Progress
+            value={Math.ceil(data.completion_percentage)}
+            className=' bg-pesaraise-10 progress '
+          />{" "}
+          <p className=' text-neutral-80 text-t-14 font-medium   '>
+            {Math.ceil(data.completion_percentage)}%
+          </p>
+        </div>
       </div>
     </div>
   )

@@ -23,6 +23,7 @@ import { dateDifferenceInDays, timeAgo } from "@/utils/helpers"
 import moment from "moment"
 import { SavingDetailsTile } from "@/components/savings"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Progress } from "@/components/ui/progress"
 
 function Page() {
   const Router = useRouter()
@@ -36,7 +37,6 @@ function Page() {
   const getData = async () => {
     try {
       const response = await userService.getLockSavingsByID(Params.savingsID)
-
       setSavingsDetails(response)
     } catch (error) {
       toast({
@@ -91,7 +91,9 @@ function Page() {
     },
     {
       title: "Interest (₦)",
-      data: `₦${savingsDetails?.interest_amount}`,
+      data: `₦${
+        savingsDetails?.interest_amount ? savingsDetails?.interest_amount : 0
+      }`,
     },
     {
       title: "Locked Amount",
@@ -99,7 +101,7 @@ function Page() {
     },
     {
       title: "Interest (%)",
-      data: `${savingsDetails?.interest_rate}%`,
+      data: `${savingsDetails?.interest_rate.interest_rate}%`,
     },
     {
       title: "Days Left",
@@ -173,9 +175,25 @@ function Page() {
                     </div>
                     <div className=' flex flex-col items-center  gap-2   '>
                       <span className=' text-grey font-semibold  '>Paid</span>
-                      <span className=' text-grey font-semi-mid '>Status</span>
+                      <span className=' text-grey font-semi-mid '>
+                        {savingsDetails?.has_withdrawn
+                          ? "Completed"
+                          : "In-progress"}
+                      </span>
                     </div>
                   </div>
+                </div>
+                <div className=' flex items-center gap-8 '>
+                  <Progress
+                    value={Math.ceil(
+                      savingsDetails?.completion_percentage as number
+                    )}
+                    className=' bg-pesaraise-10 progress '
+                  />{" "}
+                  <p className=' text-neutral-40 text-t-14 font-medium   '>
+                    {Math.ceil(savingsDetails?.completion_percentage as number)}
+                    %
+                  </p>
                 </div>
               </div>
             </div>
