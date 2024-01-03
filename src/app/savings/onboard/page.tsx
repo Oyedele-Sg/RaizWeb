@@ -90,6 +90,7 @@ export default function Ajo() {
                     savings: true,
                     loan: false,
                   })
+                  dispatch(setLoadingFalse())
                   Router.push("/savings/hub")
                 } else {
                   await userService.updateUserOnboardingList({

@@ -8,6 +8,7 @@ import {
   LockSavingsComponent,
   TargetSavingsComponent,
 } from "@/components/savings"
+import Image from "next/image"
 
 export default function Savings() {
   // const { currentUser } = useContext(CurrentUserContext)
@@ -29,18 +30,32 @@ export default function Savings() {
   return (
     <>
       <Loading />
-      <div className='  '>
+      <div className=' relative  '>
         <div className='  '>
           <HomeHeader title=' Save Hub ' link='/savings/hub' />
         </div>
 
         <div className='  flex gap-10 min-h-full '>
           <div className=' w-full ml-auto mr-0 flex  flex-1 flex-col gap-10   '>
-            <TargetSavingsComponent />
             <LockSavingsComponent />
+
+            <TargetSavingsComponent />
           </div>
 
           {/* <FeedComponent /> */}
+        </div>
+
+        <div
+          className=' fixed z-10000000000000000 right-0 bottom-0 mr-6 mb-16 cursor-pointer '
+          onClick={() => Router.push("/savings/create")}
+        >
+          {" "}
+          <Image
+            src={`/icons/create-link.svg`}
+            width={60}
+            height={60}
+            alt=''
+          />{" "}
         </div>
       </div>
     </>

@@ -79,8 +79,6 @@ export function ComponentForm() {
     })
     setInterest(response)
   }
-  // const [prefferedTime, setPrefferedTime] = useState("10:00")
-  console.log(methods.getValues("lock_save_amount"))
 
   const onSubmit = async () => {
     try {
@@ -124,26 +122,24 @@ export function ComponentForm() {
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className='  '>
             <div className='flex flex-col gap-9  '>
-              <div className=''>
-                <h1 className='  font-display__medium text-purple capitalize '>
-                  Lock Save
-                </h1>
-                <p className=' text-neutral-70 font-title__large '>
-                  Safeguard your Funds
-                </p>
-              </div>
-
               <div className=' flex flex-col gap-6  '>
-                <input
-                  className={` form-input pl-0   input_field-input `}
-                  type={"number"}
-                  placeholder='Amount'
-                  {...methods.register("lock_save_amount", {
-                    required: "Amount is required",
-                  })}
-                  onChange={(e) => setAmount(parseInt(e.target.value))}
-                  value={amount}
-                />
+                <div className=' flex flex-col gap-6 '>
+                  <label
+                    className={`font-label__large text-neutral-90 capitalize  `}
+                  >
+                    Amount
+                  </label>
+                  <input
+                    className={` form-input pl-0   input_field-input `}
+                    type={"number"}
+                    placeholder='Amount'
+                    {...methods.register("lock_save_amount", {
+                      required: "Amount is required",
+                    })}
+                    onChange={(e) => setAmount(parseInt(e.target.value))}
+                    value={amount}
+                  />
+                </div>
 
                 <RegisterTextArea
                   name='lock_save_description'

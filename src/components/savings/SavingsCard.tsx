@@ -16,7 +16,9 @@ export function SavingsCard({ data }: Props) {
     <div
       className=' rounded-2xl  border-[2px] border-neutral-30 max-w-[294px] py-5 px-4 flex flex-col gap-5 bg-savings-bg '
       onClick={() =>
-        Router.push(`/savings/target-savings/${data.target_save_group_id}`)
+        Router.push(
+          `/savings/target-savings/${data.target_save_group_id}/details`
+        )
       }
     >
       <Image src='/images/frame-583.png' width={262} height={128} alt='' />

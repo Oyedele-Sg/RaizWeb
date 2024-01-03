@@ -111,6 +111,7 @@ module.exports = {
         "savings-bg": "#EEF1F4",
         "pesaraise-10": "#F1E0CB",
         "overlay-10": " rgba(31, 29, 43, 0.63)",
+        "savings-neutral": "#D3E5F8",
 
         positive: "#7ABA98",
         border: "hsl(var(--border))",

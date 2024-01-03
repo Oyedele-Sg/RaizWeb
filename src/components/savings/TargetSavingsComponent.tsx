@@ -14,11 +14,11 @@ export function TargetSavingsComponent() {
   const [allSavingsData, setAllSavingsData] = useState<
     GroupTargetSavingsDataInterface[]
   >([])
-  console.log("savings data", allSavingsData)
+  const [clicked, setClicked] = useState("In-Progress")
 
   const getData = async () => {
     try {
-      const response = await userService.getPublicTargetSavings()
+      const response = await userService.getAllTargetSavings()
       setAllSavingsData(response)
     } catch (error) {
       toast({
@@ -38,8 +38,8 @@ export function TargetSavingsComponent() {
 
   const TabLinks = [
     {
-      title: "Create",
-      link: "/savings/target-savings/create",
+      title: "In-Progress",
+      link: "/savings/hub",
     },
     {
       title: "My Target",
@@ -47,12 +47,12 @@ export function TargetSavingsComponent() {
     },
     {
       title: "Explore",
-      link: "/savings/target-savings/all",
+      link: "/savings/target-savings/explore",
     },
-    {
-      title: "Completed",
-      link: "/savings/hub",
-    },
+    // {
+    //   title: "Completed",
+    //   link: "/savings/hub",
+    // },
   ]
 
   useEffect(() => {
@@ -63,19 +63,13 @@ export function TargetSavingsComponent() {
       <div className=' flex justify-between items-center  '>
         <SectionHeader text='Target Saving ' />
         <button
-          className=' text-purple flex items-center gap-3 font-font-body__large'
+          className=' text-purple flex items-center gap-3 font-font-body__large   '
           onClick={() => Router.push("/savings/target-savings/all")}
         >
-          View All{" "}
-          <span>
-            {" "}
-            <Image
-              src='/icons/arrow-right.svg'
-              width={18}
-              height={18}
-              alt=''
-            />{" "}
-          </span>
+          <span className='  '>View All</span>
+          <div className='  '>
+            <Image src='/icons/arrow-right.svg' width={18} height={18} alt='' />{" "}
+          </div>
         </button>
       </div>
 
@@ -84,8 +78,14 @@ export function TargetSavingsComponent() {
           {TabLinks.map((link) => (
             <button
               key={link.title}
-              className='flex-1 border-neutral-80 hover:border-neutral-90 border hover:bg-savings-bg  text-t-18 hover:text-neutral-90  text-neutral-80  py-4 '
-              onClick={() => Router.push(link.link)}
+              className={` flex-1 border-neutral-80 hover:border-neutral-90 border hover:bg-savings-bg  text-t-18 hover:text-neutral-90  text-neutral-80  py-4 ${
+                clicked === link.title && "bg-savings-neutral border-neutral-90"
+              }  `}
+              onClick={() => {
+                Router.push(link.link)
+
+                setClicked(link.title)
+              }}
             >
               {link.title}
             </button>

@@ -17,7 +17,7 @@ export default function All() {
 
   const getData = async () => {
     try {
-      const response = await userService.getLockSavings()
+      const response = await userService.getAllLockSavings()
       setSavingDetails(response)
     } catch (error) {
       toast({

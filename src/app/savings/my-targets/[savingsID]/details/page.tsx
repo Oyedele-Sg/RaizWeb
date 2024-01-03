@@ -9,7 +9,7 @@ import {
   BtnMain,
   GroupTargetSavingsActivitiesDataInterface,
   GroupTargetSavingsDataInterface,
-  LockSavingsDataInterface,
+  PersonalTargetSavingsDataInterface,
   WhiteTileWrap,
 } from "@/shared"
 import Image from "next/image"
@@ -22,19 +22,28 @@ import { dateDifferenceInDays, timeAgo } from "@/utils/helpers"
 import moment from "moment"
 import { SavingDetailsTile } from "@/components/savings"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Progress } from "@/components/ui/progress"
 
 function Page() {
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const Params = useParams()
   const [savingsDetails, setSavingsDetails] =
-    React.useState<LockSavingsDataInterface>()
+    React.useState<PersonalTargetSavingsDataInterface>()
+  //   const [savingsActivity, setSavingsActivity] =
+  //     React.useState<GroupTargetSavingsActivitiesDataInterface[]>()
 
   const getData = async () => {
     try {
-      const response = await userService.getLockSavingsByID(Params.savingsID)
+      const response = await userService.getPersonalTargetSavingsByID(
+        Params.savingsID
+      )
+      //   const activityResponse = await userService.getGroupTargetActivity(
+      //     Params.savingsID
+      //   )
 
       setSavingsDetails(response)
+      //   setSavingsActivity(activityResponse)
     } catch (error) {
       toast({
         title: "Something Went Wrong",
@@ -54,21 +63,30 @@ function Page() {
   const tileData = [
     {
       title: "Start Date",
-      data: moment(savingsDetails?.start_date).format("DD MMMM, YYYY"),
+      data: moment(savingsDetails?.target_save.start_date).format(
+        "DD MMMM, YYYY"
+      ),
     },
     {
       title: "End Date",
-      data: moment(savingsDetails?.end_date).format("DD MMMM, YYYY"),
+      data: moment(savingsDetails?.target_save.end_date).format(
+        "DD MMMM, YYYY"
+      ),
     },
     {
-      title: "Locked Amount",
-      data: savingsDetails?.interest_amount,
+      title: "Target Amount",
+      data: savingsDetails?.target_save.target_amount,
     },
+    {
+      title: "Current Amount",
+      data: savingsDetails?.current_amount,
+    },
+
     {
       title: "Days Left",
       data: dateDifferenceInDays(
-        savingsDetails?.start_date as Date,
-        savingsDetails?.end_date as Date
+        savingsDetails?.target_save.start_date as Date,
+        savingsDetails?.target_save.end_date as Date
       ),
     },
   ]
@@ -87,10 +105,10 @@ function Page() {
         <div className=' absolute bg-overlay-10 top-0 bottom-0 left-0 right-0  '></div>
 
         <div className=' absolute top-0  bottom-0 left-0 right-0    p-10 flex  justify-between '>
-          <div className='flex gap-8 items-center w-full    '>
+          <div className='flex gap-8 items-center w-full bug    '>
             <div
               className=' hidden border-[2px] border-neutral-80 rounded-full p-3 items-center justify-center lg:flex  '
-              onClick={() => Router.back()}
+              onClick={() => Router.push("/savings/hub")}
             >
               <Image
                 src={"/icons/ajo-arrow-left.svg"}
@@ -103,36 +121,52 @@ function Page() {
               <div className=' text-grey flex flex-col gap-4  '>
                 <div className=' flex flex-col  gap-2  '>
                   <h1 className='  font-headline__large font-semibold  '>
-                    {savingsDetails?.lock_save_description}
+                    {savingsDetails?.target_save.target_save_name}
                   </h1>
                 </div>
                 <div className='flex flex-col gap-10 '>
-                  <div className=' flex gap-8 flex-wrap '>
-                    {/* <div className=' flex flex-col  items-center  gap-2   '>
-                      <span className=' text-grey font-semibold  '>
-                        {savingsDetails?.target_save_group_members.length}
-                      </span>
-                      <span className=' text-grey font-semi-mid '>Members</span>
-                    </div> */}
+                  <div className=' flex gap-8 flex-wrap  '>
                     <div className=' flex flex-col items-center  gap-2   '>
                       <span className=' text-grey font-semibold  '>
-                        {savingsDetails?.interest_amount}
+                        {savingsDetails?.target_save.target_amount}
                       </span>
                       <span className=' text-grey font-semi-mid '>
-                        Locked amount
+                        Target amount
+                      </span>
+                    </div>
+                    <div className=' flex flex-col items-center  gap-2   '>
+                      <span className=' text-grey font-semibold  '>
+                        {savingsDetails?.current_amount}
+                      </span>
+                      <span className=' text-grey font-semi-mid '>
+                        Current amount
                       </span>
                     </div>
                     <div className=' flex flex-col items-center  gap-2   '>
                       <span className=' text-grey font-semibold  '>
                         {dateDifferenceInDays(
-                          savingsDetails?.start_date as Date,
-                          savingsDetails?.end_date as Date
+                          savingsDetails?.target_save.start_date as Date,
+                          savingsDetails?.target_save.end_date as Date
                         )}
                       </span>
                       <span className=' text-grey font-semi-mid '>
                         Days left
                       </span>
                     </div>
+                  </div>
+                  <div className=' flex items-center gap-8 '>
+                    <Progress
+                      value={Math.ceil(
+                        savingsDetails?.completion_percentage as number
+                      )}
+                      className=' bg-pesaraise-10 progress '
+                    />{" "}
+                    <p className=' text-neutral-40 text-t-14 font-medium   '>
+                      {Math.ceil(
+                        savingsDetails?.completion_percentage as number
+                      )}
+                      %
+                    </p>
                   </div>
                 </div>
               </div>
@@ -154,9 +188,24 @@ function Page() {
                 access to your deposit
               </p>
             </div>
+          </div>
+
+          <div className=' flex  gap-9  '>
             <BtnMain
               btnText='Withdraw'
               btnStyle=' w-full text-purple border-neutral-30 border '
+              onClick={() =>
+                Router.push(
+                  `/savings/my-targets/${Params.savingsID}/withdrawal`
+                )
+              }
+            />
+            <BtnMain
+              btnText='Add Funds'
+              btnStyle=' btn-gradient-savings w-full btn text-grey'
+              onClick={() =>
+                Router.push(`/savings/my-targets/${Params.savingsID}/add-funds`)
+              }
             />
           </div>
 
@@ -170,6 +219,45 @@ function Page() {
             ))}
           </div>
         </WhiteTileWrap>
+        {/* <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8 '>
+          <div className=' flex flex-col gap-8  '>
+            <div className='flex flex-col gap-6 '>
+              <h2 className=' text-purple font-semibold text-t-24 '>
+                {" "}
+                Activites
+              </h2>
+            </div>
+          </div>
+
+          <div className=' flex gap-x-16 gap-y-8 flex-wrap  '>
+            {savingsActivity?.map((item, index) => (
+              <div className=' flex items-center gap-2   '>
+                <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[48px] h-[48px]  '>
+                  <AvatarImage src={item.account_user.profile_image_url} />
+                  <AvatarFallback className=' text-purple font-bold  uppercase '>
+                    {item.account_user.first_name.charAt(0)}
+                    {item.account_user.last_name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+
+                <div className=' flex flex-col gap-2 '>
+                  <h4 className=' text-purple text-t-18 font-semi-mid   '>
+                    {item.target_save_group_activity_description}
+                  </h4>
+                  <div className='  flex items-center gap-2 '>
+                    <div className=' text-neutral-70  text-t-16 '>
+                      {savingsDetails?.target_save.target_save_name}{" "}
+                    </div>{" "}
+                    <div className=' bg-neutral-70 rounded-full w-2 h-2    '></div>
+                    <div className=' text-neutral-70 text-t-16 '>
+                      {timeAgo(item.updated_at)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </WhiteTileWrap> */}
       </div>
     </div>
   )

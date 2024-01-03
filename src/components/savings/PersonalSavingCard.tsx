@@ -15,7 +15,9 @@ export function PersonalSavingCard({ data }: Props) {
     <div
       className=' rounded-2xl  border-[2px] border-neutral-30 max-w-[294px] py-5 px-4 flex flex-col gap-5 bg-savings-bg '
       onClick={() =>
-        Router.push(`/savings/my-targets/${data.personal_target_save_id}`)
+        Router.push(
+          `/savings/my-targets/${data.personal_target_save_id}/details`
+        )
       }
     >
       <Image src='/images/frame-583.png' width={262} height={128} alt='' />
@@ -53,7 +55,7 @@ export function PersonalSavingCard({ data }: Props) {
           </div>
         </div>
 
-        {/* <div className=' flex items-center gap-8 '>
+        <div className=' flex items-center gap-8 '>
           <Progress
             value={data.completion_percentage}
             className=' bg-pesaraise-10 progress '
@@ -61,7 +63,7 @@ export function PersonalSavingCard({ data }: Props) {
           <p className=' text-neutral-80 text-t-14 font-medium   '>
             {data.completion_percentage}%
           </p>
-        </div> */}
+        </div>
       </div>
     </div>
   )

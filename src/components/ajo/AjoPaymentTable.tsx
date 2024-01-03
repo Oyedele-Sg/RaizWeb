@@ -6,6 +6,7 @@ import {
 import { AjoPaymentTableDefault } from "./AjoPaymentTableDefault"
 import Image from "next/image"
 import "./AjoPaymentTable.css"
+import { convertDateString } from "@/utils/helpers"
 
 interface Props {
   data: AjoPaymentCycleInterface[]
@@ -21,7 +22,7 @@ const AjoPaymentTable: React.FC<Props> = ({ data, headers }) => {
         </th>
         {tableHeaders.map((date, index) => (
           <th key={index} className='capitalize font-body__large text-purple'>
-            {date}
+            {convertDateString(date)}
           </th>
         ))}
         <th className='capitalize font-body__large text-purple'>

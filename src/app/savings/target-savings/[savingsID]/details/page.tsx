@@ -9,7 +9,6 @@ import {
   BtnMain,
   GroupTargetSavingsActivitiesDataInterface,
   GroupTargetSavingsDataInterface,
-  PersonalTargetSavingsDataInterface,
   WhiteTileWrap,
 } from "@/shared"
 import Image from "next/image"
@@ -22,27 +21,26 @@ import { dateDifferenceInDays, timeAgo } from "@/utils/helpers"
 import moment from "moment"
 import { SavingDetailsTile } from "@/components/savings"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Progress } from "@/components/ui/progress"
 
 function Page() {
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const Params = useParams()
   const [savingsDetails, setSavingsDetails] =
-    React.useState<PersonalTargetSavingsDataInterface>()
-  //   const [savingsActivity, setSavingsActivity] =
-  //     React.useState<GroupTargetSavingsActivitiesDataInterface[]>()
+    React.useState<GroupTargetSavingsDataInterface>()
+  const [savingsActivity, setSavingsActivity] =
+    React.useState<GroupTargetSavingsActivitiesDataInterface[]>()
 
   const getData = async () => {
     try {
-      const response = await userService.getPersonalTargetSavingsByID(
+      const response = await userService.getTargetSavingsByID(Params.savingsID)
+      const activityResponse = await userService.getGroupTargetActivity(
         Params.savingsID
       )
-      //   const activityResponse = await userService.getGroupTargetActivity(
-      //     Params.savingsID
-      //   )
 
       setSavingsDetails(response)
-      //   setSavingsActivity(activityResponse)
+      setSavingsActivity(activityResponse)
     } catch (error) {
       toast({
         title: "Something Went Wrong",
@@ -76,11 +74,6 @@ function Page() {
       title: "Target Amount",
       data: savingsDetails?.target_save.target_amount,
     },
-    {
-      title: "Current Amount",
-      data: savingsDetails?.current_amount,
-    },
-
     {
       title: "Days Left",
       data: dateDifferenceInDays(
@@ -117,7 +110,7 @@ function Page() {
               />
             </div>
             <div className=' flex w-full  justify-between  '>
-              <div className=' text-grey flex flex-col gap-4  '>
+              <div className=' text-grey flex flex-col gap-4 bug  '>
                 <div className=' flex flex-col  gap-2  '>
                   <h1 className='  font-headline__large font-semibold  '>
                     {savingsDetails?.target_save.target_save_name}
@@ -125,20 +118,18 @@ function Page() {
                 </div>
                 <div className='flex flex-col gap-10 '>
                   <div className=' flex gap-8 flex-wrap '>
-                    <div className=' flex flex-col items-center  gap-2   '>
+                    <div className=' flex flex-col  items-center  gap-2   '>
                       <span className=' text-grey font-semibold  '>
-                        {savingsDetails?.target_save.target_amount}
+                        {savingsDetails?.target_save_group_members.length}
                       </span>
-                      <span className=' text-grey font-semi-mid '>
-                        Target amount
-                      </span>
+                      <span className=' text-grey font-semi-mid '>Members</span>
                     </div>
                     <div className=' flex flex-col items-center  gap-2   '>
                       <span className=' text-grey font-semibold  '>
-                        {savingsDetails?.current_amount}
+                        {savingsDetails?.target_save_group_members.length}
                       </span>
                       <span className=' text-grey font-semi-mid '>
-                        Current amount
+                        Target amount
                       </span>
                     </div>
                     <div className=' flex flex-col items-center  gap-2   '>
@@ -154,13 +145,25 @@ function Page() {
                     </div>
                   </div>
                 </div>
+                <div className=' flex items-center gap-8 '>
+                  <Progress
+                    value={Math.ceil(
+                      savingsDetails?.completion_percentage as number
+                    )}
+                    className=' bg-pesaraise-10 progress '
+                  />{" "}
+                  <p className=' text-neutral-40  text-t-14 font-medium   '>
+                    {Math.ceil(savingsDetails?.completion_percentage as number)}
+                    %
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className='p-10 mt-[94px] flex gap-16'>
+      <div className='p-10 mt-[94px] flex flex-col lg:flex-row gap-16  '>
         <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8  '>
           <div className=' flex flex-col gap-8  '>
             <div className='flex flex-col gap-6 '>
@@ -173,6 +176,13 @@ function Page() {
                 access to your deposit
               </p>
             </div>
+            <BtnMain
+              btnText='Join Challenge'
+              btnStyle=' w-full text-grey btn-gradient-savings '
+              onClick={() =>
+                Router.push(`/savings/target-savings/${Params.savingsID}/join`)
+              }
+            />
           </div>
 
           <div className=' grid  grid-cols-2  gap-8 flex-wrap  '>
@@ -185,7 +195,7 @@ function Page() {
             ))}
           </div>
         </WhiteTileWrap>
-        {/* <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8 '>
+        <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8 '>
           <div className=' flex flex-col gap-8  '>
             <div className='flex flex-col gap-6 '>
               <h2 className=' text-purple font-semibold text-t-24 '>
@@ -223,7 +233,7 @@ function Page() {
               </div>
             ))}
           </div>
-        </WhiteTileWrap> */}
+        </WhiteTileWrap>
       </div>
     </div>
   )

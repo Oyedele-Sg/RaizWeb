@@ -1077,10 +1077,10 @@ export interface CreateTargetSavingsFormInterface {
   target_save_description: string;
   start_date?: Date;
   end_date?: Date;
-  frequency_id: number;
-  preferred_credit_time: string;
-  preferred_deduction_amount: number;
-  primary_source_of_funds: string;
+  frequency_id: number | null;
+  preferred_credit_time: string | null;
+  preferred_deduction_amount: number | null;
+  primary_source_of_funds: string | null;
   public: boolean;
 }
 
@@ -1109,6 +1109,7 @@ export interface SavingsWalletInterface {
 }
 
 export interface PersonalTargetSavingsDataInterface {
+  completion_percentage: number;
   target_save_id: string;
   frequency_id: number;
   account_user_id: string;
@@ -1193,6 +1194,7 @@ export interface LockSavingsDataInterface {
     created_at: Date;
     updated_at: Date;
   };
+  completion_percentage: number;
 }
 
 export interface LockSaveInterestInterface {
@@ -1213,4 +1215,38 @@ export interface LockSaveCreateDateInterface {
 export interface FreezeDebitDataInterface {
   is_debit_frozen: boolean;
   transaction_pin: string;
+}
+
+export interface JoinTargetSaveFromInterface {
+  frequency_id: number | null;
+  preferred_credit_time: string | null;
+  preferred_deduction_amount: number | null;
+  primary_source_of_funds: string | null;
+}
+
+export interface EarlyPenaltyFormInterface {
+  amount: number;
+  end_date: Date;
+  withdraw_date: Date;
+}
+
+export interface EarlyPenaltyDataInterface {
+  amount: number;
+  end_date: Date;
+  withdraw_date: Date;
+  start_date: Date;
+  penalty_fee: number;
+  penalty_fee_rate: number;
+  duration: number;
+}
+
+export interface PersonalTargetSavingsWithdrawalDataInterface {
+  amount: number;
+  transaction_pin: string;
+}
+
+export interface PersonalTargetTransferDataInterface {
+  amount: number;
+  transaction_pin: string;
+  personal_target_save_id: string;
 }
