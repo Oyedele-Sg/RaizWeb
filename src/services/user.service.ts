@@ -26,6 +26,7 @@ import {
   DailyAnalysistChartInterface,
   ChangePasswordDataInterface,
   NotificationDataInterface,
+  NotificationCategoryInterface,
   PendingSplitRequestDataInterface,
   SplitRequestDataInterface,
   AjoDataInterface,
@@ -183,6 +184,8 @@ export const userService = {
   getAllLockSavings,
   personalTargetSavingsWithdrawal,
   transfertoPersonalTargetSavings,
+  getNotificationCategories,
+  getNotificationsByID,
 };
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -447,7 +450,7 @@ function nipAccountLookup(
 
 function getNotificationsByID(
   page?: string,
-  notification_category_id?: string,
+  notification_category_id?: number,
   read?: string
 ): Promise<NotificationDataInterface[]> {
   return fetchWrapper.get(
@@ -909,4 +912,8 @@ function transfertoPersonalTargetSavings(
     `${baseUrl}/savings/target-save/transfer-to-target-save/personal/`,
     data
   );
+}
+
+function getNotificationCategories(): Promise<NotificationCategoryInterface> {
+  return fetchWrapper.get(`${baseUrl}/notification-categories/`);
 }

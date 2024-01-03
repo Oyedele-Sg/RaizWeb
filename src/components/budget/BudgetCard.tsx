@@ -40,7 +40,7 @@ export function BudgetCard({ data }: Props) {
             />
             <h3 className="text-purple">{getMonthName(data.budget_month)}</h3>
           </div>
-          {!isCurrentMonth && (
+          {/* {!isCurrentMonth && (
             <div>
               <Image
                 src="/icons/add-circle.svg"
@@ -49,7 +49,7 @@ export function BudgetCard({ data }: Props) {
                 alt=""
               />
             </div>
-          )}
+          )} */}
         </div>
       </div>
 

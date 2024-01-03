@@ -9,7 +9,7 @@ import {
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
 import { addDays, format } from 'date-fns';
-import { formatDateToISOString } from '@/utils/helpers';
+import { formatDateToISOString, toastMessage } from '@/utils/helpers';
 import { DateRangePicker, DateRangePickerValue } from '@tremor/react';
 import { CurrentUserContext } from '@/providers/CurrentUserProvider';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -56,17 +56,7 @@ function page() {
       );
       setTransactions(res);
     } catch (error) {
-      toast({
-        title: 'Something Went Wrong',
-        description: `${error}`,
-        variant: 'destructive',
-        style: {
-          backgroundColor: '#f44336',
-          color: '#fff',
-          top: '20px',
-          right: '20px',
-        },
-      });
+      toastMessage('Something Went Wrong', `${error}`);
     }
   };
 
@@ -75,17 +65,7 @@ function page() {
       try {
         await data();
       } catch (error) {
-        toast({
-          title: 'Something Went Wrong',
-          description: `${error}`,
-          variant: 'destructive',
-          style: {
-            backgroundColor: '#f44336',
-            color: '#fff',
-            top: '20px',
-            right: '20px',
-          },
-        });
+        toastMessage('Something Went Wrong', `${error}`);
       }
     };
     fetchData();
@@ -100,17 +80,7 @@ function page() {
         const response = await userService.getTransactionTypes();
         setTransactionsType(response);
       } catch (error) {
-        toast({
-          title: 'Something Went Wrong',
-          description: `${error}`,
-          variant: 'destructive',
-          style: {
-            backgroundColor: '#f44336',
-            color: '#fff',
-            top: '20px',
-            right: '20px',
-          },
-        });
+        toastMessage('Something Went Wrong', `${error}`);
       }
     };
     fetchData();

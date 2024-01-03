@@ -30,12 +30,14 @@ const NOTIFICATION_TYPES = {
 
 interface NotificationItemProps {
   notification_id?: string;
+  notification_category_id?: number;
 }
 
 export function AllNotificationList({
   notification_id,
+  notification_category_id,
 }: NotificationItemProps): JSX.Element {
-  const notification = useNotification();
+  const notification = useNotification(notification_category_id);
   const dispatch = useAppDispatch();
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [notificationType, setNotificationType] = useState<string>(
