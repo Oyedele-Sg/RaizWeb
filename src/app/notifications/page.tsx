@@ -68,6 +68,49 @@ function page() {
               alt=""
             />
           </div>
+          {/* <div className=" relative  ">
+            <div className=" flex items-center  gap-4 ">
+              <Image src={`/icons/filter.svg`} width={16} height={16} alt="" />{' '}
+              <span className=" text-neutral-90  text-t-12  ">Sort By</span>{' '}
+              <span
+                onClick={() => {
+                  setNotificationsDrop(!notificationDrop);
+                }}
+              >
+                {' '}
+                <Image
+                  alt=""
+                  width={16}
+                  height={16}
+                  src={`/icons/arrow-down-desk.svg`}
+                />{' '}
+              </span>
+            </div>
+            {notificationDrop && (
+              <div className=" bg-grey w-[160px] absolute  z-[100000000000000] top-[35px] ">
+                <div
+                  className=" py-2 px-4 capitalize hover:bg-neutral-30  text-purple "
+                  onClick={() => {
+                    setTransactionsTypeID(undefined);
+                    setTransactionsDrop(false);
+                  }}
+                >
+                  all
+                </div>
+                {transactionType?.map((transaction, index) => (
+                  <div
+                    className=" py-2 px-4 capitalize hover:bg-neutral-30  text-purple "
+                    onClick={() => {
+                      setTransactionsTypeID(transaction.transaction_type_id);
+                      setTransactionsDrop(false);
+                    }}
+                  >
+                    {transaction.description}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div> */}
         </div>
       </div>
       <AllNotificationList

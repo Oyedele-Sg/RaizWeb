@@ -57,35 +57,28 @@ export function BudgetCard({ data }: Props) {
         className="text-t-18 pl-4 pt-[57px] pr-[50px] h-[180px] rounded-b-lg"
         style={{ backgroundColor: cardColor[1] }}
       >
-        <div className="flex justify-between">
-          <span className="text-neutral-90"> Budget: </span>
-          <span className="font-bold gradient-text__gold">
-            ₦{data.total_budget}
-          </span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-neutral-90"> Total Spent: </span>
-          <span className="font-bold gradient-text__gold">
-            ₦{data.total_spent}
-          </span>
-        </div>
-        <div className="flex justify-between">
-          <div className="flex justify-between">
+        <div className="flex flex-col gap-2">
+          <div className="flex">
+            <span className="text-neutral-90 budget-label">Budget:</span>
+            <span className="font-bold gradient-text__gold">
+              ₦{data.total_budget}
+            </span>
+          </div>
+          <div className="flex ">
+            <span className="text-neutral-90 budget-label">Total Spent:</span>
+            <span className="font-bold gradient-text__gold">
+              ₦{data.total_spent}
+            </span>
+          </div>
+          <div className="flex ">
             {isExceedingBudget ? (
-              <>
-                <span className="text-neutral-90">Exceed By: </span>
-                <span className={`font-bold ${textColor}`}>
-                  -₦{amountDifference}
-                </span>
-              </>
+              <span className="text-neutral-90 budget-label">Exceed By:</span>
             ) : (
-              <>
-                <span className="text-neutral-90">Saved: </span>
-                <span className={`font-bold ${textColor}`}>
-                  ₦{amountDifference}
-                </span>
-              </>
+              <span className="text-neutral-90 budget-label">Saved:</span>
             )}
+            <span className={`font-bold ${textColor}`}>
+              ₦{amountDifference}
+            </span>
           </div>
         </div>
       </div>
