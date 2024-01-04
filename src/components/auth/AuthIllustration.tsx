@@ -64,7 +64,7 @@ const AuthIllustration: React.FC<Props> = ({
         <Image
           src={`/illustrations/onboard/${data[active].icon}.svg`}
           width={width}
-          height={500}
+          height={height}
           alt=""
         />
         <div className="flex gap-2 justify-center">

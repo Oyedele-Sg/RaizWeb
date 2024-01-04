@@ -46,12 +46,13 @@ export const RegisterForm: FC = () => {
 
   const methods = useForm<RegisterFormDataInterface>({
     defaultValues: {
+      user_type_id: 1,
       first_name: '',
       last_name: '',
       email: '',
       password: '',
-      user_type_id: 1,
       confirm_password: '',
+      referred_by_code: '',
     },
     resolver: yupResolver(registerSchema),
   });
@@ -63,7 +64,7 @@ export const RegisterForm: FC = () => {
   const [checked, setChecked] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const onSubmit = async (data: RegisterDataInterface) => {
+  const onSubmit = async (data: RegisterFormDataInterface) => {
     try {
       if (!checked) {
         toast({
@@ -97,6 +98,7 @@ export const RegisterForm: FC = () => {
         last_name: data.last_name,
         password: passwordHash(data.password),
         user_type_id: data.user_type_id,
+        referred_by_code: data.referred_by_code ?? '',
       });
 
       dispatch(getSignUpEmail(data.email));
@@ -191,6 +193,11 @@ export const RegisterForm: FC = () => {
                     className="password_field-input  "
                   />
                 </RegisterInput>
+                <RegisterInput
+                  name={`referred_by_code`}
+                  inputPlaceholder={`Referral Code`}
+                  label="Referral Code"
+                />
               </AuthFieldWrap>
 
               <div className=" flex items-center gap-4 ">

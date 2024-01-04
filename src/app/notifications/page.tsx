@@ -1,31 +1,53 @@
 'use client';
 import { AllNotificationList } from '@/components/notification';
 import { useNotification } from '@/hooks/notification/useNotification';
-import { BackArrow, BackBtnCircle, NotificationDataInterface } from '@/shared';
+import {
+  BackArrow,
+  BackBtnCircle,
+  NotificationDataInterface,
+  NotificationCategoryInterface,
+} from '@/shared';
 import { getSelectedNotification } from '@/shared/redux/features';
 import { useAppDispatch, useAppSelector } from '@/shared/redux/types';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import { userService } from '@/services';
+import React, { useState, useEffect } from 'react';
+import { toastMessage } from '@/utils/helpers';
 
 function page() {
   const Router = useRouter();
   const notification = useNotification();
   const [detail, setDetail] = useState<NotificationDataInterface>();
-  const [sortBy, setSortBy] = useState<string>('');
+  const [selectedNotificationType, setSelectedNotificationType] =
+    useState<NotificationCategoryInterface>();
+  const [notificationCategories, setNotificationCategories] =
+    useState<NotificationCategoryInterface[]>();
+  const [notificationDrop, setNotificationDrop] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const handleSortByChange = (value: string) => {
-    setSortBy(value);
-
-    // Dispatch an action to update the filter
-    // dispatch(setNotificationFilter(value));
-
-    // You can also fetch and update the notification list based on the selected filter
-    // Example: notification.fetchNotifications(value);
+  const handleSortByChange = (
+    notificationDrop: boolean,
+    notificationCategory?: NotificationCategoryInterface
+  ) => {
+    setSelectedNotificationType(notificationCategory);
+    setNotificationDrop(notificationDrop);
   };
+
   const notificationDetails = useAppSelector(
     (state) => state.selectedNotification
   );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await userService.getNotificationCategories();
+        setNotificationCategories(response);
+      } catch (error) {
+        toastMessage('Something Went Wrong', `${error}`);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className=" flex flex-col gap-3 ">
@@ -55,23 +77,64 @@ function page() {
               Notifications
             </h1>
           </div>
-          <div className=" border border-neutral-40 flex gap-6 p-2 rounded-lg    ">
-            {' '}
-            <div className=" flex items-center gap-2  ">
-              <Image src={`/icons/filter.svg`} width={16} height={16} alt="" />{' '}
-              <span className=" text-neutral-90  text-t-12  "> Sort By </span>{' '}
+          <div className=" relative  border border-neutral-40 flex gap-6 p-2 rounded-lg ">
+            <div className=" flex items-center  gap-4 ">
+              <div className=" flex items-center gap-2  ">
+                <Image
+                  src={`/icons/filter.svg`}
+                  width={16}
+                  height={16}
+                  alt=""
+                />{' '}
+                <span className=" text-neutral-90  text-t-12  ">
+                  {' '}
+                  {selectedNotificationType?.notification_category_name ||
+                    'Sort By'}{' '}
+                </span>{' '}
+              </div>
+              <span
+                onClick={() => {
+                  setNotificationDrop(!notificationDrop);
+                }}
+              >
+                {' '}
+                <Image
+                  alt=""
+                  width={16}
+                  height={16}
+                  src={`/icons/arrow-down-desk.svg`}
+                />{' '}
+              </span>
             </div>
-            <Image
-              src={`/icons/arrow-down-mobile.svg`}
-              width={16}
-              height={16}
-              alt=""
-            />
+            {notificationDrop && (
+              <div className=" bg-grey w-[160px] absolute  z-[100000000000000] top-[35px] ">
+                <div
+                  className=" py-2 px-4 capitalize hover:bg-neutral-30  text-purple "
+                  onClick={() => handleSortByChange(false, undefined)}
+                >
+                  all
+                </div>
+                {notificationCategories?.map((notificationCategory, index) => (
+                  <div
+                    className=" py-2 px-4 capitalize hover:bg-neutral-30  text-purple "
+                    onClick={() =>
+                      handleSortByChange(false, notificationCategory)
+                    }
+                    key={index}
+                  >
+                    {notificationCategory.notification_category_name}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
       <AllNotificationList
         notification_id={notificationDetails.notification_id}
+        notification_category_id={
+          selectedNotificationType?.notification_category_id || undefined
+        }
       />
     </div>
   );
