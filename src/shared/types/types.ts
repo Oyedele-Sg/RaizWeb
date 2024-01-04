@@ -1235,3 +1235,10 @@ export interface PersonalTargetTransferDataInterface {
   transaction_pin: string
   personal_target_save_id: string
 }
+export interface EditSavingDataInterface {
+  frequency_id: number | null
+  preferred_credit_time: string | null
+  preferred_deduction_amount: number
+  preferred_deduction_day: number
+  preferred_deduction_date: number
+}

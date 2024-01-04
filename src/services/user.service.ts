@@ -65,6 +65,7 @@ import {
   EarlyPenaltyFormInterface,
   PersonalTargetSavingsWithdrawalDataInterface,
   PersonalTargetTransferDataInterface,
+  EditSavingDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -180,6 +181,7 @@ export const userService = {
   getAllLockSavings,
   personalTargetSavingsWithdrawal,
   transfertoPersonalTargetSavings,
+  editPersonalTargetSavings
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -889,6 +891,16 @@ function personalTargetSavingsWithdrawal(
 ): Promise<void> {
   return fetchWrapper.post(
     `${baseUrl}/savings/target-save/transfer-from-target-save/personal/${id}/`,
+    data
+  )
+}
+
+function editPersonalTargetSavings(
+  id: string,
+  data: EditSavingDataInterface
+): Promise<void> {
+  return fetchWrapper.patch(
+    `${baseUrl}/savings/target-save/personal/${id}/settings`,
     data
   )
 }

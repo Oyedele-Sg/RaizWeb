@@ -9,7 +9,7 @@ import {
   BtnMain,
   Loading,
   RegisterInput,
-  PersonalTargetTransferDataInterface,
+  PersonalTargetSavingsWithdrawalDataInterface,
   createTransactionPinSchema,
 } from "@/shared"
 import { FormProvider, useForm } from "react-hook-form"
@@ -27,7 +27,7 @@ function page() {
     Router.push(`/savings/my-targets/${Params.savingsID}/details`)
   }
 
-  const methods = useForm<PersonalTargetTransferDataInterface>({
+  const methods = useForm<PersonalTargetSavingsWithdrawalDataInterface>({
     defaultValues: {
       amount: 0,
       transaction_pin: "",
@@ -35,17 +35,18 @@ function page() {
     // resolver: yupResolver(createTransactionPinSchema),
   })
 
-  const onSubmit = async (data: PersonalTargetTransferDataInterface) => {
+  const onSubmit = async (
+    data: PersonalTargetSavingsWithdrawalDataInterface
+  ) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.transfertoPersonalTargetSavings({
+      await userService.personalTargetSavingsWithdrawal(Params.savingsID, {
         ...data,
         transaction_pin: passwordHash(data.transaction_pin),
-        personal_target_save_id: Params.savingsID,
       })
 
       toast({
-        title: "Funds Added Successful",
+        title: "Withdrawal Successful",
 
         variant: "destructive",
         style: {
@@ -74,7 +75,6 @@ function page() {
       })
     }
   }
-
   return (
     <>
       <Loading />
@@ -82,9 +82,11 @@ function page() {
         <div className='flex flex-col gap-9'>
           <div className=''>
             <h1 className='  font-display__medium text-purple capitalize '>
-              Add Funds
+              Withdrawal
             </h1>
-            <p className=' text-neutral-70 font-title__large '>Savings</p>
+            <p className=' text-neutral-70 font-title__large '>
+              Transaction Pin
+            </p>
           </div>
           <FormProvider {...methods}>
             <form
@@ -94,7 +96,7 @@ function page() {
               <RegisterInput
                 name={`amount`}
                 inputPlaceholder={`Enter Amount`}
-                label={"Amount"}
+                label='Amount'
                 extraClass={`mt-6`}
                 type='number'
               />
@@ -110,7 +112,7 @@ function page() {
               <div className=' flex gap-8 '>
                 <BtnMain
                   btnStyle='w-full text-center text-grey  btn-gradient-savings '
-                  btnText={"Next"}
+                  btnText={"WithDraw"}
                   type='submit'
                 />
               </div>
