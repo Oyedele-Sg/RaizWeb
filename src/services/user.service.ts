@@ -914,6 +914,6 @@ function transfertoPersonalTargetSavings(
   );
 }
 
-function getNotificationCategories(): Promise<NotificationCategoryInterface> {
+function getNotificationCategories(): Promise<NotificationCategoryInterface[]> {
   return fetchWrapper.get(`${baseUrl}/notification-categories/`);
 }
