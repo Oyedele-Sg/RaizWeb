@@ -136,14 +136,15 @@ function page() {
                   label='Preferred deduction amount '
                   rules={{ required: "Deduction amount is required" }}
                 />
-                <RegisterInput
+                {/* <RegisterInput
                   name='primary_source_of_funds'
                   label='Primary source of funds '
                   rules={{
                     required: "Primary source of fund is required",
                   }}
-                />
-                <div className=' flex flex-col gap-4 w-full'>
+                /> */}
+
+                {/* <div className=' flex flex-col gap-4 w-full'>
                   <p className=' text-neutral-80   font-label__large '>
                     Primary source of funds
                   </p>
@@ -161,7 +162,7 @@ function page() {
                   >
                     <SelectTrigger className=' z-100000000 border-t-0 border-l-0 border-r-0 border-b border-b-purple  rounded-none text-neutral-100'>
                       <SelectValue
-                        placeholder='Select Savings Frquency'
+                        placeholder='Select Withdrawal Account'
                         className={
                           methods.formState.errors.frequency_id
                             ? "input_field-input_error"
@@ -176,13 +177,13 @@ function page() {
                           value={item.withdrawal_account_name}
                           className='hover:bg-neutral-50'
                         >
-                          {item.withdrawal_account_name} -{" "}
+                          {item.withdrawal_account_name} -
                           {item.withdrawal_account_number}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
-                </div>
+                </div> */}
 
                 <div className=' flex flex-col gap-4 w-full'>
                   <p className=' text-neutral-80   font-label__large '>
