@@ -4,6 +4,7 @@ import {
   AjoFrequencyInterface,
   BtnMain,
   CreateTargetSavingsFormInterface,
+  DayPicker,
   RegisterInput,
   RegisterTextArea,
 } from "@/shared"
@@ -58,6 +59,8 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
       preferred_credit_time: "",
       preferred_deduction_amount: null,
       primary_source_of_funds: null,
+      preferred_deduction_day: null,
+      preferred_deduction_date: null,
     },
   })
 
@@ -148,10 +151,16 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
     setFrequencies(response)
   }
   const [prefferedTime, setPrefferedTime] = React.useState<Dayjs | null>(null)
+  const [prefferedDay, setPrefferedDay] = React.useState<number | null>(null)
+  const [prefferedFreq, setPrefferedFreq] = React.useState<number | null>(null)
 
   useEffect(() => {
     getData()
   }, [])
+
+  useEffect(() => {
+    methods.setValue("preferred_deduction_day", prefferedDay)
+  }, [prefferedDay])
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className=' '>
@@ -325,25 +334,6 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
                   case 3:
                     return (
                       <div className=' flex flex-col gap-9 '>
-                        <TimeField
-                          value={prefferedTime}
-                          onChange={setPrefferedTime}
-                        />
-
-                        <RegisterInput
-                          type='number'
-                          name='preferred_deduction_amount'
-                          label='Preferred deduction amount '
-                          rules={{ required: "Deduction amount is required" }}
-                        />
-                        <RegisterInput
-                          name='primary_source_of_funds'
-                          label='Primary source of funds '
-                          rules={{
-                            required: "Primary source of fund is required",
-                          }}
-                        />
-
                         <div className=' flex flex-col gap-4 w-full'>
                           <p className=' text-neutral-80   font-label__large '>
                             Choose Savings Frequency
@@ -358,11 +348,14 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
                                 "frequency_id",
                                 selectedFrequency?.frequency_id as number
                               )
+                              setPrefferedFreq(
+                                selectedFrequency?.frequency_id as number
+                              )
                             }}
                           >
                             <SelectTrigger className=' z-100000000 border-t-0 border-l-0 border-r-0 border-b border-b-purple  rounded-none text-neutral-100'>
                               <SelectValue
-                                placeholder='Select Savings Frquency'
+                                placeholder='Select Savings Frequency'
                                 className={
                                   methods.formState.errors.frequency_id
                                     ? "input_field-input_error"
@@ -383,6 +376,28 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
                             </SelectContent>
                           </Select>
                         </div>
+                        {prefferedFreq === 1 && (
+                          <TimeField
+                            value={prefferedTime}
+                            onChange={setPrefferedTime}
+                          />
+                        )}
+
+                        <RegisterInput
+                          type='number'
+                          name='preferred_deduction_amount'
+                          label='Preferred deduction amount '
+                          rules={{ required: "Deduction amount is required" }}
+                        />
+                        <RegisterInput
+                          name='primary_source_of_funds'
+                          label='Primary source of funds '
+                          rules={{
+                            required: "Primary source of fund is required",
+                          }}
+                        />
+
+                        <DayPicker setDay={setPrefferedDay} />
                         <div className=' flex items-center justify-between  '>
                           <Label
                             htmlFor='savings-public'

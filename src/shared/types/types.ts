@@ -1072,6 +1072,8 @@ export interface CreateTargetSavingsFormInterface {
   preferred_deduction_amount: number | null
   primary_source_of_funds: string | null
   public: boolean
+  preferred_deduction_day: number | null
+  preferred_deduction_date: number | null
 }
 
 export interface CreateLockSavingsFormInterface {
@@ -1239,6 +1241,6 @@ export interface EditSavingDataInterface {
   frequency_id: number | null
   preferred_credit_time: string | null
   preferred_deduction_amount: number
-  preferred_deduction_day: number
-  preferred_deduction_date: number
+  preferred_deduction_day: number | null
+  preferred_deduction_date: Date | null
 }

@@ -14,6 +14,8 @@ import {
   AjoFrequencyInterface,
   EditSavingDataInterface,
 } from "@/shared"
+import { Button } from "@/components/ui/button"
+
 import { FormProvider, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { toast } from "@/components/ui/use-toast"
@@ -35,6 +37,15 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { CurrentUserContext } from "@/providers/CurrentUserProvider"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Calendar as CalendarIcon } from "lucide-react"
+import moment from "moment"
+import { Calendar } from "@/components/ui/calendar"
+import { cn } from "@/lib/utils"
 
 function page() {
   const Router = useRouter()
@@ -50,8 +61,8 @@ function page() {
       frequency_id: null,
       preferred_credit_time: "",
       preferred_deduction_amount: 0,
-      preferred_deduction_day: 0,
-      preferred_deduction_date: 0,
+      preferred_deduction_day: null,
+      preferred_deduction_date: null,
     },
   })
 
@@ -61,6 +72,7 @@ function page() {
       await userService.editPersonalTargetSavings(Params.savingsID, {
         ...data,
         preferred_credit_time: convertDateToTime(prefferedTime),
+        preferred_deduction_date: endDate as Date,
       })
 
       toast({
@@ -99,6 +111,7 @@ function page() {
     []
   )
   const [prefferedTime, setPrefferedTime] = React.useState<Dayjs | null>(null)
+  const [endDate, setEndDate] = React.useState<Date>()
 
   const getData = async () => {
     const response = await userService.getAjoFrequencies()
@@ -136,6 +149,41 @@ function page() {
                   label='Preferred deduction amount '
                   rules={{ required: "Deduction amount is required" }}
                 />
+
+                <div className=' flex flex-col gap-4 w-full'>
+                  <p className=' text-neutral-80   font-label__large '>
+                    preferred Deduction Date
+                  </p>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-full pl-3 text-left text-neutral-60 font-normal  bg-transparent outline-none border-t-0 border-l-0 border-r-0  border-b border-b-purple rounded-none   "
+                          // !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {endDate ? (
+                          moment(endDate).format("DD MMMM YYYY")
+                        ) : (
+                          <span>End date</span>
+                        )}
+                        <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className='w-auto p-0' align='start'>
+                      <Calendar
+                        mode='single'
+                        selected={endDate}
+                        onSelect={setEndDate}
+                        initialFocus
+                        disabled={(date) =>
+                          date < new Date() || date < new Date("1900-01-01")
+                        }
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
                 {/* <RegisterInput
                   name='primary_source_of_funds'
                   label='Primary source of funds '
