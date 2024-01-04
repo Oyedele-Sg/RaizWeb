@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { RegisterFormDataInterface } from './types';
 
 export const loginSchema = yup.object().shape({
   email: yup.string().email('Invalid Email Address').required(),
@@ -34,7 +35,7 @@ export const registerSchema = yup.object().shape({
   user_type_id: yup.number().required(),
   referred_by_code: yup
     .string()
-    .matches(/^[a-zA-Z0-9]{8}$/, 'Invalid Referral Code'),
+    .matches(/^[a-zA-Z0-9]{6}$/, 'Invalid Referral Code'),
 });
 
 export const changePasswordSchema = yup.object().shape({
