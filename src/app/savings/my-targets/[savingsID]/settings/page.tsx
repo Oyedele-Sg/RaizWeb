@@ -63,7 +63,7 @@ function page() {
       preferred_deduction_amount: 0,
       preferred_deduction_day: null,
       preferred_deduction_date: null,
-    },
+    }
   })
 
   const onSubmit = async (data: EditSavingDataInterface) => {

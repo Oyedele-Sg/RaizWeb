@@ -376,12 +376,15 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
                             </SelectContent>
                           </Select>
                         </div>
-                        {prefferedFreq === 1 && (
+                        {prefferedFreq ===3 ? 
                           <TimeField
                             value={prefferedTime}
                             onChange={setPrefferedTime}
-                          />
-                        )}
+                          />  : prefferedFreq === 2 ? <div className=" flex flex-col "> <DayPicker setDay={setPrefferedDay} />  <TimeField
+                          value={prefferedTime}
+                          onChange={setPrefferedTime}
+                        /> </div> : prefferedFreq === 1 ? <div className=" flex flex-col "> <DayPicker setDay={setPrefferedDay} />  </div> : null}
+                        
 
                         <RegisterInput
                           type='number'
@@ -397,7 +400,7 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
                           }}
                         />
 
-                        <DayPicker setDay={setPrefferedDay} />
+                        
                         <div className=' flex items-center justify-between  '>
                           <Label
                             htmlFor='savings-public'
