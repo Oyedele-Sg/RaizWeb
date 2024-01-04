@@ -1070,7 +1070,7 @@ export interface CreateTargetSavingsFormInterface {
   frequency_id: number | null
   preferred_credit_time: string | null
   preferred_deduction_amount: number | null
-  primary_source_of_funds: string | null
+  primary_source_of_funds_id: string | null
   public: boolean
   preferred_deduction_day: number | null
   preferred_deduction_date: number | null
@@ -1208,7 +1208,7 @@ export interface JoinTargetSaveFromInterface {
   frequency_id: number | null
   preferred_credit_time: string | null
   preferred_deduction_amount: number | null
-  primary_source_of_funds: string | null
+  primary_source_of_funds_id: string | null
 }
 
 export interface EarlyPenaltyFormInterface {
@@ -1237,10 +1237,21 @@ export interface PersonalTargetTransferDataInterface {
   transaction_pin: string
   personal_target_save_id: string
 }
+
+export interface GroupTargetTransferDataInterface {
+  amount: number
+  transaction_pin: string
+  target_save_group_member_id: string
+}
+
+export interface GroupTargetTransferWithdrawInterface {
+  amount: number
+  transaction_pin: string
+}
 export interface EditSavingDataInterface {
   frequency_id: number | null
   preferred_credit_time: string | null
   preferred_deduction_amount: number
   preferred_deduction_day: number | null
-  preferred_deduction_date: Date | null
+  preferred_deduction_date: number | null
 }

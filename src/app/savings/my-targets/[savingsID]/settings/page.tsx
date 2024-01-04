@@ -13,6 +13,8 @@ import {
   createTransactionPinSchema,
   AjoFrequencyInterface,
   EditSavingDataInterface,
+  MonthPicker,
+  DayPicker,
 } from "@/shared"
 import { Button } from "@/components/ui/button"
 
@@ -63,7 +65,7 @@ function page() {
       preferred_deduction_amount: 0,
       preferred_deduction_day: null,
       preferred_deduction_date: null,
-    }
+    },
   })
 
   const onSubmit = async (data: EditSavingDataInterface) => {
@@ -72,15 +74,14 @@ function page() {
       await userService.editPersonalTargetSavings(Params.savingsID, {
         ...data,
         preferred_credit_time: convertDateToTime(prefferedTime),
-        preferred_deduction_date: endDate as Date,
       })
 
       toast({
-        title: "Withdrawal Successful",
-
-        variant: "destructive",
+        title: "Success",
+        description: `Savings settings updated successfully`,
+        variant: "default",
         style: {
-          backgroundColor: "#3b82f6",
+          backgroundColor: "#10B981",
           color: "#fff",
           top: "20px",
           right: "20px",
@@ -110,17 +111,28 @@ function page() {
   const [frequencies, setFrequencies] = React.useState<AjoFrequencyInterface[]>(
     []
   )
-  const [prefferedTime, setPrefferedTime] = React.useState<Dayjs | null>(null)
-  const [endDate, setEndDate] = React.useState<Date>()
 
   const getData = async () => {
     const response = await userService.getAjoFrequencies()
     setFrequencies(response)
   }
 
+  const [prefferedTime, setPrefferedTime] = React.useState<Dayjs | null>(null)
+  const [prefferedDay, setPrefferedDay] = React.useState<number | null>(null)
+  const [prefferedDate, setPrefferedDate] = React.useState<number | null>(null)
+
+  const [prefferedFreq, setPrefferedFreq] = React.useState<number | null>(null)
+
   useEffect(() => {
     getData()
   }, [])
+
+  useEffect(() => {
+    methods.setValue("preferred_deduction_day", prefferedDay)
+  }, [prefferedDay])
+  useEffect(() => {
+    methods.setValue("preferred_deduction_date", prefferedDate)
+  }, [prefferedDate])
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -141,98 +153,6 @@ function page() {
               className=' flex flex-col gap-8 '
             >
               <div className=' flex flex-col gap-9 '>
-                <TimeField value={prefferedTime} onChange={setPrefferedTime} />
-
-                <RegisterInput
-                  type='number'
-                  name='preferred_deduction_amount'
-                  label='Preferred deduction amount '
-                  rules={{ required: "Deduction amount is required" }}
-                />
-
-                <div className=' flex flex-col gap-4 w-full'>
-                  <p className=' text-neutral-80   font-label__large '>
-                    preferred Deduction Date
-                  </p>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-full pl-3 text-left text-neutral-60 font-normal  bg-transparent outline-none border-t-0 border-l-0 border-r-0  border-b border-b-purple rounded-none   "
-                          // !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {endDate ? (
-                          moment(endDate).format("DD MMMM YYYY")
-                        ) : (
-                          <span>End date</span>
-                        )}
-                        <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className='w-auto p-0' align='start'>
-                      <Calendar
-                        mode='single'
-                        selected={endDate}
-                        onSelect={setEndDate}
-                        initialFocus
-                        disabled={(date) =>
-                          date < new Date() || date < new Date("1900-01-01")
-                        }
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-                {/* <RegisterInput
-                  name='primary_source_of_funds'
-                  label='Primary source of funds '
-                  rules={{
-                    required: "Primary source of fund is required",
-                  }}
-                /> */}
-
-                {/* <div className=' flex flex-col gap-4 w-full'>
-                  <p className=' text-neutral-80   font-label__large '>
-                    Primary source of funds
-                  </p>
-
-                  <Select
-                    onValueChange={(value) => {
-                      const selectedFrequency = frequencies.find(
-                        (item) => item.frequency_name === value
-                      )
-                      methods.setValue(
-                        "frequency_id",
-                        selectedFrequency?.frequency_id as number
-                      )
-                    }}
-                  >
-                    <SelectTrigger className=' z-100000000 border-t-0 border-l-0 border-r-0 border-b border-b-purple  rounded-none text-neutral-100'>
-                      <SelectValue
-                        placeholder='Select Withdrawal Account'
-                        className={
-                          methods.formState.errors.frequency_id
-                            ? "input_field-input_error"
-                            : " border-none "
-                        }
-                      />
-                    </SelectTrigger>
-                    <SelectContent className='bg-neutral-20 text-neutral-90 h-[200px] overflow-auto z-10000000000000  '>
-                      {currentUser?.withdrawal_accounts.map((item) => (
-                        <SelectItem
-                          key={item.withdrawal_account_id}
-                          value={item.withdrawal_account_name}
-                          className='hover:bg-neutral-50'
-                        >
-                          {item.withdrawal_account_name} -
-                          {item.withdrawal_account_number}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div> */}
-
                 <div className=' flex flex-col gap-4 w-full'>
                   <p className=' text-neutral-80   font-label__large '>
                     Choose Savings Frequency
@@ -247,11 +167,14 @@ function page() {
                         "frequency_id",
                         selectedFrequency?.frequency_id as number
                       )
+                      setPrefferedFreq(
+                        selectedFrequency?.frequency_id as number
+                      )
                     }}
                   >
                     <SelectTrigger className=' z-100000000 border-t-0 border-l-0 border-r-0 border-b border-b-purple  rounded-none text-neutral-100'>
                       <SelectValue
-                        placeholder='Select Savings Frquency'
+                        placeholder='Select Savings Frequency'
                         className={
                           methods.formState.errors.frequency_id
                             ? "input_field-input_error"
@@ -272,16 +195,76 @@ function page() {
                     </SelectContent>
                   </Select>
                 </div>
-                {/* <div className=' flex items-center justify-between  '>
-                  <Label htmlFor='savings-public' className=' text-purple  '>
-                    Public
-                  </Label>
-                  <Switch
-                    id='savings-public'
-                    className=' bg-purple '
-                    checked={publicSaving}
-                    onCheckedChange={setPublicSaving}
+                {prefferedFreq === 3 ? (
+                  <TimeField
+                    value={prefferedTime}
+                    onChange={setPrefferedTime}
                   />
+                ) : prefferedFreq === 2 ? (
+                  <div className=' flex flex-col '>
+                    {" "}
+                    <DayPicker setDay={setPrefferedDay} />{" "}
+                    <TimeField
+                      value={prefferedTime}
+                      onChange={setPrefferedTime}
+                    />{" "}
+                  </div>
+                ) : prefferedFreq === 1 ? (
+                  <div className=' flex flex-col '>
+                    {" "}
+                    <MonthPicker setDay={setPrefferedDate} />{" "}
+                    <TimeField
+                      value={prefferedTime}
+                      onChange={setPrefferedTime}
+                    />{" "}
+                  </div>
+                ) : null}
+
+                <RegisterInput
+                  type='number'
+                  name='preferred_deduction_amount'
+                  label='Preferred deduction amount '
+                  rules={{ required: "Deduction amount is required" }}
+                />
+                {/* <div className=' flex flex-col gap-4 w-full'>
+                  <p className=' text-neutral-80   font-label__large '>
+                    Primary source of funds
+                  </p>
+
+                  <Select
+                    onValueChange={(value) => {
+                      const selectedFrequency = currentUser?.wallets.find(
+                        (item) => item.wallet_id === value
+                      )
+                      methods.setValue(
+                        "primary_source_of_funds_id",
+                        selectedFrequency?.wallet_id as string
+                      )
+                    }}
+                  >
+                    <SelectTrigger className=' z-100000000 border-t-0 border-l-0 border-r-0 border-b border-b-purple  rounded-none text-neutral-100'>
+                      <SelectValue
+                        placeholder='Select Withdrawal Account'
+                        className={
+                          methods.formState.errors.primary_source_of_funds_id
+                            ? "input_field-input_error"
+                            : " border-none "
+                        }
+                      />
+                    </SelectTrigger>
+                    <SelectContent className='bg-neutral-20 text-neutral-90 h-[200px] overflow-auto z-10000000000000  '>
+                      {currentUser?.wallets.map((item) => (
+                        <SelectItem
+                          key={item.wallet_id}
+                          value={item.wallet_id}
+                          className='hover:bg-neutral-50'
+                        >
+                          {item.wallet_name} -{item.account_number} (
+                          {item.account_balance})
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div> */}
 
                 <BtnMain

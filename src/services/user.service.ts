@@ -66,6 +66,8 @@ import {
   PersonalTargetSavingsWithdrawalDataInterface,
   PersonalTargetTransferDataInterface,
   EditSavingDataInterface,
+  GroupTargetTransferWithdrawInterface,
+  GroupTargetTransferDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -181,7 +183,9 @@ export const userService = {
   getAllLockSavings,
   personalTargetSavingsWithdrawal,
   transfertoPersonalTargetSavings,
-  editPersonalTargetSavings
+  editPersonalTargetSavings,
+  transferFormGroupTargetSavings,
+  transfertoGroupTargetSavings
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -910,6 +914,24 @@ function transfertoPersonalTargetSavings(
 ): Promise<void> {
   return fetchWrapper.post(
     `${baseUrl}/savings/target-save/transfer-to-target-save/personal/`,
+    data
+  )
+}
+function transfertoGroupTargetSavings(
+  data: GroupTargetTransferDataInterface
+): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/savings/target-save/transfer-to-target-save/group/`,
+    data
+  )
+}
+
+function transferFormGroupTargetSavings(
+  id: string,
+  data: GroupTargetTransferWithdrawInterface
+): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/savings/target-save/transfer-from-target-save/group/${id}/`,
     data
   )
 }

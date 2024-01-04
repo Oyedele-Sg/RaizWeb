@@ -208,7 +208,7 @@ function Page() {
                   btnStyle=' w-full text-grey btn-gradient-savings '
                   onClick={() =>
                     Router.push(
-                      `/savings/target-savings/${Params.savingsID}/join`
+                      `/savings/target-savings/${Params.savingsID}/add-funds`
                     )
                   }
                 />
@@ -230,7 +230,6 @@ function Page() {
           <div className=' flex flex-col gap-8  '>
             <div className='flex flex-col gap-6 '>
               <h2 className=' text-purple font-semibold text-t-24 '>
-                {" "}
                 Activites
               </h2>
             </div>
