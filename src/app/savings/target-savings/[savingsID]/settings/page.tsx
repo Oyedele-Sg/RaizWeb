@@ -15,6 +15,7 @@ import {
   EditSavingDataInterface,
   MonthPicker,
   DayPicker,
+  GroupTargetSavingsDataInterface,
 } from "@/shared"
 import { Button } from "@/components/ui/button"
 
@@ -68,13 +69,23 @@ function page() {
     },
   })
 
+  const [savingsDetails, setSavingsDetails] =
+    React.useState<GroupTargetSavingsDataInterface>()
+
+  const targetMember = savingsDetails?.target_save_group_members.find(
+    (member) => member.account_user_id === currentUser?.account_user_id
+  )
+
   const onSubmit = async (data: EditSavingDataInterface) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.editPersonalTargetSavings(Params.savingsID, {
-        ...data,
-        preferred_credit_time: convertDateToTime(prefferedTime),
-      })
+      await userService.editGroupTargetSavings(
+        targetMember?.target_save_group_member_id as string,
+        {
+          ...data,
+          preferred_credit_time: convertDateToTime(prefferedTime),
+        }
+      )
 
       toast({
         title: "Success",
@@ -113,8 +124,16 @@ function page() {
   )
 
   const getData = async () => {
-    const response = await userService.getAjoFrequencies()
-    setFrequencies(response)
+    try {
+      dispatch(setLoadingTrue())
+      const response = await userService.getAjoFrequencies()
+      const res = await userService.getTargetSavingsByID(Params.savingsID)
+      setFrequencies(response)
+      setSavingsDetails(res)
+      dispatch(setLoadingFalse())
+    } catch (error) {
+      dispatch(setLoadingFalse())
+    }
   }
 
   const [prefferedTime, setPrefferedTime] = React.useState<Dayjs | null>(null)
@@ -226,46 +245,6 @@ function page() {
                   label='Preferred deduction amount '
                   rules={{ required: "Deduction amount is required" }}
                 />
-                {/* <div className=' flex flex-col gap-4 w-full'>
-                  <p className=' text-neutral-80   font-label__large '>
-                    Primary source of funds
-                  </p>
-
-                  <Select
-                    onValueChange={(value) => {
-                      const selectedFrequency = currentUser?.wallets.find(
-                        (item) => item.wallet_id === value
-                      )
-                      methods.setValue(
-                        "primary_source_of_funds_id",
-                        selectedFrequency?.wallet_id as string
-                      )
-                    }}
-                  >
-                    <SelectTrigger className=' z-100000000 border-t-0 border-l-0 border-r-0 border-b border-b-purple  rounded-none text-neutral-100'>
-                      <SelectValue
-                        placeholder='Select Withdrawal Account'
-                        className={
-                          methods.formState.errors.primary_source_of_funds_id
-                            ? "input_field-input_error"
-                            : " border-none "
-                        }
-                      />
-                    </SelectTrigger>
-                    <SelectContent className='bg-neutral-20 text-neutral-90 h-[200px] overflow-auto z-10000000000000  '>
-                      {currentUser?.wallets.map((item) => (
-                        <SelectItem
-                          key={item.wallet_id}
-                          value={item.wallet_id}
-                          className='hover:bg-neutral-50'
-                        >
-                          {item.wallet_name} -{item.account_number} (
-                          {item.account_balance})
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div> */}
 
                 <BtnMain
                   btnText=' Save Changes'
