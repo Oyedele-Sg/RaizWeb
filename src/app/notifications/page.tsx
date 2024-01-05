@@ -77,7 +77,12 @@ function page() {
               Notifications
             </h1>
           </div>
-          <div className=" relative  border border-neutral-40 flex gap-6 p-2 rounded-lg ">
+          <div
+            className=" relative  border border-neutral-40 flex gap-6 p-2 rounded-lg "
+            onClick={() => {
+              setNotificationDrop(!notificationDrop);
+            }}
+          >
             <div className=" flex items-center  gap-4 ">
               <div className=" flex items-center gap-2  ">
                 <Image
@@ -92,11 +97,7 @@ function page() {
                     'Sort By'}{' '}
                 </span>{' '}
               </div>
-              <span
-                onClick={() => {
-                  setNotificationDrop(!notificationDrop);
-                }}
-              >
+              <span>
                 {' '}
                 <Image
                   alt=""

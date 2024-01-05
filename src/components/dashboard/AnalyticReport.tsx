@@ -1,24 +1,18 @@
 'use client';
 import { CurrentUserContext } from '@/providers/CurrentUserProvider';
 import {
-  BtnMain,
   DailyAnalysistChartInterface,
-  DailyAnalysistDataInterface,
   TimelineSelect,
   WhiteTileWrap,
 } from '@/shared';
-import { addDays, format } from 'date-fns';
-import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
-import { formatDateToISOString } from '@/utils/helpers';
 import { userService } from '@/services';
 import { toast } from '../ui/use-toast';
 import { differenceInDays } from 'date-fns';
-import React, { PureComponent } from 'react';
+import React from 'react';
 import {
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -42,7 +36,6 @@ export function AnalyticReport() {
       to: currentDate,
     };
   });
-  const [yearRange, setYearRange] = useState(false);
 
   const [chartData, setChartData] =
     React.useState<DailyAnalysistChartInterface>();
@@ -62,17 +55,6 @@ export function AnalyticReport() {
       const numberOfDays = selectedRange
         ? differenceInDays(selectedRange.to, selectedRange.from)
         : 0;
-
-      if (
-        selectedRange?.from.getFullYear() === currentDate.getFullYear() - 1 &&
-        selectedRange?.from.getMonth() === currentDate.getMonth() &&
-        selectedRange?.to.getFullYear() === currentDate.getFullYear() &&
-        selectedRange?.to.getMonth() == currentDate.getMonth()
-      ) {
-        setYearRange(true);
-      } else {
-        setYearRange(false);
-      }
 
       let res = await userService.getDailyAnalysisReport(numberOfDays);
       setChartData(res);
@@ -125,14 +107,13 @@ export function AnalyticReport() {
               <XAxis
                 stroke="#BFABD3"
                 dataKey="date"
-                // tickFormatter={formatXAxisTick}
-                tick={<CustomXAxisTick yearRange={yearRange} />}
+                tick={
+                  <CustomXAxisTick
+                    yearRange={chartData?.account_analysis.length === 12}
+                  />
+                }
               />
-              <YAxis
-                stroke="#BFABD3"
-                // tickFormatter={(value) => `#${value}`}
-                tick={<CustomYAxisTick />}
-              />
+              <YAxis stroke="#BFABD3" tick={<CustomYAxisTick />} />
               <Tooltip />
               {/* <Legend /> */}
               <Bar
@@ -153,16 +134,4 @@ export function AnalyticReport() {
       </WhiteTileWrap>
     </div>
   );
-}
-
-{
-  /* <div className='  relative h-full'>
-          <Image
-            src='/dummy/chart.svg'
-            // width={566.72}
-            style={{ objectFit: "contain" }}
-            fill={true}
-            alt='analytics'
-          />
-        </div> */
 }
