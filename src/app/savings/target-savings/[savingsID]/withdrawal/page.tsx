@@ -1,7 +1,7 @@
 "use client"
 import { useAppDispatch } from "@/shared/redux/types"
 import { useParams, useRouter } from "next/navigation"
-import React from "react"
+import React, { useContext, useEffect } from "react"
 import { ContentWrap } from "@/components/savings/ContentWrap"
 import PinInput from "react-pin-input"
 import {
@@ -9,8 +9,9 @@ import {
   BtnMain,
   Loading,
   RegisterInput,
-  PersonalTargetTransferDataInterface,
+  GroupTargetTransferWithdrawInterface,
   createTransactionPinSchema,
+  GroupTargetSavingsDataInterface,
 } from "@/shared"
 import { FormProvider, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -18,8 +19,11 @@ import { toast } from "@/components/ui/use-toast"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { passwordHash } from "@/utils/helpers"
 import { userService } from "@/services"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 
 function page() {
+  const { currentUser } = useContext(CurrentUserContext)
+
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const Params = useParams()
@@ -27,7 +31,7 @@ function page() {
     Router.push(`/savings/my-targets/${Params.savingsID}/details`)
   }
 
-  const methods = useForm<PersonalTargetTransferDataInterface>({
+  const methods = useForm<GroupTargetTransferWithdrawInterface>({
     defaultValues: {
       amount: 0,
       transaction_pin: "",
@@ -35,17 +39,23 @@ function page() {
     // resolver: yupResolver(createTransactionPinSchema),
   })
 
-  const onSubmit = async (data: PersonalTargetTransferDataInterface) => {
+  const [savingsDetails, setSavingsDetails] =
+    React.useState<GroupTargetSavingsDataInterface>()
+
+  const targetMember = savingsDetails?.target_save_group_members.find(
+    (member) => member.account_user_id === currentUser?.account_user_id
+  )
+
+  const onSubmit = async (data: GroupTargetTransferWithdrawInterface) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.transfertoPersonalTargetSavings({
+      await userService.transferFormGroupTargetSavings(targetMember?.target_save_group_member_id as string, {
         ...data,
         transaction_pin: passwordHash(data.transaction_pin),
-        personal_target_save_id: Params.savingsID,
       })
 
       toast({
-        title: "Funds Added Successful",
+        title: "Withdrawal Successful",
 
         variant: "destructive",
         style: {
@@ -56,7 +66,7 @@ function page() {
         },
       })
 
-      Router.push(`/savings/my-targets/${Params.savingsID}/details`)
+      Router.push(`/savings/target-savings/${Params.savingsID}/details`)
       dispatch(setLoadingFalse())
     } catch (error) {
       dispatch(setLoadingFalse())
@@ -75,6 +85,21 @@ function page() {
     }
   }
 
+
+  useEffect(() => {
+    const getTargetSavingsDetails = async () => {
+      try {
+        dispatch(setLoadingTrue())
+        const res = await userService.getTargetSavingsByID(Params.savingsID)
+        setSavingsDetails(res)
+        dispatch(setLoadingFalse())
+      } catch (error) {
+        dispatch(setLoadingFalse())
+      }
+    }
+    getTargetSavingsDetails()
+  }, [])
+
   return (
     <>
       <Loading />
@@ -82,9 +107,11 @@ function page() {
         <div className='flex flex-col gap-9'>
           <div className=''>
             <h1 className='  font-display__medium text-purple capitalize '>
-              Add Funds
+              Withdrawal
             </h1>
-            <p className=' text-neutral-70 font-title__large '>Savings</p>
+            <p className=' text-neutral-70 font-title__large '>
+              Transaction Pin
+            </p>
           </div>
           <FormProvider {...methods}>
             <form
@@ -94,7 +121,7 @@ function page() {
               <RegisterInput
                 name={`amount`}
                 inputPlaceholder={`Enter Amount`}
-                label={"Amount"}
+                label='Amount'
                 extraClass={`mt-6`}
                 type='number'
               />
@@ -110,7 +137,7 @@ function page() {
               <div className=' flex gap-8 '>
                 <BtnMain
                   btnStyle='w-full text-center text-grey  btn-gradient-savings '
-                  btnText={"Next"}
+                  btnText={"WithDraw"}
                   type='submit'
                 />
               </div>

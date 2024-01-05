@@ -47,7 +47,7 @@ export function TargetSavingsComponent() {
     },
     {
       title: "Explore",
-      link: "/savings/target-savings/explore",
+      link: "/savings/target-savings/explore/all",
     },
     // {
     //   title: "Completed",

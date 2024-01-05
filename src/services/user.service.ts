@@ -67,6 +67,9 @@ import {
   EarlyPenaltyFormInterface,
   PersonalTargetSavingsWithdrawalDataInterface,
   PersonalTargetTransferDataInterface,
+  EditSavingDataInterface,
+  GroupTargetTransferWithdrawInterface,
+  GroupTargetTransferDataInterface,
 } from '@/shared';
 import { BankInputProps } from '@/components/profile-setup/AddBankForm';
 import { createSearchParams } from '@/utils/helpers';
@@ -184,6 +187,10 @@ export const userService = {
   getAllLockSavings,
   personalTargetSavingsWithdrawal,
   transfertoPersonalTargetSavings,
+  editPersonalTargetSavings,
+  transferFormGroupTargetSavings,
+  transfertoGroupTargetSavings,
+  editGroupTargetSavings,
   getNotificationCategories,
   getNotificationsByID,
 };
@@ -905,15 +912,56 @@ function personalTargetSavingsWithdrawal(
   );
 }
 
+function editPersonalTargetSavings(
+  id: string,
+  data: EditSavingDataInterface
+): Promise<void> {
+  return fetchWrapper.patch(
+    `${baseUrl}/savings/target-save/personal/${id}/settings`,
+    data
+  )
+}
+function editGroupTargetSavings(
+  id: string,
+  data: EditSavingDataInterface
+): Promise<void> {
+  return fetchWrapper.patch(
+    `${baseUrl}/savings/target-save/group/${id}/settings`,
+    data
+  )
+}
+
+
 function transfertoPersonalTargetSavings(
   data: PersonalTargetTransferDataInterface
 ): Promise<void> {
   return fetchWrapper.post(
     `${baseUrl}/savings/target-save/transfer-to-target-save/personal/`,
     data
-  );
+  )
 }
 
 function getNotificationCategories(): Promise<NotificationCategoryInterface[]> {
   return fetchWrapper.get(`${baseUrl}/notification-categories/`);
 }
+
+
+function transferFormGroupTargetSavings(
+  id: string,
+  data: GroupTargetTransferWithdrawInterface
+): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/savings/target-save/transfer-from-target-save/group/${id}/`,
+    data
+  )
+}
+function transfertoGroupTargetSavings(
+  data: GroupTargetTransferDataInterface
+): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/savings/target-save/transfer-to-target-save/group/`,
+    data
+  )
+}
+
+

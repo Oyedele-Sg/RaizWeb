@@ -1,27 +1,30 @@
 "use client"
-
-import { ContentWrap } from "@/components/savings/ContentWrap"
-import {
-  ComponentOne,
-  ComponentPersonal,
-} from "@/components/savings/target-saving"
-import { current } from "@reduxjs/toolkit"
+import { useAppDispatch } from "@/shared/redux/types"
 import { useParams, useRouter } from "next/navigation"
-import { useContext, useEffect, useState } from "react"
-import { convertDateToTime } from "@/utils/helpers"
-import dayjs, { Dayjs } from "dayjs"
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
-import { LocalizationProvider, TimeField } from "@mui/x-date-pickers"
+import React, { useContext, useEffect } from "react"
+import { ContentWrap } from "@/components/savings/ContentWrap"
+import PinInput from "react-pin-input"
 import {
-  AjoFrequencyInterface,
+  AuthButton,
   BtnMain,
-  DayPicker,
-  JoinTargetSaveFromInterface,
-  MonthPicker,
+  Loading,
   RegisterInput,
+  PersonalTargetSavingsWithdrawalDataInterface,
+  createTransactionPinSchema,
+  AjoFrequencyInterface,
+  EditSavingDataInterface,
+  MonthPicker,
+  DayPicker,
+  GroupTargetSavingsDataInterface,
 } from "@/shared"
+import { Button } from "@/components/ui/button"
+
 import { FormProvider, useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
 import { toast } from "@/components/ui/use-toast"
+import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
+import { passwordHash } from "@/utils/helpers"
+import { userService } from "@/services"
 import {
   Select,
   SelectContent,
@@ -29,68 +32,81 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { userService } from "@/services"
+import { LocalizationProvider, TimeField } from "@mui/x-date-pickers"
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment"
+import { convertDateToTime } from "@/utils/helpers"
+import dayjs, { Dayjs } from "dayjs"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
 import { CurrentUserContext } from "@/providers/CurrentUserProvider"
-import { useAppDispatch } from "@/shared/redux/types"
-import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Calendar as CalendarIcon } from "lucide-react"
+import moment from "moment"
+import { Calendar } from "@/components/ui/calendar"
+import { cn } from "@/lib/utils"
 
-export default function page() {
+function page() {
+  const Router = useRouter()
   const { currentUser } = useContext(CurrentUserContext)
-
+  const dispatch = useAppDispatch()
   const Params = useParams()
-  const methods = useForm<JoinTargetSaveFromInterface>({
+  const handlenavigation = () => {
+    Router.push(`/savings/my-targets/${Params.savingsID}/details`)
+  }
+
+  const methods = useForm<EditSavingDataInterface>({
     defaultValues: {
       frequency_id: null,
-      preferred_credit_time: null,
-      preferred_deduction_amount: null,
-      primary_source_of_funds_id: null,
+      preferred_credit_time: "",
+      preferred_deduction_amount: 0,
       preferred_deduction_day: null,
       preferred_deduction_date: null,
     },
   })
-  const Router = useRouter()
-  const [current, setCurrent] = useState<string>()
-  const [step, setStep] = useState<number>(1)
-  const [frequencies, setFrequencies] = useState<AjoFrequencyInterface[]>([])
-  const handleNavigation = () => {
-    if (!current) {
-      Router.push("/savings/hub")
-    }
-    if (step === 1) {
-      setCurrent(undefined)
-    } else {
-      setStep(step - 1)
-    }
-  }
-  const dispatch = useAppDispatch()
 
-  const onSubmit = async (data: JoinTargetSaveFromInterface) => {
+  const [savingsDetails, setSavingsDetails] =
+    React.useState<GroupTargetSavingsDataInterface>()
+
+  const targetMember = savingsDetails?.target_save_group_members.find(
+    (member) => member.account_user_id === currentUser?.account_user_id
+  )
+
+  const onSubmit = async (data: EditSavingDataInterface) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.joinTargetSavings(Params.savingsID, {
-        ...data,
-        preferred_credit_time: convertDateToTime(prefferedTime),
-      })
+      await userService.editGroupTargetSavings(
+        targetMember?.target_save_group_member_id as string,
+        {
+          ...data,
+          preferred_credit_time: convertDateToTime(prefferedTime),
+        }
+      )
+
       toast({
-        title: "Successfully Joined",
-        description: `You have successfully joined this target savings`,
+        title: "Success",
+        description: `Savings settings updated successfully`,
         variant: "default",
         style: {
-          backgroundColor: "#7ABA98",
+          backgroundColor: "#10B981",
           color: "#fff",
           top: "20px",
           right: "20px",
         },
       })
-      Router.push("/savings/hub")
+
+      Router.push(`/savings/my-targets/${Params.savingsID}/details`)
       dispatch(setLoadingFalse())
     } catch (error) {
       dispatch(setLoadingFalse())
-      toast({
-        title: "Something Went Wrong",
-        description: `${error}`,
 
+      toast({
+        title: "Error",
+        description: `${error}`,
         variant: "destructive",
         style: {
           backgroundColor: "#f44336",
@@ -98,21 +114,33 @@ export default function page() {
           top: "20px",
           right: "20px",
         },
-        duration: 5000,
       })
     }
   }
 
-  const [prefferedTime, setPrefferedTime] = useState<Dayjs | null>(null)
-  const [prefferedDay, setPrefferedDay] = useState<number | null>(null)
-  const [prefferedDate, setPrefferedDate] = useState<number | null>(null)
-
-  const [prefferedFreq, setPrefferedFreq] = useState<number | null>(null)
+  // const [publicSaving, setPublicSaving] = React.useState<boolean>(true)
+  const [frequencies, setFrequencies] = React.useState<AjoFrequencyInterface[]>(
+    []
+  )
 
   const getData = async () => {
-    const response = await userService.getAjoFrequencies()
-    setFrequencies(response)
+    try {
+      dispatch(setLoadingTrue())
+      const response = await userService.getAjoFrequencies()
+      const res = await userService.getTargetSavingsByID(Params.savingsID)
+      setFrequencies(response)
+      setSavingsDetails(res)
+      dispatch(setLoadingFalse())
+    } catch (error) {
+      dispatch(setLoadingFalse())
+    }
   }
+
+  const [prefferedTime, setPrefferedTime] = React.useState<Dayjs | null>(null)
+  const [prefferedDay, setPrefferedDay] = React.useState<number | null>(null)
+  const [prefferedDate, setPrefferedDate] = React.useState<number | null>(null)
+
+  const [prefferedFreq, setPrefferedFreq] = React.useState<number | null>(null)
 
   useEffect(() => {
     getData()
@@ -127,10 +155,22 @@ export default function page() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className=''>
-        <ContentWrap handleNavigation={handleNavigation}>
+      <Loading />
+      <ContentWrap handleNavigation={handlenavigation}>
+        <div className='flex flex-col gap-9'>
+          <div className=''>
+            <h1 className='  font-display__medium text-purple capitalize '>
+              Savings Settings
+            </h1>
+            <p className=' text-neutral-70 font-title__large '>
+              Payment Settings
+            </p>
+          </div>
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <form
+              onSubmit={methods.handleSubmit(onSubmit)}
+              className=' flex flex-col gap-8 '
+            >
               <div className=' flex flex-col gap-9 '>
                 <div className=' flex flex-col gap-4 w-full'>
                   <p className=' text-neutral-80   font-label__large '>
@@ -178,19 +218,6 @@ export default function page() {
                   <TimeField
                     value={prefferedTime}
                     onChange={setPrefferedTime}
-                    // sx={{
-                    //   borderTop: "none !important",
-                    //   borderLeft: "none !important",
-                    //   borderRight: "none !important",
-                    //   borderBottom: "1px solid #9881AE", // Purple bottom border
-                    //   color: "#4B0082", // Purple text color
-                    //   "&::placeholder": {
-                    //     color: "#BFABD3", // Purple placeholder color
-                    //   },
-                    //   "&MuiInputBase-input::placeholder": {
-                    //     color: "#BFABD3", // Purple placeholder color
-                    //   },
-                    // }}
                   />
                 ) : prefferedFreq === 2 ? (
                   <div className=' flex flex-col gap-6 '>
@@ -218,57 +245,19 @@ export default function page() {
                   label='Preferred deduction amount '
                   rules={{ required: "Deduction amount is required" }}
                 />
-                <div className=' flex flex-col gap-4 w-full'>
-                  <p className=' text-neutral-80   font-label__large '>
-                    Primary source of funds
-                  </p>
-
-                  <Select
-                    onValueChange={(value) => {
-                      const selectedFrequency = currentUser?.wallets.find(
-                        (item) => item.wallet_id === value
-                      )
-                      methods.setValue(
-                        "primary_source_of_funds_id",
-                        selectedFrequency?.wallet_id as string
-                      )
-                    }}
-                  >
-                    <SelectTrigger className=' z-100000000 border-t-0 border-l-0 border-r-0 border-b border-b-purple  rounded-none text-neutral-100'>
-                      <SelectValue
-                        placeholder='Select Withdrawal Account'
-                        className={
-                          methods.formState.errors.primary_source_of_funds_id
-                            ? "input_field-input_error"
-                            : " border-none "
-                        }
-                      />
-                    </SelectTrigger>
-                    <SelectContent className='bg-neutral-20 text-neutral-90 h-[200px] overflow-auto z-10000000000000  '>
-                      {currentUser?.wallets.map((item) => (
-                        <SelectItem
-                          key={item.wallet_id}
-                          value={item.wallet_id}
-                          className='hover:bg-neutral-50'
-                        >
-                          {item.wallet_name} -{item.account_number} (
-                          {item.account_balance})
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
 
                 <BtnMain
-                  btnText='Join Target Savings'
+                  btnText=' Save Changes'
                   btnStyle=' w-full text-center text-grey  btn-gradient-savings  '
                   type='submit'
                 />
               </div>
             </form>
           </FormProvider>
-        </ContentWrap>
-      </div>
+        </div>
+      </ContentWrap>
     </LocalizationProvider>
   )
 }
+
+export default page

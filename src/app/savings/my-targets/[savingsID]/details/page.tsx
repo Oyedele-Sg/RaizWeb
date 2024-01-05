@@ -105,7 +105,7 @@ function Page() {
         <div className=' absolute bg-overlay-10 top-0 bottom-0 left-0 right-0  '></div>
 
         <div className=' absolute top-0  bottom-0 left-0 right-0    p-10 flex  justify-between '>
-          <div className='flex gap-8 items-center w-full bug    '>
+          <div className='flex gap-8 items-center w-full     '>
             <div
               className=' hidden border-[2px] border-neutral-80 rounded-full p-3 items-center justify-center lg:flex  '
               onClick={() => Router.push("/savings/hub")}
@@ -171,6 +171,20 @@ function Page() {
                 </div>
               </div>
             </div>
+          </div>
+          <div
+            className='flex items-center gap-1 align-bottom self-end cursor-default '
+            onClick={() =>
+              Router.push(`/savings/my-targets/${Params.savingsID}/settings`)
+            }
+          >
+            <Image
+              src={"/icons/vuesax-outline-edit.svg"}
+              width={24}
+              height={24}
+              alt=''
+            />
+            <span className=' text-neutral-20 text-t-16   '>Edit</span>
           </div>
         </div>
       </div>

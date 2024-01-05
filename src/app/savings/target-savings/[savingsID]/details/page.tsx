@@ -13,7 +13,7 @@ import {
 } from "@/shared"
 import Image from "next/image"
 import { useRouter, useSearchParams, useParams } from "next/navigation"
-import React, { useEffect } from "react"
+import React, { useContext, useEffect } from "react"
 import AjoPaymentTable from "@/components/ajo/AjoPaymentTable"
 import { useAppDispatch } from "@/shared/redux/types"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
@@ -22,11 +22,14 @@ import moment from "moment"
 import { SavingDetailsTile } from "@/components/savings"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 
 function Page() {
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const Params = useParams()
+  const { currentUser } = useContext(CurrentUserContext)
+
   const [savingsDetails, setSavingsDetails] =
     React.useState<GroupTargetSavingsDataInterface>()
   const [savingsActivity, setSavingsActivity] =
@@ -110,7 +113,7 @@ function Page() {
               />
             </div>
             <div className=' flex w-full  justify-between  '>
-              <div className=' text-grey flex flex-col gap-4 bug  '>
+              <div className=' text-grey flex flex-col gap-4  '>
                 <div className=' flex flex-col  gap-2  '>
                   <h1 className='  font-headline__large font-semibold  '>
                     {savingsDetails?.target_save.target_save_name}
@@ -159,6 +162,22 @@ function Page() {
                 </div>
               </div>
             </div>
+            <div
+              className='flex items-center gap-1 align-bottom self-end cursor-default '
+              onClick={() =>
+                Router.push(
+                  `/savings/target-savings/${Params.savingsID}/settings`
+                )
+              }
+            >
+              <Image
+                src={"/icons/vuesax-outline-edit.svg"}
+                width={24}
+                height={24}
+                alt=''
+              />
+              <span className=' text-neutral-20 text-t-16   '>Edit</span>
+            </div>
           </div>
         </div>
       </div>
@@ -176,13 +195,41 @@ function Page() {
                 access to your deposit
               </p>
             </div>
-            <BtnMain
-              btnText='Join Challenge'
-              btnStyle=' w-full text-grey btn-gradient-savings '
-              onClick={() =>
-                Router.push(`/savings/target-savings/${Params.savingsID}/join`)
-              }
-            />
+            {!savingsDetails?.target_save_group_members?.some(
+              (member) =>
+                member.account_user_id === currentUser?.account_user_id
+            ) ? (
+              <BtnMain
+                btnText='Join Challenge'
+                btnStyle=' w-full text-grey btn-gradient-savings '
+                onClick={() =>
+                  Router.push(
+                    `/savings/target-savings/${Params.savingsID}/join`
+                  )
+                }
+              />
+            ) : (
+              <div className='flex gap-9 '>
+                <BtnMain
+                  btnText='Withdraw'
+                  btnStyle=' w-full text-purple border-neutral-100 border'
+                  onClick={() =>
+                    Router.push(
+                      `/savings/target-savings/${Params.savingsID}/withdrawal`
+                    )
+                  }
+                />
+                <BtnMain
+                  btnText='Add Funds'
+                  btnStyle=' w-full text-grey btn-gradient-savings '
+                  onClick={() =>
+                    Router.push(
+                      `/savings/target-savings/${Params.savingsID}/add-funds`
+                    )
+                  }
+                />
+              </div>
+            )}
           </div>
 
           <div className=' grid  grid-cols-2  gap-8 flex-wrap  '>
@@ -199,7 +246,6 @@ function Page() {
           <div className=' flex flex-col gap-8  '>
             <div className='flex flex-col gap-6 '>
               <h2 className=' text-purple font-semibold text-t-24 '>
-                {" "}
                 Activites
               </h2>
             </div>

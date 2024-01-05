@@ -291,3 +291,13 @@ export function convertDateString(input: string): string | null {
     return null;
   }
 }
+export function generateMonthArray(numberOfDaysInMonth: number) {
+  const daysOfMonth = []
+
+  for (let i = 1; i <= numberOfDaysInMonth; i++) {
+    const dayObject = { day: i.toString(), id: i } // Adjusted to start from 0
+    daysOfMonth.push(dayObject)
+  }
+
+  return daysOfMonth
+}
