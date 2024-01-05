@@ -1,7 +1,7 @@
-import { BehaviorSubject } from "rxjs"
-import { fetchWrapper } from "@/utils/fetchWrapper"
-import { URL } from "@/utils/constants"
-import { useRouter, redirect } from "next/navigation"
+import { BehaviorSubject } from 'rxjs';
+import { fetchWrapper } from '@/utils/fetchWrapper';
+import { URL } from '@/utils/constants';
+import { useRouter, redirect } from 'next/navigation';
 import {
   BankDataInterface,
   BankInterface,
@@ -26,6 +26,7 @@ import {
   DailyAnalysistChartInterface,
   ChangePasswordDataInterface,
   NotificationDataInterface,
+  NotificationCategoryInterface,
   PendingSplitRequestDataInterface,
   SplitRequestDataInterface,
   AjoDataInterface,
@@ -59,6 +60,7 @@ import {
   LockSavingsDataInterface,
   LockSaveInterestInterface,
   LockSaveCreateDateInterface,
+  FreezeDebitDataInterface,
   TransactionPinFormInterface,
   JoinTargetSaveFromInterface,
   EarlyPenaltyDataInterface,
@@ -68,22 +70,22 @@ import {
   EditSavingDataInterface,
   GroupTargetTransferWithdrawInterface,
   GroupTargetTransferDataInterface,
-} from "@/shared"
-import { BankInputProps } from "@/components/profile-setup/AddBankForm"
-import { createSearchParams } from "@/utils/helpers"
+} from '@/shared';
+import { BankInputProps } from '@/components/profile-setup/AddBankForm';
+import { createSearchParams } from '@/utils/helpers';
 
-const baseUrl = `${URL}`
+const baseUrl = `${URL}`;
 const storedUser =
-  typeof window !== "undefined" ? sessionStorage.getItem("pesaToken") : null
+  typeof window !== 'undefined' ? sessionStorage.getItem('pesaToken') : null;
 
 const userSubject = new BehaviorSubject<any>(
   storedUser ? JSON.parse(storedUser) : null
-)
+);
 
 export const userService = {
   user: userSubject.asObservable(),
   get userValue() {
-    return userSubject.value
+    return userSubject.value;
   },
   logout,
   // getUser,
@@ -98,6 +100,8 @@ export const userService = {
   verifyPhone,
   addPhoneToUser,
   refreshPhoneOTP,
+  freezeDebit,
+  unfreezeDebit,
   verifyVoiceOTP,
   refreshVoiceOTP,
   updateUserProfileImage,
@@ -186,75 +190,83 @@ export const userService = {
   editPersonalTargetSavings,
   transferFormGroupTargetSavings,
   transfertoGroupTargetSavings
-}
+  getNotificationCategories,
+  getNotificationsByID,
+};
 // auth
 function login(data: LoginDataInterface): Promise<void> {
   return fetchWrapper.post(`${baseUrl}/auth/login/`, data).then((user: any) => {
     // publish user to subscribers and store in local storage to stay logged in between page refreshes
 
-    userSubject.next(user)
-    sessionStorage.setItem("pesaToken", JSON.stringify(user))
-  })
+    userSubject.next(user);
+    sessionStorage.setItem('pesaToken', JSON.stringify(user));
+  });
 }
 
 function logout(): void {
   // remove user from local storage, publish null to user subscribers, and redirect to login page
-  sessionStorage.removeItem("pesaToken")
-  userSubject.next(null)
+  sessionStorage.removeItem('pesaToken');
+  userSubject.next(null);
 
   // redirect("/login")
 }
 
 function signup(data: RegisterDataInterface): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/auth/signup/`, data)
+  return fetchWrapper.post(`${baseUrl}/auth/signup/`, data);
 }
 
 function changePassword(data: ChangePasswordDataInterface): Promise<void> {
-  return fetchWrapper.patch(`${baseUrl}/account_users/change-password/`, data)
+  return fetchWrapper.patch(`${baseUrl}/account_users/change-password/`, data);
 }
 
 function verifyEmail(data: { otp: string }): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=email`, data)
+  return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=email`, data);
 }
 
 function verifyPhone(data: { otp: string }): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=phone`, data)
+  return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=phone`, data);
 }
 
 function verifyVoiceOTP(data: { otp: string }): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=voice`, data)
+  return fetchWrapper.post(`${baseUrl}/auth/verify-otp/?medium=voice`, data);
 }
 function refreshVoiceOTP(data: { email: string }): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/auth/refresh-otp/?medium=voice`, data)
+  return fetchWrapper.post(`${baseUrl}/auth/refresh-otp/?medium=voice`, data);
+}
+function freezeDebit(data: FreezeDebitDataInterface): Promise<void> {
+  return fetchWrapper.patch(`${baseUrl}/account_users/freeze-debits/`, data);
+}
+function unfreezeDebit(data: FreezeDebitDataInterface): Promise<void> {
+  return fetchWrapper.patch(`${baseUrl}/account_users/unfreeze-debits/`, data);
 }
 
 function refreshPhoneOTP(data: { email: string }): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/auth/refresh-otp/?medium=phone`, data)
+  return fetchWrapper.post(`${baseUrl}/auth/refresh-otp/?medium=phone`, data);
 }
 function addPhoneToUser(data: {
-  phone_number: string
-  medium: string
+  phone_number: string;
+  medium: string;
 }): Promise<void> {
-  return fetchWrapper.patch(`${baseUrl}/account_users/phone_number/`, data)
+  return fetchWrapper.patch(`${baseUrl}/account_users/phone_number/`, data);
 }
 
 function resendEmail(data: { email: string }): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/auth/refresh-otp/?medium=email`, data)
+  return fetchWrapper.post(`${baseUrl}/auth/refresh-otp/?medium=email`, data);
 }
 
 function verifyBVN(data: { bvn: string }): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/auth/bvn/verification/`, data)
+  return fetchWrapper.post(`${baseUrl}/auth/bvn/verification/`, data);
 }
 
 function forgotPassword(data: ForgotPasswordDataInterface): Promise<void> {
   return fetchWrapper.post(
     `${baseUrl}/auth/forgot-password/?email=${data.email}`,
     {}
-  )
+  );
 }
 
 function resetPassword(data: ResetPasswordDataInterface): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/auth/reset-password/`, data)
+  return fetchWrapper.post(`${baseUrl}/auth/reset-password/`, data);
 }
 
 // function resetPassword(data): Promise<void> {
@@ -262,7 +274,7 @@ function resetPassword(data: ResetPasswordDataInterface): Promise<void> {
 // }
 
 function verifyAuthToken(data: { token: string }): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/auth/verify-token/`, data)
+  return fetchWrapper.post(`${baseUrl}/auth/verify-token/`, data);
 }
 
 function refreshAuthToken(data: { token: string }): Promise<void> {
@@ -271,56 +283,56 @@ function refreshAuthToken(data: { token: string }): Promise<void> {
     .then((user: any) => {
       // publish user to subscribers and store in local storage to stay logged in between page refreshes
       // ("user", user)
-      userSubject.next(user)
-      sessionStorage.setItem("pesaToken", JSON.stringify(user))
-    })
+      userSubject.next(user);
+      sessionStorage.setItem('pesaToken', JSON.stringify(user));
+    });
 }
 
 // profile apis
 function getCurrentUser(): Promise<UserInterface> {
-  return fetchWrapper.get(`${baseUrl}/account_users/me/`)
+  return fetchWrapper.get(`${baseUrl}/account_users/me/`);
 }
 
 function updateUserProfileImage(data: {
-  profile_image_url: string
+  profile_image_url: string;
 }): Promise<UserInterface> {
-  return fetchWrapper.patch(`${baseUrl}/account_users/profile-image/`, data)
+  return fetchWrapper.patch(`${baseUrl}/account_users/profile-image/`, data);
 }
 function updateUserOnboardingList(data: {
-  checking?: boolean
-  savings?: boolean
-  ajo?: boolean
-  loan?: boolean
+  checking?: boolean;
+  savings?: boolean;
+  ajo?: boolean;
+  loan?: boolean;
 }): Promise<UserInterface> {
   return fetchWrapper.patch(
     `${baseUrl}/account_users/update-onboarding-checklist/`,
     data
-  )
+  );
 }
 //profile user
 function updateUsername(data: { username: string }): Promise<UserInterface> {
-  return fetchWrapper.patch(`${baseUrl}/account_users/username/`, data)
+  return fetchWrapper.patch(`${baseUrl}/account_users/username/`, data);
 }
 function suggestUsername(data: string): Promise<string[]> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/usernames/suggestions/?username=${data}`
-  )
+  );
 }
 
 // lookup
 function getBanks(): Promise<BankDataInterface> {
-  return fetchWrapper.get(`${baseUrl}/nip-lookup/banks/`)
+  return fetchWrapper.get(`${baseUrl}/nip-lookup/banks/`);
 }
 
 function addBank(data: BankInputProps): Promise<void> {
   return fetchWrapper.post(
     `${baseUrl}/account_users/withdrawal_accounts/`,
     data
-  )
+  );
 }
 
 function addTransactionPin(data: TransactionPinInterface): Promise<void> {
-  return fetchWrapper.patch(`${baseUrl}/account_users/transaction-pin/`, data)
+  return fetchWrapper.patch(`${baseUrl}/account_users/transaction-pin/`, data);
 }
 
 function changeTransactionPin(
@@ -329,21 +341,21 @@ function changeTransactionPin(
   return fetchWrapper.patch(
     `${baseUrl}/account_users/transaction-pin/update/`,
     data
-  )
+  );
 }
 
 // wallet
 
 function CreateWallet(): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/account_users/wallets/`, {})
+  return fetchWrapper.post(`${baseUrl}/account_users/wallets/`, {});
 }
 
 // charts and graphs
 export interface getRecentTransParams {
-  start_date?: Date
-  end_date?: Date
-  limit?: number
-  offset?: number
+  start_date?: Date;
+  end_date?: Date;
+  limit?: number;
+  offset?: number;
 }
 
 function getRecentTransactions(
@@ -361,7 +373,7 @@ function getRecentTransactions(
       offset,
       transaction_type_id,
     })}`
-  )
+  );
 }
 
 function getExpenseChart(
@@ -373,7 +385,7 @@ function getExpenseChart(
       start_date,
       end_date,
     })}`
-  )
+  );
 }
 
 function getIncomeSummary(
@@ -385,7 +397,7 @@ function getIncomeSummary(
       start_date,
       end_date,
     })}`
-  )
+  );
 }
 
 function getDailyAnalysisReport(
@@ -395,39 +407,39 @@ function getDailyAnalysisReport(
     `${baseUrl}/account_users/daily-account-analysis/?${createSearchParams({
       number_of_days,
     })}`
-  )
+  );
 }
 
 // wallet
 function searchWallets(query?: string): Promise<UserSearchInterface[]> {
   return fetchWrapper.get(
-    `${baseUrl}/account_users/search/wallets/?search=${query || ""}`
-  )
+    `${baseUrl}/account_users/search/wallets/?search=${query || ''}`
+  );
 }
 
 function generateQRCode(): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/account_users/qr_code/`, {})
+  return fetchWrapper.post(`${baseUrl}/account_users/qr_code/`, {});
 }
 
 // transfer
 function walletTransfer(data: InternalDebitDataInterface): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/transfers/debit/send-internal/`, data)
+  return fetchWrapper.post(`${baseUrl}/transfers/debit/send-internal/`, data);
 }
 function externalTransfer(data: ExternalDebitDataInterface): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/transfers/external/send/`, data)
+  return fetchWrapper.post(`${baseUrl}/transfers/external/send/`, data);
 }
 
 // category
 function getCategory(): Promise<CategoryDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/categories/`)
+  return fetchWrapper.get(`${baseUrl}/categories/`);
 }
 
 function requestFunds(data: RequestDataInterface): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/transfers/credit/request-funds/`, data)
+  return fetchWrapper.post(`${baseUrl}/transfers/credit/request-funds/`, data);
 }
 
 function loadFunds(): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/transfers/credit/load-account/`, {})
+  return fetchWrapper.post(`${baseUrl}/transfers/credit/load-account/`, {});
 }
 
 function nipAccountLookup(
@@ -439,83 +451,83 @@ function nipAccountLookup(
       account_number,
       bank_code,
     })}`
-  )
+  );
 }
 
 function getNotificationsByID(
   page?: string,
-  notification_category_id?: string,
+  notification_category_id?: number,
   read?: string
 ): Promise<NotificationDataInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/notifications/${notification_category_id}/?limit=10&page=1`
-  )
+  );
 }
 
 function readNotification(
   notification_id?: string,
   read = true
 ): Promise<void> {
-  const queryParams = read ? "?read=true" : ""
+  const queryParams = read ? '?read=true' : '';
   return fetchWrapper.patch(
     `${baseUrl}/account_users/notifications/${notification_id}/${queryParams}`,
     {}
-  )
+  );
 }
 
 // credit transfer
 function getCreditTransferDetail(params: {
-  notification_url?: string
-  credit_transfer_id?: string
+  notification_url?: string;
+  credit_transfer_id?: string;
 }): Promise<CreditTransferDataInterface> {
-  const { notification_url, credit_transfer_id } = params
+  const { notification_url, credit_transfer_id } = params;
   if (credit_transfer_id) {
     return fetchWrapper.get(
       `${baseUrl}/transfers/credit/get/${credit_transfer_id}`
-    )
+    );
   } else {
-    return fetchWrapper.get(`${baseUrl}/${notification_url}`)
+    return fetchWrapper.get(`${baseUrl}/${notification_url}`);
   }
 }
 
 // debit transfer
 function getDebitTransferDetail(params: {
-  notification_url?: string
-  debit_transfer_id?: string
+  notification_url?: string;
+  debit_transfer_id?: string;
 }): Promise<DebitTransferDataInterface> {
-  const { notification_url, debit_transfer_id } = params
+  const { notification_url, debit_transfer_id } = params;
   if (debit_transfer_id) {
     return fetchWrapper.get(
       `${baseUrl}/transfers/debit/get/${debit_transfer_id}`
-    )
+    );
   } else {
-    return fetchWrapper.get(`${baseUrl}/${notification_url}`)
+    return fetchWrapper.get(`${baseUrl}/${notification_url}`);
   }
 }
 
 //split request
 function getDebitSplitRequestDetail(params: {
-  notification_url?: string
-  split_request_id?: string
+  notification_url?: string;
+  split_request_id?: string;
 }): Promise<DebitSplitRequestDataInterface> {
-  const { notification_url, split_request_id } = params
+  const { notification_url, split_request_id } = params;
   if (split_request_id) {
     return fetchWrapper.get(
       `${baseUrl}/transfers/debit/split-requests/${split_request_id}`
-    )
+    );
   } else {
-    return fetchWrapper.get(`${baseUrl}/${notification_url}`)
+    return fetchWrapper.get(`${baseUrl}/${notification_url}`);
   }
 }
 
 // favourites
 function getFavoriteAccounts(): Promise<FavoriteAccountsDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/favourite_accounts/`)
+  return fetchWrapper.get(`${baseUrl}/favourite_accounts/`);
 }
 function getFavoriteAccountByID(
   id: string
 ): Promise<FavoriteAccountsDataInterface> {
-  return fetchWrapper.get(`${baseUrl}/favourite_accounts/${id}/`)
+  return fetchWrapper.get(`${baseUrl}/favourite_accounts/${id}/`);
 }
 
 function getExternalFavoriteAccounts(): Promise<
@@ -523,34 +535,34 @@ function getExternalFavoriteAccounts(): Promise<
 > {
   return fetchWrapper.get(
     `${baseUrl}/favourite_external_accounts/account-user/get/`
-  )
+  );
 }
 
 function addFavoriteWalletAccount(
   favorite_account_id: string,
   data: {
-    account_user_id: string
-    favourite_account_user_id: string
-    favourite: boolean
-    ranking: number
+    account_user_id: string;
+    favourite_account_user_id: string;
+    favourite: boolean;
+    ranking: number;
   }
 ): Promise<void> {
   return fetchWrapper.patch(
     `${baseUrl}/favourite_accounts/${favorite_account_id}/`,
     data
-  )
+  );
 }
 
 // requsts
 
 function getPendingRequests(): Promise<PendingRequestDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/transfers/debit/get-pending-requests/`)
+  return fetchWrapper.get(`${baseUrl}/transfers/debit/get-pending-requests/`);
 }
 
 function getPendingSplitRequests(): Promise<
   PendingSplitRequestDataInterface[]
 > {
-  return fetchWrapper.get(`${baseUrl}transfers/debit/get-my-split-requests/`)
+  return fetchWrapper.get(`${baseUrl}transfers/debit/get-my-split-requests/`);
 }
 
 function approveRequest(
@@ -560,13 +572,13 @@ function approveRequest(
   return fetchWrapper.patch(
     `${baseUrl}/transfers/debit/request-funds/${request_id}/accept/`,
     data
-  )
+  );
 }
 function disapproveRequest(request_id: string): Promise<void> {
   return fetchWrapper.patch(
     `${baseUrl}/transfers/debit/request-funds/${request_id}/decline/`,
     {}
-  )
+  );
 }
 
 // notifications
@@ -577,7 +589,7 @@ function getNotifications(
 ): Promise<NotificationDataInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/notifications/?limit=10&page=1`
-  )
+  );
 }
 
 function requestSplitFunds(data: SplitRequestDataInterface): Promise<void> {
@@ -585,14 +597,14 @@ function requestSplitFunds(data: SplitRequestDataInterface): Promise<void> {
     `${baseUrl}/transfers/credit/request-split/
   `,
     data
-  )
+  );
 }
 
 //ajo
 function getAjoAll(filter?: string): Promise<AjoDataInterface[]> {
   return fetchWrapper.get(
-    `${baseUrl}/ajo/feed/public/${filter ? `?filter=${filter}` : ""}`
-  )
+    `${baseUrl}/ajo/feed/public/${filter ? `?filter=${filter}` : ''}`
+  );
 }
 
 function joinAjo(id: string): Promise<void> {
@@ -600,44 +612,44 @@ function joinAjo(id: string): Promise<void> {
     `${baseUrl}/ajo/${id}/join/
   `,
     {}
-  )
+  );
 }
 
 function createAjo(data: AjoCreateFormInterface): Promise<void> {
-  return fetchWrapper.post(`${baseUrl}/ajo/create/`, data)
+  return fetchWrapper.post(`${baseUrl}/ajo/create/`, data);
 }
 
 function getAjoFrequencies(): Promise<AjoFrequencyInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/frequencies/`)
+  return fetchWrapper.get(`${baseUrl}/frequencies/`);
 }
 
 function getMyAjo(): Promise<AjoDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/ajo/my-ajos/all/`)
+  return fetchWrapper.get(`${baseUrl}/ajo/my-ajos/all/`);
 }
 
 function getAjoByID(id: string): Promise<AjoDataInterface> {
-  return fetchWrapper.get(`${baseUrl}/ajo/${id}/`)
+  return fetchWrapper.get(`${baseUrl}/ajo/${id}/`);
 }
 function getAjoMembers(id: string): Promise<any> {
-  return fetchWrapper.get(`${baseUrl}/ajo/${id}/ajo-membership/`)
+  return fetchWrapper.get(`${baseUrl}/ajo/${id}/ajo-membership/`);
 }
 
 function leaveAjo(id: string): Promise<any> {
-  return fetchWrapper.patch(`${baseUrl}/ajo/${id}/leave/`, {})
+  return fetchWrapper.patch(`${baseUrl}/ajo/${id}/leave/`, {});
 }
 
 function getAjoPaymentTable(id: string): Promise<AjoPaymentCycleInterface> {
-  return fetchWrapper.get(`${baseUrl}/ajo/ajo-cycle/${id}/ajo-payment-table/`)
+  return fetchWrapper.get(`${baseUrl}/ajo/ajo-cycle/${id}/ajo-payment-table/`);
 }
 
 function sendAjoJoinRequest(
   id: string,
   data: {
-    account_user_id: String
-    ajo_cycle_id: String
+    account_user_id: String;
+    ajo_cycle_id: String;
   }
 ): Promise<AjoPaymentCycleInterface> {
-  return fetchWrapper.post(`${baseUrl}/ajo/${id}/invites/`, data)
+  return fetchWrapper.post(`${baseUrl}/ajo/${id}/invites/`, data);
 }
 
 // forgot pin
@@ -645,16 +657,16 @@ function getForgotPinOTP(): Promise<void> {
   return fetchWrapper.post(
     `${baseUrl}/account_users/transaction-pin/forgot/`,
     {}
-  )
+  );
 }
 function resetTransactionPin(data: {
-  otp: string
-  transaction_pin: string
+  otp: string;
+  transaction_pin: string;
 }): Promise<void> {
   return fetchWrapper.patch(
     `${baseUrl}/account_users/transaction-pin/reset/`,
     data
-  )
+  );
 }
 
 //manage account
@@ -662,46 +674,46 @@ function deleteConnectedAccount(id: string): Promise<any> {
   return fetchWrapper.deleteBody(
     `${baseUrl}/account_users/withdrawal_accounts/${id}/`,
     {}
-  )
+  );
 }
 
 function addPryAccount(id: string): Promise<any> {
   return fetchWrapper.patch(
     `${baseUrl}/account_users/withdrawal-accounts/${id}/primary/`,
     {}
-  )
+  );
 }
 
 // budget
 function getBudget(): Promise<BudgetDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/budgets/`)
+  return fetchWrapper.get(`${baseUrl}/budgets/`);
 }
 
 function getBudgetByID(id: string): Promise<BudgetDataInterface> {
-  return fetchWrapper.get(`${baseUrl}/budgets/${id}/`)
+  return fetchWrapper.get(`${baseUrl}/budgets/${id}/`);
 }
 function getBudgetCategoryTransaction(
   id: string
 ): Promise<BudgetCategoryTransactionInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/budget_categories/${id}/transactions/`)
+  return fetchWrapper.get(`${baseUrl}/budget_categories/${id}/transactions/`);
 }
 
 function createBudget(data: CreateBudgetInterface): Promise<any> {
-  return fetchWrapper.post(`${baseUrl}/budgets/`, data)
+  return fetchWrapper.post(`${baseUrl}/budgets/`, data);
 }
 
 function downloadStatement(start: string, end: string): Promise<void> {
   return fetchWrapper.get(
     `${baseUrl}/account_users/get-account-statement/?start_date=${start}&end_date=${end}`
-  )
+  );
 }
 
 function getNipBanks(): Promise<NipBankInterface> {
-  return fetchWrapper.get(`${baseUrl}/nip-lookup/banks/`)
+  return fetchWrapper.get(`${baseUrl}/nip-lookup/banks/`);
 }
 
 function getPaystackBanks(): Promise<PayStackBankInterface> {
-  return fetchWrapper.get(`${baseUrl}/credit/withdrawal-account/banks/all/`)
+  return fetchWrapper.get(`${baseUrl}/credit/withdrawal-account/banks/all/`);
 }
 
 function initiateCreditWithdrawalCharge(
@@ -710,7 +722,7 @@ function initiateCreditWithdrawalCharge(
   return fetchWrapper.post(
     `${baseUrl}/credit/withdrawal-account/initiate-charge/`,
     data
-  )
+  );
 }
 
 function initiateBirthdayCharge(
@@ -719,7 +731,7 @@ function initiateBirthdayCharge(
   return fetchWrapper.post(
     `${baseUrl}/credit/withdrawal-account/charge-with-birthday/`,
     data
-  )
+  );
 }
 
 function payStackAccountLookup(
@@ -733,7 +745,7 @@ function payStackAccountLookup(
         bank_code,
       }
     )}`
-  )
+  );
 }
 
 function submitChargeOTP(
@@ -742,7 +754,7 @@ function submitChargeOTP(
   return fetchWrapper.post(
     `${baseUrl}/credit/withdrawal-account/charge-with-otp/`,
     data
-  )
+  );
 }
 
 function validateChargeOTP(
@@ -751,7 +763,7 @@ function validateChargeOTP(
   return fetchWrapper.post(
     `${baseUrl}/credit/withdrawal-account/charge-with-otp/validate/`,
     data
-  )
+  );
 }
 
 // savings
@@ -768,7 +780,7 @@ function getPublicTargetSavings(
       min_target_amount,
       max_target_amount,
     })}`
-  )
+  );
 }
 
 function getAllTargetSavings(
@@ -784,7 +796,7 @@ function getAllTargetSavings(
       min_target_amount,
       max_target_amount,
     })}`
-  )
+  );
 }
 
 function getPersonalTargetSavings(
@@ -793,35 +805,35 @@ function getPersonalTargetSavings(
   min_target_amount?: number,
   max_target_amount?: number
 ): Promise<PersonalTargetSavingsDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/savings/target-save/personal/`)
+  return fetchWrapper.get(`${baseUrl}/savings/target-save/personal/`);
 }
 
 function createPersonalTargetSavings(
   data: CreateTargetSavingsFormInterface
 ): Promise<any> {
-  return fetchWrapper.post(`${baseUrl}/savings/target-save/personal/`, data)
+  return fetchWrapper.post(`${baseUrl}/savings/target-save/personal/`, data);
 }
 
 function createGroupTargetSavings(
   data: CreateTargetSavingsFormInterface
 ): Promise<any> {
-  return fetchWrapper.post(`${baseUrl}/savings/target-save/group/`, data)
+  return fetchWrapper.post(`${baseUrl}/savings/target-save/group/`, data);
 }
 function getTargetSavingsByID(
   id: string
 ): Promise<GroupTargetSavingsDataInterface> {
-  return fetchWrapper.get(`${baseUrl}/savings/target-save/group/${id}/`)
+  return fetchWrapper.get(`${baseUrl}/savings/target-save/group/${id}/`);
 }
 function getPersonalTargetSavingsByID(
   id: string
 ): Promise<PersonalTargetSavingsDataInterface> {
-  return fetchWrapper.get(`${baseUrl}/savings/target-save/personal/${id}/`)
+  return fetchWrapper.get(`${baseUrl}/savings/target-save/personal/${id}/`);
 }
 
 // transaction types
 
 function getTransactionTypes(): Promise<TransactiontTypeInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/transaction-types/`)
+  return fetchWrapper.get(`${baseUrl}/transaction-types/`);
 }
 
 function getGroupTargetActivity(
@@ -829,7 +841,7 @@ function getGroupTargetActivity(
 ): Promise<GroupTargetSavingsActivitiesDataInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/savings/target-save/group/${id}/activities/`
-  )
+  );
 }
 
 // lock savings
@@ -839,28 +851,28 @@ function getLockSavings(
 ): Promise<LockSavingsDataInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/savings/lock-save/?has_withdrawn=${has_withdrawn}`
-  )
+  );
 }
 
 function getAllLockSavings(): Promise<LockSavingsDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/savings/lock-save/`)
+  return fetchWrapper.get(`${baseUrl}/savings/lock-save/`);
 }
 
 function getLockSavingsByID(id: string): Promise<LockSavingsDataInterface> {
-  return fetchWrapper.get(`${baseUrl}/savings/lock-save/${id}`)
+  return fetchWrapper.get(`${baseUrl}/savings/lock-save/${id}`);
 }
 
 function getLockSavingsInterest(data: {
-  amount: number
-  end_date: Date
+  amount: number;
+  end_date: Date;
 }): Promise<LockSaveInterestInterface> {
-  return fetchWrapper.post(`${baseUrl}/savings/lock-save/interest/`, data)
+  return fetchWrapper.post(`${baseUrl}/savings/lock-save/interest/`, data);
 }
 
 function createLockSavings(
   data: LockSaveCreateDateInterface
 ): Promise<LockSavingsDataInterface> {
-  return fetchWrapper.post(`${baseUrl}/savings/lock-save/`, data)
+  return fetchWrapper.post(`${baseUrl}/savings/lock-save/`, data);
 }
 
 function earlyWithdrawalLockSavings(
@@ -870,13 +882,13 @@ function earlyWithdrawalLockSavings(
   return fetchWrapper.patch(
     `${baseUrl}/savings/lock-save/${id}/early-withdrawal/`,
     data
-  )
+  );
 }
 
 function earlyWithdrawalPenalty(
   data: EarlyPenaltyFormInterface
 ): Promise<EarlyPenaltyDataInterface> {
-  return fetchWrapper.post(`${baseUrl}/savings/lock-save/penalty-fee/`, data)
+  return fetchWrapper.post(`${baseUrl}/savings/lock-save/penalty-fee/`, data);
 }
 
 function joinTargetSavings(
@@ -886,7 +898,7 @@ function joinTargetSavings(
   return fetchWrapper.post(
     `${baseUrl}/savings/target-save/group/${id}/join/`,
     data
-  )
+  );
 }
 
 function personalTargetSavingsWithdrawal(
@@ -896,7 +908,7 @@ function personalTargetSavingsWithdrawal(
   return fetchWrapper.post(
     `${baseUrl}/savings/target-save/transfer-from-target-save/personal/${id}/`,
     data
-  )
+  );
 }
 
 function editPersonalTargetSavings(
@@ -909,11 +921,28 @@ function editPersonalTargetSavings(
   )
 }
 
+
+
 function transfertoPersonalTargetSavings(
   data: PersonalTargetTransferDataInterface
 ): Promise<void> {
   return fetchWrapper.post(
     `${baseUrl}/savings/target-save/transfer-to-target-save/personal/`,
+    data
+  )
+}
+
+function getNotificationCategories(): Promise<NotificationCategoryInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/notification-categories/`);
+}
+
+
+function transferFormGroupTargetSavings(
+  id: string,
+  data: GroupTargetTransferWithdrawInterface
+): Promise<void> {
+  return fetchWrapper.post(
+    `${baseUrl}/savings/target-save/transfer-from-target-save/group/${id}/`,
     data
   )
 }
@@ -926,12 +955,4 @@ function transfertoGroupTargetSavings(
   )
 }
 
-function transferFormGroupTargetSavings(
-  id: string,
-  data: GroupTargetTransferWithdrawInterface
-): Promise<void> {
-  return fetchWrapper.post(
-    `${baseUrl}/savings/target-save/transfer-from-target-save/group/${id}/`,
-    data
-  )
-}
+

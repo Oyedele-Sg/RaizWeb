@@ -519,3 +519,11 @@ progress::-moz-progress-bar {
 .budget-text_red {
   color: #b3261e;
 }
+
+.bg-blue {
+  background-color: #229bf3;
+  color: #f4f4f4;
+}
+.budget-label {
+  width: 60% !important;
+}

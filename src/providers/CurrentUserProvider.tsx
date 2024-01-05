@@ -1,67 +1,67 @@
-"use client"
-import React, { useEffect, useState } from "react"
-import { userService } from "@/services"
-import { toast } from "@/components/ui/use-toast"
-import { UserInterface } from "@/shared"
-import { useRouter } from "next/navigation"
+'use client';
+import React, { useEffect, useState } from 'react';
+import { userService } from '@/services';
+import { toast } from '@/components/ui/use-toast';
+import { UserInterface } from '@/shared';
+import { useRouter } from 'next/navigation';
 
 // Define the CurrentUserContext with a UserInterface type
 export const CurrentUserContext = React.createContext<{
-  currentUser: UserInterface | undefined
-  isLoading: boolean
-}>({ currentUser: undefined, isLoading: false })
+  currentUser: UserInterface | undefined;
+  isLoading: boolean;
+}>({ currentUser: undefined, isLoading: false });
 
 const CurrentUserProvider: React.FC<{ children: React.ReactNode }> = (
   props
 ) => {
   const [currentUser, setCurrentUser] = useState<UserInterface | undefined>(
     undefined
-  )
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const Router = useRouter()
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const Router = useRouter();
 
   const getCurrentUser = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-      const response = await userService.getCurrentUser()
+      const response = await userService.getCurrentUser();
       if (response) {
         // response.username === null && Router.push("/profile/username")
-        setIsLoading(false)
-        setCurrentUser(response)
+        setIsLoading(false);
+        setCurrentUser(response);
       }
     } catch (e: any) {
-      setIsLoading(false)
+      setIsLoading(false);
       toast({
-        title: "Error",
+        title: 'Error',
         description: `Something went wrong. ${e}`,
-        variant: "destructive",
+        variant: 'destructive',
         style: {
-          backgroundColor: "#f44336",
-          color: "#fff",
-          top: "20px",
-          right: "20px",
+          backgroundColor: '#f44336',
+          color: '#fff',
+          top: '20px',
+          right: '20px',
         },
-      })
+      });
     }
-  }
+  };
 
   useEffect(() => {
-    getCurrentUser()
+    getCurrentUser();
 
     const intervalId = setInterval(() => {
-      getCurrentUser()
-    }, 30000) 
+      getCurrentUser();
+    }, 30000);
     return () => {
-      clearInterval(intervalId)
-    }
-  }, [])
+      clearInterval(intervalId);
+    };
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={{ currentUser, isLoading }}>
       {props.children}
     </CurrentUserContext.Provider>
-  )
-}
+  );
+};
 
-export default CurrentUserProvider
+export default CurrentUserProvider;
