@@ -162,6 +162,22 @@ function Page() {
                 </div>
               </div>
             </div>
+            <div
+              className='flex items-center gap-1 align-bottom self-end cursor-default '
+              onClick={() =>
+                Router.push(
+                  `/savings/target-savings/${Params.savingsID}/settings`
+                )
+              }
+            >
+              <Image
+                src={"/icons/vuesax-outline-edit.svg"}
+                width={24}
+                height={24}
+                alt=''
+              />
+              <span className=' text-neutral-20 text-t-16   '>Edit</span>
+            </div>
           </div>
         </div>
       </div>

@@ -185,7 +185,8 @@ export const userService = {
   transfertoPersonalTargetSavings,
   editPersonalTargetSavings,
   transferFormGroupTargetSavings,
-  transfertoGroupTargetSavings
+  transfertoGroupTargetSavings,
+  editGroupTargetSavings,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -908,7 +909,15 @@ function editPersonalTargetSavings(
     data
   )
 }
-
+function editGroupTargetSavings(
+  id: string,
+  data: EditSavingDataInterface
+): Promise<void> {
+  return fetchWrapper.patch(
+    `${baseUrl}/savings/target-save/group/${id}/settings`,
+    data
+  )
+}
 function transfertoPersonalTargetSavings(
   data: PersonalTargetTransferDataInterface
 ): Promise<void> {

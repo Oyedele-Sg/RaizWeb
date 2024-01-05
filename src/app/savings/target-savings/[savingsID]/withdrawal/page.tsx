@@ -1,7 +1,7 @@
 "use client"
 import { useAppDispatch } from "@/shared/redux/types"
 import { useParams, useRouter } from "next/navigation"
-import React from "react"
+import React, { useContext, useEffect } from "react"
 import { ContentWrap } from "@/components/savings/ContentWrap"
 import PinInput from "react-pin-input"
 import {
@@ -11,6 +11,7 @@ import {
   RegisterInput,
   GroupTargetTransferWithdrawInterface,
   createTransactionPinSchema,
+  GroupTargetSavingsDataInterface,
 } from "@/shared"
 import { FormProvider, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -18,8 +19,11 @@ import { toast } from "@/components/ui/use-toast"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { passwordHash } from "@/utils/helpers"
 import { userService } from "@/services"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 
 function page() {
+  const { currentUser } = useContext(CurrentUserContext)
+
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const Params = useParams()
@@ -35,10 +39,17 @@ function page() {
     // resolver: yupResolver(createTransactionPinSchema),
   })
 
+  const [savingsDetails, setSavingsDetails] =
+    React.useState<GroupTargetSavingsDataInterface>()
+
+  const targetMember = savingsDetails?.target_save_group_members.find(
+    (member) => member.account_user_id === currentUser?.account_user_id
+  )
+
   const onSubmit = async (data: GroupTargetTransferWithdrawInterface) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.transferFormGroupTargetSavings(Params.savingsID, {
+      await userService.transferFormGroupTargetSavings(targetMember?.target_save_group_member_id as string, {
         ...data,
         transaction_pin: passwordHash(data.transaction_pin),
       })
@@ -73,6 +84,22 @@ function page() {
       })
     }
   }
+
+
+  useEffect(() => {
+    const getTargetSavingsDetails = async () => {
+      try {
+        dispatch(setLoadingTrue())
+        const res = await userService.getTargetSavingsByID(Params.savingsID)
+        setSavingsDetails(res)
+        dispatch(setLoadingFalse())
+      } catch (error) {
+        dispatch(setLoadingFalse())
+      }
+    }
+    getTargetSavingsDetails()
+  }, [])
+
   return (
     <>
       <Loading />
