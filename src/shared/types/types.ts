@@ -1209,6 +1209,8 @@ export interface JoinTargetSaveFromInterface {
   preferred_credit_time: string | null
   preferred_deduction_amount: number | null
   primary_source_of_funds_id: string | null
+  preferred_deduction_day: number | null
+  preferred_deduction_date: number | null
 }
 
 export interface EarlyPenaltyFormInterface {

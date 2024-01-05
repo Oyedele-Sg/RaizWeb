@@ -7,7 +7,7 @@ import {
 } from "@/components/savings/target-saving"
 import { current } from "@reduxjs/toolkit"
 import { useParams, useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { convertDateToTime } from "@/utils/helpers"
 import dayjs, { Dayjs } from "dayjs"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
@@ -15,7 +15,9 @@ import { LocalizationProvider, TimeField } from "@mui/x-date-pickers"
 import {
   AjoFrequencyInterface,
   BtnMain,
+  DayPicker,
   JoinTargetSaveFromInterface,
+  MonthPicker,
   RegisterInput,
 } from "@/shared"
 import { FormProvider, useForm } from "react-hook-form"
@@ -29,15 +31,22 @@ import {
 } from "@/components/ui/select"
 import { userService } from "@/services"
 import { Label } from "@/components/ui/label"
+import { CurrentUserContext } from "@/providers/CurrentUserProvider"
+import { useAppDispatch } from "@/shared/redux/types"
+import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 
 export default function page() {
+  const { currentUser } = useContext(CurrentUserContext)
+
   const Params = useParams()
   const methods = useForm<JoinTargetSaveFromInterface>({
     defaultValues: {
       frequency_id: null,
       preferred_credit_time: null,
       preferred_deduction_amount: null,
-      primary_source_of_funds: null,
+      primary_source_of_funds_id: null,
+      preferred_deduction_day: null,
+      preferred_deduction_date: null,
     },
   })
   const Router = useRouter()
@@ -54,9 +63,11 @@ export default function page() {
       setStep(step - 1)
     }
   }
+  const dispatch = useAppDispatch()
 
   const onSubmit = async (data: JoinTargetSaveFromInterface) => {
     try {
+      dispatch(setLoadingTrue())
       await userService.joinTargetSavings(Params.savingsID, {
         ...data,
         preferred_credit_time: convertDateToTime(prefferedTime),
@@ -73,7 +84,9 @@ export default function page() {
         },
       })
       Router.push("/savings/hub")
+      dispatch(setLoadingFalse())
     } catch (error) {
+      dispatch(setLoadingFalse())
       toast({
         title: "Something Went Wrong",
         description: `${error}`,
@@ -91,6 +104,10 @@ export default function page() {
   }
 
   const [prefferedTime, setPrefferedTime] = useState<Dayjs | null>(null)
+  const [prefferedDay, setPrefferedDay] = useState<number | null>(null)
+  const [prefferedDate, setPrefferedDate] = useState<number | null>(null)
+
+  const [prefferedFreq, setPrefferedFreq] = useState<number | null>(null)
 
   const getData = async () => {
     const response = await userService.getAjoFrequencies()
@@ -101,6 +118,13 @@ export default function page() {
     getData()
   }, [])
 
+  useEffect(() => {
+    methods.setValue("preferred_deduction_day", prefferedDay)
+  }, [prefferedDay])
+  useEffect(() => {
+    methods.setValue("preferred_deduction_date", prefferedDate)
+  }, [prefferedDate])
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className=''>
@@ -108,22 +132,6 @@ export default function page() {
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)}>
               <div className=' flex flex-col gap-9 '>
-                <TimeField value={prefferedTime} onChange={setPrefferedTime} />
-
-                <RegisterInput
-                  type='number'
-                  name='preferred_deduction_amount'
-                  label='Preferred deduction amount '
-                  rules={{ required: "Deduction amount is required" }}
-                />
-                <RegisterInput
-                  name='primary_source_of_funds'
-                  label='Primary source of funds '
-                  rules={{
-                    required: "Primary source of fund is required",
-                  }}
-                />
-
                 <div className=' flex flex-col gap-4 w-full'>
                   <p className=' text-neutral-80   font-label__large '>
                     Choose Savings Frequency
@@ -138,11 +146,14 @@ export default function page() {
                         "frequency_id",
                         selectedFrequency?.frequency_id as number
                       )
+                      setPrefferedFreq(
+                        selectedFrequency?.frequency_id as number
+                      )
                     }}
                   >
                     <SelectTrigger className=' z-100000000 border-t-0 border-l-0 border-r-0 border-b border-b-purple  rounded-none text-neutral-100'>
                       <SelectValue
-                        placeholder='Select Savings Frquency'
+                        placeholder='Select Savings Frequency'
                         className={
                           methods.formState.errors.frequency_id
                             ? "input_field-input_error"
@@ -158,6 +169,90 @@ export default function page() {
                           className='hover:bg-neutral-50'
                         >
                           {item.frequency_name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                {prefferedFreq === 3 ? (
+                  <TimeField
+                    value={prefferedTime}
+                    onChange={setPrefferedTime}
+                    // sx={{
+                    //   borderTop: "none !important",
+                    //   borderLeft: "none !important",
+                    //   borderRight: "none !important",
+                    //   borderBottom: "1px solid #9881AE", // Purple bottom border
+                    //   color: "#4B0082", // Purple text color
+                    //   "&::placeholder": {
+                    //     color: "#BFABD3", // Purple placeholder color
+                    //   },
+                    //   "&MuiInputBase-input::placeholder": {
+                    //     color: "#BFABD3", // Purple placeholder color
+                    //   },
+                    // }}
+                  />
+                ) : prefferedFreq === 2 ? (
+                  <div className=' flex flex-col gap-6 '>
+                    {" "}
+                    <DayPicker setDay={setPrefferedDay} />{" "}
+                    <TimeField
+                      value={prefferedTime}
+                      onChange={setPrefferedTime}
+                    />{" "}
+                  </div>
+                ) : prefferedFreq === 1 ? (
+                  <div className=' flex flex-col gap-6 '>
+                    {" "}
+                    <MonthPicker setDay={setPrefferedDate} />{" "}
+                    <TimeField
+                      value={prefferedTime}
+                      onChange={setPrefferedTime}
+                    />{" "}
+                  </div>
+                ) : null}
+
+                <RegisterInput
+                  type='number'
+                  name='preferred_deduction_amount'
+                  label='Preferred deduction amount '
+                  rules={{ required: "Deduction amount is required" }}
+                />
+                <div className=' flex flex-col gap-4 w-full'>
+                  <p className=' text-neutral-80   font-label__large '>
+                    Primary source of funds
+                  </p>
+
+                  <Select
+                    onValueChange={(value) => {
+                      const selectedFrequency = currentUser?.wallets.find(
+                        (item) => item.wallet_id === value
+                      )
+                      methods.setValue(
+                        "primary_source_of_funds_id",
+                        selectedFrequency?.wallet_id as string
+                      )
+                    }}
+                  >
+                    <SelectTrigger className=' z-100000000 border-t-0 border-l-0 border-r-0 border-b border-b-purple  rounded-none text-neutral-100'>
+                      <SelectValue
+                        placeholder='Select Withdrawal Account'
+                        className={
+                          methods.formState.errors.primary_source_of_funds_id
+                            ? "input_field-input_error"
+                            : " border-none "
+                        }
+                      />
+                    </SelectTrigger>
+                    <SelectContent className='bg-neutral-20 text-neutral-90 h-[200px] overflow-auto z-10000000000000  '>
+                      {currentUser?.wallets.map((item) => (
+                        <SelectItem
+                          key={item.wallet_id}
+                          value={item.wallet_id}
+                          className='hover:bg-neutral-50'
+                        >
+                          {item.wallet_name} -{item.account_number} (
+                          {item.account_balance})
                         </SelectItem>
                       ))}
                     </SelectContent>
