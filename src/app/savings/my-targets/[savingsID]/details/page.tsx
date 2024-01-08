@@ -20,7 +20,10 @@ import { useAppDispatch } from "@/shared/redux/types"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { dateDifferenceInDays, timeAgo } from "@/utils/helpers"
 import moment from "moment"
-import { SavingDetailsTile } from "@/components/savings"
+import {
+  DetailInformationComponent,
+  SavingDetailsTile,
+} from "@/components/savings"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
 
@@ -91,6 +94,25 @@ function Page() {
     },
   ]
 
+  const preJoinData = [
+    {
+      title: "Target amount",
+      value: savingsDetails?.target_save.target_amount,
+    },
+    {
+      title: "Current amount",
+      value: savingsDetails?.current_amount,
+    },
+
+    {
+      title: "Days Left",
+      value: dateDifferenceInDays(
+        savingsDetails?.target_save.start_date as Date,
+        savingsDetails?.target_save.end_date as Date
+      ),
+    },
+  ]
+
   useEffect(() => {
     getData()
   }, [Params.savingsID])
@@ -124,51 +146,11 @@ function Page() {
                     {savingsDetails?.target_save.target_save_name}
                   </h1>
                 </div>
-                <div className='flex flex-col gap-10 '>
-                  <div className=' flex gap-8 flex-wrap  '>
-                    <div className=' flex flex-col items-center  gap-2   '>
-                      <span className=' text-grey font-semibold  '>
-                        {savingsDetails?.target_save.target_amount}
-                      </span>
-                      <span className=' text-grey font-semi-mid '>
-                        Target amount
-                      </span>
-                    </div>
-                    <div className=' flex flex-col items-center  gap-2   '>
-                      <span className=' text-grey font-semibold  '>
-                        {savingsDetails?.current_amount}
-                      </span>
-                      <span className=' text-grey font-semi-mid '>
-                        Current amount
-                      </span>
-                    </div>
-                    <div className=' flex flex-col items-center  gap-2   '>
-                      <span className=' text-grey font-semibold  '>
-                        {dateDifferenceInDays(
-                          savingsDetails?.target_save.start_date as Date,
-                          savingsDetails?.target_save.end_date as Date
-                        )}
-                      </span>
-                      <span className=' text-grey font-semi-mid '>
-                        Days left
-                      </span>
-                    </div>
-                  </div>
-                  <div className=' flex items-center gap-8 '>
-                    <Progress
-                      value={Math.ceil(
-                        savingsDetails?.completion_percentage as number
-                      )}
-                      className=' bg-pesaraise-10 progress '
-                    />{" "}
-                    <p className=' text-neutral-40 text-t-14 font-medium   '>
-                      {Math.ceil(
-                        savingsDetails?.completion_percentage as number
-                      )}
-                      %
-                    </p>
-                  </div>
-                </div>
+                <DetailInformationComponent
+                  savingsDetails={preJoinData}
+                  completion_percentage={savingsDetails?.completion_percentage}
+                />
+                
               </div>
             </div>
           </div>

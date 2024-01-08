@@ -19,7 +19,10 @@ import { useAppDispatch } from "@/shared/redux/types"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { dateDifferenceInDays, timeAgo } from "@/utils/helpers"
 import moment from "moment"
-import { SavingDetailsTile } from "@/components/savings"
+import {
+  DetailInformationComponent,
+  SavingDetailsTile,
+} from "@/components/savings"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
 import { CurrentUserContext } from "@/providers/CurrentUserProvider"
@@ -60,6 +63,10 @@ function Page() {
     }
   }
 
+  const targetMember = savingsDetails?.target_save_group_members.find(
+    (member) => member.account_user_id === currentUser?.account_user_id
+  )
+
   const tileData = [
     {
       title: "Start Date",
@@ -83,6 +90,40 @@ function Page() {
         savingsDetails?.target_save.start_date as Date,
         savingsDetails?.target_save.end_date as Date
       ),
+    },
+  ]
+
+  const preJoinData = [
+    {
+      title: "Members",
+      value: savingsDetails?.target_save_group_members.length,
+    },
+    {
+      title: "Target amount",
+      value: savingsDetails?.target_save.target_amount,
+    },
+
+    {
+      title: "Days Left",
+      value: dateDifferenceInDays(
+        savingsDetails?.target_save.start_date as Date,
+        savingsDetails?.target_save.end_date as Date
+      ),
+    },
+  ]
+  const joinData = [
+    {
+      title: "Your Balance",
+      value: targetMember?.current_amount,
+    },
+    {
+      title: "Target",
+      value: savingsDetails?.target_save.target_amount,
+    },
+
+    {
+      title: "Members",
+      value: savingsDetails?.target_save_group_members.length,
     },
   ]
 
@@ -114,70 +155,53 @@ function Page() {
             </div>
             <div className=' flex w-full  justify-between  '>
               <div className=' text-grey flex flex-col gap-4  '>
-                <div className=' flex flex-col  gap-2  '>
+                <div className=' flex flex-col  gap-2    '>
                   <h1 className='  font-headline__large font-semibold  '>
                     {savingsDetails?.target_save.target_save_name}
                   </h1>
                 </div>
-                <div className='flex flex-col gap-10 '>
-                  <div className=' flex gap-8 flex-wrap '>
-                    <div className=' flex flex-col  items-center  gap-2   '>
-                      <span className=' text-grey font-semibold  '>
-                        {savingsDetails?.target_save_group_members.length}
-                      </span>
-                      <span className=' text-grey font-semi-mid '>Members</span>
-                    </div>
-                    <div className=' flex flex-col items-center  gap-2   '>
-                      <span className=' text-grey font-semibold  '>
-                        {savingsDetails?.target_save_group_members.length}
-                      </span>
-                      <span className=' text-grey font-semi-mid '>
-                        Target amount
-                      </span>
-                    </div>
-                    <div className=' flex flex-col items-center  gap-2   '>
-                      <span className=' text-grey font-semibold  '>
-                        {dateDifferenceInDays(
-                          savingsDetails?.target_save.start_date as Date,
-                          savingsDetails?.target_save.end_date as Date
-                        )}
-                      </span>
-                      <span className=' text-grey font-semi-mid '>
-                        Days left
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className=' flex items-center gap-8 '>
-                  <Progress
-                    value={Math.ceil(
-                      savingsDetails?.completion_percentage as number
-                    )}
-                    className=' bg-pesaraise-10 progress '
-                  />{" "}
-                  <p className=' text-neutral-40  text-t-14 font-medium   '>
-                    {Math.ceil(savingsDetails?.completion_percentage as number)}
-                    %
-                  </p>
-                </div>
+                {!savingsDetails?.target_save_group_members?.some(
+                  (member) =>
+                    member.account_user_id === currentUser?.account_user_id
+                ) ? (
+                  <DetailInformationComponent
+                    savingsDetails={preJoinData}
+                    completion_percentage={
+                      savingsDetails?.completion_percentage
+                    }
+                  />
+                ) : (
+                  <DetailInformationComponent
+                    savingsDetails={joinData}
+                    completion_percentage={
+                      savingsDetails?.completion_percentage
+                    }
+                  />
+                )}
               </div>
             </div>
-            <div
-              className='flex items-center gap-1 align-bottom self-end cursor-default '
-              onClick={() =>
-                Router.push(
-                  `/savings/target-savings/${Params.savingsID}/settings`
-                )
-              }
-            >
-              <Image
-                src={"/icons/vuesax-outline-edit.svg"}
-                width={24}
-                height={24}
-                alt=''
-              />
-              <span className=' text-neutral-20 text-t-16   '>Edit</span>
-            </div>
+
+            {savingsDetails?.target_save_group_members?.some(
+              (member) =>
+                member.account_user_id === currentUser?.account_user_id
+            ) && (
+              <div
+                className='flex items-center gap-1 align-bottom self-end cursor-default '
+                onClick={() =>
+                  Router.push(
+                    `/savings/target-savings/${Params.savingsID}/settings`
+                  )
+                }
+              >
+                <Image
+                  src={"/icons/vuesax-outline-edit.svg"}
+                  width={24}
+                  height={24}
+                  alt=''
+                />
+                <span className=' text-neutral-20 text-t-16   '>Edit</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
