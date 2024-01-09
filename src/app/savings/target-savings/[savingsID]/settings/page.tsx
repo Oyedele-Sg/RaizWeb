@@ -16,6 +16,7 @@ import {
   MonthPicker,
   DayPicker,
   GroupTargetSavingsDataInterface,
+  TargetSavingsGroupDataInterface,
 } from "@/shared"
 import { Button } from "@/components/ui/button"
 
@@ -70,7 +71,7 @@ function page() {
   })
 
   const [savingsDetails, setSavingsDetails] =
-    React.useState<GroupTargetSavingsDataInterface>()
+    React.useState<TargetSavingsGroupDataInterface>()
 
   const targetMember = savingsDetails?.target_save_group_members.find(
     (member) => member.account_user_id === currentUser?.account_user_id

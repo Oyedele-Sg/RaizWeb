@@ -3,7 +3,7 @@ import SectionHeader from "../ajo/SectionHeader"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { userService } from "@/services"
-import { GroupTargetSavingsDataInterface } from "@/shared"
+import { TargetSavingsGroupDataInterface } from "@/shared"
 import { toast } from "../ui/use-toast"
 import { SavingsCard } from "./SavingsCard"
 import { SavingDummy } from "./SavingDummy"
@@ -12,7 +12,7 @@ export function TargetSavingsComponent() {
   const Router = useRouter()
 
   const [allSavingsData, setAllSavingsData] = useState<
-    GroupTargetSavingsDataInterface[]
+    TargetSavingsGroupDataInterface[]
   >([])
   const [clicked, setClicked] = useState("In-Progress")
 

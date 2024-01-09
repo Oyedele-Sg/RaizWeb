@@ -6,7 +6,7 @@ import { PersonalSavingCard, SavingsCard } from "@/components/savings"
 import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
 import {
-  GroupTargetSavingsDataInterface,
+  TargetSavingsGroupDataInterface,
   Loading,
   PersonalTargetSavingsDataInterface,
 } from "@/shared"
@@ -14,7 +14,7 @@ import Image from "next/image"
 import React, { useEffect, useState } from "react"
 
 export default function All() {
-  const [Savings, setSavings] = useState<GroupTargetSavingsDataInterface[]>([])
+  const [Savings, setSavings] = useState<TargetSavingsGroupDataInterface[]>([])
   // const filter = [
   //   { title: "new", prompt: "new" },
   //   { title: "duration", prompt: "duration_desc" },
