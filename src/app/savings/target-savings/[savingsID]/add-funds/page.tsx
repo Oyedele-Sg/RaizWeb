@@ -3,18 +3,14 @@ import { useAppDispatch } from "@/shared/redux/types"
 import { useParams, useRouter } from "next/navigation"
 import React, { useContext, useEffect } from "react"
 import { ContentWrap } from "@/components/savings/ContentWrap"
-import PinInput from "react-pin-input"
 import {
-  AuthButton,
   BtnMain,
   Loading,
   RegisterInput,
   PersonalTargetTransferDataInterface,
-  createTransactionPinSchema,
-  GroupTargetSavingsDataInterface,
+  TargetSavingsGroupDataInterface,
 } from "@/shared"
 import { FormProvider, useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
 import { toast } from "@/components/ui/use-toast"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import { passwordHash } from "@/utils/helpers"
@@ -40,12 +36,11 @@ function page() {
   })
 
   const [savingsDetails, setSavingsDetails] =
-    React.useState<GroupTargetSavingsDataInterface>()
+    React.useState<TargetSavingsGroupDataInterface>()
 
-  const targetMember =
-    savingsDetails?.target_save_group.target_save_group_members.find(
-      (member) => member.account_user_id === currentUser?.account_user_id
-    )
+  const targetMember = savingsDetails?.target_save_group_members.find(
+    (member) => member.account_user_id === currentUser?.account_user_id
+  )
 
   const onSubmit = async (data: PersonalTargetTransferDataInterface) => {
     try {
