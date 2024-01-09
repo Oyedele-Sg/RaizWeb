@@ -42,9 +42,10 @@ function page() {
   const [savingsDetails, setSavingsDetails] =
     React.useState<GroupTargetSavingsDataInterface>()
 
-  const targetMember = savingsDetails?.target_save_group_members.find(
-    (member) => member.account_user_id === currentUser?.account_user_id
-  )
+  const targetMember =
+    savingsDetails?.target_save_group.target_save_group_members.find(
+      (member) => member.account_user_id === currentUser?.account_user_id
+    )
 
   const onSubmit = async (data: PersonalTargetTransferDataInterface) => {
     try {
