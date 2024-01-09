@@ -8,7 +8,7 @@ import {
   AjoPaymentCycleInterface,
   BtnMain,
   GroupTargetSavingsActivitiesDataInterface,
-  GroupTargetSavingsDataInterface,
+  TargetSavingsGroupDataInterface,
   WhiteTileWrap,
 } from "@/shared"
 import Image from "next/image"
@@ -34,7 +34,7 @@ function Page() {
   const { currentUser } = useContext(CurrentUserContext)
 
   const [savingsDetails, setSavingsDetails] =
-    React.useState<GroupTargetSavingsDataInterface>()
+    React.useState<TargetSavingsGroupDataInterface>()
   const [savingsActivity, setSavingsActivity] =
     React.useState<GroupTargetSavingsActivitiesDataInterface[]>()
 
@@ -185,21 +185,39 @@ function Page() {
               (member) =>
                 member.account_user_id === currentUser?.account_user_id
             ) && (
-              <div
-                className='flex items-center gap-1 align-bottom self-end cursor-default '
-                onClick={() =>
-                  Router.push(
-                    `/savings/target-savings/${Params.savingsID}/settings`
-                  )
-                }
-              >
-                <Image
-                  src={"/icons/vuesax-outline-edit.svg"}
-                  width={24}
-                  height={24}
-                  alt=''
-                />
-                <span className=' text-neutral-20 text-t-16   '>Edit</span>
+              <div className=' flex gap-12  self-end '>
+                <div
+                  className='flex items-center gap-1 align-bottom self-end cursor-default '
+                  onClick={() =>
+                    Router.push(
+                      `/savings/target-savings/${Params.savingsID}/share`
+                    )
+                  }
+                >
+                  <Image
+                    src={"/icons/forward-square.svg"}
+                    width={24}
+                    height={24}
+                    alt=''
+                  />
+                  <span className=' text-neutral-20 text-t-16   '>Share</span>
+                </div>
+                <div
+                  className='flex items-center gap-1 align-bottom cursor-default '
+                  onClick={() =>
+                    Router.push(
+                      `/savings/target-savings/${Params.savingsID}/settings`
+                    )
+                  }
+                >
+                  <Image
+                    src={"/icons/vuesax-outline-edit.svg"}
+                    width={24}
+                    height={24}
+                    alt=''
+                  />
+                  <span className=' text-neutral-20 text-t-16   '>Edit</span>
+                </div>
               </div>
             )}
           </div>

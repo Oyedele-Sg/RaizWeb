@@ -97,7 +97,7 @@ export function TargetSavingsComponent() {
         {allSavingsData.length > 0 ? (
           <div className='flex   flex-wrap gap-6'>
             {allSavingsData.map((data, index) => (
-              <SavingsCard key={index} data={data} />
+              <SavingsCard key={index} data={data.target_save_group} />
             ))}
           </div>
         ) : (
