@@ -776,7 +776,7 @@ function getPublicTargetSavings(
   end_date?: string,
   min_target_amount?: number,
   max_target_amount?: number
-): Promise<TargetSavingsGroupDataInterface[]> {
+): Promise<GroupTargetSavingsDataInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/savings/target-save/group/public?${createSearchParams({
       start_date,

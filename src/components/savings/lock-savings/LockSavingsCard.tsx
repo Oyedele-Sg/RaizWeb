@@ -17,7 +17,7 @@ export function LockSavingsCard({ data }: Props) {
 
   return (
     <div
-      className=' rounded-2xl  border-[2px] border-neutral-30 min-w-[260px] py-5 px-4 flex flex-col gap-5 bg-savings-bg '
+      className=' rounded-2xl  border-[2px] border-neutral-30 min-w-[260px] max-w-[294px] py-5 px-4 flex flex-col gap-5 bg-savings-bg '
       onClick={() =>
         Router.push(`/savings/lock-savings/${data.lock_save_id}/details`)
       }

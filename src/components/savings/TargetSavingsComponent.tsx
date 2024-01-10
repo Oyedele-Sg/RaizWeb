@@ -3,7 +3,7 @@ import SectionHeader from "../ajo/SectionHeader"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { userService } from "@/services"
-import { TargetSavingsGroupDataInterface } from "@/shared"
+import { GroupTargetSavingsDataInterface } from "@/shared"
 import { toast } from "../ui/use-toast"
 import { SavingsCard } from "./SavingsCard"
 import { SavingDummy } from "./SavingDummy"
@@ -12,7 +12,7 @@ export function TargetSavingsComponent() {
   const Router = useRouter()
 
   const [allSavingsData, setAllSavingsData] = useState<
-    TargetSavingsGroupDataInterface[]
+    GroupTargetSavingsDataInterface[]
   >([])
   const [clicked, setClicked] = useState("In-Progress")
 
@@ -97,7 +97,7 @@ export function TargetSavingsComponent() {
         {allSavingsData.length > 0 ? (
           <div className='flex   flex-wrap gap-6'>
             {allSavingsData.map((data, index) => (
-              <SavingsCard key={index} data={data} />
+              <SavingsCard key={index} data={data.target_save_group} />
             ))}
           </div>
         ) : (
