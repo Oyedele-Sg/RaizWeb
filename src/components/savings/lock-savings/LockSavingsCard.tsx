@@ -25,26 +25,26 @@ export function LockSavingsCard({ data }: Props) {
       {/* <Image src='/images/frame-583.png' width={262} height={128} alt='' />   */}
 
       <div className=' flex flex-col gap-4 '>
-        <h2 className=' font-semibold text-t-20 text-purple  '>
+        <h2 className=' font-semibold text-t-20 text-purple text-ellipsis  '>
           {data.lock_save_description}
         </h2>
 
         <div className=' flex  gap-4 items-start '>
-          {data.interest_amount && (
-            <div className=' flex flex-col items-center justify-center '>
-              <h3 className=' font-semibold text-t-16 text-purple  '>
-                ₦{formatNumberToK(data.interest_amount)}
-              </h3>
-              <p className=' font-semi-mid text-t-16 text-neutral-70 text-center flex flex-col items-center  '>
-                Interest Earned
-              </p>
-            </div>
-          )}
           <div className=' flex flex-col items-center justify-center   '>
             <h3 className=' font-semibold text-t-16 text-purple  '>
               ₦{formatNumberToK(data.lock_save_amount)}
             </h3>
             <p className=' font-semi-mid text-t-16 text-neutral-70  '>Amount</p>
+          </div>
+          <div className=' flex flex-col items-center justify-center '>
+            <h3 className=' font-semibold text-t-16 text-purple  '>
+              {data.interest_amount
+                ? `₦${formatNumberToK(data.interest_amount)}`
+                : 0}
+            </h3>
+            <p className=' font-semi-mid text-t-16 text-neutral-70 text-center flex flex-col items-center  '>
+              Interest Earned
+            </p>
           </div>
           <div className=' flex flex-col items-center justify-center   '>
             <h3 className=' font-semibold text-t-16 text-purple  '>

@@ -24,7 +24,7 @@ export function SavingsCard({ data }: Props) {
       <Image src='/images/frame-583.png' width={262} height={128} alt='' />
 
       <div className=' flex flex-col gap-4 '>
-        <h2 className=' font-semibold text-t-20 text-purple  '>
+        <h2 className=' font-semibold text-t-20 text-purple text-ellipsis   '>
           {data.target_save?.target_save_name}
         </h2>
 

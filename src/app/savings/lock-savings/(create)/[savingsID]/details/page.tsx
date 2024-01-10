@@ -114,10 +114,11 @@ function Page() {
 
   useEffect(() => {
     getData()
-    getPenaltyData()
   }, [Params.savingsID])
   useEffect(() => {
-    getPenaltyData()
+    if (savingsDetails) {
+      getPenaltyData()
+    }
   }, [savingsDetails])
   return (
     <div className=' '>
