@@ -25,7 +25,7 @@ export function LockSavingsCard({ data }: Props) {
       {/* <Image src='/images/frame-583.png' width={262} height={128} alt='' />   */}
 
       <div className=' flex flex-col gap-4 '>
-        <h2 className=' font-semibold text-t-20 text-purple text-ellipsis  '>
+        <h2 className=' font-semibold text-t-20 text-purple text-ellipsis overflow-hidden max-w-full whitespace-nowrap   '>
           {data.lock_save_description}
         </h2>
 

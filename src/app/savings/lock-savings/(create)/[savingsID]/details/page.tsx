@@ -105,10 +105,7 @@ function Page() {
     },
     {
       title: "Days Left",
-      data: dateDifferenceInDays(
-        savingsDetails?.start_date as Date,
-        savingsDetails?.end_date as Date
-      ),
+      data: savingsDetails?.days_left,
     },
   ]
 
@@ -143,10 +140,10 @@ function Page() {
                 alt=''
               />
             </div>
-            <div className=' flex w-full  justify-between  '>
+            <div className=' flex w-full  justify-between max-w-[50%] '>
               <div className=' text-grey flex flex-col gap-4  '>
-                <div className=' flex flex-col  gap-2  '>
-                  <h1 className='  font-headline__large font-semibold  '>
+                <div className=' flex flex-col  gap-2   '>
+                  <h1 className='  font-headline__large font-semibold  text-ellipsis overflow-hidden max-w-full whitespace-nowrap '>
                     {savingsDetails?.lock_save_description}
                   </h1>
                 </div>
@@ -168,7 +165,7 @@ function Page() {
                     </div>
                     <div className=' flex flex-col items-center  gap-2   '>
                       <span className=' text-grey font-semibold  '>
-                        ₦{savingsDetails?.interest_amount}
+                        ₦{savingsDetails?.interest_amount || 0}
                       </span>
                       <span className=' text-grey font-semi-mid '>
                         Interest Earned

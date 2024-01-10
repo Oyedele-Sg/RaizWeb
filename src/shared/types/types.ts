@@ -1175,6 +1175,7 @@ export interface GroupTargetSavingsActivitiesDataInterface {
 }
 
 export interface LockSavingsDataInterface {
+  days_left: number
   lock_save_description: string
   lock_save_amount: number
   end_date: Date
