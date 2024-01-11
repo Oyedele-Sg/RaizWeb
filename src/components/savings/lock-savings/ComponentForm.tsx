@@ -113,7 +113,9 @@ export function ComponentForm() {
   }
 
   useEffect(() => {
-    getData()
+    if (amount > 0 && endDate) {
+      getData()
+    }
   }, [amount, endDate])
   return (
     <>
@@ -123,6 +125,12 @@ export function ComponentForm() {
           <form onSubmit={methods.handleSubmit(onSubmit)} className='  '>
             <div className='flex flex-col gap-9  '>
               <div className=' flex flex-col gap-6  '>
+                <RegisterInput
+                  name='lock_save_description'
+                  label='Title'
+                  rules={{ required: "Target Description is required" }}
+                />
+
                 <div className=' flex flex-col gap-6 '>
                   <label
                     className={`font-label__large text-neutral-90 capitalize  `}
@@ -140,12 +148,6 @@ export function ComponentForm() {
                     value={amount}
                   />
                 </div>
-
-                <RegisterTextArea
-                  name='lock_save_description'
-                  label='Descrption'
-                  rules={{ required: "Target Description is required" }}
-                />
 
                 <div className=' flex justify-between gap-[43px] '>
                   <div className=' flex flex-col gap-4 w-full'>
