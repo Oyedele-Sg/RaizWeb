@@ -72,6 +72,7 @@ import {
   GroupTargetTransferDataInterface,
   JoinTargetSaveFormData,
   TargetSavingsGroupDataInterface,
+  PersonalTargetSavingsActivitiesDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -171,6 +172,7 @@ export const userService = {
   getPersonalTargetSavings,
   getTargetSavingsByID,
   getGroupTargetActivity,
+  getPersonalTargetActivity,
   getPersonalTargetSavingsByID,
   getNipBanks,
   getPaystackBanks,
@@ -792,7 +794,7 @@ function getAllTargetSavings(
   end_date?: string,
   min_target_amount?: number,
   max_target_amount?: number
-): Promise<TargetSavingsGroupDataInterface[]> {
+): Promise<GroupTargetSavingsDataInterface[]> {
   return fetchWrapper.get(`${baseUrl}/savings/target-save/groups/get/`)
 }
 
@@ -838,6 +840,13 @@ function getGroupTargetActivity(
 ): Promise<GroupTargetSavingsActivitiesDataInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/savings/target-save/group/${id}/activities/`
+  )
+}
+function getPersonalTargetActivity(
+  id: string
+): Promise<PersonalTargetSavingsActivitiesDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/savings/target-save/personal/${id}/activities/`
   )
 }
 

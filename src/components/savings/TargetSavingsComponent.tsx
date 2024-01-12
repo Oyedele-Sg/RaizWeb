@@ -49,10 +49,10 @@ export function TargetSavingsComponent() {
       title: "Explore",
       link: "/savings/target-savings/explore/all",
     },
-    // {
-    //   title: "Completed",
-    //   link: "/savings/hub",
-    // },
+    {
+      title: "Completed",
+      link: "/savings/hub",
+    },
   ]
 
   useEffect(() => {
@@ -82,9 +82,15 @@ export function TargetSavingsComponent() {
                 clicked === link.title && "bg-savings-neutral border-neutral-90"
               }  `}
               onClick={() => {
-                Router.push(link.link)
-
-                setClicked(link.title)
+                if (
+                  link.title === "Completed" ||
+                  link.title === "In-Progress"
+                ) {
+                  setClicked(link.title)
+                } else {
+                  Router.push(link.link)
+                  setClicked(link.title)
+                }
               }}
             >
               {link.title}
@@ -95,11 +101,27 @@ export function TargetSavingsComponent() {
 
       <div className=''>
         {allSavingsData.length > 0 ? (
-          <div className='flex   flex-wrap gap-6'>
-            {allSavingsData.map((data, index) => (
-              <SavingsCard key={index} data={data.target_save_group} />
-            ))}
-          </div>
+          clicked === "In-Progress" ? (
+            <div className='flex   flex-wrap gap-6'>
+              {allSavingsData.map((data, index) => {
+                if (data.target_save_group.completion_percentage < 100) {
+                  return (
+                    <SavingsCard key={index} data={data.target_save_group} />
+                  )
+                }
+              })}
+            </div>
+          ) : (
+            <div className='flex   flex-wrap gap-6'>
+              {allSavingsData.map((data, index) => {
+                if (data.target_save_group.completion_percentage == 100) {
+                  return (
+                    <SavingsCard key={index} data={data.target_save_group} />
+                  )
+                }
+              })}
+            </div>
+          )
         ) : (
           <div className=''>
             <SavingDummy />

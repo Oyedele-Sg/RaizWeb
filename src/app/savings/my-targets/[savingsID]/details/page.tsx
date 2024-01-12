@@ -7,7 +7,7 @@ import {
   AjoDataInterface,
   AjoPaymentCycleInterface,
   BtnMain,
-  GroupTargetSavingsActivitiesDataInterface,
+  PersonalTargetSavingsActivitiesDataInterface,
   GroupTargetSavingsDataInterface,
   PersonalTargetSavingsDataInterface,
   WhiteTileWrap,
@@ -33,20 +33,20 @@ function Page() {
   const Params = useParams()
   const [savingsDetails, setSavingsDetails] =
     React.useState<PersonalTargetSavingsDataInterface>()
-  //   const [savingsActivity, setSavingsActivity] =
-  //     React.useState<GroupTargetSavingsActivitiesDataInterface[]>()
+  const [savingsActivity, setSavingsActivity] =
+    React.useState<PersonalTargetSavingsActivitiesDataInterface[]>()
 
   const getData = async () => {
     try {
       const response = await userService.getPersonalTargetSavingsByID(
         Params.savingsID
       )
-      //   const activityResponse = await userService.getGroupTargetActivity(
-      //     Params.savingsID
-      //   )
-
       setSavingsDetails(response)
-      //   setSavingsActivity(activityResponse)
+      const activityResponse = await userService.getPersonalTargetActivity(
+        Params.savingsID
+      )
+
+      setSavingsActivity(activityResponse)
     } catch (error) {
       toast({
         title: "Something Went Wrong",
@@ -150,7 +150,6 @@ function Page() {
                   savingsDetails={preJoinData}
                   completion_percentage={savingsDetails?.completion_percentage}
                 />
-                
               </div>
             </div>
           </div>
@@ -215,7 +214,7 @@ function Page() {
             ))}
           </div>
         </WhiteTileWrap>
-        {/* <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8 '>
+        <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8 '>
           <div className=' flex flex-col gap-8  '>
             <div className='flex flex-col gap-6 '>
               <h2 className=' text-purple font-semibold text-t-24 '>
@@ -238,7 +237,7 @@ function Page() {
 
                 <div className=' flex flex-col gap-2 '>
                   <h4 className=' text-purple text-t-18 font-semi-mid   '>
-                    {item.target_save_group_activity_description}
+                    {item.activity_description}
                   </h4>
                   <div className='  flex items-center gap-2 '>
                     <div className=' text-neutral-70  text-t-16 '>
@@ -253,7 +252,7 @@ function Page() {
               </div>
             ))}
           </div>
-        </WhiteTileWrap> */}
+        </WhiteTileWrap>
       </div>
     </div>
   )

@@ -1174,6 +1174,16 @@ export interface GroupTargetSavingsActivitiesDataInterface {
   account_user: AccountInterface
 }
 
+export interface PersonalTargetSavingsActivitiesDataInterface {
+  personal_target_save_id: string
+  account_user_id: string
+  activity_description: string
+  personal_target_save_activity_id: string
+  created_at: Date
+  updated_at: Date
+  account_user: AccountInterface
+}
+
 export interface LockSavingsDataInterface {
   days_left: number
   lock_save_description: string
