@@ -12,7 +12,6 @@ import {
   GroupTargetTransferWithdrawInterface,
   createTransactionPinSchema,
   TargetSavingsGroupDataInterface,
-  TargetSavingsGroupDataInterface,
 } from "@/shared"
 import { FormProvider, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"

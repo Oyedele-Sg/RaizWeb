@@ -16,7 +16,6 @@ import {
   MonthPicker,
   DayPicker,
   TargetSavingsGroupDataInterface,
-  TargetSavingsGroupDataInterface,
 } from "@/shared"
 import { Button } from "@/components/ui/button"
 
