@@ -310,7 +310,15 @@ function Page() {
                   </h4>
                   <div className='  flex items-center gap-2 '>
                     <div className=' text-neutral-70  text-t-16 '>
-                      {savingsDetails?.target_save.target_save_name}{" "}
+                      {item?.target_save_activity_category === null
+                        ? savingsDetails?.target_save.target_save_name
+                        : item?.target_save_activity_category
+                            ?.target_save_activity_category_name ===
+                            "creation" ||
+                          item?.target_save_activity_category
+                            ?.target_save_activity_category_name === "joining"
+                        ? savingsDetails?.target_save.target_save_name
+                        : `₦${item.amount.toLocaleString()}`}
                     </div>{" "}
                     <div className=' bg-neutral-70 rounded-full w-2 h-2    '></div>
                     <div className=' text-neutral-70 text-t-16 '>

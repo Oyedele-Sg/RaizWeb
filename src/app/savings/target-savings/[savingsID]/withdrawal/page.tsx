@@ -11,7 +11,6 @@ import {
   RegisterInput,
   GroupTargetTransferWithdrawInterface,
   createTransactionPinSchema,
-  GroupTargetSavingsDataInterface,
   TargetSavingsGroupDataInterface,
 } from "@/shared"
 import { FormProvider, useForm } from "react-hook-form"
@@ -50,10 +49,13 @@ function page() {
   const onSubmit = async (data: GroupTargetTransferWithdrawInterface) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.transferFormGroupTargetSavings(targetMember?.target_save_group_member_id as string, {
-        ...data,
-        transaction_pin: passwordHash(data.transaction_pin),
-      })
+      await userService.transferFormGroupTargetSavings(
+        targetMember?.target_save_group_member_id as string,
+        {
+          ...data,
+          transaction_pin: passwordHash(data.transaction_pin),
+        }
+      )
 
       toast({
         title: "Withdrawal Successful",
@@ -85,7 +87,6 @@ function page() {
       })
     }
   }
-
 
   useEffect(() => {
     const getTargetSavingsDetails = async () => {

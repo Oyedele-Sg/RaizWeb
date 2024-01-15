@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { userService } from "@/services"
 import {
-  GroupTargetSavingsDataInterface,
+  TargetSavingsGroupDataInterface,
   LockSavingsDataInterface,
 } from "@/shared"
 import { toast } from "../ui/use-toast"

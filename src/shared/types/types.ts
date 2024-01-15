@@ -981,6 +981,42 @@ export interface ValidateChargeResponseInterface {
   success: boolean
   message: string
 }
+
+export interface GroupSaveMemberDataInterface {
+  target_save_group_id: string
+  account_user_id: string
+  frequency_id: number
+  savings_wallet_id: string
+  current_amount: number
+  has_withdrawn: false
+  next_payment_date: string
+  preferred_credit_time: string
+  preferred_deduction_amount: number
+  preferred_deduction_day: number
+  preferred_deduction_date: number
+  primary_source_of_funds_id: string
+  target_save_group_member_id: string
+  created_at: Date
+  updated_at: Date
+  account_user: AccountInterface
+  frequency: AjoFrequencyInterface
+  target_save_group: TargetSavingsGroupDataInterface
+  primary_source_of_funds: {
+    wallet_id: string
+    account_user_id: string
+    account_balance: number
+    wallet_tier_id: number
+    wallet_type_id: number
+    wallet_name: string
+    account_number: string
+    active: number
+    created_at: Date
+    updated_at: Date
+    wallet_tier: WalletTier
+    wallet_type: WalletType
+  }
+  individual_completion_percentage: number
+}
 export interface TargetSavingsGroupDataInterface {
   target_save_id: string
   created_by_id: string
@@ -1015,10 +1051,7 @@ export interface TargetSavingsGroupDataInterface {
   created_by: CreatedByInterface
   target_save_group_members: TargetSavingsGroupMembersDataInterface[]
   completion_percentage: number
-}
-export interface GroupTargetSavingsDataInterface {
-  target_save_group: TargetSavingsGroupDataInterface
-  target_save_member_id: string
+  target_save_group_member_id: string
 }
 
 export interface CreatedByInterface {
@@ -1164,17 +1197,39 @@ export interface PersonalTargetSavingsDataInterface {
   }
 }
 
+export interface GroupTargetSavingsActivitiesCategoryInterface {
+  target_save_activity_category_name: string
+  target_save_activity_category_description: string
+  target_save_activity_category_code: number
+  target_save_activity_category_id: number
+  created_at: Date
+  updated_at: Date
+}
 export interface GroupTargetSavingsActivitiesDataInterface {
   target_save_group_id: string
   account_user_id: string
   target_save_group_activity_description: string
+  target_save_activity_category_id: number
+  amount: number
   target_save_group_activity_id: string
+  created_at: Date
+  updated_at: Date
+  account_user: AccountInterface
+  target_save_activity_category: GroupTargetSavingsActivitiesCategoryInterface
+}
+
+export interface PersonalTargetSavingsActivitiesDataInterface {
+  personal_target_save_id: string
+  account_user_id: string
+  activity_description: string
+  personal_target_save_activity_id: string
   created_at: Date
   updated_at: Date
   account_user: AccountInterface
 }
 
 export interface LockSavingsDataInterface {
+  days_left: number
   lock_save_description: string
   lock_save_amount: number
   end_date: Date

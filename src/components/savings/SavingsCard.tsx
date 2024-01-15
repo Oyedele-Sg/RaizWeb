@@ -14,7 +14,7 @@ export function SavingsCard({ data }: Props) {
 
   return (
     <div
-      className=' rounded-2xl  border-[2px] border-neutral-30 max-w-[294px] py-5 px-4 flex flex-col gap-5 bg-savings-bg '
+      className=' rounded-2xl  border-[2px] border-neutral-30 min-w-[260px] max-w-[294px] py-5 px-4 flex flex-col gap-5 bg-savings-bg '
       onClick={() =>
         Router.push(
           `/savings/target-savings/${data.target_save_group_id}/details`
@@ -24,7 +24,7 @@ export function SavingsCard({ data }: Props) {
       <Image src='/images/frame-583.png' width={262} height={128} alt='' />
 
       <div className=' flex flex-col gap-4 '>
-        <h2 className=' font-semibold text-t-20 text-purple  '>
+        <h2 className=' font-semibold text-t-20 text-purple text-ellipsis   '>
           {data.target_save?.target_save_name}
         </h2>
 
@@ -58,11 +58,11 @@ export function SavingsCard({ data }: Props) {
 
         <div className=' flex items-center gap-8 '>
           <Progress
-            value={data.completion_percentage}
-            className=' bg-pesaraise-10 progress '
+            value={Math.ceil(data.completion_percentage)}
+            className=' bg-pesaraise-10 progress  '
           />{" "}
           <p className=' text-neutral-80 text-t-14 font-medium   '>
-            {data.completion_percentage}%
+            {Math.ceil(data.completion_percentage)}%
           </p>
         </div>
       </div>
