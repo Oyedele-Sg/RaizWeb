@@ -42,7 +42,6 @@ import {
   BudgetDataInterface,
   BudgetCategoryTransactionInterface,
   CreateBudgetInterface,
-  GroupTargetSavingsDataInterface,
   TransactiontTypeInterface,
   CreateTargetSavingsFormInterface,
   PersonalTargetSavingsDataInterface,
@@ -73,6 +72,8 @@ import {
   JoinTargetSaveFormData,
   TargetSavingsGroupDataInterface,
   PersonalTargetSavingsActivitiesDataInterface,
+  GroupSaveMemberDataInterface,
+  GroupTargetSavingsActivitiesCategoryInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -190,6 +191,7 @@ export const userService = {
   earlyWithdrawalPenalty,
   getAllLockSavings,
   personalTargetSavingsWithdrawal,
+  getGroupSaveMember,
   transfertoPersonalTargetSavings,
   editPersonalTargetSavings,
   transferFormGroupTargetSavings,
@@ -198,6 +200,7 @@ export const userService = {
   getNotificationCategories,
   getNotificationsByID,
   inviteToGroupTargetSavings,
+  getTargetSavingsActivitiesCategory,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -778,7 +781,7 @@ function getPublicTargetSavings(
   end_date?: string,
   min_target_amount?: number,
   max_target_amount?: number
-): Promise<GroupTargetSavingsDataInterface[]> {
+): Promise<TargetSavingsGroupDataInterface[]> {
   return fetchWrapper.get(
     `${baseUrl}/savings/target-save/group/public?${createSearchParams({
       start_date,
@@ -794,7 +797,7 @@ function getAllTargetSavings(
   end_date?: string,
   min_target_amount?: number,
   max_target_amount?: number
-): Promise<GroupTargetSavingsDataInterface[]> {
+): Promise<TargetSavingsGroupDataInterface[]> {
   return fetchWrapper.get(`${baseUrl}/savings/target-save/groups/get/`)
 }
 
@@ -917,6 +920,15 @@ function personalTargetSavingsWithdrawal(
   )
 }
 
+function getGroupSaveMember(
+  groupID: string,
+  memberID: string
+): Promise<GroupSaveMemberDataInterface> {
+  return fetchWrapper.get(
+    `${baseUrl}/savings/target-save/group/${groupID}/members/${memberID}/`
+  )
+}
+
 function editPersonalTargetSavings(
   id: string,
   data: EditSavingDataInterface
@@ -976,4 +988,10 @@ function inviteToGroupTargetSavings(
     `${baseUrl}/savings/target-save/group/${id}/invite/`,
     data
   )
+}
+
+function getTargetSavingsActivitiesCategory(): Promise<
+  GroupTargetSavingsActivitiesCategoryInterface[]
+> {
+  return fetchWrapper.get(`${baseUrl}/savings/target-save-activity-categories/`)
 }

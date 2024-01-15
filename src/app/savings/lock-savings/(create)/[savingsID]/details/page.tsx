@@ -9,7 +9,7 @@ import {
   BtnMain,
   EarlyPenaltyDataInterface,
   GroupTargetSavingsActivitiesDataInterface,
-  GroupTargetSavingsDataInterface,
+  TargetSavingsGroupDataInterface,
   LockSavingsDataInterface,
   WhiteTileWrap,
 } from "@/shared"

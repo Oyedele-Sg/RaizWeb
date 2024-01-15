@@ -3,7 +3,7 @@ import SectionHeader from "../ajo/SectionHeader"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { userService } from "@/services"
-import { GroupTargetSavingsDataInterface } from "@/shared"
+import { TargetSavingsGroupDataInterface } from "@/shared"
 import { toast } from "../ui/use-toast"
 import { SavingsCard } from "./SavingsCard"
 import { SavingDummy } from "./SavingDummy"
@@ -12,7 +12,7 @@ export function TargetSavingsComponent() {
   const Router = useRouter()
 
   const [allSavingsData, setAllSavingsData] = useState<
-    GroupTargetSavingsDataInterface[]
+    TargetSavingsGroupDataInterface[]
   >([])
   const [clicked, setClicked] = useState("In-Progress")
 
@@ -104,24 +104,20 @@ export function TargetSavingsComponent() {
           clicked === "In-Progress" ? (
             <div className='flex   flex-wrap gap-6'>
               {allSavingsData.map((data, index) => {
-                if (data.target_save_group.completion_percentage < 100) {
-                  return (
-                    <SavingsCard key={index} data={data.target_save_group} />
-                  )
+                if (data.completion_percentage < 100) {
+                  return <SavingsCard key={index} data={data} />
                 }
               })}
             </div>
-          ) : (
+          ) : clicked === "Completed" ? (
             <div className='flex   flex-wrap gap-6'>
               {allSavingsData.map((data, index) => {
-                if (data.target_save_group.completion_percentage == 100) {
-                  return (
-                    <SavingsCard key={index} data={data.target_save_group} />
-                  )
+                if (data.completion_percentage == 100) {
+                  return <SavingsCard key={index} data={data} />
                 }
               })}
             </div>
-          )
+          ) : null
         ) : (
           <div className=''>
             <SavingDummy />

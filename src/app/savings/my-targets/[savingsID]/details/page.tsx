@@ -8,7 +8,7 @@ import {
   AjoPaymentCycleInterface,
   BtnMain,
   PersonalTargetSavingsActivitiesDataInterface,
-  GroupTargetSavingsDataInterface,
+  TargetSavingsGroupDataInterface,
   PersonalTargetSavingsDataInterface,
   WhiteTileWrap,
 } from "@/shared"

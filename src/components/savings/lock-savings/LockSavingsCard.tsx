@@ -2,7 +2,7 @@ import Image from "next/image"
 import React from "react"
 import { Progress } from "@/components/ui/progress"
 import {
-  GroupTargetSavingsDataInterface,
+  TargetSavingsGroupDataInterface,
   LockSavingsDataInterface,
 } from "@/shared"
 import { dateDifferenceInDays, formatNumberToK } from "@/utils/helpers"
