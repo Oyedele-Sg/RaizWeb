@@ -201,7 +201,7 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
                         />
                         <RegisterInput
                           type='number'
-                          name='amount_per_cycle'
+                          name='target_amount'
                           label='Total Target Amount '
                           rules={{ required: "Target Amount is required" }}
                         />
