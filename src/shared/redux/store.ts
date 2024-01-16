@@ -11,6 +11,7 @@ import {
   balanceRevealReducer,
   SidebarReducer,
   lockSavingSuccessReducer,
+  groupSavingResponseReducer,
 } from "./features"
 import { selectedRequestReducer } from "./features/request"
 // import authReducer from "./features/lice
@@ -29,6 +30,7 @@ export const store = configureStore({
     balanceReveal: balanceRevealReducer,
     sidebarLinks: SidebarReducer,
     lockSavingSuccessData: lockSavingSuccessReducer,
+    groupSavingSuccessData: groupSavingResponseReducer,
   },
 })
 

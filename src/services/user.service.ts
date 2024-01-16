@@ -818,7 +818,7 @@ function createPersonalTargetSavings(
 
 function createGroupTargetSavings(
   data: CreateTargetSavingsFormInterface
-): Promise<any> {
+): Promise<TargetSavingsGroupDataInterface> {
   return fetchWrapper.post(`${baseUrl}/savings/target-save/group/`, data)
 }
 function getTargetSavingsByID(

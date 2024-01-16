@@ -39,7 +39,11 @@ import { start } from "repl"
 import { toast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
 import { useAppDispatch } from "@/shared/redux/types"
-import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
+import {
+  getSuccessGroupTargetSave,
+  setLoadingFalse,
+  setLoadingTrue,
+} from "@/shared/redux/features"
 
 import { LocalizationProvider, TimeField } from "@mui/x-date-pickers"
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment"
@@ -102,25 +106,27 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
 
     try {
       dispatch(setLoadingTrue())
-      current === "personal"
-        ? await userService.createPersonalTargetSavings({
-            ...data,
-            start_date: startDate,
-            end_date: endDate,
-            public: publicSaving,
-            preferred_credit_time: convertDateToTime(prefferedTime),
-          })
-        : await userService.createGroupTargetSavings({
-            ...data,
-            start_date: startDate,
-            end_date: endDate,
-            public: publicSaving,
-            preferred_credit_time: convertDateToTime(prefferedTime),
-          })
+      const response =
+        current === "personal"
+          ? await userService.createPersonalTargetSavings({
+              ...data,
+              start_date: startDate,
+              end_date: endDate,
+              public: publicSaving,
+              preferred_credit_time: convertDateToTime(prefferedTime),
+            })
+          : await userService.createGroupTargetSavings({
+              ...data,
+              start_date: startDate,
+              end_date: endDate,
+              public: publicSaving,
+              preferred_credit_time: convertDateToTime(prefferedTime),
+            })
 
       current === "group"
         ? Router.push("/savings/target-savings/success")
         : Router.push("/savings/my-targets/success")
+      current === "group" && dispatch(getSuccessGroupTargetSave(response))
       dispatch(setLoadingFalse())
     } catch (error) {
       toast({
@@ -201,7 +207,7 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
                         />
                         <RegisterInput
                           type='number'
-                          name='amount_per_cycle'
+                          name='target_amount'
                           label='Total Target Amount '
                           rules={{ required: "Target Amount is required" }}
                         />
@@ -479,7 +485,7 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
                         </div>
 
                         <BtnMain
-                          btnText=' Create Personal Target Savings'
+                          btnText={`Create ${current} Target Savings`}
                           btnStyle=' w-full text-center text-grey  btn-gradient-savings  '
                           type='submit'
                         />

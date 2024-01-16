@@ -7,6 +7,7 @@ import {
   AjoDataInterface,
   AjoPaymentCycleInterface,
   BtnMain,
+  GroupSaveMemberDataInterface,
   GroupTargetSavingsActivitiesDataInterface,
   TargetSavingsGroupDataInterface,
   WhiteTileWrap,
@@ -37,6 +38,8 @@ function Page() {
     React.useState<TargetSavingsGroupDataInterface>()
   const [savingsActivity, setSavingsActivity] =
     React.useState<GroupTargetSavingsActivitiesDataInterface[]>()
+  const [savingsMember, setSavingsMember] =
+    React.useState<GroupSaveMemberDataInterface>()
 
   const getData = async () => {
     try {
@@ -47,6 +50,28 @@ function Page() {
 
       setSavingsDetails(response)
       setSavingsActivity(activityResponse)
+    } catch (error) {
+      toast({
+        title: "Something Went Wrong",
+        description: `${error}`,
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+        duration: 5000,
+      })
+    }
+  }
+  const getMember = async () => {
+    try {
+      const response = await userService.getGroupSaveMember(
+        Params.savingsID,
+        targetMember?.target_save_group_member_id as string
+      )
+      setSavingsMember(response)
     } catch (error) {
       toast({
         title: "Something Went Wrong",
@@ -130,6 +155,12 @@ function Page() {
   useEffect(() => {
     getData()
   }, [Params.savingsID])
+
+  useEffect(() => {
+    if (savingsDetails) {
+      getMember()
+    }
+  }, [savingsDetails])
   return (
     <div className=' '>
       <div className=' p-10'>
@@ -144,7 +175,7 @@ function Page() {
           <div className='flex gap-8 items-center w-full    '>
             <div
               className=' hidden border-[2px] border-neutral-80 rounded-full p-3 items-center justify-center lg:flex  '
-              onClick={() => Router.back()}
+              onClick={() => Router.push("/savings/hub")}
             >
               <Image
                 src={"/icons/ajo-arrow-left.svg"}
@@ -174,7 +205,7 @@ function Page() {
                   <DetailInformationComponent
                     savingsDetails={joinData}
                     completion_percentage={
-                      savingsDetails?.completion_percentage
+                      savingsMember?.individual_completion_percentage
                     }
                   />
                 )}

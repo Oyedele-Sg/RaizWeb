@@ -3,7 +3,7 @@
 import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
 import { AuthButton, BtnMain, CloseIcon, VerifySuccess } from "@/shared"
-import { useAppDispatch } from "@/shared/redux/types"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
 import React from "react"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import Image from "next/image"
@@ -13,6 +13,7 @@ export default function Sucess() {
   const Router = useRouter()
 
   const dispatch = useAppDispatch()
+  const savingsDetails = useAppSelector((state) => state.groupSavingSuccessData)
 
   return (
     <>
@@ -41,10 +42,12 @@ export default function Sucess() {
                 <div className=' flex  gap-12  '>
                   <BtnMain
                     btnText='Add Member(s)?'
-                    btnStyle=' text-purple border-neutral-100 border   px-6 '
-                    onClick={ () => {
-                      
-                    } }
+                    btnStyle=' text-purple border-neutral-100 border  capitalize px-6 '
+                    onClick={() => {
+                      Router.push(
+                        `/savings/target-savings/${savingsDetails.target_save_group_id}/share`
+                      )
+                    }}
                   />
                   <AuthButton
                     btnText='Save hub'
