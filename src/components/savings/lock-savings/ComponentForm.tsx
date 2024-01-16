@@ -21,12 +21,11 @@ import {
 } from "@/shared"
 import { yupResolver } from "@hookform/resolvers/yup"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 import Image from "next/image"
 import React, { useEffect, useState } from "react"
@@ -122,7 +121,38 @@ export function ComponentForm() {
       <Loading />
       <div className=' '>
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)} className='  '>
+          <form
+            onSubmit={methods.handleSubmit(onSubmit)}
+            className=' flex flex-col gap-9 '
+          >
+            <div className='flex items-center justify-between '>
+              <div className=''>
+                <h1 className='  font-display__medium text-purple capitalize '>
+                  Lock Save
+                </h1>
+                <p className=' text-neutral-70 font-title__large '>
+                  Safeguard your Funds
+                </p>
+              </div>
+              <div className=''>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      {" "}
+                      <Image
+                        src={`/icons/info-circle.svg`}
+                        width={24}
+                        height={24}
+                        alt=''
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Create Lock Save </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            </div>
             <div className='flex flex-col gap-9  '>
               <div className=' flex flex-col gap-6  '>
                 <RegisterInput
