@@ -18,6 +18,7 @@ import {
   createAjoSchema,
   CreateLockSavingsFormInterface,
   LockSaveInterestInterface,
+  createLockSaveSchema,
 } from "@/shared"
 import { yupResolver } from "@hookform/resolvers/yup"
 import {
@@ -62,6 +63,7 @@ export function ComponentForm() {
       lock_save_amount: 0,
     },
     mode: "onBlur",
+    resolver: yupResolver(createLockSaveSchema),
   })
 
   const Router = useRouter()
@@ -80,6 +82,23 @@ export function ComponentForm() {
   }
 
   const onSubmit = async () => {
+    if (!endDate) {
+      toast({
+        title: "Something Went Wrong",
+        description: `Please select an end date`,
+
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+        duration: 5000,
+      })
+      return
+    }
+
     try {
       dispatch(setLoadingTrue())
       const response = await userService.createLockSavings({
@@ -167,16 +186,23 @@ export function ComponentForm() {
                   >
                     Amount
                   </label>
-                  <input
-                    className={` form-input pl-0   input_field-input `}
-                    type={"number"}
-                    placeholder='Amount'
-                    {...methods.register("lock_save_amount", {
-                      required: "Amount is required",
-                    })}
-                    onChange={(e) => setAmount(parseInt(e.target.value))}
-                    value={amount}
-                  />
+                  <div className=' flex flex-col gap-2  '>
+                    <input
+                      className={` form-input pl-0   input_field-input `}
+                      type={"number"}
+                      placeholder='Minimum of ₦5000'
+                      {...methods.register("lock_save_amount", {
+                        required: "Amount is required",
+                      })}
+                      onChange={(e) => setAmount(parseInt(e.target.value))}
+                      value={amount}
+                    />
+                    {methods.formState.errors.lock_save_amount && (
+                      <span className='error-message'>
+                        {methods.formState.errors.lock_save_amount.message}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <div className=' flex justify-between gap-[43px] '>
