@@ -99,7 +99,7 @@ function page() {
         },
       })
 
-      Router.push(`/savings/my-targets/${Params.savingsID}/details`)
+      Router.push(`/savings/target-savings/${Params.savingsID}/details`)
       dispatch(setLoadingFalse())
     } catch (error) {
       dispatch(setLoadingFalse())
