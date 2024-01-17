@@ -212,15 +212,17 @@ function Page() {
                   Penalty!`}
               </p>
             </div>
-            <BtnMain
-              btnText='Withdraw'
-              btnStyle=' w-full text-purple border-neutral-30 border '
-              onClick={() =>
-                Router.push(
-                  `/savings/lock-savings/${Params.savingsID}/withdrawal`
-                )
-              }
-            />
+            {!savingsDetails?.has_withdrawn && (
+              <BtnMain
+                btnText='Withdraw'
+                btnStyle=' w-full text-purple border-neutral-30 border '
+                onClick={() =>
+                  Router.push(
+                    `/savings/lock-savings/${Params.savingsID}/withdrawal`
+                  )
+                }
+              />
+            )}
           </div>
 
           <div className=' grid  grid-cols-2  gap-8 flex-wrap  '>
