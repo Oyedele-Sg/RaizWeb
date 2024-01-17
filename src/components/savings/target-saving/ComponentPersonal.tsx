@@ -60,6 +60,37 @@ interface Props {
 export function ComponentPersonal({ setStep, step, current }: Props) {
   const { currentUser } = useContext(CurrentUserContext)
 
+  const uploadFile = async () => {
+    try {
+      dispatch(setLoadingTrue())
+      const formData = new FormData()
+      formData.append("file", file)
+      formData.append("type", file.type)
+
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+        headers: {
+          // You don't need to set Content-Type for FormData
+          // "Content-Type": "multipart/form-data",
+          // "Access-Control-Allow-Origin" header is not needed here
+        },
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setImageURL(data.url)
+      }
+
+      dispatch(setLoadingFalse())
+
+      setFile(null)
+    } catch (err) {
+      console.error(err)
+      dispatch(setLoadingFalse())
+    }
+  }
+
   const methods = useForm<CreateTargetSavingsFormInterface>({
     defaultValues: {
       target_amount: 0,
@@ -173,6 +204,12 @@ export function ComponentPersonal({ setStep, step, current }: Props) {
   useEffect(() => {
     getData()
   }, [])
+
+  useEffect(() => {
+    if (file) {
+      uploadFile()
+    }
+  }, [file])
 
   useEffect(() => {
     methods.setValue("preferred_deduction_day", prefferedDay)
