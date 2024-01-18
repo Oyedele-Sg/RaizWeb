@@ -252,19 +252,31 @@ export function formatNumberToK(number: number): string {
   }
 }
 
-export function timeAgo(date: Date) {
-  const momentDate = moment(date);
-  const now = moment();
-  const diffInMinutes = now.diff(momentDate, 'minutes');
-  const diffInHours = now.diff(momentDate, 'hours');
-  const diffInDays = now.diff(momentDate, 'days');
+export function getTimeAgoFromUTC(date: Date) {
+  const utcDate = new Date(date);
 
-  if (diffInMinutes < 60) {
-    return `${diffInMinutes} ${diffInMinutes === 1 ? 'minute' : 'minutes'} ago`;
-  } else if (diffInHours < 24) {
-    return `${diffInHours} ${diffInHours === 1 ? 'hour' : 'hours'} ago`;
+  const currentDate = new Date();
+
+  const timeDifference = currentDate.getTime() - utcDate.getTime();
+
+  const isFuture = timeDifference < 0;
+  const timeDifferenceAbsolute = Math.abs(timeDifference);
+
+  const secondsAgo = Math.floor(timeDifferenceAbsolute / 1000);
+  const minutesAgo = Math.floor(secondsAgo / 60);
+  const hoursAgo = Math.floor(minutesAgo / 60);
+  const daysAgo = Math.floor(hoursAgo / 24);
+
+  if (isFuture) {
+    return 'recently';
+  } else if (daysAgo > 0) {
+    return `${daysAgo} day${daysAgo === 1 ? '' : 's'} ago`;
+  } else if (hoursAgo > 0) {
+    return `${hoursAgo} hour${hoursAgo === 1 ? '' : 's'} ago`;
+  } else if (minutesAgo > 0) {
+    return `${minutesAgo} minute${minutesAgo === 1 ? '' : 's'} ago`;
   } else {
-    return `${diffInDays} ${diffInDays === 1 ? 'day' : 'days'} ago`;
+    return `${secondsAgo} second${secondsAgo === 1 ? '' : 's'} ago`;
   }
 }
 
@@ -292,12 +304,12 @@ export function convertDateString(input: string): string | null {
   }
 }
 export function generateMonthArray(numberOfDaysInMonth: number) {
-  const daysOfMonth = []
+  const daysOfMonth = [];
 
   for (let i = 1; i <= numberOfDaysInMonth; i++) {
-    const dayObject = { day: i.toString(), id: i } // Adjusted to start from 0
-    daysOfMonth.push(dayObject)
+    const dayObject = { day: i.toString(), id: i }; // Adjusted to start from 0
+    daysOfMonth.push(dayObject);
   }
 
-  return daysOfMonth
+  return daysOfMonth;
 }
