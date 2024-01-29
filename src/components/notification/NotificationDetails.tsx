@@ -5,6 +5,7 @@ import { CreditNotificationDetails } from './CreditNotificationDetails';
 import { DebitNotificationDetails } from './DebitNotificationDetails';
 import { DebitSplitRequestNotificationDetails } from './DebitSplitRequestNotificationDetails';
 import { BillRequestNotificationDetails } from './BillRequestNotificationDetails';
+import { TargetSaveInviteNotificationDetails } from './TargetSaveInviteNotificationDetails';
 import './Notification.css';
 
 interface NotificationDetailsProps {
@@ -29,6 +30,9 @@ export function NotificationDetails({
         )}
 
         {notification_type === 'bill' && <BillRequestNotificationDetails />}
+        {notification_type === 'target_save_invite' && (
+          <TargetSaveInviteNotificationDetails />
+        )}
 
         {notification_type === 'other' && (
           <h3>Unable to handle this type of notification yet</h3>

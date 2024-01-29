@@ -8,6 +8,7 @@ import {
   getSelectedDebitTransfer,
   getSelectedDebitSplitRequest,
   getSelectedRequest,
+  getSelectedTargetSaveInvite,
 } from '@/shared/redux/features';
 import { useAppDispatch, useAppSelector } from '@/shared/redux/types';
 import { userService } from '@/services';
@@ -24,6 +25,7 @@ const NOTIFICATION_TYPES = {
   CREDIT_TRANSFER: 'credit',
   DEBIT_TRANSFER: 'debit',
   SPLIT_REQUEST: 'split',
+  TARGET_SAVE_INVITE: 'target_save_invite',
   OTHER: 'other',
   UNKNOWN: '',
 };
@@ -31,13 +33,15 @@ const NOTIFICATION_TYPES = {
 interface NotificationItemProps {
   notification_id?: string;
   notification_category_id?: number;
+  page: number;
 }
 
 export function AllNotificationList({
   notification_id,
   notification_category_id,
+  page,
 }: NotificationItemProps): JSX.Element {
-  const notification = useNotification(notification_category_id);
+  const notification = useNotification(notification_category_id, page);
   const dispatch = useAppDispatch();
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [notificationType, setNotificationType] = useState<string>(
@@ -60,8 +64,9 @@ export function AllNotificationList({
       item!.read = true;
     }
     let res;
-    switch (item.notification_sub_category) {
-      case 'Bill Request':
+    //COME BACK TO CHANGE THIS TO item.notification_sub_category_id
+    switch (item.notification_sub_category_id) {
+      case 6:
         const selectedRequest = requests?.find(
           (request) => request.request_transfer_id === item.object_id
         );
@@ -70,27 +75,35 @@ export function AllNotificationList({
         );
         setNotificationType(NOTIFICATION_TYPES.BILL_REQUEST);
         break;
-      case 'Credit Transfer':
+      case 2:
         res = await userService.getCreditTransferDetail({
           notification_url: item.notification_url,
         });
         setNotificationType(NOTIFICATION_TYPES.CREDIT_TRANSFER);
         dispatch(getSelectedCreditTransfer(res));
         break;
-      case 'Debit Transfer':
+      case 1:
         res = await userService.getDebitTransferDetail({
           notification_url: item.notification_url,
         });
         setNotificationType(NOTIFICATION_TYPES.DEBIT_TRANSFER);
         dispatch(getSelectedDebitTransfer(res));
         break;
-      case 'Split Request':
+      case 5:
         res = await userService.getDebitSplitRequestDetail({
           notification_url: item.notification_url,
         });
 
         setNotificationType(NOTIFICATION_TYPES.SPLIT_REQUEST);
         dispatch(getSelectedDebitSplitRequest(res));
+        break;
+      case 3:
+        res = await userService.getTargetSaveInviteDetail({
+          notification_url: item.notification_url,
+        });
+
+        setNotificationType(NOTIFICATION_TYPES.TARGET_SAVE_INVITE);
+        dispatch(getSelectedTargetSaveInvite(res));
         break;
       default:
     }

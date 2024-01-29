@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit"
+import { configureStore } from '@reduxjs/toolkit';
 import {
   signupEmailReducer,
   loadingReducer,
@@ -7,13 +7,15 @@ import {
   selectedNotificationReducer,
   selectedCreditTransferReducer,
   selectedDebitTransferReducer,
+  selectedTargetSaveInviteReducer,
   selectedDebitSplitRequestReducer,
   balanceRevealReducer,
   SidebarReducer,
   lockSavingSuccessReducer,
   groupSavingResponseReducer,
-} from "./features"
-import { selectedRequestReducer } from "./features/request"
+  notificationPaginationReducer,
+} from './features';
+import { selectedRequestReducer } from './features/request';
 // import authReducer from "./features/lice
 
 export const store = configureStore({
@@ -26,13 +28,15 @@ export const store = configureStore({
     selectedNotification: selectedNotificationReducer,
     selectedCreditTransfer: selectedCreditTransferReducer,
     selectedDebitTransfer: selectedDebitTransferReducer,
+    selectedTargetSaveInvite: selectedTargetSaveInviteReducer,
     selectedDebitSplitRequest: selectedDebitSplitRequestReducer,
+    notifcationPagination: notificationPaginationReducer,
     balanceReveal: balanceRevealReducer,
     sidebarLinks: SidebarReducer,
     lockSavingSuccessData: lockSavingSuccessReducer,
     groupSavingSuccessData: groupSavingResponseReducer,
   },
-})
+});
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

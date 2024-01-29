@@ -3,11 +3,15 @@ import { AllNotificationList } from '@/components/notification';
 import { useNotification } from '@/hooks/notification/useNotification';
 import {
   BackArrow,
+  NextArrow,
   BackBtnCircle,
   NotificationDataInterface,
   NotificationCategoryInterface,
 } from '@/shared';
-import { getSelectedNotification } from '@/shared/redux/features';
+import {
+  getSelectedNotification,
+  setPaginationPage,
+} from '@/shared/redux/features';
 import { useAppDispatch, useAppSelector } from '@/shared/redux/types';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -17,7 +21,8 @@ import { toastMessage } from '@/utils/helpers';
 
 function page() {
   const Router = useRouter();
-  const notification = useNotification();
+  const page = useAppSelector((state) => state.notifcationPagination.page);
+  const notification = useNotification(1, page);
   const [detail, setDetail] = useState<NotificationDataInterface>();
   const [selectedNotificationType, setSelectedNotificationType] =
     useState<NotificationCategoryInterface>();
@@ -136,7 +141,27 @@ function page() {
         notification_category_id={
           selectedNotificationType?.notification_category_id || undefined
         }
+        page={page}
       />
+      <div className="flex items-center  ">
+        {page > 1 && (
+          <button
+            title="back"
+            className=""
+            onClick={() => dispatch(setPaginationPage(page - 1))}
+          >
+            <BackArrow />
+          </button>
+        )}
+        {notification && notification.length == 10 && (
+          <button
+            onClick={() => dispatch(setPaginationPage(page + 1))}
+            className=""
+          >
+            <NextArrow />
+          </button>
+        )}
+      </div>
     </div>
   );
 }
