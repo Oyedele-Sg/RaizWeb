@@ -1,128 +1,124 @@
-'use client';
-import { AllNotificationList } from '@/components/notification';
-import { useNotification } from '@/hooks/notification/useNotification';
+"use client"
+import { AllNotificationList } from "@/components/notification"
+import { useNotification } from "@/hooks/notification/useNotification"
 import {
   BackArrow,
   NextArrow,
   BackBtnCircle,
   NotificationDataInterface,
   NotificationCategoryInterface,
-} from '@/shared';
+} from "@/shared"
 import {
   getSelectedNotification,
   setPaginationPage,
-} from '@/shared/redux/features';
-import { useAppDispatch, useAppSelector } from '@/shared/redux/types';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { userService } from '@/services';
-import React, { useState, useEffect } from 'react';
-import { toastMessage } from '@/utils/helpers';
+} from "@/shared/redux/features"
+import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { userService } from "@/services"
+import React, { useState, useEffect } from "react"
+import { toastMessage } from "@/utils/helpers"
 
 function page() {
-  const Router = useRouter();
-  const page = useAppSelector((state) => state.notifcationPagination.page);
-  const notification = useNotification(1, page);
-  const [detail, setDetail] = useState<NotificationDataInterface>();
+  const Router = useRouter()
+  const page = useAppSelector((state) => state.notifcationPagination.page)
+  const notification = useNotification(1, page)
+  const [detail, setDetail] = useState<NotificationDataInterface>()
   const [selectedNotificationType, setSelectedNotificationType] =
-    useState<NotificationCategoryInterface>();
+    useState<NotificationCategoryInterface>()
   const [notificationCategories, setNotificationCategories] =
-    useState<NotificationCategoryInterface[]>();
-  const [notificationDrop, setNotificationDrop] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
+    useState<NotificationCategoryInterface[]>()
+  const [notificationDrop, setNotificationDrop] = useState<boolean>(false)
+  const dispatch = useAppDispatch()
   const handleSortByChange = (
     notificationDrop: boolean,
     notificationCategory?: NotificationCategoryInterface
   ) => {
-    setSelectedNotificationType(notificationCategory);
-    setNotificationDrop(notificationDrop);
-  };
+    setSelectedNotificationType(notificationCategory)
+    setNotificationDrop(notificationDrop)
+  }
 
   const notificationDetails = useAppSelector(
     (state) => state.selectedNotification
-  );
+  )
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await userService.getNotificationCategories();
-        setNotificationCategories(response);
+        const response = await userService.getNotificationCategories()
+        setNotificationCategories(response)
       } catch (error) {
-        toastMessage('Something Went Wrong', `${error}`);
+        toastMessage("Something Went Wrong", `${error}`)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   return (
-    <div className=" flex flex-col gap-3 ">
-      <div className="flex items-center  ">
+    <div className=' flex flex-col gap-3 '>
+      <div className='flex items-center  '>
         <button
-          title="back"
-          className=""
+          title='back'
+          className=''
           onClick={() => {
             if (
               notificationDetails &&
               !(Object.keys(notificationDetails).length === 0)
             ) {
-              dispatch(
-                getSelectedNotification({} as NotificationDataInterface)
-              );
-              return;
+              dispatch(getSelectedNotification({} as NotificationDataInterface))
+              return
             } else {
-              Router.back();
+              Router.back()
             }
           }}
         >
           <BackArrow />
         </button>
-        <div className=" w-full  flex justify-between">
-          <div className=" flex-1   ">
-            <h1 className=" text-purple text-center text-t-24 font-semi-mid  ">
+        <div className=' w-full  flex justify-between'>
+          <div className=' flex-1   '>
+            <h1 className=' text-purple text-center text-t-24 font-semi-mid  '>
               Notifications
             </h1>
           </div>
           <div
-            className=" relative  border border-neutral-40 flex gap-6 p-2 rounded-lg "
+            className=' relative  border border-neutral-40 flex gap-6 p-2 rounded-lg '
             onClick={() => {
-              setNotificationDrop(!notificationDrop);
+              setNotificationDrop(!notificationDrop)
             }}
           >
-            <div className=" flex items-center  gap-4 ">
-              <div className=" flex items-center gap-2  ">
+            <div className=' flex items-center  gap-4 '>
+              <div className=' flex items-center gap-2  '>
                 <Image
                   src={`/icons/filter.svg`}
                   width={16}
                   height={16}
-                  alt=""
-                />{' '}
-                <span className=" text-neutral-90  text-t-12  ">
-                  {' '}
+                  alt=''
+                />
+                <span className=' text-neutral-90  text-t-12  '>
                   {selectedNotificationType?.notification_category_name ||
-                    'Sort By'}{' '}
-                </span>{' '}
+                    "Sort By"}
+                </span>
               </div>
               <span>
-                {' '}
                 <Image
-                  alt=""
+                  alt=''
                   width={16}
                   height={16}
                   src={`/icons/arrow-down-desk.svg`}
-                />{' '}
+                />
               </span>
             </div>
             {notificationDrop && (
-              <div className=" bg-grey w-[160px] absolute  z-[100000000000000] top-[35px] ">
+              <div className=' bg-grey w-[160px] absolute  z-[100000000000000] top-[35px] '>
                 <div
-                  className=" py-2 px-4 capitalize hover:bg-neutral-30  text-purple "
+                  className=' py-2 px-4 capitalize hover:bg-neutral-30  text-purple '
                   onClick={() => handleSortByChange(false, undefined)}
                 >
                   all
                 </div>
                 {notificationCategories?.map((notificationCategory, index) => (
                   <div
-                    className=" py-2 px-4 capitalize hover:bg-neutral-30  text-purple "
+                    className=' py-2 px-4 capitalize hover:bg-neutral-30  text-purple '
                     onClick={() =>
                       handleSortByChange(false, notificationCategory)
                     }
@@ -143,27 +139,43 @@ function page() {
         }
         page={page}
       />
-      <div className="flex items-center  ">
+      <div className='flex items-center  justify-between '>
         {page > 1 && (
           <button
-            title="back"
-            className=""
+            title='back'
+            className=' flex items-center gap-2 text-t-16 text-neutral-90  font-medium  '
             onClick={() => dispatch(setPaginationPage(page - 1))}
           >
-            <BackArrow />
+            <span className=''>
+              <Image
+                src={`/icons/arrow-notification-left.svg`}
+                width={16}
+                height={16}
+                alt=''
+              />
+            </span>{" "}
+            <span className=''>Previous</span>
           </button>
         )}
         {notification && notification.length == 10 && (
           <button
             onClick={() => dispatch(setPaginationPage(page + 1))}
-            className=""
+            className=' flex items-center gap-2 text-t-16 text-neutral-90  font-medium '
           >
-            <NextArrow />
+            <span className=''>Next</span>
+            <span className=' h-[16px] '>
+              <Image
+                src={`/icons/arrow-notification-right.svg`}
+                width={16}
+                height={16}
+                alt=''
+              />
+            </span>
           </button>
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default page;
+export default page
