@@ -56,7 +56,6 @@ function page() {
   const dispatch = useAppDispatch();
   const Params = useParams();
   const { savingsID, savingType } = useParams();
-  console.log(savingType);
   const handlenavigation = () => {
     Router.push(`/savings/target-savings/${Params.savingsID}/details`);
   };

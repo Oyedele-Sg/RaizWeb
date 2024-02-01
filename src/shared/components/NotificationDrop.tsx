@@ -16,8 +16,8 @@ export function NotificationDrop() {
   );
 
   const Router = useRouter();
-
-  const notification = useNotification();
+  const page = useAppSelector((state) => state.notifcationPagination.page);
+  const notification = useNotification(1, page ?? 1);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
