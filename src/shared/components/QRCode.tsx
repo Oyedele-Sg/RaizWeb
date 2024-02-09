@@ -11,7 +11,6 @@ export function QrCode() {
   const dispatch = useAppDispatch();
   const { currentUser } = useContext(CurrentUserContext);
   const isShowing = useAppSelector((state) => state.showQR.isShowing);
-
   const modalRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     // Function to handle clicks outside the modal
@@ -50,13 +49,13 @@ export function QrCode() {
 
                   <div className=" relative ">
                     <div className=" absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center  ">
-                      {/* <Image
-                        src='/icons/icon-mark.svg'
+                      <Image
+                        src="/icons/icon-mark.svg"
                         width={100}
                         height={100}
-                        alt=''
-                        className=' rounded-full  '
-                      /> */}
+                        alt=""
+                        className=" rounded-full  "
+                      />
                     </div>
 
                     <div
@@ -66,16 +65,14 @@ export function QrCode() {
                         width: '300px',
                       }}
                     >
-                      <QRCode
-                        size={300}
-                        style={{
-                          height: 300,
-                          maxWidth: '300px',
-                          width: '300px',
-                        }}
-                        value={currentUser?.qr_code}
-                        viewBox={`0 0 256 256`}
-                      />
+                      {currentUser?.qr_code && (
+                        <Image
+                          src={`data:image/png;base64,${currentUser.qr_code}`}
+                          width={300}
+                          height={300}
+                          alt=""
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
