@@ -14,10 +14,10 @@ export default function BudgetLayout({
 }) {
   return (
     <>
-      <CurrentUserProvider>z``
+      <CurrentUserProvider>
         <main>
           <div className=' bg-grey min-h-screen '>
-            <SetupLayout bg='bg-loans-patterns'>
+            <SetupLayout bg='bg-loans-pattern'>
               <div className=' my-[72px] mx-5 lg:mx-[72px] flex flex-col gap-[155px] '>
                 <div className=' hidden lg:block '>
                   <IconRaizColored />

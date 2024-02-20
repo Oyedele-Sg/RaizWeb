@@ -24,7 +24,7 @@ export const Sidebar = () => {
       title: "Savings",
       identifier: "savings",
     },
-    { icon: "wallet", link: "/loan", title: "loan", identifier: "loan" },
+    { icon: "wallet", link: "/loans/hub", title: "loan", identifier: "loan" },
     { icon: "ajo", link: "/ajo/hub", title: "ajo", identifier: "ajo" },
     // { icon: "icon-receipt", link: "/none", title: "Savings" },
   ]
@@ -42,7 +42,12 @@ export const Sidebar = () => {
       identifier: "savings",
     },
     // { icon: "chart", link: "/dashboard", title: "Analytics" },
-    { icon: "money-tick", link: "/loan", title: "Loans", identifier: "loan" },
+    {
+      icon: "money-tick",
+      link: "/loans/hub",
+      title: "Loans",
+      identifier: "loan",
+    },
     {
       icon: "profile",
       link: "/settings",

@@ -17,13 +17,13 @@ export default function Ajo() {
 
   const data = [
     {
-      text: "Secure Your Savings with Save Lock",
-      span: "Money to be collected on the first of December and  no one has access to your deposit",
+      text: "Welcome to Loan Services",
+      span: "Get Started on Your Financial Journey Today",
       icon: "0",
     },
     {
-      text: "Target Your Savings with Target Save",
-      span: "Set Goals and Save Strategically to Reach Your Financial Targets",
+      text: "Low-Interest Loans",
+      span: "Affordable Borrowing for Your Financial Goals",
       icon: "1",
     },
     {

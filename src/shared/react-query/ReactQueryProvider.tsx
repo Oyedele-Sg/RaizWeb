@@ -50,7 +50,7 @@ export const ReactQueryProvider = ({
       // logs out user
       userService.logout()
       Router.push("/login")
-    }, 15 * 60 * 1000) // 10000ms = 10secs.
+    }, 1500000 * 60 * 1000) // 10000ms = 10secs.
   }
 
   const resetTimer = () => {
