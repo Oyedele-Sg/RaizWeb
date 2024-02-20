@@ -35,9 +35,6 @@ export default function Ajo() {
   ]
   const [active, setActive] = React.useState(0)
   React.useEffect(() => {
-    // if (currentUser.onboarding_checklist.ajo) {
-    //   Router.push("/ajo/hub")
-    // }
     const interval = setInterval(() => {
       setActive((prev) => (prev === 2 ? 0 : prev + 1))
     }, 8000)
