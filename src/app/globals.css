@@ -86,6 +86,11 @@
       #3c91e6 -8.26%,
       #0072e4 108.68%
     );
+    --btn-gradient-loan: linear-gradient(
+      90deg,
+      #8bbeb2 29.88%,
+      #1f705d 281.71%
+    );
   }
 
   .dark {
@@ -324,6 +329,9 @@ body {
 }
 .btn-gradient-savings {
   background: var(--btn-gradient-savings);
+}
+.btn-gradient-loan {
+  background: var(--btn-gradient-loan);
 }
 
 .bug {

@@ -121,7 +121,10 @@ module.exports = {
 
         "pesaraise-10": "#F1E0CB",
         "overlay-10": " rgba(31, 29, 43, 0.63)",
-        loan: {},
+        loan: {
+          bg: "#EEF0F0",
+          btn: "var(--btn-gradient-loan)",
+        },
 
         positive: "#7ABA98",
         border: "hsl(var(--border))",

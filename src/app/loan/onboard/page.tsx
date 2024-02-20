@@ -14,6 +14,7 @@ export default function Ajo() {
   const Router = useRouter()
   const dispatch = useAppDispatch()
   const { currentUser } = useContext(CurrentUserContext)
+  console.log("current User", currentUser)
 
   const data = [
     {
@@ -46,11 +47,11 @@ export default function Ajo() {
     <>
       <Loading />
       <div className='  '>
-        <div className=' bg-savings-bg  rounded-lg  px-[96px] py-12 '>
+        <div className=' bg-loan-bg rounded-lg  px-[96px] py-12 '>
           <div className=' flex flex-col gap-8 '>
             <div className=' flex flex-col items-center gap-12  '>
               <Image
-                src={`/illustrations/savings/${data[active].icon}.svg`}
+                src={`/illustrations/loan/${data[active].icon}.svg`}
                 width={184.23}
                 height={163.93}
                 alt=''
@@ -79,8 +80,27 @@ export default function Ajo() {
           <div className=''>
             <BtnMain
               btnText=' Get Started '
-              btnStyle=' w-full btn-gradient-savings  text-grey mt-[56px] '
-              onClick={() => Router.push("/dashboard")}
+              btnStyle=' w-full btn-gradient-loan text-grey mt-[56px] '
+              onClick={async () => {
+                dispatch(setLoadingTrue())
+
+                if (currentUser?.onboarding_checklist === null) {
+                  await userService.updateUserOnboardingList({
+                    ajo: false,
+                    checking: false,
+                    savings: false,
+                    loan: true,
+                  })
+                  dispatch(setLoadingFalse())
+                  Router.push("/loan/hub")
+                } else {
+                  await userService.updateUserOnboardingList({
+                    loan: true,
+                  })
+                  dispatch(setLoadingFalse())
+                  Router.push("/loan/hub")
+                }
+              }}
             />
           </div>
         </div>
