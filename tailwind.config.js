@@ -1,3 +1,5 @@
+const { bg } = require("date-fns/locale")
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -93,25 +95,36 @@ module.exports = {
         yellow: "#FFC857",
         grey: "#F4F4F4",
         error: "#B3261E",
-        "neutral-10": "#FDFDFD",
-        "neutral-20": "#F0EBF4",
-        "neutral-30": "#E7DFEE",
-        "neutral-40": "#DFD2EB",
-        "neutral-50": "#CEBFDD",
-        "neutral-60": "#BFABD3",
-        "neutral-70": "#9881AE",
-        "neutral-80": "#7E6298",
-        "neutral-90": "#64497D",
-        "neutral-100": "#493260",
-        "ajo-card": "#ECEFEF",
+        neutral: {
+          10: "#FDFDFD",
+          20: "#F0EBF4",
+          30: "#E7DFEE",
+          40: "#DFD2EB",
+          50: "#CEBFDD",
+          60: "#BFABD3",
+          70: "#9881AE",
+          80: "#7E6298",
+          90: "#64497D",
+          100: "#493260",
+        },
         "bg-overlay": "rgba(47, 47, 47, 0.62)",
-        "ajo-live": "rgba(155, 216, 183, 0.22)",
-        "ajo-pending": "rgba(216, 177, 155, 0.22)",
-        "ajo-end": "rgba(179, 38, 30, 0.19)",
-        "savings-bg": "#EEF1F4",
+        ajo: {
+          live: "rgba(155, 216, 183, 0.22)",
+          pending: "rgba(216, 177, 155, 0.22)",
+          end: "rgba(179, 38, 30, 0.19)",
+          card: "#ECEFEF",
+        },
+        savings: {
+          bg: "#EEF1F4",
+          neutral: "#D3E5F8",
+        },
+
         "pesaraise-10": "#F1E0CB",
         "overlay-10": " rgba(31, 29, 43, 0.63)",
-        "savings-neutral": "#D3E5F8",
+        loan: {
+          bg: "#EEF0F0",
+          btn: "var(--btn-gradient-loan)",
+        },
 
         positive: "#7ABA98",
         border: "hsl(var(--border))",
@@ -329,19 +342,3 @@ module.exports = {
     require("@headlessui/tailwindcss"),
   ],
 }
-
-// tremor style
-// "tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-// "tremor-card":
-//   "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-// "tremor-dropdown":
-//   "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-// // dark
-// "dark-tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-// "dark-tremor-card":
-//   "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-// "dark-tremor-dropdown":
-//   "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-// lg: "var(--radius)",
-// md: "calc(var(--radius) - 2px)",
-// sm: "calc(var(--radius) - 4px)",
