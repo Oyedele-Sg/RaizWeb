@@ -14,6 +14,7 @@ import moment from 'moment';
 import { NotificationDrop } from './NotificationDrop';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { CurrentUserContext } from '@/providers/CurrentUserProvider';
+import { useAppSelector } from '../redux/types';
 
 interface Props {
   ajo?: boolean;
@@ -22,7 +23,8 @@ interface Props {
 
 export function UtilityIcons({ ajo, iconExtraStyle }: Props) {
   const Router = useRouter();
-  const notification = useNotification();
+  const page = useAppSelector((state) => state.notifcationPagination.page);
+  const notification = useNotification(1, page ?? 1);
   const { currentUser } = useContext(CurrentUserContext);
 
   return (

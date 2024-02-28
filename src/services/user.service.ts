@@ -153,6 +153,7 @@ export const userService = {
   leaveAjo,
   getCreditTransferDetail,
   getDebitTransferDetail,
+  getTargetSaveInviteDetail,
   readNotification,
   getDebitSplitRequestDetail,
   getAjoPaymentTable,
@@ -473,12 +474,12 @@ function nipAccountLookup(
 }
 
 function getNotificationsByID(
-  page?: string,
+  page?: number,
   notification_category_id?: number,
   read?: string
 ): Promise<NotificationDataInterface[]> {
   return fetchWrapper.get(
-    `${baseUrl}/account_users/notifications/${notification_category_id}/?limit=10&page=1`
+    `${baseUrl}/account_users/notifications/${notification_category_id}/?limit=10&page=${page}`
   )
 }
 
@@ -518,6 +519,20 @@ function getDebitTransferDetail(params: {
     return fetchWrapper.get(
       `${baseUrl}/transfers/debit/get/${debit_transfer_id}`
     )
+  } else {
+    return fetchWrapper.get(`${baseUrl}/${notification_url}`)
+  }
+}
+
+// target save invite
+function getTargetSaveInviteDetail(params: {
+  notification_url?: string
+  target_invite_id?: string
+}): Promise<any> {
+  const { notification_url, target_invite_id } = params
+  if (target_invite_id) {
+    // NEED TO COME BACK AND FIX THIS
+    return fetchWrapper.get(`${baseUrl}/${notification_url}`)
   } else {
     return fetchWrapper.get(`${baseUrl}/${notification_url}`)
   }
@@ -601,12 +616,12 @@ function disapproveRequest(request_id: string): Promise<void> {
 
 // notifications
 function getNotifications(
-  page?: string,
-  notification_category_id?: string,
+  notification_category_id?: number,
+  page?: number,
   read?: string
 ): Promise<NotificationDataInterface[]> {
   return fetchWrapper.get(
-    `${baseUrl}/account_users/notifications/?limit=10&page=1`
+    `${baseUrl}/account_users/notifications/?limit=10&page=${page}`
   )
 }
 
@@ -1003,6 +1018,34 @@ function getTargetSavingsActivitiesCategory(): Promise<
   GroupTargetSavingsActivitiesCategoryInterface[]
 > {
   return fetchWrapper.get(`${baseUrl}/savings/target-save-activity-categories/`)
+}
+
+// loan
+
+function getUserLoanApplication(): Promise<LoanDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/loan/loan-applications/account-user/get/`)
+}
+
+function getUserLoan(): Promise<LoanDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/loans/account-user/get/`)
+}
+function getLoanByID(id: string): Promise<LoanDataInterface> {
+  return fetchWrapper.get(`${baseUrl}loans/${id}/`)
+}
+function getLoanActivityByID(id: string): Promise<LoanActivityDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}loans/${id}/activities/`)
+}
+function getLoanSummary(): Promise<LoanSummaryDataInterface> {
+  return fetchWrapper.get(`${baseUrl}loans/summary/`)
+}
+
+function applyFlexLoan(
+  data: CreateFlexLoanDataInterface
+): Promise<LoanDataInterface> {
+  return fetchWrapper.post(
+    `${baseUrl}/loan/loan-applications/apply/flex/`,
+    data
+  )
 }
 
 // loan

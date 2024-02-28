@@ -7,11 +7,13 @@ import {
   selectedNotificationReducer,
   selectedCreditTransferReducer,
   selectedDebitTransferReducer,
+  selectedTargetSaveInviteReducer,
   selectedDebitSplitRequestReducer,
   balanceRevealReducer,
   SidebarReducer,
   lockSavingSuccessReducer,
   groupSavingResponseReducer,
+  notificationPaginationReducer,
 } from "./features"
 import { selectedRequestReducer } from "./features/request"
 import { loanDataReducer } from "./features/flex-loan"
@@ -27,7 +29,9 @@ export const store = configureStore({
     selectedNotification: selectedNotificationReducer,
     selectedCreditTransfer: selectedCreditTransferReducer,
     selectedDebitTransfer: selectedDebitTransferReducer,
+    selectedTargetSaveInvite: selectedTargetSaveInviteReducer,
     selectedDebitSplitRequest: selectedDebitSplitRequestReducer,
+    notifcationPagination: notificationPaginationReducer,
     balanceReveal: balanceRevealReducer,
     sidebarLinks: SidebarReducer,
     lockSavingSuccessData: lockSavingSuccessReducer,

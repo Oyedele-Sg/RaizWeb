@@ -95,6 +95,15 @@ export function formatDateToISOString(date: Date): string {
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`
 }
 
+export function extractYearMonthDay(dateString: Date): string {
+  const dateObject = new Date(dateString);
+  const year = dateObject.getFullYear();
+  const month = (dateObject.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+  const day = dateObject.getDate().toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
 export const calculateNewDateRange = (selectedValue: string): DateRange => {
   const currentDate = new Date()
   const fromDate = new Date()

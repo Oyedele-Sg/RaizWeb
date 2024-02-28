@@ -4,43 +4,46 @@ import { userService } from '@/services';
 
 import { NotificationDataInterface, UserInterface, queryKeys } from '@/shared';
 import { useEffect } from 'react';
+import { useAppSelector } from '@/shared/redux/types';
 
 async function getNotifications(
-  notification_category_id?: number
+  notification_category_id?: number,
+  page?: number,
+  read?: string
 ): Promise<NotificationDataInterface[]> {
-  let response = await userService.getNotifications();
+  let response;
   if (notification_category_id) {
     response = await userService.getNotificationsByID(
-      '',
+      page,
       notification_category_id,
-      ''
+      read
     );
   } else {
-    response = await userService.getNotifications();
+    response = await userService.getNotifications(
+      notification_category_id,
+      page,
+      read
+    );
   }
   return response;
 }
 
 export function useNotification(
-  notification_category_id?: number
+  notification_category_id?: number,
+  page?: number,
+  read?: string
 ): NotificationDataInterface[] | undefined {
   const queryClient = useQueryClient();
   const queryKey = [queryKeys.notifications];
   if (notification_category_id !== undefined) {
     queryKey.push(notification_category_id.toString());
   }
-
-  // const { data } =
-  //   useQuery <
-  //   NotificationDataInterface[], any>({
-  //     queryKey: queryKey,
-  //     queryFn: getNotifications(notification_category_id ?? 0),
-  //     staleTime: 30000,
-  //   });
-
+  if (page !== undefined) {
+    queryKey.push(page.toString());
+  }
   const { data } = useQuery<NotificationDataInterface[], any>(
-    queryKey, // Pass the queryKey directly
-    () => getNotifications(notification_category_id ?? 0), // Use a function reference here
+    queryKey,
+    () => getNotifications(notification_category_id, page, read), // Use a function reference here
     {
       staleTime: 30000,
     }
