@@ -124,6 +124,10 @@ module.exports = {
         loan: {
           bg: "#EEF0F0",
           btn: "var(--btn-gradient-loan)",
+          term: "#F1E0CB",
+          payday: "#D3E5F8",
+          flex: "#DFECE9",
+          paid: "#8BBEB2",
         },
 
         positive: "#7ABA98",
@@ -196,6 +200,7 @@ module.exports = {
         "tremor-small": "0.375rem",
         "tremor-default": "0.5rem",
         "tremor-full": "9999px",
+        "r-10": "10px",
       },
 
       boxShadow: {

@@ -49,7 +49,7 @@ export function Menucard() {
     {
       name: "Loan",
       icon: "loan",
-      link: "",
+      link: "/loan/hub",
     },
   ]
 

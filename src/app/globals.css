@@ -539,3 +539,7 @@ progress::-moz-progress-bar {
 .progress > div {
   background-color: #229bf3 !important;
 }
+
+.loan-progress > div {
+  background: var(--btn-gradient-loan) !important;
+}

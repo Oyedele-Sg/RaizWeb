@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit"
 import {
   signupEmailReducer,
   loadingReducer,
@@ -14,8 +14,9 @@ import {
   lockSavingSuccessReducer,
   groupSavingResponseReducer,
   notificationPaginationReducer,
-} from './features';
-import { selectedRequestReducer } from './features/request';
+} from "./features"
+import { selectedRequestReducer } from "./features/request"
+import { loanDataReducer } from "./features/flex-loan"
 // import authReducer from "./features/lice
 
 export const store = configureStore({
@@ -35,8 +36,9 @@ export const store = configureStore({
     sidebarLinks: SidebarReducer,
     lockSavingSuccessData: lockSavingSuccessReducer,
     groupSavingSuccessData: groupSavingResponseReducer,
+    loanDataReducer: loanDataReducer,
   },
-});
+})
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

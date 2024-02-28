@@ -1387,3 +1387,170 @@ export interface TargetSaveInviteDataInterface {
     completion_percentage: number;
   };
 }
+
+export interface TermLoanSupportingDocumentsInterface {
+  identity_document_url: string
+  utility_bill_url: string
+  bank_statement_url: string
+  loan_application_id: string
+  loan_supporting_documents_id: string
+  created_at: Date
+  updated_at: Date
+}
+
+export interface TermLoanCategoryInterface {
+  term_loan_category_name: string
+  term_loan_category_description: string
+  term_loan_category_code: number
+  term_loan_category_id: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface RepaymentFrequencyInterface {
+  frequency_name: string
+  frequency_description: string
+  frequency_code: number
+  no_of_days: number
+  frequency_id: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface ApprovalStatusInterface {
+  loan_approval_status_name: string
+  loan_approval_status_description: string
+  loan_approval_status_code: number
+  loan_approval_status_id: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface LoanCategoryInterface {
+  loan_category_name: string
+  loan_category_description: string
+  loan_category_code: number
+  supporting_documents: string
+  fixed_loan_interest_rate_id: number
+  defaulting_loan_interest_rate_id: number
+  roll_over_interest_rate_id: number
+  loan_category_id: number
+  fixed_loan_interest_rate: {
+    fixed_loan_interest_rate_name: string
+    fixed_loan_interest_rate: number
+    fixed_loan_interest_rate_description: string
+    fixed_loan_interest_rate_code: number
+    fixed_loan_interest_rate_id: number
+    created_at: Date
+    updated_at: Date
+  }
+  defaulting_loan_interest_rate: {
+    defaulting_loan_interest_rate_name: string
+    defaulting_loan_interest_rate_description: string
+    defaulting_loan_interest_rate_code: number
+    defaulting_loan_interest_rate: number
+    defaulting_loan_interest_rate_id: number
+    created_at: Date
+    updated_at: Date
+  }
+  roll_over_interest_rate: {
+    roll_over_interest_rate_name: string
+    roll_over_interest_rate_description: string
+    roll_over_interest_rate_code: number
+    roll_over_interest_rate: number
+    roll_over_interest_rate_id: number
+    created_at: Date
+    updated_at: Date
+  }
+  created_at: Date
+  updated_at: Date
+}
+
+export interface LoanApplicationDataInterface {
+  repayment_frequency_id: number
+  loan_category_id: number
+  loan_amount: number
+  deduction_amount: number
+  final_repayment_date: string
+  loan_reason: string
+  account_user_id: string
+  approval_status_id: number
+  complete_supporting_documents: true
+  disapproval_reason: string
+  term_loan_category_id: number
+  loan_application_id: string
+  interest_rate: number
+  interest_amount: number
+  total_amount: number
+  approved_amount: number
+  created_at: string
+  updated_at: string
+  repayment_frequency: RepaymentFrequencyInterface
+  approval_status: ApprovalStatusInterface
+  loan_category: LoanCategoryInterface
+  account_user: AccountInterface
+  term_loan_supporting_documents: TermLoanSupportingDocumentsInterface
+  term_loan_category: TermLoanCategoryInterface
+}
+
+export interface LoanDataInterface {
+  account_user_id: string
+  loan_category_id: number
+  repayment_frequency_id: number
+  loan_reason: string
+  loan_amount: number
+  deduction_amount: number
+  final_repayment_date: string
+  next_payment_date: string
+  number_of_total_payments: number
+  number_of_payments_left: number
+  loan_amount_unpaid: number
+  loan_amount_paid: number
+  is_loan_repaid: false
+  interest_amount: number
+  total_amount: 1
+  term_loan_category_id: number
+  loan_payment_status_id: number
+  is_rolled_over: false
+  rollover_repayment_date: string
+  loan_id: string
+  created_at: Date
+  updated_at: Date
+  account_user: AccountInterface
+  loan_category: LoanCategoryInterface
+  repayment_frequency: RepaymentFrequencyInterface
+  term_loan_category: TermLoanCategoryInterface
+  loan_payment_status: LoanPaymentStatus
+  days_left: number
+  percentage_completed: number
+}
+
+export interface LoanPaymentStatus {
+  loan_payment_status_name: string
+  loan_payment_status_description: string
+  loan_payment_status_code: number
+  loan_payment_status_id: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface CreateFlexLoanDataInterface {
+  amount: number | null
+  payback_date: string
+  loan_reason: string
+}
+
+export interface LoanActivityDataInterface {
+  loan_id: string
+  activity_type: string
+  activity_description: string
+  loan_activity_id: string
+  created_at: Date
+  updated_at: Date
+}
+
+export interface LoanSummaryDataInterface {
+  total_loans: number
+  total_loans_repaid: number
+  total_loans_unpaid: number
+}
