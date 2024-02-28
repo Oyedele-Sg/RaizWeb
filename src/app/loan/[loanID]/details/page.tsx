@@ -65,90 +65,29 @@ function Page() {
       })
     }
   }
-  const getMember = async () => {
-    try {
-      const response = await userService.getGroupSaveMember(
-        Params.savingsID,
-        targetMember?.target_save_group_member_id as string
-      )
-      setSavingsMember(response)
-    } catch (error) {
-      toast({
-        title: "Something Went Wrong",
-        description: `${error}`,
-        variant: "destructive",
-        style: {
-          backgroundColor: "#f44336",
-          color: "#fff",
-          top: "20px",
-          right: "20px",
-        },
-        duration: 5000,
-      })
-    }
-  }
-
-  const targetMember = savingsDetails?.target_save_group_members.find(
-    (member) => member.account_user_id === currentUser?.account_user_id
-  )
 
   const tileData = [
     {
-      title: "Start Date",
-      data: moment(savingsDetails?.target_save.start_date).format(
-        "DD MMMM, YYYY"
-      ),
+      title: "Amount of Loan",
+      data: loanDetails?.loan_amount,
+    },
+    // {
+    //   title: "End Date",
+    //   data: moment(savingsDetails?.target_save.end_date).format(
+    //     "DD MMMM, YYYY"
+    //   ),
+    // },
+    {
+      title: "Amount Paid",
+      data: loanDetails?.loan_amount_paid,
     },
     {
-      title: "End Date",
-      data: moment(savingsDetails?.target_save.end_date).format(
-        "DD MMMM, YYYY"
-      ),
-    },
-    {
-      title: "Target Amount",
-      data: savingsDetails?.target_save.target_amount,
+      title: "Amount Paid",
+      data: loanDetails?.loan_amount_paid,
     },
     {
       title: "Days Left",
-      data: dateDifferenceInDays(
-        savingsDetails?.target_save.start_date as Date,
-        savingsDetails?.target_save.end_date as Date
-      ),
-    },
-  ]
-
-  const preJoinData = [
-    {
-      title: "Members",
-      value: savingsDetails?.target_save_group_members.length,
-    },
-    {
-      title: "Target amount",
-      value: savingsDetails?.target_save.target_amount,
-    },
-
-    {
-      title: "Days Left",
-      value: dateDifferenceInDays(
-        savingsDetails?.target_save.start_date as Date,
-        savingsDetails?.target_save.end_date as Date
-      ),
-    },
-  ]
-  const joinData = [
-    {
-      title: "Your Balance",
-      value: targetMember?.current_amount,
-    },
-    {
-      title: "Target",
-      value: savingsDetails?.target_save.target_amount,
-    },
-
-    {
-      title: "Members",
-      value: savingsDetails?.target_save_group_members.length,
+      data: loanDetails?.days_left,
     },
   ]
 
@@ -156,18 +95,13 @@ function Page() {
     getData()
   }, [Params.savingsID])
 
-  useEffect(() => {
-    if (savingsDetails) {
-      getMember()
-    }
-  }, [savingsDetails])
   return (
     <div className=' '>
       <div className=' p-10'>
         <HomeHeader title='Saving Hub' link='/savings/hub' />
       </div>
 
-      <div className=' w-full min-h-[360px] relative   '>
+      {/* <div className=' w-full min-h-[360px] relative   '>
         <Image src={`/images/frame-643.png`} fill={true} alt='' />
         <div className=' absolute bg-overlay-10 top-0 bottom-0 left-0 right-0  '></div>
 
@@ -253,115 +187,9 @@ function Page() {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className='p-10 mt-[94px] flex flex-col lg:flex-row gap-16  '>
-        <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8  '>
-          <div className=' flex flex-col gap-8  '>
-            <div className='flex flex-col gap-6 '>
-              <h2 className=' text-purple font-semibold text-center text-t-24 '>
-                {" "}
-                Payout Rules
-              </h2>
-              <p className=' text-purple text-center text-t-16  '>
-                Money to be collected on the first of December and no one has
-                access to your deposit
-              </p>
-            </div>
-            {!savingsDetails?.target_save_group_members?.some(
-              (member) =>
-                member.account_user_id === currentUser?.account_user_id
-            ) ? (
-              <BtnMain
-                btnText='Join Challenge'
-                btnStyle=' w-full text-grey btn-gradient-savings '
-                onClick={() =>
-                  Router.push(
-                    `/savings/target-savings/${Params.savingsID}/join`
-                  )
-                }
-              />
-            ) : (
-              <div className='flex gap-9 '>
-                <BtnMain
-                  btnText='Withdraw'
-                  btnStyle=' w-full text-purple border-neutral-100 border'
-                  onClick={() =>
-                    Router.push(
-                      `/savings/target-savings/${Params.savingsID}/withdrawal`
-                    )
-                  }
-                />
-                <BtnMain
-                  btnText='Add Funds'
-                  btnStyle=' w-full text-grey btn-gradient-savings '
-                  onClick={() =>
-                    Router.push(
-                      `/savings/target-savings/${Params.savingsID}/add-funds`
-                    )
-                  }
-                />
-              </div>
-            )}
-          </div>
-
-          <div className=' grid  grid-cols-2  gap-8 flex-wrap  '>
-            {tileData.map((item, index) => (
-              <SavingDetailsTile
-                data={item.data}
-                title={item.title}
-                key={index}
-              />
-            ))}
-          </div>
-        </WhiteTileWrap>
-        <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8 '>
-          <div className=' flex flex-col gap-8  '>
-            <div className='flex flex-col gap-6 '>
-              <h2 className=' text-purple font-semibold text-t-24 '>
-                Activites
-              </h2>
-            </div>
-          </div>
-
-          <div className=' flex gap-x-16 gap-y-8 flex-wrap  '>
-            {loanActivity?.map((item, index) => (
-              <div className=' flex items-center gap-2   '>
-                <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[48px] h-[48px]  '>
-                  <AvatarImage src={item.account_user.profile_image_url} />
-                  <AvatarFallback className=' text-purple font-bold  uppercase '>
-                    {item.account_user.first_name.charAt(0)}
-                    {item.account_user.last_name.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-
-                <div className=' flex flex-col gap-2 '>
-                  <h4 className=' text-purple text-t-18 font-semi-mid   '>
-                    {item.target_save_group_activity_description}
-                  </h4>
-                  <div className='  flex items-center gap-2 '>
-                    <div className=' text-neutral-70  text-t-16 '>
-                      {item?.target_save_activity_category === null
-                        ? savingsDetails?.target_save.target_save_name
-                        : item?.target_save_activity_category
-                            ?.target_save_activity_category_name ===
-                            "creation" ||
-                          item?.target_save_activity_category
-                            ?.target_save_activity_category_name === "joining"
-                        ? savingsDetails?.target_save.target_save_name
-                        : `₦${item.amount.toLocaleString()}`}
-                    </div>{" "}
-                    <div className=' bg-neutral-70 rounded-full w-2 h-2    '></div>
-                    <div className=' text-neutral-70 text-t-16 '>
-                      {getTimeAgoFromUTC(item.updated_at)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </WhiteTileWrap>
-      </div>
+      <div className='p-10 mt-[94px] flex flex-col lg:flex-row gap-16  '></div>
     </div>
   )
 }
