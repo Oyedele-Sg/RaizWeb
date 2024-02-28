@@ -214,7 +214,7 @@ export default function Ajo() {
                       </p>
                     </div>
                     {step === 1 ? (
-                      <div className=' flex flex-col gap-6  '>
+                      <div className=' flex flex-col gap-6    '>
                         <label
                           className={` relative w-full rounded-lg border border-neutral-90  ${
                             !(imageURL === "")
@@ -226,7 +226,7 @@ export default function Ajo() {
                           <input
                             type='file'
                             name='image_url'
-                            accept='image/png, image/jpeg'
+                            accept='image/*'
                             id='image_url'
                             className=' absolute w-full h-full opacity-0 cursor-default '
                             onChange={(e: any) => setFile(e.target.files[0])}
