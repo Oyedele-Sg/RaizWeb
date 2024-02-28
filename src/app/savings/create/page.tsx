@@ -11,7 +11,7 @@ export default function page() {
       title: "Lock Save",
       description:
         "Secure Solutions and Strategic Approaches for Locking in Savings: Ensuring Financial Safety",
-      link: "/loan/flex-loan/create",
+      link: "/savings/lock-savings/create",
     },
     {
       title: "Target Save",
