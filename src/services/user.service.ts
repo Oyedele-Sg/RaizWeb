@@ -81,6 +81,7 @@ import {
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
+import build from "next/dist/build"
 
 const baseUrl = `${URL}`
 const storedUser =
@@ -1018,34 +1019,6 @@ function getTargetSavingsActivitiesCategory(): Promise<
   GroupTargetSavingsActivitiesCategoryInterface[]
 > {
   return fetchWrapper.get(`${baseUrl}/savings/target-save-activity-categories/`)
-}
-
-// loan
-
-function getUserLoanApplication(): Promise<LoanDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/loan/loan-applications/account-user/get/`)
-}
-
-function getUserLoan(): Promise<LoanDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/loans/account-user/get/`)
-}
-function getLoanByID(id: string): Promise<LoanDataInterface> {
-  return fetchWrapper.get(`${baseUrl}loans/${id}/`)
-}
-function getLoanActivityByID(id: string): Promise<LoanActivityDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}loans/${id}/activities/`)
-}
-function getLoanSummary(): Promise<LoanSummaryDataInterface> {
-  return fetchWrapper.get(`${baseUrl}loans/summary/`)
-}
-
-function applyFlexLoan(
-  data: CreateFlexLoanDataInterface
-): Promise<LoanDataInterface> {
-  return fetchWrapper.post(
-    `${baseUrl}/loan/loan-applications/apply/flex/`,
-    data
-  )
 }
 
 // loan
