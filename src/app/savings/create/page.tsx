@@ -1,14 +1,7 @@
 "use client"
-
 import { LinkItem } from "@/components/savings"
 import { ContentWrap } from "@/components/savings/ContentWrap"
-import {
-  ComponentOne,
-  ComponentPersonal,
-} from "@/components/savings/target-saving"
-import { current } from "@reduxjs/toolkit"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
 
 export default function page() {
   const Router = useRouter()
@@ -18,7 +11,7 @@ export default function page() {
       title: "Lock Save",
       description:
         "Secure Solutions and Strategic Approaches for Locking in Savings: Ensuring Financial Safety",
-      link: "/savings/lock-savings/create",
+      link: "/loan/flex-loan/create",
     },
     {
       title: "Target Save",

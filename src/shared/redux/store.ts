@@ -14,6 +14,7 @@ import {
   groupSavingResponseReducer,
 } from "./features"
 import { selectedRequestReducer } from "./features/request"
+import { loanDataReducer } from "./features/flex-loan"
 // import authReducer from "./features/lice
 
 export const store = configureStore({
@@ -31,6 +32,7 @@ export const store = configureStore({
     sidebarLinks: SidebarReducer,
     lockSavingSuccessData: lockSavingSuccessReducer,
     groupSavingSuccessData: groupSavingResponseReducer,
+    loanDataReducer: loanDataReducer,
   },
 })
 
