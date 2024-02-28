@@ -1037,7 +1037,7 @@ function getLoanActivityByID(id: string): Promise<LoanActivityDataInterface[]> {
   return fetchWrapper.get(`${baseUrl}loans/${id}/activities/`)
 }
 function getLoanSummary(): Promise<LoanSummaryDataInterface> {
-  return fetchWrapper.get(`${baseUrl}loans/summary/`)
+  return fetchWrapper.get(`${baseUrl}/loans/summary/`)
 }
 
 function applyFlexLoan(
