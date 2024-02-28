@@ -1,6 +1,6 @@
 import { userService } from "@/services"
 import { LoanSummaryDataInterface } from "@/shared"
-import React from "react"
+import React, { useEffect } from "react"
 import { toast } from "../ui/use-toast"
 import Image from "next/image"
 import { useAppSelector } from "@/shared/redux/types"
@@ -49,6 +49,10 @@ export function LoanSummaryComponent() {
       })
     }
   }
+
+  useEffect(() => {
+    data()
+  }, [])
 
   return (
     <div className=' flex justify-between gap-[52px]  '>
