@@ -1509,3 +1509,18 @@ export interface CreateFlexLoanDataInterface {
   payback_date: string
   loan_reason: string
 }
+
+export interface LoanActivityDataInterface {
+  loan_id: string
+  activity_type: string
+  activity_description: string
+  loan_activity_id: string
+  created_at: Date
+  updated_at: Date
+}
+
+export interface LoanSummaryDataInterface {
+  total_loans: number
+  total_loans_repaid: number
+  total_loans_unpaid: number
+}

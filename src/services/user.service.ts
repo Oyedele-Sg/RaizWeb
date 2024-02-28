@@ -76,6 +76,8 @@ import {
   GroupTargetSavingsActivitiesCategoryInterface,
   LoanDataInterface,
   CreateFlexLoanDataInterface,
+  LoanActivityDataInterface,
+  LoanSummaryDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -206,6 +208,8 @@ export const userService = {
   getUserLoan,
   getLoanByID,
   applyFlexLoan,
+  getLoanActivityByID,
+  getLoanSummary,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -1012,6 +1016,12 @@ function getUserLoan(): Promise<LoanDataInterface[]> {
 }
 function getLoanByID(id: string): Promise<LoanDataInterface> {
   return fetchWrapper.get(`${baseUrl}loans/${id}/`)
+}
+function getLoanActivityByID(id: string): Promise<LoanActivityDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}loans/${id}/activities/`)
+}
+function getLoanSummary(): Promise<LoanSummaryDataInterface> {
+  return fetchWrapper.get(`${baseUrl}loans/summary/`)
 }
 
 function applyFlexLoan(

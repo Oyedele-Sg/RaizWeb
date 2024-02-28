@@ -52,7 +52,7 @@ export function LoanHubComponent() {
   return (
     <div className='  py-8 px-6  bg-grey  flex  flex-col gap-8'>
       <div className=' flex justify-between items-center  '>
-        <SectionHeader text='Loan ' />
+        <SectionHeader text='Loans ' />
 
         {/* <button
           className={` text-purple flex items-center gap-3 font-font-body__large `}

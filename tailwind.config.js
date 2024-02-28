@@ -127,6 +127,7 @@ module.exports = {
           term: "#F1E0CB",
           payday: "#D3E5F8",
           flex: "#DFECE9",
+          paid: "#8BBEB2",
         },
 
         positive: "#7ABA98",

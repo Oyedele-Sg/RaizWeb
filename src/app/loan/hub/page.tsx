@@ -6,7 +6,7 @@ import React, { useEffect } from "react"
 import { useRouter } from "next/navigation"
 
 import Image from "next/image"
-import { LoanHubComponent } from "@/components/loan"
+import { LoanHubComponent, LoanSummaryComponent } from "@/components/loan"
 
 export default function Savings() {
   const Router = useRouter()
@@ -31,10 +31,12 @@ export default function Savings() {
         <div className='  '>
           <HomeHeader title=' Loan Hub ' link='/loan/hub' />
         </div>
-
-        <div className='  flex gap-10 min-h-full '>
-          <div className=' w-full ml-auto mr-0 flex  flex-1 flex-col gap-10    '>
-            <LoanHubComponent />
+        <div className=' flex flex-col gap-12 '>
+          <LoanSummaryComponent />
+          <div className='  flex gap-10 min-h-full  '>
+            <div className=' w-full ml-auto mr-0 flex  flex-1 flex-col gap-10    '>
+              <LoanHubComponent />
+            </div>
           </div>
         </div>
 

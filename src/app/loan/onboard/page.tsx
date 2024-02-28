@@ -65,6 +65,7 @@ export default function Ajo() {
             <div className='flex gap-2 justify-center'>
               {Array.from({ length: 3 }).map((_, index) => (
                 <div
+                key={index}
                   className={` rounded-full w-2 h-2 bg-neutral-30 ${
                     active === index && `bg-yellow`
                   } `}
