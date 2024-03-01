@@ -189,7 +189,113 @@ function Page() {
         </div>
       </div> */}
 
-      <div className='p-10 mt-[94px] flex flex-col lg:flex-row gap-16  '></div>
+      <div className='p-10 mt-[94px] flex flex-col lg:flex-row gap-16  '>
+        {/* <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8  '>
+          <div className=' flex flex-col gap-8  '>
+            <div className='flex flex-col gap-6 '>
+              <h2 className=' text-purple font-semibold text-center text-t-24 '>
+                {" "}
+                Payout Rules
+              </h2>
+              <p className=' text-purple text-center text-t-16  '>
+                Money to be collected on the first of December and no one has
+                access to your deposit
+              </p>
+            </div>
+            {!savingsDetails?.target_save_group_members?.some(
+              (member) =>
+                member.account_user_id === currentUser?.account_user_id
+            ) ? (
+              <BtnMain
+                btnText='Join Challenge'
+                btnStyle=' w-full text-grey btn-gradient-savings '
+                onClick={() =>
+                  Router.push(
+                    `/savings/target-savings/${Params.savingsID}/join`
+                  )
+                }
+              />
+            ) : (
+              <div className='flex gap-9 '>
+                <BtnMain
+                  btnText='Withdraw'
+                  btnStyle=' w-full text-purple border-neutral-100 border'
+                  onClick={() =>
+                    Router.push(
+                      `/savings/target-savings/${Params.savingsID}/withdrawal`
+                    )
+                  }
+                />
+                <BtnMain
+                  btnText='Add Funds'
+                  btnStyle=' w-full text-grey btn-gradient-savings '
+                  onClick={() =>
+                    Router.push(
+                      `/savings/target-savings/${Params.savingsID}/add-funds`
+                    )
+                  }
+                />
+              </div>
+            )}
+          </div>
+
+          <div className=' grid  grid-cols-2  gap-8 flex-wrap  '>
+            {tileData.map((item, index) => (
+              <SavingDetailsTile
+                data={item.data}
+                title={item.title}
+                key={index}
+              />
+            ))}
+          </div>
+        </WhiteTileWrap>
+        <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8 '>
+          <div className=' flex flex-col gap-8  '>
+            <div className='flex flex-col gap-6 '>
+              <h2 className=' text-purple font-semibold text-t-24 '>
+                Activites
+              </h2>
+            </div>
+          </div>
+
+          <div className=' flex gap-x-16 gap-y-8 flex-wrap  '>
+            {loanActivity?.map((item, index) => (
+              <div className=' flex items-center gap-2   '>
+                <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[48px] h-[48px]  '>
+                  <AvatarImage src={item.account_user.profile_image_url} />
+                  <AvatarFallback className=' text-purple font-bold  uppercase '>
+                    {item.account_user.first_name.charAt(0)}
+                    {item.account_user.last_name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+
+                <div className=' flex flex-col gap-2 '>
+                  <h4 className=' text-purple text-t-18 font-semi-mid   '>
+                    {item.target_save_group_activity_description}
+                  </h4>
+                  <div className='  flex items-center gap-2 '>
+                    <div className=' text-neutral-70  text-t-16 '>
+                      {item?.target_save_activity_category === null
+                        ? savingsDetails?.target_save.target_save_name
+                        : item?.target_save_activity_category
+                            ?.target_save_activity_category_name ===
+                            "creation" ||
+                          item?.target_save_activity_category
+                            ?.target_save_activity_category_name === "joining"
+                        ? savingsDetails?.target_save.target_save_name
+                        : `₦${item.amount.toLocaleString()}`}
+                    </div>{" "}
+                    <div className=' bg-neutral-70 rounded-full w-2 h-2    '></div>
+                    <div className=' text-neutral-70 text-t-16 '>
+                      {getTimeAgoFromUTC(item.updated_at)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </WhiteTileWrap> */}
+      </div>
     </div>
   )
 }

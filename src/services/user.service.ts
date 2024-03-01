@@ -1048,3 +1048,7 @@ function applyFlexLoan(
     data
   )
 }
+
+function getTermLoanCategory(): Promise<LoanActivityDataInterface[]> {
+  return fetchWrapper.get(`${baseUrl}loans/${id}/activities/`)
+}

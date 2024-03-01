@@ -20,17 +20,17 @@ export default function page() {
         "Customize Your Repayment Schedule with Our Flexible Loan Options to Suit Your Financial Lifestyle",
       link: "/loan/flex-loan/create",
     },
-    {
-      title: "PayDay/Business",
-      description:
-        "Short-Term Solutions for Immediate Financial Needs in Personal or Business Matters",
-      link: "/savings/target-savings/create",
-    },
+    // {
+    //   title: "PayDay/Business",
+    //   description:
+    //     "Short-Term Solutions for Immediate Financial Needs in Personal or Business Matters",
+    //   link: "/savings/target-savings/create",
+    // },
     {
       title: "Term Loans",
       description:
         "Long-Term Financing with Fixed Interest Rates and Predictable Payments",
-      link: "/savings/target-savings/create",
+      link: "/loan/term-loan/create",
     },
   ]
 
