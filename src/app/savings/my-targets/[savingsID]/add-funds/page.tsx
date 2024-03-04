@@ -41,7 +41,7 @@ function page() {
       await userService.transfertoPersonalTargetSavings({
         ...data,
         transaction_pin: passwordHash(data.transaction_pin),
-        personal_target_save_id: Params.savingsID,
+        personal_target_save_id: Params.savingsID as string,
       })
 
       toast({

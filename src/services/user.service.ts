@@ -1028,8 +1028,16 @@ function getUserLoanApplication(): Promise<LoanDataInterface[]> {
   return fetchWrapper.get(`${baseUrl}/loan/loan-applications/account-user/get/`)
 }
 
-function getUserLoan(): Promise<LoanDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}/loans/account-user/get/`)
+function getUserLoan(
+  is_loan_repaid?: boolean,
+  loan_category_id?: string
+): Promise<LoanDataInterface[]> {
+  return fetchWrapper.get(
+    `${baseUrl}/loans/account-user/get/?${createSearchParams({
+      is_loan_repaid,
+      loan_category_id,
+    })}`
+  )
 }
 function getLoanByID(id: string): Promise<LoanDataInterface> {
   return fetchWrapper.get(`${baseUrl}/loans/${id}/`)
@@ -1038,7 +1046,7 @@ function getLoanActivityByID(id: string): Promise<LoanActivityDataInterface[]> {
   return fetchWrapper.get(`${baseUrl}/loans/${id}/activities/`)
 }
 function getLoanSummary(): Promise<LoanSummaryDataInterface> {
-  return fetchWrapper.get(`${baseUrl}/loans/summary/`)
+  return fetchWrapper.get(`${baseUrl}/loans/summary/ `)
 }
 
 function applyFlexLoan(
@@ -1049,12 +1057,6 @@ function applyFlexLoan(
     data
   )
 }
-
-
-
-
-
-
 
 function repayLoan(
   data: { amount: number | null },

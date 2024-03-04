@@ -25,7 +25,9 @@ function page() {
 
   const getData = async () => {
     try {
-      const response = await userService.getBudgetByID(Params.budgetID)
+      const response = await userService.getBudgetByID(
+        Params.budgetID as string
+      )
       setData(response)
     } catch (error) {
       toast({

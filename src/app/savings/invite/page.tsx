@@ -34,7 +34,7 @@ function Page() {
 
   const getData = async () => {
     try {
-      const response = await userService.getAjoByID(Params.ajoID)
+      const response = await userService.getAjoByID(Params.ajoID as string)
 
       setAjoDetails(response)
     } catch (error) {
@@ -61,7 +61,7 @@ function Page() {
     try {
       dispatch(setLoadingTrue())
       const response = await userService.sendAjoJoinRequest(
-        Params.ajoID,
+        Params.ajoID as string,
         formData
       )
       toast({

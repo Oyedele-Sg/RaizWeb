@@ -92,7 +92,9 @@ function page() {
     const getTargetSavingsDetails = async () => {
       try {
         dispatch(setLoadingTrue())
-        const res = await userService.getTargetSavingsByID(Params.savingsID)
+        const res = await userService.getTargetSavingsByID(
+          Params.savingsID as string
+        )
         setSavingsDetails(res)
         dispatch(setLoadingFalse())
       } catch (error) {

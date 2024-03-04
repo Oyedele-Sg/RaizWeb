@@ -37,8 +37,7 @@ function Page() {
   const [loanDetails, setLoanDetails] = React.useState<LoanDataInterface>()
   const [loanActivity, setLoanActivity] =
     React.useState<LoanActivityDataInterface[]>()
-  const [savingsMember, setSavingsMember] =
-    React.useState<GroupSaveMemberDataInterface>()
+  
 
   const getData = async () => {
     try {
@@ -101,6 +100,7 @@ function Page() {
   useEffect(() => {
     getData()
   }, [Params.loanID])
+  
 
   return (
     <div className=' '>
@@ -209,6 +209,8 @@ function Page() {
                 access to your deposit
               </p> */}
             </div>
+
+           
 
             {!loanDetails?.is_loan_repaid && (
               <div className='flex gap-9 '>
