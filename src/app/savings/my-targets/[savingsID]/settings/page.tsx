@@ -71,7 +71,7 @@ function page() {
   const onSubmit = async (data: EditSavingDataInterface) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.editPersonalTargetSavings(Params.savingsID, {
+      await userService.editPersonalTargetSavings(Params.savingsID as string, {
         ...data,
         preferred_credit_time: convertDateToTime(prefferedTime),
       })

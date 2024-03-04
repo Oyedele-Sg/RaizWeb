@@ -59,7 +59,7 @@ function page() {
           ...data,
           transaction_pin: passwordHash(data.transaction_pin),
         },
-        Params.savingsID
+        Params.savingsID as string
       )
 
       toast({

@@ -30,23 +30,22 @@ import { CurrentUserContext } from "@/providers/CurrentUserProvider"
 
 function Page() {
   const Router = useRouter()
-  const dispatch = useAppDispatch()
+
   const Params = useParams()
   const { currentUser } = useContext(CurrentUserContext)
 
   const [loanDetails, setLoanDetails] = React.useState<LoanDataInterface>()
   const [loanActivity, setLoanActivity] =
     React.useState<LoanActivityDataInterface[]>()
-  const [savingsMember, setSavingsMember] =
-    React.useState<GroupSaveMemberDataInterface>()
+  
 
   const getData = async () => {
     try {
-      const response = await userService.getLoanByID(Params.loanID)
+      const response = await userService.getLoanByID(Params.loanID as string)
       setLoanDetails(response)
 
       const activityResponse = await userService.getLoanActivityByID(
-        Params.savingsID
+        Params.loanID as string
       )
 
       setLoanActivity(activityResponse)
@@ -71,19 +70,26 @@ function Page() {
       title: "Amount of Loan",
       data: loanDetails?.loan_amount,
     },
-    // {
-    //   title: "End Date",
-    //   data: moment(savingsDetails?.target_save.end_date).format(
-    //     "DD MMMM, YYYY"
-    //   ),
-    // },
+
+    {
+      title: "Total  Amount of Loan",
+      data: loanDetails?.total_amount,
+    },
     {
       title: "Amount Paid",
       data: loanDetails?.loan_amount_paid,
     },
     {
-      title: "Amount Paid",
-      data: loanDetails?.loan_amount_paid,
+      title: "Amount Unpaid",
+      data: loanDetails?.loan_amount_unpaid,
+    },
+    {
+      title: "Interest Amount",
+      data: loanDetails?.interest_amount,
+    },
+    {
+      title: "Category",
+      data: loanDetails?.loan_category.loan_category_name,
     },
     {
       title: "Days Left",
@@ -93,12 +99,13 @@ function Page() {
 
   useEffect(() => {
     getData()
-  }, [Params.savingsID])
+  }, [Params.loanID])
+  
 
   return (
     <div className=' '>
-      <div className=' p-10'>
-        <HomeHeader title='Saving Hub' link='/savings/hub' />
+      <div className=' px-10 pt-10'>
+        <HomeHeader title='Loan Hub' link='/loan/hub' />
       </div>
 
       {/* <div className=' w-full min-h-[360px] relative   '>
@@ -155,7 +162,7 @@ function Page() {
                   className='flex items-center gap-1 align-bottom self-end cursor-default '
                   onClick={() =>
                     Router.push(
-                      `/savings/target-savings/${Params.savingsID}/share`
+                      `/savings/target-savings/${Params.loanID}/share`
                     )
                   }
                 >
@@ -171,7 +178,7 @@ function Page() {
                   className='flex items-center gap-1 align-bottom cursor-default '
                   onClick={() =>
                     Router.push(
-                      `/savings/target-savings/${Params.savingsID}/settings`
+                      `/savings/target-savings/${Params.loanID}/settings`
                     )
                   }
                 >
@@ -189,7 +196,91 @@ function Page() {
         </div>
       </div> */}
 
-      <div className='p-10 mt-[94px] flex flex-col lg:flex-row gap-16  '></div>
+      <div className='p-10  flex flex-col lg:flex-row gap-16  '>
+        <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8  '>
+          <div className=' flex flex-col gap-8  '>
+            <div className='flex flex-col gap-6 '>
+              <h2 className=' text-purple font-semibold text-center text-t-24 '>
+                {" "}
+                Loan Details
+              </h2>
+              {/* <p className=' text-purple text-center text-t-16  '>
+                Money to be collected on the first of December and no one has
+                access to your deposit
+              </p> */}
+            </div>
+
+           
+
+            {!loanDetails?.is_loan_repaid && (
+              <div className='flex gap-9 '>
+                <BtnMain
+                  btnText='Role Over'
+                  btnStyle=' w-full text-purple border-neutral-100 border'
+                  onClick={() =>
+                    Router.push(
+                      `/savings/target-savings/${Params.loanID}/withdrawal`
+                    )
+                  }
+                />
+                <BtnMain
+                  btnText='Pay'
+                  btnStyle=' w-full text-grey btn-gradient-loan '
+                  onClick={() => Router.push(`/loan/${Params.loanID}/pay`)}
+                />
+              </div>
+            )}
+          </div>
+
+          <div className=' grid  grid-cols-2  gap-8 flex-wrap  '>
+            {tileData.map((item, index) => (
+              <SavingDetailsTile
+                data={item.data}
+                title={item.title}
+                key={index}
+              />
+            ))}
+          </div>
+        </WhiteTileWrap>
+        <WhiteTileWrap extraStyle=' p-12 flex-1 flex flex-col gap-8 '>
+          <div className=' flex flex-col gap-8  '>
+            <div className='flex flex-col gap-6 '>
+              <h2 className=' text-purple font-semibold text-t-24 '>
+                Activites
+              </h2>
+            </div>
+          </div>
+
+          <div className=' flex gap-x-16 gap-y-8 flex-wrap  '>
+            {loanActivity?.map((item, index) => (
+              <div className=' flex items-center gap-2   '>
+                {/* <Avatar className=' cursor-default border-neutral-30 border-[2px] w-[48px] h-[48px]  '>
+                  <AvatarImage src={item.account_user.profile_image_url} />
+                  <AvatarFallback className=' text-purple font-bold  uppercase '>
+                    {item.account_user.first_name.charAt(0)}
+                    {item.account_user.last_name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar> */}
+
+                <div className=' flex flex-col gap-2 '>
+                  <h4 className=' text-purple text-t-18 font-semi-mid   '>
+                    {item.activity_description}
+                  </h4>
+                  <div className='  flex items-center gap-2 '>
+                    <div className=' capitalize text-neutral-70  text-t-16 '>
+                      {item.activity_type}
+                    </div>{" "}
+                    <div className=' bg-neutral-70 rounded-full w-2 h-2    '></div>
+                    <div className=' text-neutral-70 text-t-16 '>
+                      {getTimeAgoFromUTC(item.updated_at)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </WhiteTileWrap>
+      </div>
     </div>
   )
 }

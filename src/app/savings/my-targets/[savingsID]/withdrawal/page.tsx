@@ -40,10 +40,13 @@ function page() {
   ) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.personalTargetSavingsWithdrawal(Params.savingsID, {
-        ...data,
-        transaction_pin: passwordHash(data.transaction_pin),
-      })
+      await userService.personalTargetSavingsWithdrawal(
+        Params.savingsID as string,
+        {
+          ...data,
+          transaction_pin: passwordHash(data.transaction_pin),
+        }
+      )
 
       toast({
         title: "Withdrawal Successful",

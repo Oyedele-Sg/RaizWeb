@@ -41,7 +41,7 @@ function page() {
 
       const response = await userService.inviteToGroupTargetSavings(
         data,
-        Params.savingsID
+        Params.savingsID as string
       )
       toast({
         title: "Invite Sent",

@@ -68,7 +68,7 @@ export default function page() {
   const onSubmit = async (data: JoinTargetSaveFromInterface) => {
     try {
       dispatch(setLoadingTrue())
-      await userService.joinTargetSavings(Params.savingsID, {
+      await userService.joinTargetSavings(Params.savingsID as string, {
         ...data,
         preferred_credit_time: convertDateToTime(prefferedTime),
       })

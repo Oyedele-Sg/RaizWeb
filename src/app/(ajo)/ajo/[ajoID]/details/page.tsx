@@ -27,7 +27,7 @@ function Page() {
   const handleLeaveAjo = async () => {
     try {
       dispatch(setLoadingTrue())
-      await userService.leaveAjo(Params.ajoID)
+      await userService.leaveAjo(Params.ajoID as string)
 
       Router.push(`/ajo/${Params.ajoID}/leave`)
 
@@ -51,10 +51,10 @@ function Page() {
 
   const getData = async () => {
     try {
-      const response = await userService.getAjoByID(Params.ajoID)
+      const response = await userService.getAjoByID(Params.ajoID as string)
       setAjoDetails(response)
 
-      const members = await userService.getAjoMembers(Params.ajoID)
+      const members = await userService.getAjoMembers(Params.ajoID as string)
       setMembers(members)
 
       const ajo_cycle_id = response?.ajo_cycles[0]?.ajo_cycle_id

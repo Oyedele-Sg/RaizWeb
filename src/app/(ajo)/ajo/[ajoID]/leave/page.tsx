@@ -16,7 +16,7 @@ export default function Sucess() {
 
   const getData = async () => {
     try {
-      const response = await userService.getAjoByID(Params.ajoID)
+      const response = await userService.getAjoByID(Params.ajoID as string)
 
       setAjoDetails(response)
     } catch (error) {

@@ -96,12 +96,12 @@ export function formatDateToISOString(date: Date): string {
 }
 
 export function extractYearMonthDay(dateString: Date): string {
-  const dateObject = new Date(dateString);
-  const year = dateObject.getFullYear();
-  const month = (dateObject.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
-  const day = dateObject.getDate().toString().padStart(2, '0');
+  const dateObject = new Date(dateString)
+  const year = dateObject.getFullYear()
+  const month = (dateObject.getMonth() + 1).toString().padStart(2, "0") // Months are zero-based
+  const day = dateObject.getDate().toString().padStart(2, "0")
 
-  return `${year}-${month}-${day}`;
+  return `${year}-${month}-${day}`
 }
 
 export const calculateNewDateRange = (selectedValue: string): DateRange => {
@@ -333,4 +333,22 @@ export function formatDate(date?: Date): string {
   const day = String(date.getDate()).padStart(2, "0")
 
   return `${year}-${month}-${day}`
+}
+
+export function generateDateObjects(
+  daysArray: number[]
+): { title: string; date: string }[] {
+  const currentDate = new Date()
+  const dateObjects: { title: string; date: string }[] = []
+
+  for (const days of daysArray) {
+    const futureDate = new Date(
+      currentDate.getTime() + days * 24 * 60 * 60 * 1000
+    )
+    const title = `${days} days (${days / 7} weeks)`
+    const formattedDate = formatDate(futureDate)
+    dateObjects.push({ title, date: formattedDate })
+  }
+
+  return dateObjects
 }
