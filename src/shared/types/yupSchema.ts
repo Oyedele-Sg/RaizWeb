@@ -138,3 +138,10 @@ export const createFlexLoanSchema = yup.object().shape({
   payback_date: yup.string().required("Payback date is required"),
   loan_reason: yup.string().required("Reason is required"),
 })
+export const repayLoanSchema = yup.object().shape({
+  amount: yup
+    .number()
+    .required("Amount is required")
+    .typeError("Amount must be a number")
+    .nullable(),
+})

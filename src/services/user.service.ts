@@ -212,6 +212,7 @@ export const userService = {
   applyFlexLoan,
   getLoanActivityByID,
   getLoanSummary,
+  repayLoan,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -1031,10 +1032,10 @@ function getUserLoan(): Promise<LoanDataInterface[]> {
   return fetchWrapper.get(`${baseUrl}/loans/account-user/get/`)
 }
 function getLoanByID(id: string): Promise<LoanDataInterface> {
-  return fetchWrapper.get(`${baseUrl}loans/${id}/`)
+  return fetchWrapper.get(`${baseUrl}/loans/${id}/`)
 }
 function getLoanActivityByID(id: string): Promise<LoanActivityDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}loans/${id}/activities/`)
+  return fetchWrapper.get(`${baseUrl}/loans/${id}/activities/`)
 }
 function getLoanSummary(): Promise<LoanSummaryDataInterface> {
   return fetchWrapper.get(`${baseUrl}/loans/summary/`)
@@ -1049,6 +1050,15 @@ function applyFlexLoan(
   )
 }
 
-function getTermLoanCategory(): Promise<LoanActivityDataInterface[]> {
-  return fetchWrapper.get(`${baseUrl}loans/${id}/activities/`)
+
+
+
+
+
+
+function repayLoan(
+  data: { amount: number | null },
+  id: string
+): Promise<LoanDataInterface> {
+  return fetchWrapper.post(`${baseUrl}/loans/${id}/repay/`, data)
 }

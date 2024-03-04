@@ -63,7 +63,6 @@ export default function page() {
       toast({
         title: "Something Went Wrong",
         description: `${error}`,
-
         variant: "destructive",
         style: {
           backgroundColor: "#f44336",
@@ -84,7 +83,7 @@ export default function page() {
           <div className=' flex flex-col gap-9 '>
             <div className=''>
               <h1 className='  font-display__medium text-purple capitalize '>
-               Term loans
+                Term loans
               </h1>
               <p className=' text-neutral-70 font-title__large '>setup</p>
             </div>

@@ -23,8 +23,14 @@ import moment from "moment"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
 import { cn } from "@/lib/utils"
-import { formatDate } from "@/utils/helpers"
-
+import { formatDate, generateDateObjects } from "@/utils/helpers"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
@@ -56,7 +62,7 @@ export default function page() {
       const reponse = await userService.applyFlexLoan(data)
       dispatch(getLoanData(reponse))
       dispatch(setLoadingFalse())
-      Router.push("/loan/flex-loan/create/success")
+      Router.push("/loan/flex-loan/success")
     } catch (error) {
       dispatch(setLoadingFalse())
 
@@ -75,6 +81,8 @@ export default function page() {
       })
     }
   }
+
+  const daysArray = [7, 14, 21, 28]
 
   return (
     <>
@@ -98,7 +106,51 @@ export default function page() {
                     name='amount'
                     label='Amount of Loan'
                     type='number'
+                    inputPlaceholder='₦5000 - ₦50000'
                   />
+
+                  <div className=''>
+                    <label
+                      className={`font-label__large text-neutral-90 capitalize  `}
+                    >
+                      Duration
+                    </label>
+                    <Select
+                      onValueChange={(value) => {
+                        const selectedDate = generateDateObjects(
+                          daysArray
+                        ).find((item) => item.date === value)
+                        methods.setValue(
+                          "payback_date",
+                          selectedDate?.date as string
+                        )
+                      }}
+                    >
+                      <SelectTrigger className='w-full outline-none rounded-none border-b-purple border-[1px] border-t-0 border-x-0  input_field-input capitalize  z-50 '>
+                        <SelectValue
+                          placeholder='Select a duration'
+                          className='   '
+                        />
+                      </SelectTrigger>
+                      <SelectContent className=' bg-neutral-20 text-neutral-90 h-[200px] overflow-auto z-50 '>
+                        {generateDateObjects(daysArray).map((item, index) => (
+                          <SelectItem
+                            key={index}
+                            value={item.date}
+                            className=' hover:bg-neutral-50 z-50 '
+                          >
+                            {item.title}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    {methods.formState.errors.payback_date && (
+                      <span className='error-message'>
+                        {methods.formState.errors.payback_date.message}
+                      </span>
+                    )}
+                  </div>
 
                   <RegisterTextArea
                     name='loan_reason'
@@ -106,46 +158,6 @@ export default function page() {
                     rules={{ required: "Loan Reason is required" }}
                     inputPlaceholder='Enter here'
                   />
-
-                  <div className=''>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full pl-3 text-left text-neutral-60 font-normal  bg-transparent outline-none border-t-0 border-l-0 border-r-0  border-b border-b-purple rounded-none   "
-                            // !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          {endDate ? (
-                            moment(endDate).format("DD MMMM YYYY")
-                          ) : (
-                            <span>Payback Date</span>
-                          )}
-                          <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className='w-auto p-0' align='start'>
-                        <Calendar
-                          mode='single'
-                          selected={endDate}
-                          onSelect={(e) => {
-                            setEndDate(e)
-                            methods.setValue("payback_date", formatDate(e))
-                          }}
-                          initialFocus
-                          disabled={(date) =>
-                            date < new Date() || date < new Date("1900-01-01")
-                          }
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    {methods.formState.errors.payback_date && (
-                      <span className='error-message'>
-                        {methods.formState.errors.payback_date.message}
-                      </span>
-                    )}
-                  </div>
 
                   <BtnMain
                     btnText='Submit  '

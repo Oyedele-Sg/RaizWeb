@@ -46,16 +46,16 @@ export default function Sucess() {
                 </div>
 
                 <div className=' flex  gap-12  '>
-                  {/* <BtnMain
-                    btnText='Another Lock?'
-                    btnStyle=' text-purple border-neutral-100 border   px-6 '
-                    onClick={() => Router.push("/savings/lock-savings/create")}
-                  /> */}
+                  <BtnMain
+                    btnText='Cancel'
+                    btnStyle='flex-1 text-purple border-neutral-100 border   '
+                    onClick={() => Router.push("/loan/hub")}
+                  />
                   <AuthButton
-                    btnText='Proceed'
-                    btnStyle='px-[46.5px] w-[200px] h-[56px] bg-purple text-white font-semibold'
+                    btnText='View Summary'
+                    btnStyle=' flex-1  w-[200px] h-[56px] bg-purple text-white font-semibold'
                     onClick={async () => {
-                      Router.push("/loan/hub")
+                      Router.push(` /loan/flex-loan/${state?.loan_id} `)
                     }}
                   />
                 </div>
