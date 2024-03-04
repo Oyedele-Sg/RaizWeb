@@ -49,6 +49,13 @@ export function LoanHubComponent() {
   useEffect(() => {
     getData()
   }, [isCompleted])
+  // useEffect(() => {
+  //   if (isCompleted) {
+  //     setLoanData(loanData.filter((data) => data.is_loan_repaid))
+  //   } else {
+  //     setLoanData(loanData.filter((data) => !data.is_loan_repaid))
+  //   }
+  // }, [isCompleted])
   return (
     <div className='  py-8 px-6  bg-grey  flex  flex-col gap-8'>
       <div className=' flex justify-between items-center  '>

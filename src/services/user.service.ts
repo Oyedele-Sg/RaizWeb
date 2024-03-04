@@ -78,6 +78,7 @@ import {
   CreateFlexLoanDataInterface,
   LoanActivityDataInterface,
   LoanSummaryDataInterface,
+  RolloverCalculatorInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -213,6 +214,8 @@ export const userService = {
   getLoanActivityByID,
   getLoanSummary,
   repayLoan,
+  applyFlexRollover,
+  rolloverCalculator,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -1033,10 +1036,9 @@ function getUserLoan(
   loan_category_id?: string
 ): Promise<LoanDataInterface[]> {
   return fetchWrapper.get(
-    `${baseUrl}/loans/account-user/get/?${createSearchParams({
-      is_loan_repaid,
-      loan_category_id,
-    })}`
+    `${baseUrl}/loans/account-user/get/?${
+      is_loan_repaid ? `is_loan_repaid=true` : `is_loan_repaid=false`
+    }`
   )
 }
 function getLoanByID(id: string): Promise<LoanDataInterface> {
@@ -1063,4 +1065,17 @@ function repayLoan(
   id: string
 ): Promise<LoanDataInterface> {
   return fetchWrapper.post(`${baseUrl}/loans/${id}/repay/`, data)
+}
+
+function applyFlexRollover(id: string): Promise<LoanDataInterface> {
+  return fetchWrapper.patch(
+    `${baseUrl}/loan/loan-applications/roll-over/flex/${id}/apply/`,
+    {}
+  )
+}
+
+function rolloverCalculator(id: string): Promise<RolloverCalculatorInterface> {
+  return fetchWrapper.get(
+    `${baseUrl}/loan/loan-applications/interest-calculator/rollover/flex/?duration=14&loan_id=${id}`
+  )
 }

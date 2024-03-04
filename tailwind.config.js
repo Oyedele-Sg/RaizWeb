@@ -1,4 +1,4 @@
-const { bg } = require("date-fns/locale")
+  const { bg } = require("date-fns/locale")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
