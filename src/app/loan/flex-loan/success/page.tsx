@@ -4,10 +4,11 @@ import { toast } from "@/components/ui/use-toast"
 import { userService } from "@/services"
 import { AuthButton, BtnMain, CloseIcon, VerifySuccess } from "@/shared"
 import { useAppDispatch, useAppSelector } from "@/shared/redux/types"
-import React from "react"
+import React, { useEffect } from "react"
 import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
+import { getLoanData } from "@/shared/redux/features/flex-loan"
 
 export default function Sucess() {
   const Router = useRouter()
@@ -15,6 +16,31 @@ export default function Sucess() {
   const dispatch = useAppDispatch()
 
   const state = useAppSelector((state) => state.loanDataReducer)
+  const Params = useParams()
+
+  const getData = async () => {
+    try {
+      const res = await userService.getLoanByID(Params.loanID as string)
+      dispatch(getLoanData(res))
+    } catch (error) {
+      toast({
+        title: "Something Went Wrong",
+        description: `${error}`,
+
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+      })
+    }
+  }
+
+  useEffect(() => {
+    getData()
+  }, [Params.loanID])
 
   return (
     <>

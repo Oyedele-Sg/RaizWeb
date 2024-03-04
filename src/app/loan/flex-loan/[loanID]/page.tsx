@@ -70,7 +70,7 @@ export default function page() {
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [Params.loanID])
 
   return (
     <>
@@ -114,6 +114,12 @@ export default function page() {
                   <span> ₦{data?.interest_amount?.toLocaleString()}</span>
                 </div>
               </div>
+
+              <BtnMain
+                btnText='Next '
+                btnStyle=' w-full text-center text-grey  btn-gradient-loan   '
+                onClick={() => Router.push(`/loan/${Params.loanID}/details`)}
+              />
             </div>
           </div>
         </ContentWrap>
