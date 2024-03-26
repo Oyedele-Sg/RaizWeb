@@ -286,8 +286,8 @@ function Page() {
           </WhiteTileWrap>
         </div>
         {openModal && (
-          <div className=' absolute bg-bg-overlay z-1000000000000000000000000000000000000000  top-0 bottom-0 left-0 right-0 flex items-center justify-center  '>
-            <div className=' bg-loan-bg  min-w-[580px] rounded-2xl p-12 gap-9 flex flex-col '>
+          <div className=' fixed bg-bg-overlay z-10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  top-0 bottom-0 left-0 right-0 flex items-center justify-center  '>
+            <div className=' bg-loan-bg  min-w-[580px] rounded-2xl p-12 gap-9 flex flex-col z-100000000000000000000000000000000000000000000000000000000000000000000000000000000 '>
               <div className=''>
                 <h2 className=' text-center text-purple font-semi-mid text-t-45   '>
                   Rollover Loan

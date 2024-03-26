@@ -34,22 +34,22 @@ export const LoginForm: FC = () => {
     },
     resolver: yupResolver(loginSchema),
   })
-  const dispacth = useAppDispatch()
+  const dispatch = useAppDispatch()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const onSubmit = async (data: LoginDataInterface) => {
     try {
-      dispacth(setLoadingTrue())
+      dispatch(setLoadingTrue())
       const response = await userService.login({
         ...data,
         password: passwordHash(data.password),
       })
 
-      dispacth(setLoadingFalse())
+      dispatch(setLoadingFalse())
       Router.push("/dashboard")
     } catch (error) {
-      dispacth(setLoadingFalse())
+      dispatch(setLoadingFalse())
       toast({
         title: "Something Went Wrong",
         description: `${error}`,

@@ -33,11 +33,13 @@ export default function Bank() {
             <SkipLink link='/dashboard' />
           </div>
 
-          <Header activeStep={success ? 3 : 2} />
+          <Header activeStep={2} />
           {!success ? (
             <AddBankForm setSuccess={setSuccess} />
           ) : (
-            <AddBankSuccess cancelFunc={() => Router.push("/dashboard")} />
+            <AddBankSuccess
+              cancelFunc={() => Router.push("/profile/preference")}
+            />
           )}
         </div>
       </SetupLayout>

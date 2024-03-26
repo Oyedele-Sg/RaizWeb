@@ -18,29 +18,29 @@ export default function Sucess() {
   const state = useAppSelector((state) => state.loanDataReducer)
   const Params = useParams()
 
-  const getData = async () => {
-    try {
-      const res = await userService.getLoanByID(Params.loanID as string)
-      dispatch(getLoanData(res))
-    } catch (error) {
-      toast({
-        title: "Something Went Wrong",
-        description: `${error}`,
+  // const getData = async () => {
+  //   try {
+  //     const res = await userService.getLoanByID(Params.loanID as string)
+  //     dispatch(getLoanData(res))
+  //   } catch (error) {
+  //     toast({
+  //       title: "Something Went Wrong",
+  //       description: `${error}`,
 
-        variant: "destructive",
-        style: {
-          backgroundColor: "#f44336",
-          color: "#fff",
-          top: "20px",
-          right: "20px",
-        },
-      })
-    }
-  }
+  //       variant: "destructive",
+  //       style: {
+  //         backgroundColor: "#f44336",
+  //         color: "#fff",
+  //         top: "20px",
+  //         right: "20px",
+  //       },
+  //     })
+  //   }
+  // }
 
-  useEffect(() => {
-    getData()
-  }, [Params.loanID])
+  // useEffect(() => {
+  //   getData()
+  // }, [Params.loanID])
 
   return (
     <>

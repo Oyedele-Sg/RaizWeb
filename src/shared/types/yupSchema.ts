@@ -1,5 +1,9 @@
 import * as yup from "yup"
-import { RegisterFormDataInterface } from "./types"
+import {
+  CreateTermLoanDataInterface,
+  RegisterFormDataInterface,
+  SupportingDocuments,
+} from "./types"
 
 export const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid Email Address").required(),
@@ -145,3 +149,5 @@ export const repayLoanSchema = yup.object().shape({
     .typeError("Amount must be a number")
     .nullable(),
 })
+
+

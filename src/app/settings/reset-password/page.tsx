@@ -26,7 +26,7 @@ function page() {
     },
     resolver: yupResolver(changePasswordSchema),
   })
-  const dispacth = useAppDispatch()
+  const dispatch = useAppDispatch()
   const Router = useRouter()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -34,7 +34,7 @@ function page() {
 
   const onSubmit = async (data: ChangePasswordDataInterface) => {
     try {
-      dispacth(setLoadingTrue())
+      dispatch(setLoadingTrue())
       await userService.changePassword({
         ...data,
         old_password: passwordHash(data.old_password),
@@ -57,9 +57,9 @@ function page() {
       userService.logout()
       Router.push(`/login`)
 
-      dispacth(setLoadingFalse())
+      dispatch(setLoadingFalse())
     } catch (error) {
-      dispacth(setLoadingFalse())
+      dispatch(setLoadingFalse())
       toast({
         title: "Something Went Wrong",
         description: `${error}`,
