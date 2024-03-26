@@ -98,11 +98,27 @@ export default function Username() {
 
   const getData = async () => {
     try {
+      dispatch(setLoadingTrue())
+
       const response = await userService.suggestUsername(
         methods.watch("username")
       )
       setSuggestions(response)
-    } catch (error) {}
+      dispatch(setLoadingFalse())
+    } catch (error) {
+      dispatch(setLoadingFalse())
+      toast({
+        title: "Something Went Wrong",
+        description: `${error}`,
+        variant: "destructive",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+          top: "20px",
+          right: "20px",
+        },
+      })
+    }
   }
 
   useEffect(() => {

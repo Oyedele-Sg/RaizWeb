@@ -1561,3 +1561,42 @@ export interface RolloverCalculatorInterface {
   amount: number
   duration: number
 }
+
+export interface SupportingDocuments {
+  identity_document_url: string
+  utility_bill_url: string
+  bank_statement_url: string
+}
+
+export interface CreateTermLoanDataInterface {
+  term_loan_category_id: number | null
+  term_loan_supporting_documents: {
+    identity_document_url: string
+    utility_bill_url: string
+    bank_statement_url: string
+  }
+  loan_amount: number | null
+  loan_reason: string
+  [key: string]: any
+}
+
+export interface TermLoanCategoryInterface {
+  term_loan_category_name: string
+  term_loan_category_description: string
+  term_loan_category_code: number
+  term_loan_category_id: number
+  created_at: Date
+  updated_at: Date
+}
+
+export interface UseCasesInterface {
+  use_case_name: string
+  use_case_description: string
+  use_case_code: number
+  use_case_emoji: string
+  use_case_id: number
+}
+
+export interface AccountUseCaseDataInterface {
+  use_case_ids: number[]
+}

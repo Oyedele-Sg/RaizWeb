@@ -63,7 +63,7 @@ export const Sidebar = () => {
   }, [pathName])
 
   return (
-    <aside className=' w-full px-5 py-4 lg:w-[144px]   lg:py-8 lg:h-screen   z-10 fixed  bottom-0 lg:bottom-auto  bg-grey overflow-auto hide-scrollbar '>
+    <aside className=' w-full px-5 py-4 lg:w-[144px]   lg:py-8 lg:h-screen   z-10 fixed bu bottom-0 lg:bottom-auto  bg-grey overflow-auto hide-scrollbar '>
       <div className='  flex  lg:flex-col lg:justify-between  lg:h-full'>
         <div className=' flex  w-full  lg:flex-col lg:items-center lg:gap-[64px]  '>
           <div

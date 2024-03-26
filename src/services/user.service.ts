@@ -79,6 +79,10 @@ import {
   LoanActivityDataInterface,
   LoanSummaryDataInterface,
   RolloverCalculatorInterface,
+  TermLoanCategoryInterface,
+  CreateTermLoanDataInterface,
+  UseCasesInterface,
+  AccountUseCaseDataInterface,
 } from "@/shared"
 import { BankInputProps } from "@/components/profile-setup/AddBankForm"
 import { createSearchParams } from "@/utils/helpers"
@@ -216,6 +220,10 @@ export const userService = {
   repayLoan,
   applyFlexRollover,
   rolloverCalculator,
+  getTermLoanCategory,
+  applyTermLoan,
+  getUseCases,
+  addAccountUsecase,
 }
 // auth
 function login(data: LoginDataInterface): Promise<void> {
@@ -1078,4 +1086,25 @@ function rolloverCalculator(id: string): Promise<RolloverCalculatorInterface> {
   return fetchWrapper.get(
     `${baseUrl}/loan/loan-applications/interest-calculator/rollover/flex/?duration=14&loan_id=${id}`
   )
+}
+
+function getTermLoanCategory(): Promise<TermLoanCategoryInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/loan/term-loan-category/`)
+}
+
+function applyTermLoan(
+  data: CreateTermLoanDataInterface
+): Promise<LoanDataInterface> {
+  return fetchWrapper.post(
+    `${baseUrl}/loan/loan-applications/apply/term/`,
+    data
+  )
+}
+
+// use cases
+function getUseCases(): Promise<UseCasesInterface[]> {
+  return fetchWrapper.get(`${baseUrl}/use_cases/`)
+}
+function addAccountUsecase(data: AccountUseCaseDataInterface): Promise<void> {
+  return fetchWrapper.post(`${baseUrl}/account_users/me/use_cases/`, data)
 }
