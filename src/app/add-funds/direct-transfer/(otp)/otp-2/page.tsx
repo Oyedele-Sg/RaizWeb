@@ -1,6 +1,6 @@
-'use client';
-import { toast } from '@/components/ui/use-toast';
-import { userService } from '@/services';
+"use client"
+import { toast } from "@/components/ui/use-toast"
+import { userService } from "@/services"
 import {
   AuthButton,
   BtnMain,
@@ -8,83 +8,83 @@ import {
   RegisterInput,
   WhiteWrap,
   ChargeOTPInterface,
-} from '@/shared';
-import { setLoadingFalse, setLoadingTrue } from '@/shared/redux/features';
-import { useAppDispatch } from '@/shared/redux/types';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
-import { toastMessage } from '@/utils/helpers';
+} from "@/shared"
+import { setLoadingFalse, setLoadingTrue } from "@/shared/redux/features"
+import { useAppDispatch } from "@/shared/redux/types"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { useRouter, useSearchParams } from "next/navigation"
+import React, { Suspense } from "react"
+import { useForm, FormProvider } from "react-hook-form"
+import { toastMessage } from "@/utils/helpers"
 
 export default function ValidateChargeOTP() {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
-  const Router = useRouter();
-  const searchParams = useSearchParams();
-  const creference = searchParams.get('creference');
-  const reference = typeof creference === 'string' ? creference : '';
+  const Router = useRouter()
+  const searchParams = useSearchParams()
+  const creference = searchParams.get("creference")
+  const reference = typeof creference === "string" ? creference : ""
   const methods = useForm<ChargeOTPInterface>({
     defaultValues: {
-      otp: '',
-      reference: '',
+      otp: "",
+      reference: "",
     },
-  });
+  })
 
   const onSubmit = async (data: ChargeOTPInterface) => {
-    dispatch(setLoadingTrue());
+    dispatch(setLoadingTrue())
     if (data.otp) {
-      data.reference = reference;
+      data.reference = reference
       const chargeResponse = await userService.validateChargeOTP({
         ...data,
-      });
+      })
       if (chargeResponse.success || chargeResponse.settled_amount) {
-        Router.push('/add-funds/direct-transfer/success');
+        Router.push("/add-funds/direct-transfer/success")
       } else {
-        toastMessage('Transaction Unsuccessful', chargeResponse.message);
+        toastMessage("Transaction Unsuccessful", chargeResponse.message)
       }
     } else {
-      toastMessage('Invalid OTP', 'Enter a valid OTP');
+      toastMessage("Invalid OTP", "Enter a valid OTP")
     }
-    dispatch(setLoadingFalse());
-  };
+    dispatch(setLoadingFalse())
+  }
   return (
-    <>
+    <Suspense>
       <Loading />
       <WhiteWrap
-        extraStyle=" rounded-[80px] w-[400px] md:w-[550px]  lg:w-[771px]   mx-5"
+        extraStyle=' rounded-[80px] w-[400px] md:w-[550px]  lg:w-[771px]   mx-5'
         closeBtn
-        closeLink="/add-funds/direct-transfer"
+        closeLink='/add-funds/direct-transfer'
       >
-        <div className="   lg:px-[35.5px]  mb-[50px]  ">
-          <div className="    flex flex-col gap-[80px] ">
-            <div className=" flex flex-col gap-2 items-center  ">
-              <h1 className=" text-neutral-90 text-[2rem] font-semi-mid leading-10  ">
+        <div className='   lg:px-[35.5px]  mb-[50px]  '>
+          <div className='    flex flex-col gap-[80px] '>
+            <div className=' flex flex-col gap-2 items-center  '>
+              <h1 className=' text-neutral-90 text-[2rem] font-semi-mid leading-10  '>
                 Enter OTP 2
               </h1>
-              <p className=" text-neutral-90  leading-6 text-center ">
+              <p className=' text-neutral-90  leading-6 text-center '>
                 We sent another OTP to your phone number
               </p>
             </div>
             <FormProvider {...methods}>
               <form
                 onSubmit={methods.handleSubmit(onSubmit)}
-                className="  flex flex-col gap-8 "
+                className='  flex flex-col gap-8 '
               >
                 <RegisterInput
                   name={`otp`}
-                  inputPlaceholder="1 5 3 9 4 9 6 9 5 3 9 2 U "
+                  inputPlaceholder='1 5 3 9 4 9 6 9 5 3 9 2 U '
                 />
-                <div className=" flex items-center justify-center gap-12 ">
+                <div className=' flex items-center justify-center gap-12 '>
                   {/* <BtnMain
                     btnText="Resend OTP"
                     btnStyle=" border border-neutral-90 text-purple font-bold px-[36px]  "
                     type="button"
                   /> */}
                   <AuthButton
-                    btnText="Continue"
-                    btnStyle=" px-[43px] "
-                    type="submit"
+                    btnText='Continue'
+                    btnStyle=' px-[43px] '
+                    type='submit'
                   />
                 </div>
               </form>
@@ -92,6 +92,6 @@ export default function ValidateChargeOTP() {
           </div>
         </div>
       </WhiteWrap>
-    </>
-  );
+    </Suspense>
+  )
 }
