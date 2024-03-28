@@ -9,7 +9,7 @@ import {
   Loading,
 } from "@/shared"
 import Image from "next/image"
-import { useRouter, useSearchParams, useParams } from "next/navigation"
+import { useRouter, useParams } from "next/navigation"
 import React, { useEffect } from "react"
 import AjoPaymentTable from "@/components/ajo/AjoPaymentTable"
 import { useAppDispatch } from "@/shared/redux/types"

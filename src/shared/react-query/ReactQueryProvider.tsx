@@ -7,7 +7,7 @@ import { userService } from "@/services"
 import {
   useRouter,
   usePathname,
-  useSearchParams,
+
   redirect,
 } from "next/navigation"
 import { Provider as ReduxProvider } from "react-redux"
